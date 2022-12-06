@@ -14,23 +14,27 @@
       </a>
     </li>
 
-    <li class="header">ME</li>
+    <li class="header">Device Manager</li>
     <li tag="li" class="pageli">
-      <a>
-        <i class="fa fa-tasks"></i>
-        <span class="page">Tasks</span>
-      </a>
+    
+      <li :class="[$page.component === 'Devices/Index' ? 'active' : '']">
+          <Link :href="route('device.index')">
+            <i class="fa fa-tasks"></i> Devices
+          </Link>
+        </li>
     </li>
     <li tag="li" class="pageli">
-      <a>
-        <i class="fa fa-cog"></i>
-        <span class="page">Settings</span>
-      </a>
+      <li :class="[$page.component === 'Application/Index' ? 'active' : '']">
+          <Link :href="route('application.index')">
+            <i class="fa fa-th" aria-hidden="true"></i></i> Applications
+          </Link>
+        </li>
+      
     </li>
     <li class="treeview">
       <a href="#">
         <i class="fa fa-folder-o"></i>
-        <span class="treeview-title">Files</span>
+        <span class="treeview-title">Group</span>
         <span class="pull-right-container pull-right">
           <i class="fa fa-angle-left fa-fw"></i>
         </span>

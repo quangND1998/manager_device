@@ -10,11 +10,11 @@
       </div>
       <h1 class="text-center">Login</h1>
       <div>
-        <breeze-label for="email" value="Email" />
+        <breeze-label class="text-label" for="email" value="Email" />
         <input
           id="email"
           type="email"
-            class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full"
+            class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full text-label"
           v-model="form.email"
           required
           autofocus
@@ -23,12 +23,12 @@
       </div>
 
       <div class="mt-4">
-        <breeze-label for="password" value="Password" />
+        <breeze-label class="text-label" for="password" value="Password" />
         <div class="password-hidden">
           <input
             id="password"
             :type="passwordFieldType"
-             class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full"
+             class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full text-label"
             v-model="form.password"
             required
             autocomplete="current-password"
@@ -50,14 +50,14 @@
             v-model="form.remember"
             class="h-4 w-4 text-gray-700 border rounded mr-2"
           />
-          <span class="ml-2 text-sm text-gray-600">Remember me</span>
+          <span class="ml-2 text-xl text-gray-600">Remember me</span>
         </div>
       </div>
 
       <div class="flex items-center justify-end mt-4">
         <Link
           :href="route('register')"
-          class="underline text-sm mr-3 text-gray-600 hover:text-gray-900 text-left link ml"
+          class="underline  text-sm mr-3 text-gray-600 hover:text-gray-900 text-left link ml"
         >Register ?</Link>
         <Link
           v-if="canResetPassword"
@@ -67,7 +67,7 @@
 
         <breeze-button
           class="ml-4"
-          :class="{ 'opacity-25': form.processing }"
+          :class="{ 'opacity-25': form.processing } "
           :loading="form.processing"
         >Log in</breeze-button>
       </div>
@@ -155,5 +155,16 @@ export default {
   position: absolute;
   right: 20px;
   transition: auto;
+}
+.login-section{
+    min-width: 600px !important;
+}
+.text-label {
+    font-size: 2rem;
+    line-height: 3rem;
+}
+.text-sm{
+        font-size: 1.5rem;
+    line-height: 2.5rem;
 }
 </style>

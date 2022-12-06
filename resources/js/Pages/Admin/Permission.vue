@@ -1,5 +1,6 @@
 <template>
   <section class="content">
+    <!-- <ContextMenu /> -->
     <ContentHeaderVue :name="'permissions'" />
     <alert :dismissible="true"></alert>
     <button
@@ -8,7 +9,7 @@
       data-toggle="modal"
       data-target="#exampleModal"
       @click="clickModal()"
-    >Create Permission</button>
+    >Create News</button>
 
     <!-- Modal -->
     <div
@@ -22,8 +23,8 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel" v-if="editMode">Update Permission</h5>
-            <h5 class="modal-title" id="exampleModalLabel" v-else>Create Permission</h5>
+            <h5 class="modal-title" id="exampleModalLabel" v-if="editMode">Update News</h5>
+            <h5 class="modal-title" id="exampleModalLabel" v-else>Create News</h5>
 
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -77,6 +78,7 @@
           <tr
             v-for="(permission,index) in permissions.data"
             :key="index"
+            v-on:contextmenu.prevent="contextMenu(permission,$event)"
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
           >
             <th
@@ -129,6 +131,7 @@ export default {
   },
   data() {
     return {
+      users: [],
       editMode: false,
       showModal: false,
       form: this.$inertia.form({
@@ -137,7 +140,21 @@ export default {
       })
     };
   },
+  mounted() {
+    Bus.$on("menuAction", (context, name) => {
+      console.log(context);
+      if (name == "edit") {
+        console.log(context);
+        $("#exampleModal").modal("show");
+        this.edit(context);
+      } else {
+        this.Delete(context.id);
+      }
+    });
+ 
+  },
   methods: {
+    
     save() {
       if (this.editMode) {
         this.form.put(route("permissions.update", this.form.id), {
@@ -180,8 +197,15 @@ export default {
     Delete(id) {
       if (!confirm("Are you sure want to remove?")) return;
       this.$inertia.delete(route("permissions.delete", id));
+    },
+    contextMenu(item, event) {
+      Bus.$emit("contextMenuPemission", item, event);
     }
   }
+  // destroyed() {
+  //   // delete events
+  //   Bus.$off(["contextMenu", "menuAction"]);
+  // }
 };
 </script>
 

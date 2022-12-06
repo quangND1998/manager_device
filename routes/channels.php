@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Groups;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
@@ -16,3 +17,18 @@ use Illuminate\Support\Facades\Broadcast;
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
+
+Broadcast::channel('active-device', function ($user, $id) {
+    return true;
+});
+
+
+Broadcast::channel('lauch-group.{group}', function ($device, Groups $group) {
+    if ($group->hasDevice($device->id)) {
+        return true;
+    }
+});
+Broadcast::channel('lauch-app.{id}', function ($user,$id) {
+        return true;
+});
+

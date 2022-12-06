@@ -14,7 +14,7 @@ class RoleController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:users-manager', ['only' => ['index', 'store', 'update', 'delete']]);
+        $this->middleware('permission:user-manager', ['only' => ['index', 'store', 'update', 'delete']]);
     }
     public function index()
     {

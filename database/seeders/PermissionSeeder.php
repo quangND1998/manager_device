@@ -19,7 +19,7 @@ class PermissionSeeder extends Seeder
         Artisan::call('cache:clear');
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        Permission::create(['name' => 'users-manager']);
+        Permission::create(['name' => 'user-manager']);
         Permission::create(['name' => 'create-project']);
     }
 }

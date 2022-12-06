@@ -153,8 +153,10 @@ import ContentHeaderVue from "@/Components/Layout/ContentHeader";
 import Pagination from "@/Components/Pagination";
 import Alert from "@/Components/Alert";
 import Multiselect from "@vueform/multiselect/dist/multiselect.vue2.js";
+import admin from "./mixins/admin";
 export default {
   layout: Layout,
+  mixins: [admin],
   components: {
     Link,
     ContentHeaderVue,
@@ -224,16 +226,16 @@ export default {
       this.editMode = true;
       this.form.id = data.id;
       this.form.name = data.name;
-      let object = Object.assign({}, data.permissions);
-      console.log(typeof object);
-      // // // let first = Object.assign({}, object[0]);
-      let array = [];
-      $.each(object, function(key, value) {
-        array.push(parseInt(value.id));
-      });
+      // let object = Object.assign({}, data.permissions);
+      // console.log(typeof object);
+      // // // // let first = Object.assign({}, object[0]);
+      // let array = [];
+      // $.each(object, function(key, value) {
+      //   array.push(parseInt(value.id));
+      // });
       //trả về một biến array chưa id của permission
       // this.form = Object.assign({}, data);
-      this.form.permission = array;
+      this.form.permission = this.multipleSelect(data.permissions);
       this.editMode = true;
     },
     deleteRow(id) {

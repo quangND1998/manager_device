@@ -8,7 +8,7 @@
             </Link>
     </div>-->
 
-    <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+    <div class="w-full xl:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg login-section">
       <slot />
     </div>
   </div>
@@ -26,3 +26,9 @@ export default {
   }
 };
 </script>
+<style>
+.login-section{
+    min-width: 400px !important;
+    font-size: 22px;
+}
+</style>

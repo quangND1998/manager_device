@@ -202,7 +202,7 @@
                   <td class="px-6 py-4 whitespace-nowrap">
                     <div
                       class="text-xl text-gray-900"
-                      v-if="hasAnyPermission(['users_manage']) && $page.props.auth.user.id !== user.id && user.owner !== null"
+                      v-if="hasAnyPermission(['users-manage']) && $page.props.auth.user.id !== user.id && user.owner !== null"
                     >{{ user.owner.name }}</div>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -235,8 +235,10 @@ import ContentHeaderVue from "@/Components/Layout/ContentHeader";
 import Pagination from "@/Components/Pagination";
 import Alert from "@/Components/Alert";
 import Multiselect from "@vueform/multiselect/dist/multiselect.vue2.js";
+import admin from "./mixins/admin";
 export default {
   layout: Layout,
+  mixins: [admin],
   props: {
     users: Object,
     roles: Array,
@@ -323,16 +325,10 @@ export default {
       this.form.name = data.name;
       this.form.phone = data.phone;
       this.form.email = data.email;
-      let object = Object.assign({}, data.roles);
-      console.log(typeof object);
-      // // // let first = Object.assign({}, object[0]);
-      let array = [];
-      $.each(object, function(key, value) {
-        array.push(parseInt(value.id));
-      });
+
       //trả về một biến array chưa id của permission
       // this.form = Object.assign({}, data);
-      this.form.roles = array;
+      this.form.roles = this.multipleSelect(data.roles);
       this.editMode = true;
     },
     deleteRow(id) {

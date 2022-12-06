@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\TestEvent;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -14,12 +15,13 @@ class PermisionsController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:users-manager', ['only' => ['index', 'store', 'update', 'delete']]);
+        $this->middleware('permission:user-manager', ['only' => ['index', 'store', 'update', 'delete']]);
     }
     public function index()
     {
 
         $permissions = Permission::paginate(10);
+        broadcast(new TestEvent($permissions[0]))->toOthers();
         return Inertia::render('Admin/Permission', compact('permissions'));
     }
 

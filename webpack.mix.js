@@ -15,4 +15,4 @@ mix.js('resources/js/app.js', 'public/js').vue().postCss('resources/css/app.css'
     require('postcss-import'),
     require('tailwindcss'),
     require('autoprefixer'),
-]).webpackConfig(require('./webpack.config'));
+]).sass("resources/sass/app.scss", "public/css").webpackConfig(require('./webpack.config'));
