@@ -1,6 +1,6 @@
 <template>
   <section class="content">
-    <ContentHeaderVue :name="'Devices'" />
+    <ContentHeaderVue :name="'Applications'" />
     <alert :dismissible="true"></alert>
 
     <div class="overflow-x-auto relative shadow-md sm:rounded-lg mt-5">
@@ -31,22 +31,22 @@
           <tr v-for="(application, index) in applications" :key="index"
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
             
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ index }}
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg dark:text-white">{{ index }}
             </th>
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{application.appName}}
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg dark:text-white">{{application.appName}}
             </th>
             
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg dark:text-white">
                 <span class="text-2xl inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-gray-200 text-gray-700 rounded" v-if="application.device">{{application.device.name}}</span>
              </th>
           
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{application.packageName}}
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg dark:text-white">{{application.packageName}}
             </th>
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg dark:text-white">
                 <img :src="`data:image/png;base64,${application.icon}`" width="50px" />
             </th>
 
-            <th scope="row" class="py-4 px-6  text-gray-900 whitespace-nowrap font-semibold dark:text-white">{{ application.version }}</th>
+            <th scope="row" class="py-4 px-6  text-gray-900 whitespace-nowrap font-semibold dark:text-white transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">{{ application.version }}</th>
      
     
           
@@ -80,7 +80,8 @@ export default {
     },
     props:{
         applications:Array
-    }
+    },
+   
 }
 </script>
 

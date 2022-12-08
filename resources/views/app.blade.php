@@ -29,6 +29,7 @@
     <script src="/static/js/plugins/pace/pace.min.js"></script>
     <script src="//d2wy8f7a9ursnm.cloudfront.net/v4/bugsnag.min.js"></script>
     <script src="//d2wy8f7a9ursnm.cloudfront.net/bugsnag-plugins/v1/bugsnag-vue.min.js"></script>
+
     
   </body>
 </html>

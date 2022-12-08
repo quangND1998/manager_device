@@ -17,7 +17,7 @@ class DeviceController extends Controller
         $devices = Devices::with('applications')->where(function ($query) use ($request) {
             $query->where('name', 'LIKE', '%' . $request->term . '%');
         })->get();
-        $applications = Applicaion::get();
+        $applications = Applicaion::groupby('packageName')->get();
         return Inertia::render('Devices/Index',compact('devices','applications'));
     }
 
@@ -102,13 +102,18 @@ class DeviceController extends Controller
             'link_app' => 'required',
 
         ]);
+     
         $ids = $request->ids;
         if($ids ==null){
             return back()->with('warning' ,"You must choose in checkbox !!!.");
         }
-        $devices =Devices::whrereIn('id', $ids)->get();
+        $devices =Devices::whereIn('id', $ids)->get();
+      
         foreach($devices as $device){
-            broadcast(new LaunchAppEvent($device, $request->link_app));
+            if($device->hasApp($request->link_app)){
+                broadcast(new LaunchAppEvent($device, $request->link_app));
+            }
+          
         }
 
         return back()->with('success', 'Lauch successfully');

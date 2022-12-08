@@ -2,17 +2,11 @@
   <section class="content">
     <ContentHeaderVue :name="'Devices'" />
     <alert :dismissible="true"></alert>
-  
-
-        <!-- Modal -->
-        <div
-      class="modal fade"
-      id="exampleModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+   
+    <OpenAppModal :errors="errors" :applications="application_deivce" :ids="selected" />
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -23,42 +17,55 @@
           </div>
           <div class="modal-body">
             <form @submit.prevent="save">
-              <div class="form-group" :class="errors.name ? 'is-valid' :''">
+              <div class="form-group" :class="errors.name ? 'is-valid' : ''">
                 <label for="recipient-name" class="col-form-label">Name:</label>
-                <input
-                  type="text"
-                  class="form-control text-xl"
-                  :class="errors.name ? 'is-valid' :''"
-                  v-model="form.name"
-                  id="recipient-name"
-                />
+                <input type="text" class="form-control text-xl" :class="errors.name ? 'is-valid' : ''"
+                  v-model="form.name" id="recipient-name" />
                 <div class="text-red-500" v-if="errors.name">{{ errors.name }}</div>
               </div>
               <div class="modal-footer">
-                <button
-                  type="button"
+                <button type="button"
                   class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
-                  data-dismiss="modal"
-                >Close</button>
-                <button
-                  @click.prevent="save()"
-                  type="submit"
-                  class="inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out"
-                >Save changes</button>
+                  data-dismiss="modal">Close</button>
+                <button @click.prevent="save()" type="submit"
+                  class="inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out">Save
+                  changes</button>
               </div>
             </form>
           </div>
         </div>
       </div>
     </div>
-    <div class="overflow-x-auto relative shadow-md sm:rounded-lg mt-5">
-
-      <div class="w-full max-w-md mr-4 mb-8 mt-8">
+    <div class="w-full  mb-8 mt-8 flex justify-between ">
+      <div>
         <input v-model="term" @keyup="search" class="relative w-full px-8 py-3 text-xl rounded-r focus:shadow-outline"
           autocomplete="off" type="text" name="search" placeholder="Search…" />
+      </div>
+      <div>
+
+        <div class="dropdown">
+          <button
+            class="inline-block px-8 py-3 bg-gray-300 text-gray-700 font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-ou dropdown-toggle"
+            type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Control Device
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu shadow-md " aria-labelledby="dropdownMenu1">
+            <li><button  type="button"   class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal" data-target="#openAppModal" >LauchApp</button></li>
+            <!-- <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li> -->
+          </ul>
+        </div>
 
       </div>
-   
+    </div>
+    <div class="overflow-x-auto relative shadow-md sm:rounded-lg mt-5">
+
+
+
+
 
       <table class="w-full text-xl text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xl text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -78,7 +85,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(device, index) in devices" :key="index" 
+          <tr v-for="(device, index) in devices" :key="index"
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
             <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"><input
                 type="checkbox" class="checkbox" v-model="selected" :value="device.id"></td>
@@ -90,7 +97,9 @@
                 device.device_id
             }}</th>
             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"><span
-                class="text-xl inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">{{ device.brand }}</span>
+                class="text-xl inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">{{
+                    device.brand
+                }}</span>
             </th>
 
             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -118,7 +127,7 @@ import Layout from "@/Components/Layout/Layout";
 import ContentHeaderVue from "@/Components/Layout/ContentHeader";
 import Pagination from "@/Components/Pagination";
 import Alert from "@/Components/Alert";
-
+import OpenAppModal from "@/Pages/Devices/Modal/OpenAppModal"
 export default {
   layout: Layout,
   components: {
@@ -126,6 +135,7 @@ export default {
     ContentHeaderVue,
     Pagination,
     Alert,
+    OpenAppModal
 
   },
   computed: {
@@ -144,26 +154,42 @@ export default {
 
         this.selected = selected;
       }
+    },
+    application_deivce() {
+      if (this.selected.length > 0) {
+        if (this.selected.length == 1) {
+          const found = this.devices.find(element => element.id == this.selected[0]);
+          return found.applications
+        }
+
+        return this.applications;
+      }
+      return [];
+    },
+    lauchDisabled(){
+      return this.selected.length >0 ? false:true
     }
+   
   },
   data() {
     return {
-      term:null,
+      term: null,
       editMode: true,
       selected: [],
       form: this.$inertia.form({
-          id:null,
-          name:null,
+        id: null,
+        name: null,
       })
     }
 
   },
+
   props: {
     devices: Array,
     errors: Object,
-    applications:Array
+    applications: Array
   },
-  methods:{
+  methods: {
     search() {
       this.$inertia.get(
         this.route("device.index"),
@@ -188,7 +214,7 @@ export default {
           }
         });
       }
-      
+
     },
     contextMenu(item, event) {
       Bus.$emit("contextMenuPemission", item, event);
