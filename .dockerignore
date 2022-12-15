@@ -16,6 +16,7 @@ node_modules
 Dockerfile
 docker-compose.yml
 .docker/*
+.docker/data/*
 !.docker/supervisor*
 !.docker/php
 !.docker/docker-entrypoint.sh
