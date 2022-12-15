@@ -14,7 +14,7 @@ services:
     depends_on:
       - db
       - redis
-      - nodejs
+      - laravel_echo_server
       
 
 
@@ -53,9 +53,9 @@ services:
     depends_on:
       - db
 
-  nodejs:
+  laravel_echo_server:
     build:
-      context: .docker/nodejs
+      context: .docker/laravel_echo_server
       dockerfile: Dockerfile
     restart: unless-stopped
 

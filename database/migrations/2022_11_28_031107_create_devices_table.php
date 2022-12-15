@@ -19,6 +19,7 @@ class CreateDevicesTable extends Migration
             $table->string('name')->nullable();
             $table->string('serial')->nullable();
             $table->string('os_version')->nullable();
+            $table->string('brand')->nullable();
             $table->float('battery')->nullable();
             $table->string('connect_wifi')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();

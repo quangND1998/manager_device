@@ -1,0 +1,39 @@
+[2022-12-15 08:50:02] local.ERROR: The "C:\xampp\htdocs\Project_2022\manager_device\resources\views" directory does not exist. {"exception":"[object] (Symfony\\Component\\Finder\\Exception\\DirectoryNotFoundException(code: 0): The \"C:\\xampp\\htdocs\\Project_2022\\manager_device\\resources\\views\" directory does not exist. at /home/holomia/manager_device/vendor/symfony/finder/Finder.php:592)
+[stacktrace]
+#0 /home/holomia/manager_device/vendor/laravel/framework/src/Illuminate/Foundation/Console/ViewCacheCommand.php(67): Symfony\\Component\\Finder\\Finder->in()
+#1 /home/holomia/manager_device/vendor/laravel/framework/src/Illuminate/Foundation/Console/ViewCacheCommand.php(36): Illuminate\\Foundation\\Console\\ViewCacheCommand->bladeFilesIn()
+#2 /home/holomia/manager_device/vendor/laravel/framework/src/Illuminate/Collections/Traits/EnumeratesValues.php(245): Illuminate\\Foundation\\Console\\ViewCacheCommand->Illuminate\\Foundation\\Console\\{closure}()
+#3 /home/holomia/manager_device/vendor/laravel/framework/src/Illuminate/Foundation/Console/ViewCacheCommand.php(37): Illuminate\\Support\\Collection->each()
+#4 /home/holomia/manager_device/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate\\Foundation\\Console\\ViewCacheCommand->handle()
+#5 /home/holomia/manager_device/vendor/laravel/framework/src/Illuminate/Container/Util.php(40): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#6 /home/holomia/manager_device/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure()
+#7 /home/holomia/manager_device/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#8 /home/holomia/manager_device/vendor/laravel/framework/src/Illuminate/Container/Container.php(653): Illuminate\\Container\\BoundMethod::call()
+#9 /home/holomia/manager_device/vendor/laravel/framework/src/Illuminate/Console/Command.php(136): Illuminate\\Container\\Container->call()
+#10 /home/holomia/manager_device/vendor/symfony/console/Command/Command.php(298): Illuminate\\Console\\Command->execute()
+#11 /home/holomia/manager_device/vendor/laravel/framework/src/Illuminate/Console/Command.php(121): Symfony\\Component\\Console\\Command\\Command->run()
+#12 /home/holomia/manager_device/vendor/symfony/console/Application.php(1040): Illuminate\\Console\\Command->run()
+#13 /home/holomia/manager_device/vendor/symfony/console/Application.php(301): Symfony\\Component\\Console\\Application->doRunCommand()
+#14 /home/holomia/manager_device/vendor/symfony/console/Application.php(171): Symfony\\Component\\Console\\Application->doRun()
+#15 /home/holomia/manager_device/vendor/laravel/framework/src/Illuminate/Console/Application.php(94): Symfony\\Component\\Console\\Application->run()
+#16 /home/holomia/manager_device/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(129): Illuminate\\Console\\Application->run()
+#17 /home/holomia/manager_device/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#18 {main}
+"} 
+[2022-12-15 08:50:35] local.ERROR: Command "optimzie" is not defined.
+
+Did you mean one of these?
+    optimize
+    optimize:clear {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"optimzie\" is not defined.
+
+Did you mean one of these?
+    optimize
+    optimize:clear at /home/holomia/manager_device/vendor/symfony/console/Application.php:720)
+[stacktrace]
+#0 /home/holomia/manager_device/vendor/symfony/console/Application.php(259): Symfony\\Component\\Console\\Application->find()
+#1 /home/holomia/manager_device/vendor/symfony/console/Application.php(171): Symfony\\Component\\Console\\Application->doRun()
+#2 /home/holomia/manager_device/vendor/laravel/framework/src/Illuminate/Console/Application.php(94): Symfony\\Component\\Console\\Application->run()
+#3 /home/holomia/manager_device/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(129): Illuminate\\Console\\Application->run()
+#4 /home/holomia/manager_device/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#5 {main}
+"} 
