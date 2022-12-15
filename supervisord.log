@@ -3854,3 +3854,18 @@
 2022-12-15 07:24:01,039 INFO stopped: php-fpm (exit status 0)
 2022-12-15 07:24:02,098 INFO stopped: laravel-worker_00 (exit status 0)
 2022-12-15 07:24:02,098 INFO stopped: laravel-worker_01 (exit status 0)
+2022-12-15 07:24:43,739 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-12-15 07:24:43,740 INFO Included extra file "/etc/supervisor.d/php-fpm.conf" during parsing
+2022-12-15 07:24:43,741 INFO Included extra file "/etc/supervisor.d/worker.conf" during parsing
+2022-12-15 07:24:43,756 INFO supervisord started with pid 1
+2022-12-15 07:24:44,763 INFO spawned: 'laravel-worker_00' with pid 8
+2022-12-15 07:24:44,771 INFO spawned: 'laravel-worker_01' with pid 9
+2022-12-15 07:24:44,778 INFO spawned: 'php-fpm' with pid 10
+2022-12-15 07:24:45,890 INFO success: laravel-worker_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-15 07:24:45,890 INFO success: laravel-worker_01 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-15 07:24:45,891 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-15 07:30:26,266 WARN received SIGQUIT indicating exit request
+2022-12-15 07:30:26,269 INFO waiting for laravel-worker_00, laravel-worker_01, php-fpm to die
+2022-12-15 07:30:26,286 INFO stopped: php-fpm (exit status 0)
+2022-12-15 07:30:27,347 INFO stopped: laravel-worker_00 (exit status 0)
+2022-12-15 07:30:27,349 INFO stopped: laravel-worker_01 (exit status 0)
