@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\WifiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,4 +26,5 @@ Route::group([
 ], function () {
     Route::post('device',[DeviceController::class ,'store']);
     Route::post('applications',[ApplicationController::class ,'saveApplication']);
+  
 });

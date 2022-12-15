@@ -1,0 +1,9 @@
+[program:node-server]
+process_name=%(program_name)s_%(process_num)02d
+command=node server
+directory=/home/holomia/manager_device
+user=www-data
+autostart=true
+autorestart=true
+numprocs=2
+redirect_stderr=true

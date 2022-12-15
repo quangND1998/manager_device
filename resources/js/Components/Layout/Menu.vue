@@ -7,12 +7,7 @@
         <span class="page">Dashboard</span>
       </Link>
     </li>
-    <li tag="li" class="pageli">
-      <a>
-        <i class="fa fa-table"></i>
-        <span class="page">Tables</span>
-      </a>
-    </li>
+  
 
     <li class="header">Device Manager</li>
     <li tag="li" class="pageli">
@@ -31,33 +26,22 @@
         </li>
       
     </li>
-    <li class="treeview">
-      <a href="#">
-        <i class="fa fa-folder-o"></i>
-        <span class="treeview-title">Group</span>
-        <span class="pull-right-container pull-right">
-          <i class="fa fa-angle-left fa-fw"></i>
-        </span>
-      </a>
-      <ul class="treeview-menu">
-        <li>
-          <a href="#">
-            <i class="fa fa-file-word-o"></i> Item 1
-          </a>
+    <li tag="li" class="pageli">
+      <li :class="[$page.component === 'Wifi/Index' ? 'active' : '']">
+          <Link :href="route('wifi.index')">
+            <i class="fa fa-wifi" aria-hidden="true"></i></i> Wifi
+          </Link>
         </li>
-        <li>
-          <a href="#">
-            <i class="fa fa-file-picture-o"></i> Item 2
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="fa fa-file-pdf-o"></i> Item 3
-          </a>
-        </li>
-      </ul>
+      
     </li>
-
+    <li tag="li" class="pageli">
+      <li :class="[$page.component === 'Group/Index' ? 'active' : '']">
+          <Link :href="route('group.index')">
+            <i class="fa fa-folder-o" aria-hidden="true"></i></i> Groups
+          </Link>
+        </li>
+      
+    </li>
     <li class="header">User managerment</li>
     <li class="treeview">
       <a href="#">
@@ -85,7 +69,7 @@
         </li>
       </ul>
     </li>
-    <li class="header">LOGS</li>
+    <!-- <li class="header">LOGS</li>
     <li tag="li" class="pageli">
       <a>
         <i class="fa fa-book"></i>
@@ -104,9 +88,9 @@
         <span class="page">Repos</span>
         <small class="label pull-right bg-green">AJAX</small>
       </a>
-    </li>
+    </li> -->
 
-    <li class="header">PAGES</li>
+    <!-- <li class="header">PAGES</li>
     <li tag="li" class="pageli">
       <a>
         <i class="fa fa-circle-o text-yellow"></i>
@@ -118,7 +102,7 @@
         <i class="fa fa-circle-o text-red"></i>
         <span class="page">404</span>
       </a>
-    </li>
+    </li> -->
   </ul>
 </template>
 <script>

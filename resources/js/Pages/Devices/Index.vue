@@ -2,8 +2,9 @@
   <section class="content">
     <ContentHeaderVue :name="'Devices'" />
     <alert :dismissible="true"></alert>
-   
+    <WifiModel :errors="errors" :ids="selected" :wifis="wifis" />
     <OpenAppModal :errors="errors" :applications="application_deivce" :ids="selected" />
+    <GroupModel :errors="errors" :ids="selected"/>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
@@ -51,7 +52,9 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu shadow-md " aria-labelledby="dropdownMenu1">
-            <li><button  type="button"   class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal" data-target="#openAppModal" >LauchApp</button></li>
+            <li><button  type="button"   class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal" data-target="#openAppModal" ><i class="fa fa-rocket mr-2" aria-hidden="true"></i>LauchApp</button></li>
+            <li><button  type="button"   class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal" data-target="#WifiModal" ><i class="fa fa-wifi mr-2" aria-hidden="true"></i>Wifi</button></li>
+            <!-- <li><button  type="button"   class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal" data-target="#groupModal" ><i class="fa fa-folder-o mr-2" aria-hidden="true"></i>Group </button></li> -->
             <!-- <li><a href="#">Another action</a></li>
             <li><a href="#">Something else here</a></li>
             <li role="separator" class="divider"></li>
@@ -76,8 +79,10 @@
             <th scope="col" class="py-3 px-6 text-xl">device ID</th>
             <th scope="col" class="py-3 px-6 text-xl">Brand</th>
 
-            <th scope="col" class="py-3 px-6 text-xl">Os Version</th>
+            <!-- <th scope="col" class="py-3 px-6 text-xl">Os Version</th> -->
             <th scope="col" class="py-3 px-6 text-xl">Battery</th>
+            <th scope="col" class="py-3 px-6 text-xl">Connect Wifi</th>
+
 
             <th scope="col" class="py-3 px-6 text-xl">
               <span class="sr-only">Edit</span>
@@ -102,10 +107,16 @@
                 }}</span>
             </th>
 
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              {{ device.os_version }}</th>
+            <!-- <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              {{ device.os_version }}</th> -->
             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"><i
                 class="fa fa-battery-full" aria-hidden="true"></i>{{ (device.battery * 100) }} %</th>
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"><span v-if="device.connect_wifi"
+                class="text-xl inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-gray-600 text-white rounded"><i class="fa fa-wifi  mr-2" aria-hidden="true"></i>{{
+                    device.connect_wifi
+                }}</span>
+                <p v-else>Not Connect</p>
+            </th>
             <td class="py-4 px-6 text-right">
               <button @click="edit(device)" type="button" data-toggle="modal" data-target="#exampleModal"
                 class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out">Edit</button>
@@ -127,7 +138,9 @@ import Layout from "@/Components/Layout/Layout";
 import ContentHeaderVue from "@/Components/Layout/ContentHeader";
 import Pagination from "@/Components/Pagination";
 import Alert from "@/Components/Alert";
-import OpenAppModal from "@/Pages/Devices/Modal/OpenAppModal"
+import OpenAppModal from "@/Pages/Devices/Modal/OpenAppModal";
+import WifiModel from "@/Pages/Devices/Modal/WifiModel";
+import GroupModel from "@/Pages/Devices/Modal/GroupModel"
 export default {
   layout: Layout,
   components: {
@@ -135,13 +148,15 @@ export default {
     ContentHeaderVue,
     Pagination,
     Alert,
-    OpenAppModal
+    OpenAppModal,
+    WifiModel,
+    GroupModel
 
   },
   computed: {
     selectAll: {
       get: function () {
-        return this.devices ? this.selected.length == this.infoImgaes : false;
+        return this.devices ? this.selected.length == this.devices : false;
       },
       set: function (value) {
         var selected = [];
@@ -175,6 +190,7 @@ export default {
     return {
       term: null,
       editMode: true,
+
       selected: [],
       form: this.$inertia.form({
         id: null,
@@ -187,6 +203,7 @@ export default {
   props: {
     devices: Array,
     errors: Object,
+    wifis:Array,
     applications: Array
   },
   methods: {

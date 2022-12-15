@@ -11,8 +11,10 @@ use Inertia\Inertia;
 
 class ApplicationController extends Controller
 {
-    public function index(){
-        $applications = Applicaion::with('device')->get();
+    public function index(Request $request){
+        $applications = Applicaion::with('device')->where(function ($query) use ($request) {
+            $query->where('appName', 'LIKE', '%' . $request->name . '%');
+        })->paginate(15)->appends(['name' => $request->name]);
         
         return Inertia::render('Application/Index', compact('applications'));
     }

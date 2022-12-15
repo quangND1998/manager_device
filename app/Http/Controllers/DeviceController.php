@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ConnectWifiEvent;
 use App\Events\LaunchAppEvent;
 use App\Models\Applicaion;
 use App\Models\Devices;
+use App\Models\Wifi;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +20,8 @@ class DeviceController extends Controller
             $query->where('name', 'LIKE', '%' . $request->term . '%');
         })->get();
         $applications = Applicaion::groupby('packageName')->get();
-        return Inertia::render('Devices/Index',compact('devices','applications'));
+        $wifis = Wifi::get();
+        return Inertia::render('Devices/Index',compact('devices','applications','wifis'));
     }
 
     public function saveName(Request $request,  $id){
@@ -80,7 +83,8 @@ class DeviceController extends Controller
                 'deviceName' => $request->deviceName,
                 'brand' => $request->brand,
                 'os_version' => $request->os_version,
-                'battery' => $request->battery
+                'battery' => $request->battery,
+                'connect_wifi' => $request->connect_wifi
             ]);
           
         } else {
@@ -89,7 +93,8 @@ class DeviceController extends Controller
                 'name' => $request->name,
                 'brand' => $request->brand,
                 'os_version' => $request->os_version,
-                'battery' => $request->battery
+                'battery' => $request->battery,
+                'connect_wifi' => $request->connect_wifi
             ]);
            
         }
@@ -117,6 +122,29 @@ class DeviceController extends Controller
         }
 
         return back()->with('success', 'Lauch successfully');
+    }
+    
+    public function connectWifi(Request $request){
+
+
+        $this->validate($request,[
+            'ssid' => 'required',
+            'password'=>'required',
+
+        ]);
+
+        $ids = $request->ids;
+        if($ids ==null){
+            return back()->with('warning' ,"You must choose in checkbox !!!.");
+        }
+        $devices =Devices::whereIn('id', $ids)->get();
+      
+        foreach($devices as $device){
+
+            broadcast(new ConnectWifiEvent($device, $request->ssid, $request->password));
+        }
+
+        return back()->with('success', 'Connect successfully');
     }
 
 

@@ -5,6 +5,7 @@ var Redis = require('ioredis');
 var redis = new Redis();
 redis.psubscribe('private-active-device.*', function(err, count) {});
 redis.psubscribe('lauch-app.*', function(err, count) {});
+redis.psubscribe('connect-wifi.*', function(err, count) {});
 redis.on('message', function(channel, message) {
     message = JSON.parse(message);
 
@@ -57,6 +58,9 @@ io.on("connection", (socket) => {
                 `${socket.id} has joined the chat`);
 
     });
+    // socket.on('online', () => {
+    //     console.log('online')
+    // })
 
 
 
@@ -79,7 +83,6 @@ io.on("connection", (socket) => {
         }
     });
 });
-
 http.listen(3000, function() {
     console.log('Listening on Port 3000');
 });

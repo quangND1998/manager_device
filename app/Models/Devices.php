@@ -9,7 +9,7 @@ class Devices extends Model
 {
     use HasFactory;
     protected $table = 'devices';
-    protected $fillable = ['id',    'device_id',  'name', 'brand', 'os_version', 'battery',  'created_at', 'state',   'updated_at'];
+    protected $fillable = ['id',    'device_id',  'name', 'brand', 'os_version', 'battery', 'connect_wifi', 'created_at', 'state',   'updated_at'];
 
     public function groups()
     {
@@ -34,6 +34,19 @@ class Devices extends Model
         }
     }
 
+    public function wifis(){
+        return $this->hasMany(Wifi::class,'device_id');
+    }
+
+    public function hasWifi($ssid)
+    {   
+        if(count($this->wifis->where('SSID',$ssid)->values()) >0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
     
 
  

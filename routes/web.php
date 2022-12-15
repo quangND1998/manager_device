@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\WifiController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -65,8 +66,11 @@ Route::middleware(['auth'])->group(
             Route::put('/update/{id}', [GroupController::class, 'update'])->name('update');
             
             Route::post('/{id}/ownerDevice', [GroupController::class, 'ownerDevice'])->name('ownerDevice');
+            Route::post('/deleteOwnerDevice/{id}', [GroupController::class, 'deleteOwnerDevice'])->name('deleteOwnerDevice');
             Route::get('/devices/{id}', [GroupController::class, 'getDeviceGourps'])->name('device');
             Route::delete('/delete/{id}', [GroupController::class, 'destroy'])->name('destroy');
+
+            Route::post('runAppGoup/{id}',[GroupController::class,'runAppGoup'])->name('runAppGoup');
         });
 
         Route::prefix('devices')->as('device.')->group(function () {
@@ -74,12 +78,20 @@ Route::middleware(['auth'])->group(
             Route::put('/saveName/{id}', [DeviceController::class, 'saveName'])->name('saveName');
             Route::delete('/delete/{id}', [DeviceController::class, 'delete'])->name('destroy');
             Route::post('/lanchApp', [DeviceController::class, 'lanchApp'])->name('lanchApp');
+            Route::post('connectWifi',[DeviceController::class ,'connectWifi'])->name('connectWifi');
         });
 
         Route::prefix('applications')->as('application.')->group(function () {
             Route::get('', [ApplicationController::class, 'index'])->name('index');
           
         });
-    }
+    
+        Route::prefix('wifis')->as('wifi.')->group(function () {
+            Route::get('', [WifiController::class, 'index'])->name('index');
+            Route::post('',[WifiController::class ,'store'])->name('store');
+            Route::put('update/{id}',[WifiController::class ,'update'])->name('update');
+            Route::delete('delete/{id}',[WifiController::class ,'delete'])->name('delete');
+           
+        });}
 );
 require __DIR__ . '/auth.php';
