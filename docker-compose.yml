@@ -55,13 +55,24 @@ services:
 
   laravel_echo_server:
     build:
-      context: .docker/laravel_echo_server
+      context: .docker/laravel-echo-server
       dockerfile: Dockerfile
+    volumes:
+      - .env:/app/.env
     restart: unless-stopped
-
+  npm:  
+    image: node:16-alpine
+    working_dir: /home/holomia/manager_device
+    entrypoint: ["node","server.js"]
+    ports:
+      - 3000:80
+    volumes: 
+      - ./:/home/holomia/manager_device
 
   redis:
     image: redis:5-alpine
+    ports:
+      - 6379:6379
     volumes:
       - .docker/data/redis:/data
     restart: unless-stopped
