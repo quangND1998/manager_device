@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\WifiController;
@@ -24,7 +25,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group([
     'prefix' => 'v1'
 ], function () {
+    Route::post('login', [AuthController::class, 'login']);
     Route::post('device',[DeviceController::class ,'store']);
     Route::post('applications',[ApplicationController::class ,'saveApplication']);
-  
+    Route::middleware('jwt.refresh')->get('/token/refresh', [AuthController::class, 'refresh']);
+    Route::group(['middleware' => 'jwt.verify'], function () {
+        Route::post('logout', [AuthController::class, 'logout']);
+    });
 });
