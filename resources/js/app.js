@@ -69,5 +69,11 @@ Vue.mixin({
     }
 })
 window.Bus = new Vue();
+InertiaProgress.init({
+    delay: 150,
+    color: '#1E377F',
+    includeCSS: true,
+    showSpinner: true,
+});
 
 // window.jQuery = jQuery
