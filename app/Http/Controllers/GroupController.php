@@ -9,28 +9,43 @@ use App\Models\Groups;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
-
+use Illuminate\Support\Arr;
 class GroupController extends Controller
 {
     public function index(Request $request)
     {
 
-        $groups = Groups::with('devices.applications')->get();
+   
         $groupId =  $request->input('group');
-        $devices = Devices::doesntHave('groups')->get();
+        $user= Auth::user();
+        $groupId =  $request->input('group');
+        if($user->hasPermissionTo('user-manager')){
+            $groups = Groups::with('devices.applications')->get();
+            
+            $nogroup_devices = Devices::with('applications')->doesntHave('groups')->get();
+        }
+        else{
+            $groups = Groups::with('devices.applications')->where('user_id',$user->id)->get();
+            $nogroup_devices = Devices::with('applications')->doesntHave('groups')->where('user_id',$user->id)->get();
+        }
+       
         $applications = Applicaion::groupby('packageName')->get();
         if (count($groups) > 0) {
             if ($groupId == null) {
                 $current_group = $groups[0];
-                // $group_id= $current_group->id;
+                // $new_devices = array_merge($nogroup_devices,$current_group->devices);
             } else {
-                $current_group = Groups::with('devices.applications')->findOrFail($groupId);
-                // $group_id= $current_group->id;
+                $current_group = $groups->find($groupId);
+               
+                // $devices = $devices + $current_group->devices;
+                // $devices = array_merge($nogroup_devices,$current_group->devices);
             }
         } else {
-            $current_group = [];
+            $current_group = null;
+        
         }
-        //$devices = Devices::whereNotIn('id', $current_group->devices->pluck('id'))->get();
+
+        $devices= Arr::collapse([$nogroup_devices, $current_group->devices?? []]);
         return Inertia::render('Group/Index', compact('groups', 'current_group', 'devices','applications'));
     }
 

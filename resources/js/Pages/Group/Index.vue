@@ -3,7 +3,7 @@
         <ContentHeaderVue :name="'Groups'" />
         <alert :dismissible="true"></alert>
         <OpenAppModal :errors="errors" :applications="application_deivce" :ids="selected" />
-        <OpenGroupApp  :errors="errors" :applications="applications"  :current_group="current_group"   />
+        <OpenGroupApp :errors="errors" :applications="applications" :current_group="current_group" />
         <button type="button"
             class="inline-block px-8 py-4 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
             data-toggle="modal" data-target="#exampleModal" @click="clickModal()">Create Group</button>
@@ -93,11 +93,11 @@
 
                     </div>
                 </div>
-                <div class=" md:mt-0 md:col-span-2">
+                <div class=" md:mt-0 md:col-span-2" >
 
                     <div class="shadow sm:rounded-md sm:overflow-hidden">
                         <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
-                            <h3 class="text-xl font-medium leading-6 text-gray-900">Devices</h3>
+                            <h3 class="text-xl font-medium leading-6 text-gray-900">Devices {{ disableLauchGroup  }} {{lauchDisabled}}</h3>
                             <div class="overflow-x-auto relative shadow-md sm:rounded-lg mt-5">
                                 <div class="w-full  mb-8 mt-8 flex justify-between ">
                                     <div>
@@ -111,8 +111,8 @@
                                             </button>
                                             <ul class="dropdown-menu shadow-md " aria-labelledby="dropdownMenu1">
                                                 <li><button type="button" class="btn btn-secondary" data-toggle="modal"
-                                                        data-target="#OpenGroupAppModal"><i class="fa fa-rocket mr-2"
-                                                            aria-hidden="true"></i>Lauch App Group</button></li>
+                                                    :disabled="disableLauchGroup"  data-target="#OpenGroupAppModal"><i class="fa fa-rocket mr-2"
+                                                        aria-hidden="true"></i>Lauch App Group</button></li>
                                                 <li><button type="button" class="btn btn-secondary"
                                                         :disabled="lauchDisabled" data-toggle="modal"
                                                         data-target="#openAppModal"><i class="fa fa-rocket mr-2"
@@ -122,9 +122,14 @@
                                             </ul>
                                         </div>
                                     </div>
+                                    <!-- <div class="w-full max-w-md  p-4 mb-8 mt-8">
+                                        <input v-model="search"
+                                            class="relative w-full px-8 py-3 text-xl rounded-r focus:shadow-outline"
+                                            autocomplete="off" type="text" name="search" placeholder="Search…" />
+                                    </div> -->
 
                                 </div>
-                                <table class="w-full text-xl text-left text-gray-500 dark:text-gray-400">
+                                <table class="w-full text-xl text-left text-gray-500 dark:text-gray-400" v-if="current_group">
                                     <thead
                                         class="text-xl text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
@@ -241,21 +246,22 @@ export default {
         errors: Object,
         current_group: Object,
         devices: Array,
-        applications:Array,
+        applications: Array,
     },
-    mounted(){
-        Bus.$on('LauchAppSuccess', ()=>{
-            this.selected=[];
+    mounted() {
+        Bus.$on('LauchAppSuccess', () => {
+            this.selected = [];
         })
-        Bus.$on('cloesModal',()=>{
-            this.selected=[];
+        Bus.$on('cloesModal', () => {
+            this.selected = [];
         })
-    },  
+    },
     data() {
 
         return {
             editMode: false,
             selected: [],
+            search: '',
             form: this.$inertia.form({
                 id: null,
                 name: null,
@@ -280,6 +286,12 @@ export default {
                 this.selected = selected;
             }
         },
+
+        filteredList() {
+            return this.current_group.devices.filter(device => {
+                return device.name.toLowerCase().includes(this.search.toLowerCase())
+            })
+        },
         groupId() {
             return this.current_group.id
         },
@@ -298,6 +310,9 @@ export default {
         },
         lauchDisabled() {
             return this.selected.length > 0 ? false : true
+        },
+        disableLauchGroup() {
+            return this.current_group && this.current_group.devices.length >0? false : true
         }
     },
     methods: {

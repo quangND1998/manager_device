@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="current_group">
         <div class="modal fade" id="OpenGroupAppModal" tabindex="-1" role="dialog" aria-labelledby="openAppModalLabel"
             aria-hidden="true" style="padding-right:0px">
             <div class="modal-dialog" role="document">
