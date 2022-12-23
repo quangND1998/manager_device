@@ -94,7 +94,8 @@ class DeviceController extends Controller
                 'brand' => $request->brand,
                 'os_version' => $request->os_version,
                 'battery' => $request->battery,
-                'connect_wifi' => $request->connect_wifi
+                'connect_wifi' => $request->connect_wifi,
+                'user_id' => Auth::user()->id
             ]);
            
         }
@@ -145,6 +146,16 @@ class DeviceController extends Controller
         }
 
         return back()->with('success', 'Connect successfully');
+    }
+
+
+    public function getDevice(){
+        $user = Auth::user();
+        $user = Auth::user();
+        $response  = [
+            'user' => $user
+        ];
+        return response()->json($response, Response::HTTP_OK);
     }
 
 
