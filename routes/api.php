@@ -28,6 +28,7 @@ Route::group([
     Route::post('login', [AuthController::class, 'login']);
     Route::post('applications',[ApplicationController::class ,'saveApplication']);
     Route::middleware('jwt.refresh')->get('/token/refresh', [AuthController::class, 'refresh']);
+    
     Route::group(['middleware' => 'jwt.verify'], function () {
         Route::post('logout', [AuthController::class, 'logout']);
         Route::get('getDevice',[DeviceController::class ,'getDevice']);
