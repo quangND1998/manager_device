@@ -97,7 +97,7 @@
 
                     <div class="shadow sm:rounded-md sm:overflow-hidden">
                         <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
-                            <h3 class="text-xl font-medium leading-6 text-gray-900">Devices {{ disableLauchGroup  }} {{lauchDisabled}}</h3>
+                            <h3 class="text-xl font-medium leading-6 text-gray-900">Devices </h3>
                             <div class="overflow-x-auto relative shadow-md sm:rounded-lg mt-5">
                                 <div class="w-full  mb-8 mt-8 flex justify-between ">
                                     <div>
