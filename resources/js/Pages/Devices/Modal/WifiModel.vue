@@ -172,20 +172,22 @@ export default {
 
         },
         reset() {
-        this.form = this.$inertia.form({
-            ids: this.ids,
-            wifi_id: null,
-            ssid: null,
-            password:null
-        })
-        $("#openWifiNotification").modal("hide");
-        $("#WifiModal").modal("hide");
-    },
+            this.form = this.$inertia.form({
+                ids: this.ids,
+                wifi_id: null,
+                ssid: null,
+                password:null
+            })
+            $("#openWifiNotification").modal("hide");
+            $("#WifiModal").modal("hide");
+        },
         createWifi(){
+            this.form.ids = this.ids;
             $("#WifiModal").modal("hide");
         },
 
         saveWifi(){
+            //console.log(this.form.ids)
             this.form.post(route("device.connectWifi"), {
                 preserveState: true,
                 onError: errors => {
@@ -198,7 +200,7 @@ export default {
             });
         },
         connectWifi() {
-            console.log(this.form.ids)
+            //console.log(this.form.ids)
             this.form.post(route("device.connectWifi"), {
                 preserveState: true,
                 onError: errors => {

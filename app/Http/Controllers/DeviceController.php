@@ -134,6 +134,7 @@ class DeviceController extends Controller
             'password'=>'required',
 
         ]);
+        
 
         $ids = $request->ids;
         if($ids ==null){
