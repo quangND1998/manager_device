@@ -85,7 +85,7 @@ class DeviceController extends Controller
                 'os_version' => $request->os_version,
                 'battery' => $request->battery,
                 'connect_wifi' => $request->connect_wifi,
-                'user_id' => Auth::user()->id
+                 'user_id' => Auth::user()->id
             ]);
           
         } else {
@@ -134,7 +134,6 @@ class DeviceController extends Controller
             'password'=>'required',
 
         ]);
-        
 
         $ids = $request->ids;
         if($ids ==null){
