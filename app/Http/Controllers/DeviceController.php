@@ -84,7 +84,8 @@ class DeviceController extends Controller
                 'brand' => $request->brand,
                 'os_version' => $request->os_version,
                 'battery' => $request->battery,
-                'connect_wifi' => $request->connect_wifi
+                'connect_wifi' => $request->connect_wifi,
+                'user_id' => Auth::user()->id
             ]);
           
         } else {
