@@ -75,5 +75,6 @@ InertiaProgress.init({
     includeCSS: true,
     showSpinner: true,
 });
-
-// window.jQuery = jQuery
+Vue.config.devtools = true;
+Vue.config.productionTip = true
+    // window.jQuery = jQuery

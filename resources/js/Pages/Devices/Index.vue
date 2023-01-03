@@ -5,6 +5,7 @@
     <WifiModel :errors="errors" :ids="selected" :wifis="wifis" />
     <OpenAppModal :errors="errors" :applications="application_deivce" :ids="selected" />
     <GroupModel :errors="errors" :ids="selected"/>
+    <defaulAppModal :errors="errors" :applications="application_deivce" :ids="selected" />
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
@@ -53,6 +54,7 @@
           </button>
           <ul class="dropdown-menu shadow-md " aria-labelledby="dropdownMenu1">
             <li><button  type="button"   class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal" data-target="#openAppModal" ><i class="fa fa-rocket mr-2" aria-hidden="true"></i>LauchApp</button></li>
+            <li><button  type="button"   class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal" data-target="#defaultAppModal" ><i class="fa fa-cog mr-2" aria-hidden="true"></i>Set Default App</button></li>
             <li><button  type="button"   class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal" data-target="#WifiModal" ><i class="fa fa-wifi mr-2" aria-hidden="true"></i>Wifi</button></li>
             <!-- <li><button  type="button"   class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal" data-target="#groupModal" ><i class="fa fa-folder-o mr-2" aria-hidden="true"></i>Group </button></li> -->
             <!-- <li><a href="#">Another action</a></li>
@@ -82,7 +84,7 @@
             <!-- <th scope="col" class="py-3 px-6 text-xl">Os Version</th> -->
             <th scope="col" class="py-3 px-6 text-xl">Battery</th>
             <th scope="col" class="py-3 px-6 text-xl">Connect Wifi</th>
-
+            <th scope="col" class="py-3 px-6 text-xl">Default App</th>
 
             <th scope="col" class="py-3 px-6 text-xl">
               <span class="sr-only">Edit</span>
@@ -117,6 +119,7 @@
                 }}</span>
                 <p v-else>Not Connect</p>
             </th>
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"> <img :src="`data:image/png;base64,${device.default_app.icon}`" width="50px" /><strong>{{ device.default_app.appName }}</strong></th>
             <td class="py-4 px-6 text-right">
               <button @click="edit(device)" type="button" data-toggle="modal" data-target="#exampleModal"
                 class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out">Edit</button>
@@ -141,6 +144,7 @@ import Alert from "@/Components/Alert";
 import OpenAppModal from "@/Pages/Devices/Modal/OpenAppModal";
 import WifiModel from "@/Pages/Devices/Modal/WifiModel";
 import GroupModel from "@/Pages/Devices/Modal/GroupModel"
+import defaulAppModal from "@/Pages/Devices/Modal/defaulAppModal"
 export default {
   layout: Layout,
   components: {
@@ -150,7 +154,8 @@ export default {
     Alert,
     OpenAppModal,
     WifiModel,
-    GroupModel
+    GroupModel,
+    defaulAppModal
 
   },
   computed: {

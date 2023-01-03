@@ -16,5 +16,6 @@ class Applicaion extends Model
         return $this->belongsTo(Devices::class, 'device_id');
     }
  
+ 
 
 }
