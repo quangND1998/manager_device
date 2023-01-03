@@ -176,6 +176,28 @@ class DeviceController extends Controller
      
     }
 
+    public function default_app(Request $request){
+        $this->validate($request,[
+            'link_app' => 'required',
+
+        ]);
+        $device_id = $request->device_id;
+        if($device_id ==null){
+            return back()->with('warning' ,"You must choose in checkbox !!!.");
+        }
+        $device =Devices::whereIn('device_id', $device_id)->first();
+        $application = Applicaion::where('packageName',$request->link_app)->first();
+        if($device && $device->hasApp($request->link_app) ){
+            $device->app_default_id = $application->id;
+            $device->save();
+            
+        }
+        return response()->json('Successfully', Response::HTTP_OK);
+      
+    }
+
+
+
 
     public function getDevice($id){
         $device = Devices::with('default_app')->where('device_id', $id)->first();
