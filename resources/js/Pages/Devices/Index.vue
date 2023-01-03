@@ -119,7 +119,7 @@
                 }}</span>
                 <p v-else>Not Connect</p>
             </th>
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"> <img :src="`data:image/png;base64,${device.default_app.icon}`" width="50px" /><strong>{{ device.default_app.appName }}</strong></th>
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"> <img v-if="device.default_app" :src="`data:image/png;base64,${device.default_app.icon}`" width="50px" /><strong v-if="device.default_app">{{ device.default_app.appName }}</strong></th>
             <td class="py-4 px-6 text-right">
               <button @click="edit(device)" type="button" data-toggle="modal" data-target="#exampleModal"
                 class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out">Edit</button>
