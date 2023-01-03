@@ -186,7 +186,7 @@ class DeviceController extends Controller
         
             return response()->json('Errors', Response::HTTP_BAD_REQUEST);
         }
-        $device =Devices::whereIn('device_id', $device_id)->first();
+        $device =Devices::where('device_id', $device_id)->first();
         $application = Applicaion::where('packageName',$request->link_app)->first();
         if($device && $device->hasApp($request->link_app) ){
             $device->app_default_id = $application->id;
