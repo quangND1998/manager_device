@@ -183,7 +183,8 @@ class DeviceController extends Controller
         ]);
         $device_id = $request->device_id;
         if($device_id ==null){
-            return back()->with('warning' ,"You must choose in checkbox !!!.");
+        
+            return response()->json('Errors', Response::HTTP_BAD_REQUEST);
         }
         $device =Devices::whereIn('device_id', $device_id)->first();
         $application = Applicaion::where('packageName',$request->link_app)->first();
