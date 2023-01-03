@@ -33,5 +33,6 @@ Route::group([
         Route::post('logout', [AuthController::class, 'logout']);
         Route::get('getDevice/{id}',[DeviceController::class ,'getDevice']);
         Route::post('device',[DeviceController::class ,'store']);
+        Route::post('default-app',[DeviceController::class ,'default_app']);
     });
 });
