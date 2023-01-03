@@ -78,6 +78,7 @@ Route::middleware(['auth'])->group(
             Route::put('/saveName/{id}', [DeviceController::class, 'saveName'])->name('saveName');
             Route::delete('/delete/{id}', [DeviceController::class, 'delete'])->name('destroy');
             Route::post('/lanchApp', [DeviceController::class, 'lanchApp'])->name('lanchApp');
+            Route::post('/setDefaultApp', [DeviceController::class, 'setDefaultApp'])->name('setDefaultApp');
             Route::post('connectWifi',[DeviceController::class ,'connectWifi'])->name('connectWifi');
         });
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\ConnectWifiEvent;
+use App\Events\DefaultAppEvent;
 use App\Events\LaunchAppEvent;
 use App\Models\Applicaion;
 use App\Models\Devices;
@@ -16,7 +17,8 @@ use Inertia\Inertia;
 class DeviceController extends Controller
 {
     public function index(Request $request){
-        $devices = Devices::with('applications')->where(function ($query) use ($request) {
+        
+        $devices = Devices::with('applications','default_app')->where(function ($query) use ($request) {
             $query->where('name', 'LIKE', '%' . $request->term . '%');
         })->get();
         $applications = Applicaion::groupby('packageName')->get();
@@ -149,14 +151,43 @@ class DeviceController extends Controller
         return back()->with('success', 'Connect successfully');
     }
 
+    public function setDefaultApp( Request $request){
+        $this->validate($request,[
+            'link_app' => 'required',
 
-    public function getDevice(){
-        $user = Auth::user();
-        $user = Auth::user();
-        $response  = [
-            'user' => $user
-        ];
-        return response()->json($response, Response::HTTP_OK);
+        ]);
+        $ids = $request->ids;
+        if($ids ==null){
+            return back()->with('warning' ,"You must choose in checkbox !!!.");
+        }
+        $devices =Devices::whereIn('id', $ids)->get();
+        $application = Applicaion::where('packageName',$request->link_app)->first();
+        foreach($devices as $device){
+         
+            if($device->hasApp($request->link_app)){
+                $device->app_default_id = $application->id;
+                $device->save();
+                broadcast(new DefaultAppEvent($device, $request->link_app));
+            }
+          
+        }
+
+        return back()->with('success', 'Lauch successfully');
+     
+    }
+
+
+    public function getDevice($id){
+        $device = Devices::with('default_app')->where('device_id', $id)->first();
+        if($device){
+            $response  = [
+                'device' => $device
+            ];
+            return response()->json($response, Response::HTTP_OK);
+        }else{
+            return response()->json('Device Not Fond',Response::HTTP_BAD_REQUEST);
+        }
+    
     }
 
 

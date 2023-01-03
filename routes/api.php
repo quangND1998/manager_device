@@ -31,7 +31,7 @@ Route::group([
     
     Route::group(['middleware' => 'jwt.verify'], function () {
         Route::post('logout', [AuthController::class, 'logout']);
-        Route::get('getDevice',[DeviceController::class ,'getDevice']);
+        Route::get('getDevice/{id}',[DeviceController::class ,'getDevice']);
         Route::post('device',[DeviceController::class ,'store']);
     });
 });
