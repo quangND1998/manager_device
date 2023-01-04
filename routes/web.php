@@ -69,7 +69,8 @@ Route::middleware(['auth'])->group(
             Route::post('/deleteOwnerDevice/{id}', [GroupController::class, 'deleteOwnerDevice'])->name('deleteOwnerDevice');
             Route::get('/devices/{id}', [GroupController::class, 'getDeviceGourps'])->name('device');
             Route::delete('/delete/{id}', [GroupController::class, 'destroy'])->name('destroy');
-
+            
+            Route::post('default-app/{id}',[GroupController::class,'setAppDefaultGroup'])->name('default-app');
             Route::post('runAppGoup/{id}',[GroupController::class,'runAppGoup'])->name('runAppGoup');
         });
 
@@ -93,6 +94,7 @@ Route::middleware(['auth'])->group(
             Route::put('update/{id}',[WifiController::class ,'update'])->name('update');
             Route::delete('delete/{id}',[WifiController::class ,'delete'])->name('delete');
            
-        });}
+        });
+    }
 );
 require __DIR__ . '/auth.php';

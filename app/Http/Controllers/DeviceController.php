@@ -17,7 +17,6 @@ use Inertia\Inertia;
 class DeviceController extends Controller
 {
     public function index(Request $request){
-        
         $devices = Devices::with('applications','default_app')->where(function ($query) use ($request) {
             $query->where('name', 'LIKE', '%' . $request->term . '%');
         })->get();

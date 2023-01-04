@@ -4,6 +4,7 @@
         <alert :dismissible="true"></alert>
         <OpenAppModal :errors="errors" :applications="application_deivce" :ids="selected" />
         <OpenGroupApp :errors="errors" :applications="applications" :current_group="current_group" />
+        <DefaultGroupAppVue :errors="errors" :applications="applications" :current_group="current_group"  />
         <button type="button"
             class="inline-block px-8 py-4 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
             data-toggle="modal" data-target="#exampleModal" @click="clickModal()">Create Group</button>
@@ -113,6 +114,10 @@
                                                 <li><button type="button" class="btn btn-secondary" data-toggle="modal"
                                                     :disabled="disableLauchGroup"  data-target="#OpenGroupAppModal"><i class="fa fa-rocket mr-2"
                                                         aria-hidden="true"></i>Lauch App Group</button></li>
+                                                <li><button type="button" class="btn btn-secondary"
+                                                        :disabled="disableLauchGroup" data-toggle="modal"
+                                                        data-target="#DefaultGroupApp"><i class="fa fa-rocket mr-2"
+                                                            aria-hidden="true"></i>Set Default App Group</button></li>
                                                 <li><button type="button" class="btn btn-secondary"
                                                         :disabled="lauchDisabled" data-toggle="modal"
                                                         data-target="#openAppModal"><i class="fa fa-rocket mr-2"
@@ -228,6 +233,7 @@ import admin from "@/Pages/Admin/mixins/admin";
 import Multiselect from "@vueform/multiselect/dist/multiselect.vue2.js";
 import OpenAppModal from "@/Pages/Devices/Modal/OpenAppModal";
 import OpenGroupApp from "@/Pages/Group/Modal/OpenGroupApp";
+import DefaultGroupAppVue from "@/Pages/Group/Modal/DefaultGroupApp.vue";
 export default {
     layout: Layout,
     mixins: [admin],
@@ -238,7 +244,8 @@ export default {
         Alert,
         Multiselect,
         OpenAppModal,
-        OpenGroupApp
+        OpenGroupApp,
+        DefaultGroupAppVue
     },
     props: {
         // group_id:Number,

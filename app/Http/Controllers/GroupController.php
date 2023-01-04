@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\DefaultAppEvent;
 use App\Events\LaunchAppEvent;
 use App\Models\Applicaion;
 use App\Models\Devices;
@@ -135,6 +136,23 @@ class GroupController extends Controller
         foreach ($group->devices as $device) {
             if ($device->hasApp($request->link_app)) {
                 broadcast(new LaunchAppEvent($device, $request->link_app));
+            }
+        }
+        return back()->with('success', 'Lauch successfully');
+    }
+
+    public function setAppDefaultGroup(Request $request, $id){
+        $this->validate($request, [
+            'link_app' => 'required',
+
+        ]);
+        $group = Groups::with('devices')->findOrFail($id);
+        $application = Applicaion::where('packageName',$request->link_app)->first();
+        foreach ($group->devices as $device) {
+            if ($device->hasApp($request->link_app)) {
+                $device->app_default_id = $application->id;
+                $device->save();
+                broadcast(new DefaultAppEvent($device, $request->link_app));
             }
         }
         return back()->with('success', 'Lauch successfully');
