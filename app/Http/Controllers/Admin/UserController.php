@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Errors\InertiaErrors;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\InertiaController;
+use App\Jobs\ImportUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Http;
 class UserController extends InertiaController
 {
 
@@ -23,7 +24,9 @@ class UserController extends InertiaController
     }
     public function index(Request $request)
     {
-
+        // $user = User::with('roles')->find(1);
+        // $role= $user->roles->where('name', 'Lite')->first();
+        // return $role;
         $user = Auth::user();
         $filters = $request->all('term');
         $users = $this->queryUser($user, $request);
@@ -83,7 +86,7 @@ class UserController extends InertiaController
             [
                 'name' => 'required',
                 'email' => 'required|email|unique:users,email,' . $user->id,
-                'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|unique:users,phone,' . $user->id,
+                'phone' => 'nullable|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|unique:users,phone,' . $user->id,
                 'roles' => 'required',
             ]
         );
@@ -101,5 +104,36 @@ class UserController extends InertiaController
         $user = User::findOrFail($id);
         $user->delete();
         return redirect()->back()->with('success', "Xóa tài khoản  thành công");
+    }
+
+    public function importUser(Request $request){
+ 
+       
+        if($request->check =='us'){
+            $response = Http::post(env('API_MISSIONX_US').'/api/v1/logindata', [
+                'email' => 'holomiadev@gmail.com',
+                'password' => 'HoLoMX@210904*#',
+            ]);
+        
+            $data =$response->json();
+            foreach($data['users'] as $user){
+           
+                dispatch(new ImportUser($user));
+            }
+        }
+
+        if($request->check =='china'){
+            $response = Http::post(env('API_MISSIONX_CN').'/api/v1/logindata', [
+                'email' => 'holomiadev@gmail.com',
+                'password' => 'HoLoMX@210904*#',
+            ]);
+            $data =$response->json();
+            foreach($data['users'] as $user){
+           
+                dispatch(new ImportUser($user));
+            }
+        }
+       
+        return redirect('/users')->with('success', 'Import user successfully');
     }
 }

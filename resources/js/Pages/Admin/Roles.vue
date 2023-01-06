@@ -61,6 +61,7 @@
                     tag: 'bg-red-600 text-white text-xl font-semibold py-0.5 pl-2 rounded mr-1 mb-1 flex items-center whitespace-nowrap rtl:pl-0 rtl:pr-2 rtl:mr-0 rtl:ml-1',}"
                 />
               </div>
+             
               <div class="text-red-500" v-if="errors.permission">{{ errors.permission }}</div>
               <div class="modal-footer">
                 <button

@@ -10,8 +10,12 @@
       data-target="#exampleModal"
       @click="clickModal()"
     >Create User</button>
-
+    <button type="button"
+            class="inline-block px-8 py-4 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+            data-toggle="modal" data-target="#importModal" >Import User</button>
     <!-- Modal -->
+
+    <ImportModal :errors="errors"/>
     <div
       class="modal fade"
       id="exampleModal"
@@ -235,6 +239,7 @@ import ContentHeaderVue from "@/Components/Layout/ContentHeader";
 import Pagination from "@/Components/Pagination";
 import Alert from "@/Components/Alert";
 import Multiselect from "@vueform/multiselect/dist/multiselect.vue2.js";
+import ImportModal from "@/Pages/Admin/ImportModal";
 import admin from "./mixins/admin";
 export default {
   layout: Layout,
@@ -250,7 +255,8 @@ export default {
     ContentHeaderVue,
     Pagination,
     Alert,
-    Multiselect
+    Multiselect,
+    ImportModal
   },
   data() {
     return {

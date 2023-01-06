@@ -37,9 +37,12 @@ class RoleController extends Controller
         if (Gate::allows(config('constants.USER_PERMISSION'))) {
             $this->validate($request, [
                 'name' => 'required|unique:roles',
-                'permission' =>  'required'
+                'permission' =>  'required',
+                'limit_device' => 'nullable|numeric|gt:0'
             ]);
             $role = Role::create($request->except('permission'));
+            $role->limit_device = $request->limit_device;
+            $role->save();
             $permissions = $request->input('permission') ? $request->input('permission') : [];
             $role->givePermissionTo($permissions);
             return redirect()->back()->with('success', 'Create role successfully');
@@ -55,8 +58,11 @@ class RoleController extends Controller
 
             $this->validate($request, [
                 'name' => 'required|unique:roles,name,' . $role->id,
+                'limit_device' => 'nullable|numeric|gt:0'
             ]);
             $role->update($request->except('permission'));
+            $role->limit_device = $request->limit_device;
+            $role->save();
             $permissions = $request->input('permission') ? $request->input('permission') : [];
 
             $role->syncPermissions($permissions);

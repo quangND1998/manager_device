@@ -17,10 +17,22 @@ use Inertia\Inertia;
 class DeviceController extends Controller
 {
     public function index(Request $request){
-        $devices = Devices::with('applications','default_app')->where(function ($query) use ($request) {
-            $query->where('name', 'LIKE', '%' . $request->term . '%');
-        })->get();
-        $applications = Applicaion::groupby('packageName')->get();
+        $user = Auth::user();
+        if($user->hasPermissionTo('user-manager')){
+            $devices = Devices::with('applications','default_app')->where(function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->term . '%');
+            })->get();
+           
+            $applications = Applicaion::groupby('packageName')->get();
+        }
+        else if($user->hasPermissionTo('Lite')){
+            $devices = Devices::with('applications','default_app')->where('user_id',$user->id)->where(function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->term . '%');
+            })->get();
+            $applications = Applicaion::where('default', true)->groupby('packageName')->get();
+        }
+       
+     
         $wifis = Wifi::get();
         return Inertia::render('Devices/Index',compact('devices','applications','wifis'));
     }
@@ -211,7 +223,9 @@ class DeviceController extends Controller
         }
     
     }
+     
 
+    
 
    
 }
