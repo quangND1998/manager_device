@@ -19,5 +19,11 @@ class RoleSeeder extends Seeder
 
         $role = Role::create(['name' => 'content-creator']);
         $role->givePermissionTo('create-project');
+        $role = Role::create(['name' => 'Lite']);
+        $role->givePermissionTo('Lite');
+        $role = Role::create(['name' => 'Demo']);
+        $role->givePermissionTo('Demo');
+        $role = Role::create(['name' => 'Pro']);
+        $role->givePermissionTo('Pro');
     }
 }
