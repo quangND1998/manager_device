@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 class AuthController extends Controller
@@ -65,6 +66,7 @@ class AuthController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required',
+            'role' => 'required'
 
         ]);
         if ($validator->fails()) {
@@ -76,6 +78,26 @@ class AuthController extends Controller
             'email' => $request->email
         ]);
         $user->password = Hash::make($request->password);
+
+        if($request->role =='Pro' || $request->role =='Pro2' || $request->role =='Manager' ||  $request->role =='Sub Admin' ){
+            $role = Role::where('name','Pro')->first();
+            $user->roles()->sync($role);
+
+        }
+        else if($request->role =='Admin'){
+            $role = Role::where('name','administrator')->first();
+            $user->roles()->sync($role);
+
+        }
+        else if($request->role =='Demo'){
+            $role = Role::where('name',$request->role)->first();
+            $user->roles()->sync($role);
+
+        } else{
+            $role = Role::where('name',$request->role)->first();
+            $user->roles()->sync($role);
+
+        }
         $user->save();
         return response()->json('Create successfully', Response::HTTP_OK);
     }
@@ -83,8 +105,9 @@ class AuthController extends Controller
     public function update_user(Request $request){
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email',
             'password' => 'required',
+            'role' => 'required'
 
         ]);
         if ($validator->fails()) {
@@ -98,9 +121,28 @@ class AuthController extends Controller
             ]);
         }
         
-        $user->password = Hash::make($request->password);
+        if($request->role =='Pro' || $request->role =='Pro2' || $request->role =='Manager' ||  $request->role =='Sub Admin' ){
+            $role = Role::where('name','Pro')->first();
+            $user->roles()->sync($role);
+
+        }
+        else if($request->role =='Admin'){
+            $role = Role::where('name','administrator')->first();
+            $user->roles()->sync($role);
+
+        }
+        else if($request->role =='Demo'){
+            $role = Role::where('name',$request->role)->first();
+            $user->roles()->sync($role);
+
+        } else{
+            $role = Role::where('name',$request->role)->first();
+            $user->roles()->sync($role);
+
+        }
+
         $user->save();
-        return response()->json('Create successfully', Response::HTTP_OK);
+        return response()->json('Update successfully', Response::HTTP_OK);
     }
     
     
