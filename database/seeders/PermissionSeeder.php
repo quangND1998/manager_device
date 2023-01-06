@@ -23,5 +23,8 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'create-user']);
         Permission::create(['name' => 'delete-user']);
         Permission::create(['name' => 'create-project']);
+        Permission::create(['name' => 'Lite']);
+        Permission::create(['name' => 'Demo']);
+        Permission::create(['name' => 'Pro']);
     }
 }

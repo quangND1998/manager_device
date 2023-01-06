@@ -57,7 +57,8 @@ Route::middleware(['auth'])->group(
             Route::post('', [UserController::class, 'store'])->name('store');
             Route::put('/update/{id}', [UserController::class, 'update'])->name('update');
             Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('destroy');
-            // Route::post('import/user',  [UserController::class, 'import'])->name('import');
+
+            Route::post('import',  [UserController::class, 'importUser'])->name('import');
         });
 
         Route::prefix('groups')->as('group.')->group(function () {
@@ -85,7 +86,7 @@ Route::middleware(['auth'])->group(
 
         Route::prefix('applications')->as('application.')->group(function () {
             Route::get('', [ApplicationController::class, 'index'])->name('index');
-          
+            Route::post('changeDefault', [ApplicationController::class,'changeDefault'])->name('default');
         });
     
         Route::prefix('wifis')->as('wifi.')->group(function () {
@@ -95,6 +96,7 @@ Route::middleware(['auth'])->group(
             Route::delete('delete/{id}',[WifiController::class ,'delete'])->name('delete');
            
         });
+        
     }
 );
 require __DIR__ . '/auth.php';

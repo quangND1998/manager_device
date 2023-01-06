@@ -42,8 +42,8 @@
         </li>
       
     </li>
-    <li class="header">User managerment</li>
-    <li class="treeview">
+    <li class="header" v-if="hasAnyPermission(['user-manager'])">User managerment</li>
+    <li class="treeview"  v-if="hasAnyPermission(['user-manager'])">
       <a href="#">
         <i class="fa fa-list"></i>
         <span class="treeview-title">User managerment</span>

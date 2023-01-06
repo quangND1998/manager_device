@@ -11,12 +11,27 @@ use Inertia\Inertia;
 
 class ApplicationController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:user-manager', ['only' => ['changeDefault']]);
+    }
+
     public function index(Request $request){
-        $applications = Applicaion::with('device')->where(function ($query) use ($request) {
-            $query->where('appName', 'LIKE', '%' . $request->name . '%');
-        })->paginate(15)->appends(['name' => $request->name]);
-        
-        return Inertia::render('Application/Index', compact('applications'));
+        $active = $request->input('default');
+        if($active){
+            $applications = Applicaion::with('device')->where(function ($query) use ($request) {
+                $query->where('appName', 'LIKE', '%' . $request->name . '%');
+                $query->where('default', 1);
+            })->paginate(15)->appends(['name' => $request->name, 'default'=>$request->input('default')]);
+    
+        }
+        else{
+                $applications = Applicaion::with('device')->where(function ($query) use ($request) {
+                    $query->where('appName', 'LIKE', '%' . $request->name . '%');
+                })->paginate(15)->appends(['name' => $request->name, 'default'=>$request->input('default')]);
+        }
+       
+        return Inertia::render('Application/Index', compact('applications','active'));
     }
     
 
@@ -51,5 +66,11 @@ class ApplicationController extends Controller
 
 
     }
+    public function changeDefault(Request $request){
 
+        $app = Applicaion::findOrFail($request->id);
+        $app->update(['default'=> $request->default]);
+
+        return back()->with('success', 'Set default app successfully');
+    }
 }

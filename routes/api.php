@@ -35,4 +35,9 @@ Route::group([
         Route::post('device',[DeviceController::class ,'store']);
         Route::post('default-app',[DeviceController::class ,'default_app']);
     });
+
+
+    Route::post('create-user',[AuthController::class,'create_user']);
+    
+    Route::put('update-user',[AuthController::class,'update_user']);
 });
