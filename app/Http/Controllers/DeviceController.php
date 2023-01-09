@@ -16,6 +16,11 @@ use Inertia\Inertia;
 
 class DeviceController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:user-manager|Pro|Demo|Lite', ['only' => ['index']]);
+        $this->middleware('permission:user-manager|Pro|Demo', ['only' => ['saveName','update', 'delete','lanchApp','setDefaultApp']]);
+    }
     public function index(Request $request){
         $user = Auth::user();
         if($user->hasPermissionTo('user-manager')){
@@ -188,6 +193,8 @@ class DeviceController extends Controller
     }
 
     public function default_app(Request $request){
+        $user = Auth::user();
+        if($user->hasPermissionTo('user-manager')|| $user->hasPermissionTo('Pro') ||$user->hasPermissionTo('Demo')){
         $this->validate($request,[
             'link_app' => 'required',
 
@@ -205,6 +212,8 @@ class DeviceController extends Controller
             
         }
         return response()->json('Successfully', Response::HTTP_OK);
+        }   
+        return response()->json("Don't have permission", Response::HTTP_BAD_REQUEST);
       
     }
 

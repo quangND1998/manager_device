@@ -39,7 +39,7 @@ class AuthController extends Controller
             'msg' => 'You are logged in!',
             'token' => $token,
             'user_name' => $user->name,
-            'user' => $user
+            'user' => new UserApiResource($user)
         ];
         return response()->json($response, Response::HTTP_OK);
     }
