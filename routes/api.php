@@ -34,7 +34,7 @@ Route::group([
         Route::get('getDevice/{id}',[DeviceController::class ,'getDevice']);
         Route::post('device',[DeviceController::class ,'store']);
         Route::post('default-app',[DeviceController::class ,'default_app']);
-        Route::get('getUser',[AuthController::class,'getUserByToken']);
+        Route::post('getUser',[AuthController::class,'getUserByToken']);
     });
 
 
