@@ -10,6 +10,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class ImportUser implements ShouldQueue
 {
@@ -51,20 +52,21 @@ class ImportUser implements ShouldQueue
             $user->save();  
         }
 
-        if($this->user['role']['name_role'] =='Pro' || $this->user['role']['name_role'] =='Pro2' || $this->user['role']['name_role'] =='Manager' ||  $this->user['role']['name_role'] =='Sub Admin' ){
-            $user->assignRole('Pro');
+        // if($this->user['role']['name_role'] =='Pro' || $this->user['role']['name_role'] =='Pro2' || $this->user['role']['name_role'] =='Manager' ||  $this->user['role']['name_role'] =='Sub Admin' ){
+        //     $user->assignRole('Pro');
 
-        }
-        else if($this->user['role']['name_role'] =='Admin'){
-            $user->assignRole('administrator');
+        // }
+        // else if($this->user['role']['name_role'] =='Admin'){
+        //     $user->assignRole('administrator');
 
-        }
-        else if($this->user['role']['name_role'] =='Demo'){
-            $user->assignRole('Demo');
+        // }
+        // else if($this->user['role']['name_role'] =='Demo'){
+        //     $user->assignRole('Demo');
 
-        } else{
-            $user->assignRole('Lite');
+        // } else{
+            $role= Role::where('name', 'Lite')->first();
+            $user->roles()->sync($role);
 
-        }
+        // }
     }
 }

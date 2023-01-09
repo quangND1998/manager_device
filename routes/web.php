@@ -7,6 +7,7 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\WifiController;
+use App\Http\Controllers\Payment\PackageController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -95,6 +96,10 @@ Route::middleware(['auth'])->group(
             Route::put('update/{id}',[WifiController::class ,'update'])->name('update');
             Route::delete('delete/{id}',[WifiController::class ,'delete'])->name('delete');
            
+        });
+
+        Route::prefix('packages')->as('package.')->group(function(){
+            Route::get('list',[PackageController::class,'index'])->name('index');
         });
         
     }
