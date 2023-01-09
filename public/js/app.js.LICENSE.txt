@@ -2,10 +2,11 @@
  * @license MIT */
 
 /*!
- * The buffer module from node.js, for the browser.
+ * Pusher JavaScript Library v7.5.0
+ * https://pusher.com/
  *
- * @author   Feross Aboukhadijeh <http://feross.org>
- * @license  MIT
+ * Copyright 2020, Pusher
+ * Released under the MIT licence.
  */
 
 /*!
@@ -13,10 +14,6 @@
  * (c) 2014-2021 Evan You
  * Released under the MIT License.
  */
-
-/*! https://mths.be/utf8js v2.1.2 by @mathias */
-
-/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
 
 /**
  * @license
