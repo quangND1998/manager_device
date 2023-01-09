@@ -74,6 +74,7 @@ Route::middleware(['auth'])->group(
             
             Route::post('default-app/{id}',[GroupController::class,'setAppDefaultGroup'])->name('default-app');
             Route::post('runAppGoup/{id}',[GroupController::class,'runAppGoup'])->name('runAppGoup');
+           
         });
 
         Route::prefix('devices')->as('device.')->group(function () {
@@ -83,6 +84,7 @@ Route::middleware(['auth'])->group(
             Route::post('/lanchApp', [DeviceController::class, 'lanchApp'])->name('lanchApp');
             Route::post('/setDefaultApp', [DeviceController::class, 'setDefaultApp'])->name('setDefaultApp');
             Route::post('connectWifi',[DeviceController::class ,'connectWifi'])->name('connectWifi');
+            Route::get('disableDefaultApp/{id}',[DeviceController::class,'disableDefaultApp'])->name('disableDefaultApp');
         });
 
         Route::prefix('applications')->as('application.')->group(function () {

@@ -27,7 +27,7 @@ class DeviceController extends Controller
             $devices = Devices::with('applications','default_app')->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
             })->get();
-           
+  
             $applications = Applicaion::groupby('packageName')->get();
         }
         else if($user->hasPermissionTo('Lite')){
@@ -232,6 +232,15 @@ class DeviceController extends Controller
         }
     
     }
+
+    public function disableDefaultApp($id){
+        $device = Devices::findOrFail($id);
+        $device->update(['app_default_id'=>null]);
+        return redirect('/devices')->with('success', 'Successfully');
+
+    }
+
+    
      
 
     
