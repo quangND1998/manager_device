@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserApiResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -60,6 +61,20 @@ class AuthController extends Controller
         }
     }
 
+
+
+    public function getUserByToken(Request $request){
+        // try {
+        //     JWTAuth::invalidate($request->input('token'));
+        $user =  JWTAuth::user($request->input('token'));
+        return new UserApiResource($user);
+           
+        //     return $user;
+        //     return response()->json('You have successfully logged out.', Response::HTTP_OK);
+        // } catch (JWTException $e) {
+        //     return response()->json('Failed, please try again.', Response::HTTP_BAD_REQUEST);
+        // }
+    }
 
     public function create_user(Request $request){
         $validator = Validator::make($request->all(), [
