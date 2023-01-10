@@ -8,6 +8,7 @@ use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\WifiController;
 use App\Http\Controllers\Payment\PackageController;
+use App\Http\Controllers\Payment\PricingController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -102,6 +103,9 @@ Route::middleware(['auth'])->group(
 
         Route::prefix('packages')->as('package.')->group(function(){
             Route::get('list',[PackageController::class,'index'])->name('index');
+        });
+        Route::prefix('pricing')->as('pricing.')->group(function(){
+            Route::get('',[PricingController::class,'index'])->name('index');
         });
         
     }
