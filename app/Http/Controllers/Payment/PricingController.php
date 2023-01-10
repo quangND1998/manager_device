@@ -17,6 +17,7 @@ class PricingController extends Controller
 
     public function addToCart(Request $request){
         
-        dd($request);
+        // dd($request);
+        return Inertia::render('Payment/Order');
     }
 }
