@@ -10198,7 +10198,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       form: this.$inertia.form({
-        quality: 1,
+        number_device: 2,
         package_product_id: null
       })
     };
@@ -58180,8 +58180,8 @@ var render = function () {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.form.quality,
-                      expression: "form.quality",
+                      value: _vm.form.number_device,
+                      expression: "form.number_device",
                     },
                   ],
                   staticClass:
@@ -58192,10 +58192,10 @@ var render = function () {
                     value: "2",
                     name: "list-radio",
                   },
-                  domProps: { checked: _vm._q(_vm.form.quality, "2") },
+                  domProps: { checked: _vm._q(_vm.form.number_device, "2") },
                   on: {
                     change: function ($event) {
-                      return _vm.$set(_vm.form, "quality", "2")
+                      return _vm.$set(_vm.form, "number_device", "2")
                     },
                   },
                 }),
@@ -58226,8 +58226,8 @@ var render = function () {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.form.quality,
-                      expression: "form.quality",
+                      value: _vm.form.number_device,
+                      expression: "form.number_device",
                     },
                   ],
                   staticClass:
@@ -58238,10 +58238,10 @@ var render = function () {
                     value: "4",
                     name: "list-radio",
                   },
-                  domProps: { checked: _vm._q(_vm.form.quality, "4") },
+                  domProps: { checked: _vm._q(_vm.form.number_device, "4") },
                   on: {
                     change: function ($event) {
-                      return _vm.$set(_vm.form, "quality", "4")
+                      return _vm.$set(_vm.form, "number_device", "4")
                     },
                   },
                 }),
@@ -58272,8 +58272,8 @@ var render = function () {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.form.quality,
-                      expression: "form.quality",
+                      value: _vm.form.number_device,
+                      expression: "form.number_device",
                     },
                   ],
                   staticClass:
@@ -58284,10 +58284,10 @@ var render = function () {
                     value: "8",
                     name: "list-radio",
                   },
-                  domProps: { checked: _vm._q(_vm.form.quality, "8") },
+                  domProps: { checked: _vm._q(_vm.form.number_device, "8") },
                   on: {
                     change: function ($event) {
-                      return _vm.$set(_vm.form, "quality", "8")
+                      return _vm.$set(_vm.form, "number_device", "8")
                     },
                   },
                 }),
@@ -58312,8 +58312,8 @@ var render = function () {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.form.quality,
-                    expression: "form.quality",
+                    value: _vm.form.number_device,
+                    expression: "form.number_device",
                   },
                 ],
                 staticClass:
@@ -58324,10 +58324,10 @@ var render = function () {
                   value: "10",
                   name: "list-radio",
                 },
-                domProps: { checked: _vm._q(_vm.form.quality, "10") },
+                domProps: { checked: _vm._q(_vm.form.number_device, "10") },
                 on: {
                   change: function ($event) {
-                    return _vm.$set(_vm.form, "quality", "10")
+                    return _vm.$set(_vm.form, "number_device", "10")
                   },
                 },
               }),
@@ -58389,14 +58389,20 @@ var render = function () {
                           _c("strong", [
                             _vm._v(
                               "$ " +
-                                _vm._s(package_product.price * _vm.form.quality)
+                                _vm._s(
+                                  package_product.price * _vm.form.number_device
+                                )
                             ),
                           ]),
                           _vm._v(" "),
                           _c(
                             "small",
                             { staticClass: "text-gray-500 text-xl" },
-                            [_vm._v("/" + _vm._s(_vm.form.quality) + " Device")]
+                            [
+                              _vm._v(
+                                "/" + _vm._s(_vm.form.number_device) + " Device"
+                              ),
+                            ]
                           ),
                         ]),
                         _vm._v(" "),

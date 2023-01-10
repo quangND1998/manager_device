@@ -17,11 +17,12 @@ class PricingController extends Controller
     }
 
     public function addToCart(Request $request){
+        // dd($request);
         Session::forget('cart');
         $package = ProductPackage::find($request->package_product_id);
         $oldCart = Session('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
-        $cart->add( $package->id,$package);
+        $cart->add( $package->id,$package,$request->number_device);
         Session::put('cart', $cart);
 
         dd($cart);
