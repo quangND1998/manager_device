@@ -8,7 +8,7 @@
       </Link>
     </li>
     <li tag="li" :class="[$page.component === 'topup' ? 'active' : '']">
-      <Link :href="route('topup')" >
+      <Link :href="route('topup.index')" >
         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
         <span class="page">TopUp</span>
       </Link>
@@ -73,6 +73,34 @@
             <i class="fa fa-users"></i> Users
           </Link>
         </li>
+      </ul>
+    </li>
+
+    <li class="header" v-if="hasAnyPermission(['user-manager'])">Admin managerment</li>
+    <li class="treeview"  v-if="hasAnyPermission(['user-manager'])">
+      <a href="#">
+        <i class="fa fa-list"></i>
+        <span class="treeview-title">Admin managerment</span>
+        <span class="pull-right-container pull-right">
+          <i class="fa fa-angle-left fa-fw"></i>
+        </span>
+      </a>
+      <ul class="treeview-menu">
+        <li :class="[$page.component === 'Package/Index' ? 'active' : '']">
+          <Link :href="route('package.index')">
+            <i class="fa fa-product-hunt" aria-hidden="true"></i> Package License 
+          </Link>
+        </li>
+        <!-- <li :class="[$page.component === 'Admin/Roles' ? 'active' : '']">
+          <Link :href="route('roles.index')">
+            <i class="fa fa-check-circle"></i> Roles
+          </Link>
+        </li>
+        <li :class="[$page.component === 'Admin/User' ? 'active' : '']">
+          <Link :href="route('users.index')">
+            <i class="fa fa-users"></i> Users
+          </Link>
+        </li> -->
       </ul>
     </li>
     <!-- <li class="header">LOGS</li>

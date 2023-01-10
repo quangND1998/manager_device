@@ -19,7 +19,7 @@ class UserApiResource extends JsonResource
             'id' => $this->id,
             'email' => $this->email,
             'name' => $this->name,
-            'roles' => $this->getRolesArray()
+            'roles' => $this->hasAnyRole(['administrator', 'Pro', 'Demo'])
 
         ];
     }

@@ -52,7 +52,7 @@ class OnePayController extends Controller
         } else {
             $response = "Fail transaction";
         }
-        $convent = config::get('constants.VALUE_CONVERT_USD_TO_VN');
+        $convent = 25030;
         return view('guest.test_response', ['state' => $txnResponseCode, 'response' => $response, 'amount' => $_GET['vpc_Amount']/(100*$convent), 'data' => $_GET]);
     }
 }
