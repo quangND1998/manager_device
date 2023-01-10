@@ -34,7 +34,7 @@ class PricingController extends Controller
         if (Session::has('cart')) {
             $oldCart = Session::get('cart');
             $cart_new = new Cart($oldCart);
-            return view('guest.cart', ['cart' => $cart, 'product_cart' => $cart_new->items, 'totalPrice' => $cart_new->totalPrice, 'totalQty' => $cart->totalQty, 'list_map' => $cart_new->list_map]);
+            return view('guest.cart', ['cart' => $cart, 'product_cart' => $cart_new->items, 'totalPrice' => $cart_new->totalPrice, 'totalQty' => $cart->totalQty]);
         } else {
             return view('guest.cart');
         }
