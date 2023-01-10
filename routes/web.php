@@ -9,6 +9,7 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\WifiController;
 use App\Http\Controllers\Payment\PackageController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Payment\OnePayController;
 use Inertia\Inertia;
 
 /*
@@ -103,6 +104,10 @@ Route::middleware(['auth'])->group(
 
         Route::prefix('packages')->as('package.')->group(function(){
             Route::get('list',[PackageController::class,'index'])->name('index');
+        });
+        Route::prefix('payment')->as('payment.')->group(function(){
+            Route::get('order',[OnePayController::class,'postDataPayment'])->name('order');
+            Route::get('response_order',[OnePayController::class,'responsePaymentOrder'])->name('response_order');
         });
 
     }
