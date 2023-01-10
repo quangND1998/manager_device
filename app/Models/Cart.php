@@ -11,11 +11,13 @@ class Cart extends Model
     public $totalQty = 0;
     public $items = null;
     public $totalPrice = 0;
+    public $number_device = 2;
     public function __construct($oldCart){
 		if($oldCart){
 			$this->items = $oldCart->items;
 			$this->totalQty = $oldCart->totalQty;
 			$this->totalPrice = $oldCart->totalPrice;
+            $this->number_device = $oldCart->number_device;
 		}
 	}
     public function totalPrice(){
@@ -27,8 +29,8 @@ class Cart extends Model
 			}
 		}
 	}
-    public function add($id,$item){
-		$giohang = ['qty'=>0,'type'=>'package', 'price' => $item->price, 'item' => $item];
+    public function add($id,$item,$number_device){
+		$giohang = ['qty'=>0,'type'=>'package', 'price' => $item->price, 'item' => $item, 'number_device' => $number_device];
 		if($this->items){
 			if(array_key_exists($id, $this->items)){
 				$giohang = $this->items[$id];

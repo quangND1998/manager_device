@@ -6,32 +6,32 @@
       <h2 class="text-6xl font-bold text-center mb-6">TopUp </h2>
 
       <p class="text-center text-3xl mb-12 text-gray-500">
-        
+
       </p>
 
       <h3 class=" font-semibold text-gray-900 dark:text-white mb-8">Number Devices:</h3>
       <ul class="items-center w-full text-xl font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
           <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
               <div class="flex items-center pl-3">
-                  <input id="horizontal-list-radio-license" v-model="form.quality" type="radio" value="2" name="list-radio" class="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                  <input id="horizontal-list-radio-license" v-model="form.number_device" type="radio" value="2" name="list-radio" class="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                   <label for="horizontal-list-radio-license" class="w-full py-3 ml-2 text-2xl font-medium text-gray-900 dark:text-gray-300">2 Devices </label>
               </div>
           </li>
           <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
               <div class="flex items-center pl-3">
-                  <input id="horizontal-list-radio-id" type="radio" v-model="form.quality" value="4" name="list-radio" class="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                  <input id="horizontal-list-radio-id" type="radio" v-model="form.number_device" value="4" name="list-radio" class="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                   <label for="horizontal-list-radio-id" class="w-full py-3 ml-2 text-2xl font-medium text-gray-900 dark:text-gray-300">4 Devices</label>
               </div>
           </li>
           <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
               <div class="flex items-center pl-3">
-                  <input id="horizontal-list-radio-millitary" v-model="form.quality" type="radio" value="8" name="list-radio" class="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                  <input id="horizontal-list-radio-millitary" v-model="form.number_device" type="radio" value="8" name="list-radio" class="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                   <label for="horizontal-list-radio-millitary" class="w-full py-3 ml-2 text-2xl font-medium text-gray-900 dark:text-gray-300">8 Devices</label>
               </div>
           </li>
           <li class="w-full dark:border-gray-600">
               <div class="flex items-center pl-3">
-                  <input id="horizontal-list-radio-passport" v-model="form.quality" type="radio" value="10" name="list-radio" class="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                  <input id="horizontal-list-radio-passport" v-model="form.number_device" type="radio" value="10" name="list-radio" class="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                   <label for="horizontal-list-radio-passport" class="w-full py-3 ml-2 text-2xl font-medium text-gray-900 dark:text-gray-300">10 Devices</label>
               </div>
           </li>
@@ -47,8 +47,8 @@
                 <small class="text-gray-500 text-xl">({{ package_product.package_time }} days)</small>
               </p>
               <h3 class="text-6xl mb-6">
-                <strong>$ {{ package_product.price *form.quality }}</strong>
-                <small class="text-gray-500 text-xl">/{{form.quality}} Device</small>
+                <strong>$ {{ package_product.price *form.number_device }}</strong>
+                <small class="text-gray-500 text-xl">/{{form.number_device}} Device</small>
               </h3>
 
               <button type="button"  @click="addtoCart(package_product)"
@@ -78,7 +78,7 @@
             <p class="uppercase mb-4 text-4xl">
               <strong>More</strong>
             </p>
-    
+
             <button type="button"
               class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
               data-mdb-ripple="true" data-ripple-color="light">
@@ -311,14 +311,14 @@ export default {
   },
   data() {
     return {
-  
+
       form:this.$inertia.form({
-         quality:1,
+         number_device:2,
          package_product_id: null,
       })
     }
   },
- 
+
   methods:{
      addtoCart(data){
        this.form.package_product_id = data.id;
