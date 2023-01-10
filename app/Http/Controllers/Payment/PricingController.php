@@ -25,7 +25,7 @@ class PricingController extends Controller
         $cart->add( $package->id,$package,$request->number_device);
         Session::put('cart', $cart);
 
-        dd($cart);
+        // dd($cart);
 
         return redirect('order_final');
     }
@@ -35,9 +35,10 @@ class PricingController extends Controller
         if (Session::has('cart')) {
             $oldCart = Session::get('cart');
             $cart_new = new Cart($oldCart);
-            return view('guest.cart', ['cart' => $cart, 'product_cart' => $cart_new->items, 'totalPrice' => $cart_new->totalPrice, 'totalQty' => $cart->totalQty]);
+            return Inertia::render('Payment/Order',['cart' => $cart, 'product_cart' => $cart_new->items, 'totalPrice' => $cart_new->totalPrice, 'totalQty' => $cart->totalQty]);
         } else {
             return view('guest.cart');
         }
+
     }
 }

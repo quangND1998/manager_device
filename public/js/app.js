@@ -9692,6 +9692,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue */ "./node_modules/@inertiajs/inertia-vue/dist/index.js");
 /* harmony import */ var _Components_Layout_Layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Components/Layout/Layout */ "./resources/js/Components/Layout/Layout.vue");
+/* harmony import */ var _Components_Layout_ContentHeader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Components/Layout/ContentHeader */ "./resources/js/Components/Layout/ContentHeader.vue");
+/* harmony import */ var _Components_Alert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Components/Alert */ "./resources/js/Components/Alert.vue");
 //
 //
 //
@@ -9780,93 +9782,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   layout: _Components_Layout_Layout__WEBPACK_IMPORTED_MODULE_1__["default"],
   components: {
-    Link: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.Link
+    Link: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.Link,
+    Alert: _Components_Alert__WEBPACK_IMPORTED_MODULE_3__["default"],
+    ContentHeaderVue: _Components_Layout_ContentHeader__WEBPACK_IMPORTED_MODULE_2__["default"]
   }
 });
 
@@ -57649,190 +57574,142 @@ var render = function () {
             _vm._v(" "),
             _vm._m(1),
             _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "flex items-center hover:bg-gray-100 -mx-8 px-6 py-5",
-              },
-              [
-                _vm._m(2),
-                _vm._v(" "),
-                _c("div", { staticClass: "flex justify-center w-1/5" }, [
-                  _c(
-                    "svg",
-                    {
-                      staticClass: "fill-current text-gray-600 w-3",
-                      attrs: { viewBox: "0 0 448 512" },
-                    },
-                    [
-                      _c("path", {
-                        attrs: {
-                          d: "M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z",
-                        },
-                      }),
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("input", {
-                    staticClass: "mx-2 border text-center w-8",
-                    attrs: { type: "text", value: "1" },
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "svg",
-                    {
-                      staticClass: "fill-current text-gray-600 w-3",
-                      attrs: { viewBox: "0 0 448 512" },
-                    },
-                    [
-                      _c("path", {
-                        attrs: {
-                          d: "M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z",
-                        },
-                      }),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  { staticClass: "text-center w-1/5 font-semibold text-sm" },
-                  [_vm._v("$400.00")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  { staticClass: "text-center w-1/5 font-semibold text-sm" },
-                  [_vm._v("$400.00")]
-                ),
-              ]
-            ),
+            _c("span", { staticClass: "font-semibold text-2xl uppercase " }, [
+              _vm._v("Detail"),
+            ]),
             _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "flex items-center hover:bg-gray-100 -mx-8 px-6 py-5",
-              },
-              [
-                _vm._m(3),
-                _vm._v(" "),
-                _c("div", { staticClass: "flex justify-center w-1/5" }, [
-                  _c(
-                    "svg",
-                    {
-                      staticClass: "fill-current text-gray-600 w-3",
-                      attrs: { viewBox: "0 0 448 512" },
-                    },
-                    [
-                      _c("path", {
+            _c("div", { staticClass: "flex justify-between border-b pb-8" }, [
+              _c(
+                "ul",
+                { staticClass: "space-y-5 my-7", attrs: { role: "list" } },
+                [
+                  _c("li", { staticClass: "flex space-x-3" }, [
+                    _c(
+                      "svg",
+                      {
+                        staticClass:
+                          "flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-500",
                         attrs: {
-                          d: "M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z",
+                          "aria-hidden": "true",
+                          fill: "currentColor",
+                          viewBox: "0 0 20 20",
+                          xmlns: "http://www.w3.org/2000/svg",
                         },
-                      }),
-                    ]
-                  ),
+                      },
+                      [
+                        _c("title", [_vm._v("Check icon")]),
+                        _c("path", {
+                          attrs: {
+                            "fill-rule": "evenodd",
+                            d: "M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z",
+                            "clip-rule": "evenodd",
+                          },
+                        }),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticClass:
+                          "text-2xl font-normal leading-tight text-gray-500 dark:text-gray-400",
+                      },
+                      [_vm._v("1 Month")]
+                    ),
+                  ]),
                   _vm._v(" "),
-                  _c("input", {
-                    staticClass: "mx-2 border text-center w-8",
-                    attrs: { type: "text", value: "1" },
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "svg",
-                    {
-                      staticClass: "fill-current text-gray-600 w-3",
-                      attrs: { viewBox: "0 0 448 512" },
-                    },
-                    [
-                      _c("path", {
+                  _c("li", { staticClass: "flex space-x-3" }, [
+                    _c(
+                      "svg",
+                      {
+                        staticClass:
+                          "flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-500",
                         attrs: {
-                          d: "M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z",
+                          "aria-hidden": "true",
+                          fill: "currentColor",
+                          viewBox: "0 0 20 20",
+                          xmlns: "http://www.w3.org/2000/svg",
                         },
-                      }),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  { staticClass: "text-center w-1/5 font-semibold text-sm" },
-                  [_vm._v("$40.00")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  { staticClass: "text-center w-1/5 font-semibold text-sm" },
-                  [_vm._v("$40.00")]
-                ),
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "flex items-center hover:bg-gray-100 -mx-8 px-6 py-5",
-              },
-              [
-                _vm._m(4),
-                _vm._v(" "),
-                _c("div", { staticClass: "flex justify-center w-1/5" }, [
-                  _c(
-                    "svg",
-                    {
-                      staticClass: "fill-current text-gray-600 w-3",
-                      attrs: { viewBox: "0 0 448 512" },
-                    },
-                    [
-                      _c("path", {
-                        attrs: {
-                          d: "M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z",
-                        },
-                      }),
-                    ]
-                  ),
+                      },
+                      [
+                        _c("title", [_vm._v("Check icon")]),
+                        _c("path", {
+                          attrs: {
+                            "fill-rule": "evenodd",
+                            d: "M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z",
+                            "clip-rule": "evenodd",
+                          },
+                        }),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _vm._m(2),
+                  ]),
                   _vm._v(" "),
-                  _c("input", {
-                    staticClass: "mx-2 border text-center w-8",
-                    attrs: { type: "text", value: "1" },
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "svg",
-                    {
-                      staticClass: "fill-current text-gray-600 w-3",
-                      attrs: { viewBox: "0 0 448 512" },
-                    },
-                    [
-                      _c("path", {
+                  _c("li", { staticClass: "flex space-x-3" }, [
+                    _c(
+                      "svg",
+                      {
+                        staticClass:
+                          "flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-500",
                         attrs: {
-                          d: "M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z",
+                          "aria-hidden": "true",
+                          fill: "currentColor",
+                          viewBox: "0 0 20 20",
+                          xmlns: "http://www.w3.org/2000/svg",
                         },
-                      }),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  { staticClass: "text-center w-1/5 font-semibold text-sm" },
-                  [_vm._v("$150.00")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  { staticClass: "text-center w-1/5 font-semibold text-sm" },
-                  [_vm._v("$150.00")]
-                ),
-              ]
-            ),
+                      },
+                      [
+                        _c("title", [_vm._v("Check icon")]),
+                        _c("path", {
+                          attrs: {
+                            "fill-rule": "evenodd",
+                            d: "M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z",
+                            "clip-rule": "evenodd",
+                          },
+                        }),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _vm._m(3),
+                  ]),
+                  _vm._v(" "),
+                  _c("li", { staticClass: "flex space-x-3" }, [
+                    _c(
+                      "svg",
+                      {
+                        staticClass:
+                          "flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-500",
+                        attrs: {
+                          "aria-hidden": "true",
+                          fill: "currentColor",
+                          viewBox: "0 0 20 20",
+                          xmlns: "http://www.w3.org/2000/svg",
+                        },
+                      },
+                      [
+                        _c("title", [_vm._v("Check icon")]),
+                        _c("path", {
+                          attrs: {
+                            "fill-rule": "evenodd",
+                            d: "M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z",
+                            "clip-rule": "evenodd",
+                          },
+                        }),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _vm._m(4),
+                  ]),
+                ]
+              ),
+            ]),
             _vm._v(" "),
             _c(
               "a",
               {
-                staticClass: "flex font-semibold text-indigo-600 text-sm mt-10",
+                staticClass:
+                  "flex font-semibold text-indigo-600 text-2xl mt-10",
                 attrs: { href: "#" },
               },
               [
@@ -57869,168 +57746,60 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "flex justify-between border-b pb-8" }, [
       _c("h1", { staticClass: "font-semibold text-2xl" }, [
-        _vm._v("Shopping Cart"),
+        _vm._v("Your Cart"),
       ]),
-      _vm._v(" "),
-      _c("h2", { staticClass: "font-semibold text-2xl" }, [_vm._v("3 Items")]),
     ])
   },
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex mt-10 mb-5" }, [
-      _c(
-        "h3",
-        { staticClass: "font-semibold text-gray-600 text-xs uppercase w-2/5" },
-        [_vm._v("Product Details")]
-      ),
+    return _c("div", { staticClass: "flex justify-between mt-10 mb-5" }, [
+      _c("span", { staticClass: "font-semibold text-2xl uppercase" }, [
+        _vm._v("Price "),
+      ]),
       _vm._v(" "),
-      _c(
-        "h3",
-        {
-          staticClass:
-            "font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center",
-        },
-        [_vm._v("Quantity")]
-      ),
-      _vm._v(" "),
-      _c(
-        "h3",
-        {
-          staticClass:
-            "font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center",
-        },
-        [_vm._v("Price")]
-      ),
-      _vm._v(" "),
-      _c(
-        "h3",
-        {
-          staticClass:
-            "font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center",
-        },
-        [_vm._v("Total")]
-      ),
+      _c("span", { staticClass: "font-semibold text-2xl" }, [_vm._v("400$")]),
     ])
   },
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex w-2/5" }, [
-      _c("div", { staticClass: "w-20" }, [
-        _c("img", {
-          staticClass: "h-24",
-          attrs: {
-            src: "https://drive.google.com/uc?id=18KkAVkGFvaGNqPy2DIvTqmUH_nk39o3z",
-            alt: "",
-          },
-        }),
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "flex flex-col justify-between ml-4 flex-grow" },
-        [
-          _c("span", { staticClass: "font-bold text-sm" }, [
-            _vm._v("Iphone 6S"),
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "text-red-500 text-xs" }, [
-            _vm._v("Apple"),
-          ]),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass:
-                "font-semibold hover:text-red-500 text-gray-500 text-xs",
-              attrs: { href: "#" },
-            },
-            [_vm._v("Remove")]
-          ),
-        ]
-      ),
-    ])
+    return _c(
+      "span",
+      {
+        staticClass:
+          "text-2xl font-normal leading-tight text-gray-500 dark:text-gray-400",
+      },
+      [_vm._v("Number device: "), _c("strong", [_vm._v("8 devices")])]
+    )
   },
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex w-2/5" }, [
-      _c("div", { staticClass: "w-20" }, [
-        _c("img", {
-          staticClass: "h-24",
-          attrs: {
-            src: "https://drive.google.com/uc?id=10ht6a9IR3K2i1j0rHofp9-Oubl1Chraw",
-            alt: "",
-          },
-        }),
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "flex flex-col justify-between ml-4 flex-grow" },
-        [
-          _c("span", { staticClass: "font-bold text-sm" }, [
-            _vm._v("Xiaomi Mi 20000mAh"),
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "text-red-500 text-xs" }, [
-            _vm._v("Xiaomi"),
-          ]),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass:
-                "font-semibold hover:text-red-500 text-gray-500 text-xs",
-              attrs: { href: "#" },
-            },
-            [_vm._v("Remove")]
-          ),
-        ]
-      ),
-    ])
+    return _c(
+      "span",
+      {
+        staticClass:
+          "text-2xl font-normal leading-tight text-gray-500 dark:text-gray-400",
+      },
+      [_vm._v("Price: "), _c("strong", [_vm._v("$ 400")])]
+    )
   },
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex w-2/5" }, [
-      _c("div", { staticClass: "w-20" }, [
-        _c("img", {
-          staticClass: "h-24",
-          attrs: {
-            src: "https://drive.google.com/uc?id=1vXhvO9HoljNolvAXLwtw_qX3WNZ0m75v",
-            alt: "",
-          },
-        }),
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "flex flex-col justify-between ml-4 flex-grow" },
-        [
-          _c("span", { staticClass: "font-bold text-sm" }, [_vm._v("Airpods")]),
-          _vm._v(" "),
-          _c("span", { staticClass: "text-red-500 text-xs" }, [
-            _vm._v("Apple"),
-          ]),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass:
-                "font-semibold hover:text-red-500 text-gray-500 text-xs",
-              attrs: { href: "#" },
-            },
-            [_vm._v("Remove")]
-          ),
-        ]
-      ),
-    ])
+    return _c(
+      "span",
+      {
+        staticClass:
+          "text-2xl font-normal leading-tight text-gray-500 dark:text-gray-400",
+      },
+      [_vm._v("Expiry date:  "), _c("strong", [_vm._v(" 30 days")])]
+    )
   },
   function () {
     var _vm = this
@@ -58045,41 +57814,27 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "flex justify-between mt-10 mb-5" }, [
-          _c("span", { staticClass: "font-semibold text-sm uppercase" }, [
-            _vm._v("Items 3"),
+          _c("span", { staticClass: "font-semibold text-2xl uppercase" }, [
+            _vm._v("Price "),
           ]),
           _vm._v(" "),
-          _c("span", { staticClass: "font-semibold text-sm" }, [
-            _vm._v("590$"),
+          _c("span", { staticClass: "font-semibold text-2xl" }, [
+            _vm._v("400$"),
           ]),
-        ]),
-        _vm._v(" "),
-        _c("div", [
-          _c(
-            "label",
-            { staticClass: "font-medium inline-block mb-3 text-sm uppercase" },
-            [_vm._v("Shipping")]
-          ),
-          _vm._v(" "),
-          _c(
-            "select",
-            { staticClass: "block p-2 text-gray-600 w-full text-sm" },
-            [_c("option", [_vm._v("Standard shipping - $10.00")])]
-          ),
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "py-10" }, [
           _c(
             "label",
             {
-              staticClass: "font-semibold inline-block mb-3 text-sm uppercase",
+              staticClass: "font-semibold inline-block mb-3 text-2xl uppercase",
               attrs: { for: "promo" },
             },
             [_vm._v("Promo Code")]
           ),
           _vm._v(" "),
           _c("input", {
-            staticClass: "p-2 text-sm w-full",
+            staticClass: "p-2 text-2xl w-full",
             attrs: {
               type: "text",
               id: "promo",
@@ -58092,7 +57847,7 @@ var staticRenderFns = [
           "button",
           {
             staticClass:
-              "bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase",
+              "bg-red-500 hover:bg-red-600 px-5 py-2 text-2xl text-white uppercase",
           },
           [_vm._v("Apply")]
         ),
@@ -58102,12 +57857,25 @@ var staticRenderFns = [
             "div",
             {
               staticClass:
-                "flex font-semibold justify-between py-6 text-sm uppercase",
+                "flex font-semibold justify-between py-6 text-2xl uppercase",
+            },
+            [
+              _c("span", [_vm._v("Discounts")]),
+              _vm._v(" "),
+              _c("span", [_vm._v(" %")]),
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "flex font-semibold justify-between py-6 text-2xl uppercase",
             },
             [
               _c("span", [_vm._v("Total cost")]),
               _vm._v(" "),
-              _c("span", [_vm._v("$600")]),
+              _c("span", [_vm._v("$400")]),
             ]
           ),
           _vm._v(" "),
@@ -58115,7 +57883,7 @@ var staticRenderFns = [
             "button",
             {
               staticClass:
-                "bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full",
+                "bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-2xl text-white uppercase w-full",
             },
             [_vm._v("Checkout")]
           ),
