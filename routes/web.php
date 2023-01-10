@@ -36,6 +36,9 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('/topup', function () {
+    return Inertia::render('topup');
+})->middleware(['auth'])->name('topup');
 
 Route::middleware(['auth'])->group(
     function () {
@@ -66,12 +69,12 @@ Route::middleware(['auth'])->group(
             Route::get('', [GroupController::class, 'index'])->name('index');
             Route::post('', [GroupController::class, 'store'])->name('store');
             Route::put('/update/{id}', [GroupController::class, 'update'])->name('update');
-            
+
             Route::post('/{id}/ownerDevice', [GroupController::class, 'ownerDevice'])->name('ownerDevice');
             Route::post('/deleteOwnerDevice/{id}', [GroupController::class, 'deleteOwnerDevice'])->name('deleteOwnerDevice');
             Route::get('/devices/{id}', [GroupController::class, 'getDeviceGourps'])->name('device');
             Route::delete('/delete/{id}', [GroupController::class, 'destroy'])->name('destroy');
-            
+
             Route::post('default-app/{id}',[GroupController::class,'setAppDefaultGroup'])->name('default-app');
             Route::post('runAppGoup/{id}',[GroupController::class,'runAppGoup'])->name('runAppGoup');
         });
@@ -89,19 +92,19 @@ Route::middleware(['auth'])->group(
             Route::get('', [ApplicationController::class, 'index'])->name('index');
             Route::post('changeDefault', [ApplicationController::class,'changeDefault'])->name('default');
         });
-    
+
         Route::prefix('wifis')->as('wifi.')->group(function () {
             Route::get('', [WifiController::class, 'index'])->name('index');
             Route::post('',[WifiController::class ,'store'])->name('store');
             Route::put('update/{id}',[WifiController::class ,'update'])->name('update');
             Route::delete('delete/{id}',[WifiController::class ,'delete'])->name('delete');
-           
+
         });
 
         Route::prefix('packages')->as('package.')->group(function(){
             Route::get('list',[PackageController::class,'index'])->name('index');
         });
-        
+
     }
 );
 require __DIR__ . '/auth.php';

@@ -7,11 +7,17 @@
         <span class="page">Dashboard</span>
       </Link>
     </li>
-  
+    <li tag="li" :class="[$page.component === 'topup' ? 'active' : '']">
+      <Link :href="route('topup')" >
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+        <span class="page">TopUp</span>
+      </Link>
+    </li>
+
 
     <li class="header">Device Manager</li>
     <li tag="li" class="pageli">
-    
+
       <li :class="[$page.component === 'Devices/Index' ? 'active' : '']">
           <Link :href="route('device.index')" :only="['devices']">
             <i class="fa fa-tasks"></i> Devices
@@ -24,7 +30,7 @@
             <i class="fa fa-th" aria-hidden="true"></i></i> Applications
           </Link>
         </li>
-      
+
     </li>
     <li tag="li" class="pageli">
       <li :class="[$page.component === 'Wifi/Index' ? 'active' : '']">
@@ -32,7 +38,7 @@
             <i class="fa fa-wifi" aria-hidden="true"></i></i> Wifi
           </Link>
         </li>
-      
+
     </li>
     <li tag="li" class="pageli">
       <li :class="[$page.component === 'Group/Index' ? 'active' : '']">
@@ -40,7 +46,7 @@
             <i class="fa fa-folder-o" aria-hidden="true"></i></i> Groups
           </Link>
         </li>
-      
+
     </li>
     <li class="header" v-if="hasAnyPermission(['user-manager'])">User managerment</li>
     <li class="treeview"  v-if="hasAnyPermission(['user-manager'])">
