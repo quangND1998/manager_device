@@ -75,7 +75,7 @@ Route::middleware(['auth'])->group(
             Route::post('/{id}/ownerDevice', [GroupController::class, 'ownerDevice'])->name('ownerDevice');
             Route::post('/deleteOwnerDevice/{id}', [GroupController::class, 'deleteOwnerDevice'])->name('deleteOwnerDevice');
             Route::get('/devices/{id}', [GroupController::class, 'getDeviceGourps'])->name('device');
-            Route::delete('/delete/{id}', [GroupController::class, 'destroy'])->name('destroy');
+            Route::delete('/delete/{id}', [GroupController::class, 'delete'])->name('destroy');
 
             Route::post('default-app/{id}',[GroupController::class,'setAppDefaultGroup'])->name('default-app');
             Route::post('runAppGoup/{id}',[GroupController::class,'runAppGoup'])->name('runAppGoup');
