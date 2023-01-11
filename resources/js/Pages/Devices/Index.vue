@@ -2,7 +2,7 @@
   <section class="content">
     <ContentHeaderVue :name="'Devices'" />
     <alert :dismissible="true"></alert>
-    <WifiModel :errors="errors" :ids="selected" :wifis="wifis" />
+    <!-- <WifiModel :errors="errors" :ids="selected" :wifis="wifis" /> -->
     <OpenAppModal v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
     <OpenAppModal v-else :errors="errors" :applications="application_deivce" :ids="selected" />
  
@@ -230,7 +230,7 @@ export default {
   props: {
     devices: Array,
     errors: Object,
-    wifis: Array,
+    // wifis: Array,
     applications: Array
   },
   methods: {

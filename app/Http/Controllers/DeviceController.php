@@ -29,24 +29,24 @@ class DeviceController extends Controller
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
             })->get();
   
-            $applications = Applicaion::groupby('packageName')->get();
+            $applications = Applicaion::get();
         }
         elseif($user->hasPermissionTo('Lite')){
-            $devices = Devices::with(['default_app','applications'])->where('user_id',$user->id)->where(function ($query) use ($request) {
+            $devices = Devices::with('default_app','applications')->where('user_id',$user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
             })->get();
-            $applications = Applicaion::where('default', true)->groupby('packageName')->get();
+            $applications = Applicaion::where('default', true)->get();
         }
         else{
             $devices = Devices::with('applications','default_app')->where('user_id',$user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
             })->get();
-            $applications = Applicaion::groupby('packageName')->get();
+            $applications = Applicaion::get();
         }
        
      
-        $wifis = Wifi::get();
-        return Inertia::render('Devices/Index',compact('devices','applications','wifis'));
+        // $wifis = Wifi::get();
+        return Inertia::render('Devices/Index',compact('devices','applications'));
     }
 
     public function saveName(Request $request,  $id){
