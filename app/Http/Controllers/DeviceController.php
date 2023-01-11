@@ -31,7 +31,7 @@ class DeviceController extends Controller
   
             $applications = Applicaion::groupby('packageName')->get();
         }
-        else if($user->hasPermissionTo('Lite')){
+        elseif($user->hasPermissionTo('Lite')){
             $devices = Devices::with('applications','default_app')->where('user_id',$user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
             })->get();
