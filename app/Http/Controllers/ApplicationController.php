@@ -45,7 +45,7 @@ class ApplicationController extends Controller
             if($check_app){
                $check_app->update([
                     'appName'=> $app['appName'],
-                    'icon' => $this->converBase64toImage($app['icon']),
+                    'icon' => $app['icon'],
                     'packageName' => $app['packageName'],
                     'version' => $app['versionName'],
                     'device_id' => $device_id['id']
@@ -54,7 +54,7 @@ class ApplicationController extends Controller
             }else{
                Applicaion::create([
                     'appName'=> $app['appName'],
-                    'icon' => $this->converBase64toImage($app['icon']),
+                    'icon' => $app['icon'],
                     'packageName' => $app['packageName'],
                     'version' => $app['versionName'],
                     'device_id' => $device_id['id']
