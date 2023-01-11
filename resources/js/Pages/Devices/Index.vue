@@ -103,7 +103,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(device, index) in devices" :key="index"
+          <tr v-for="(device, index) in devices.data" :key="index"
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
             <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"><input
                 type="checkbox" class="checkbox" v-model="selected" :value="device.id"></td>
@@ -152,15 +152,16 @@
         </tbody>
       </table>
     </div>
-    <!-- <pagination :links="devices.links" /> -->
+    <pagination :links="devices.links" />
   </section>
 
 </template>
 
 <script>
-
+import { Link } from "@inertiajs/inertia-vue";
 import Layout from "@/Components/Layout/Layout";
 import ContentHeaderVue from "@/Components/Layout/ContentHeader";
+import Pagination from "@/Components/Pagination";
 import Alert from "@/Components/Alert";
 import OpenAppModal from "@/Pages/Devices/Modal/OpenAppModal";
 import GroupModel from "@/Pages/Devices/Modal/GroupModel"
@@ -168,7 +169,9 @@ import defaulAppModal from "@/Pages/Devices/Modal/defaulAppModal"
 export default {
   layout: Layout,
   components: {
+    Link,
     ContentHeaderVue,
+    Pagination,
     Alert,
     OpenAppModal,
     GroupModel,
@@ -223,7 +226,7 @@ export default {
   },
 
   props: {
-    devices: Array,
+    devices: Object,
     errors: Object,
     // wifis: Array,
     applications: Array
