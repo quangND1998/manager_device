@@ -29,6 +29,7 @@ class GroupController extends Controller
             $applications = Applicaion::groupby('packageName')->get();
         }
         else if($user->hasPermissionTo('Lite')){
+           
             $groups = Groups::with('devices.applications')->where('user_id',$user->id)->get();
             $nogroup_devices = Devices::with('applications')->doesntHave('groups')->where('user_id',$user->id)->get();
             $applications = Applicaion::where('default', true)->groupby('packageName')->get();
