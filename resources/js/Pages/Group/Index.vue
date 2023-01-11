@@ -398,7 +398,7 @@ export default {
         },
         DeleteGroup(id) {
             if (!confirm("Are you sure want to remove?")) return;
-            this.$inertia.delete(route("group.delete", id));
+            this.$inertia.delete(route("group.destroy", id));
         },
 
     }
