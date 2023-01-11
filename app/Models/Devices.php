@@ -10,7 +10,7 @@ class Devices extends Model
     use HasFactory;
     protected $table = 'devices';
     protected $fillable = ['id',   'app_default_id', 'device_id',  'name', 'brand', 'os_version', 'battery', 'connect_wifi', 'created_at', 'state', 'user_id',  'updated_at'];
-
+ 
     public function groups()
     {
         return $this->belongsToMany(Groups::class, 'group_device', 'device_id', 'group_id')->withPivot('state');
