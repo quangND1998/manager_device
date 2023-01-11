@@ -19,8 +19,8 @@ class DeviceController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:user-manager|Pro|Demo|Lite', ['only' => ['index','setDefaultApp']]);
-        $this->middleware('permission:user-manager|Pro|Demo', ['only' => ['saveName','update', 'delete','lanchApp']]);
+        $this->middleware('permission:user-manager|Pro|Demo|Lite', ['only' => ['index','setDefaultApp','lanchApp']]);
+        $this->middleware('permission:user-manager|Pro|Demo', ['only' => ['saveName','update', 'delete']]);
     }
     public function index(Request $request){
         $user = Auth::user();
