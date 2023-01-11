@@ -103,6 +103,13 @@
         </li> -->
       </ul>
     </li>
+    <li class="header">Logout</li>
+    <li tag="li" class="pageli">
+      <Link :href="route('logout')" method="post">
+        <i class="fa fa-sign-out text-yellow"></i>
+        <span class="page">Logout</span>
+      </Link>
+    </li>
     <!-- <li class="header">LOGS</li>
     <li tag="li" class="pageli">
       <a>
