@@ -76,7 +76,7 @@ class ApplicationController extends Controller
     }
 
 
-    public function converBase64toImage($path){
+    public function convertBase64toImage($path){
  
         $imageName = time().Str::random(10).'.'.'png';
         $destinationpath= '/app_icon/';
