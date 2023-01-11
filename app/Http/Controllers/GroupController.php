@@ -26,18 +26,18 @@ class GroupController extends Controller
             $groups = Groups::with('devices.applications')->get();
             
             $nogroup_devices = Devices::with('applications')->doesntHave('groups')->get();
-            $applications = Applicaion::groupby('packageName')->get();
+            $applications = Applicaion::get();
         }
         else if($user->hasPermissionTo('Lite')){
            
             $groups = Groups::with('devices.applications')->where('user_id',$user->id)->get();
             $nogroup_devices = Devices::with('applications')->doesntHave('groups')->where('user_id',$user->id)->get();
-            $applications = Applicaion::where('default', true)->groupby('packageName')->get();
+            $applications = Applicaion::where('default', true)->get();
         }
         else{
             $groups = Groups::with('devices.applications')->where('user_id',$user->id)->get();
             $nogroup_devices = Devices::with('applications')->doesntHave('groups')->where('user_id',$user->id)->get();
-            $applications = Applicaion::groupby('packageName')->get();
+            $applications = Applicaion::get();
         }
 
         if (count($groups) > 0) {
