@@ -50,8 +50,6 @@ class ApplicationController extends Controller
                     'version' => $app['versionName'],
                     'device_id' => $device_id['id']
                 ]);
-                $check_app->icon = $this->converBase64toImage($app['icon']);
-                $check_app->save();
              
             }else{
                Applicaion::create([
