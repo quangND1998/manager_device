@@ -158,24 +158,19 @@
 </template>
 
 <script>
-import { Link } from "@inertiajs/inertia-vue";
+
 import Layout from "@/Components/Layout/Layout";
 import ContentHeaderVue from "@/Components/Layout/ContentHeader";
-import Pagination from "@/Components/Pagination";
 import Alert from "@/Components/Alert";
 import OpenAppModal from "@/Pages/Devices/Modal/OpenAppModal";
-import WifiModel from "@/Pages/Devices/Modal/WifiModel";
 import GroupModel from "@/Pages/Devices/Modal/GroupModel"
 import defaulAppModal from "@/Pages/Devices/Modal/defaulAppModal"
 export default {
   layout: Layout,
   components: {
-    Link,
     ContentHeaderVue,
-    Pagination,
     Alert,
     OpenAppModal,
-    WifiModel,
     GroupModel,
     defaulAppModal
 
