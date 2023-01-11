@@ -1,18 +1,18 @@
 <template>
   <ul class="sidebar-menu">
-    <li class="header">TOOLS</li>
-    <li tag="li" :class="[$page.component === 'Dashboard' ? 'active' : '']">
+    <!-- <li class="header">TOOLS</li> -->
+    <!-- <li tag="li" :class="[$page.component === 'Dashboard' ? 'active' : '']">
       <Link :href="route('dashboard')" >
         <i class="fa fa-desktop"></i>
         <span class="page">Dashboard</span>
       </Link>
-    </li>
-    <li tag="li" :class="[$page.component === 'topup' ? 'active' : '']">
+    </li> -->
+    <!-- <li tag="li" :class="[$page.component === 'topup' ? 'active' : '']">
       <Link :href="route('topup.index')" >
         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
         <span class="page">TopUp</span>
       </Link>
-    </li>
+    </li> -->
 
 
     <li class="header">Device Manager</li>
@@ -24,16 +24,16 @@
           </Link>
         </li>
     </li>
-    <li tag="li" class="pageli">
-      <li :class="[$page.component === 'Application/Index' ? 'active' : '']">
+    <li tag="li" class="pageli"  >
+      <li :class="[$page.component === 'Application/Index' ? 'active' : '']" v-if="hasAnyPermission(['user-manager'])">
           <Link :href="route('application.index')">
-            <i class="fa fa-th" aria-hidden="true"></i></i> Applications
+            <i class="fa fa-th" aria-hidden="true"></i> Applications
           </Link>
         </li>
 
     </li>
-    <li tag="li" class="pageli">
-      <li :class="[$page.component === 'Wifi/Index' ? 'active' : '']">
+    <li tag="li" class="pageli" >
+      <li :class="[$page.component === 'Wifi/Index' ? 'active' : '']"  v-if="hasAnyPermission(['user-manager'])">
           <Link :href="route('wifi.index')">
             <i class="fa fa-wifi" aria-hidden="true"></i></i> Wifi
           </Link>

@@ -51,8 +51,9 @@ class PricingController extends Controller
     }
 
     public function totalPrice($package, $discounts, $number_device){
-        $total = $package->price*$request->number_device;
-        $discount_price = ($total/100)*$disc
+        $total = $package->price*$number_device;
+        $discount_price = ($total/100)*$discounts;
+        return $total- $discount_price;
     }
     public function getOrderfinal()
     {
