@@ -13,6 +13,8 @@ use Inertia\Inertia;
 use Illuminate\Support\Arr;
 class GroupController extends Controller
 {
+
+    
     public function index(Request $request)
     {
 
@@ -80,6 +82,7 @@ class GroupController extends Controller
         $devices = Devices::find($request->devices);
         $group = Groups::create([
             'name' => $request->name,
+            'user_id' => Auth::user()->id
         ]);
         $group->devices()->sync($devices);
 
