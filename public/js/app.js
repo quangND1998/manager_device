@@ -9679,6 +9679,147 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Payment/Checkout.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Payment/Checkout.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue */ "./node_modules/@inertiajs/inertia-vue/dist/index.js");
+/* harmony import */ var _Components_Layout_Layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Components/Layout/Layout */ "./resources/js/Components/Layout/Layout.vue");
+/* harmony import */ var _Components_Layout_ContentHeader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Components/Layout/ContentHeader */ "./resources/js/Components/Layout/ContentHeader.vue");
+/* harmony import */ var _Components_Alert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Components/Alert */ "./resources/js/Components/Alert.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  layout: _Components_Layout_Layout__WEBPACK_IMPORTED_MODULE_1__["default"],
+  components: {
+    Link: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.Link,
+    Alert: _Components_Alert__WEBPACK_IMPORTED_MODULE_3__["default"],
+    ContentHeaderVue: _Components_Layout_ContentHeader__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  props: {
+    cart: Array,
+    item: Object
+  },
+  data: function data() {
+    return {
+      form: this.$inertia.form({
+        user: this.$page.props.auth.user,
+        cart: this.cart,
+        item: this.item
+      })
+    };
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Payment/Order.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Payment/Order.vue?vue&type=script&lang=js& ***!
@@ -9781,7 +9922,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -9792,6 +9932,19 @@ __webpack_require__.r(__webpack_exports__);
     Link: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.Link,
     Alert: _Components_Alert__WEBPACK_IMPORTED_MODULE_3__["default"],
     ContentHeaderVue: _Components_Layout_ContentHeader__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  props: {
+    cart: Array,
+    item: Object
+  },
+  data: function data() {
+    return {
+      form: this.$inertia.form({
+        user: this.$page.props.auth.user,
+        cart: this.cart,
+        item: this.item
+      })
+    };
   }
 });
 
@@ -10449,6 +10602,10 @@ vue__WEBPACK_IMPORTED_MODULE_3__["default"].mixin({
       if (value) {
         return moment(String(value)).format('DD/MM/YYYY HH:mm');
       }
+    },
+    formatPrice: function formatPrice(value) {
+      var val = (value / 1).toFixed(0).replace('.', ',');
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
   }
 });
@@ -47384,6 +47541,45 @@ component.options.__file = "resources/js/Pages/Package/Index.vue"
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Payment/Checkout.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/Pages/Payment/Checkout.vue ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Checkout_vue_vue_type_template_id_33e0a510___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Checkout.vue?vue&type=template&id=33e0a510& */ "./resources/js/Pages/Payment/Checkout.vue?vue&type=template&id=33e0a510&");
+/* harmony import */ var _Checkout_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Checkout.vue?vue&type=script&lang=js& */ "./resources/js/Pages/Payment/Checkout.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Checkout_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Checkout_vue_vue_type_template_id_33e0a510___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Checkout_vue_vue_type_template_id_33e0a510___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Pages/Payment/Checkout.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Payment/Order.vue":
 /*!**********************************************!*\
   !*** ./resources/js/Pages/Payment/Order.vue ***!
@@ -48090,6 +48286,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Index.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Package/Index.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Payment/Checkout.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/Pages/Payment/Checkout.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Checkout_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Checkout.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Payment/Checkout.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Checkout_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -48900,6 +49112,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_3eddea50___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_3eddea50___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Index.vue?vue&type=template&id=3eddea50& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Package/Index.vue?vue&type=template&id=3eddea50&");
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Payment/Checkout.vue?vue&type=template&id=33e0a510&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/Pages/Payment/Checkout.vue?vue&type=template&id=33e0a510& ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Checkout_vue_vue_type_template_id_33e0a510___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Checkout_vue_vue_type_template_id_33e0a510___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Checkout_vue_vue_type_template_id_33e0a510___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Checkout.vue?vue&type=template&id=33e0a510& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Payment/Checkout.vue?vue&type=template&id=33e0a510&");
 
 
 /***/ }),
@@ -57543,6 +57772,279 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Payment/Checkout.vue?vue&type=template&id=33e0a510&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Payment/Checkout.vue?vue&type=template&id=33e0a510& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "section",
+    { staticClass: "content" },
+    [
+      _c("ContentHeaderVue", { attrs: { name: "Order " } }),
+      _vm._v(" "),
+      _c("alert", { attrs: { dismissible: true } }),
+      _vm._v(" "),
+      _c("div", { staticClass: "container mx-auto mt-10" }, [
+        _c("div", { staticClass: "flex shadow-md my-10" }, [
+          _c("div", { staticClass: "w-full bg-white px-10 py-10" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "w px-8 py-10", attrs: { id: "summary" } },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _vm._m(2),
+                _vm._v(" "),
+                _vm._m(3),
+                _vm._v(" "),
+                _vm._m(4),
+                _vm._v(" "),
+                _vm._m(5),
+                _vm._v(" "),
+                _c("div", { staticClass: "py-10" }, [
+                  _c("div", { staticClass: "flex justify-between mt-10" }, [
+                    _c(
+                      "span",
+                      { staticClass: "font-semibold text-2xl uppercase" },
+                      [_vm._v("Customer Name")]
+                    ),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "font-semibold text-2xl" }, [
+                      _vm._v(_vm._s(_vm.form.user.name)),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "flex justify-between mt-10" }, [
+                    _c(
+                      "span",
+                      { staticClass: "font-semibold text-2xl uppercase" },
+                      [_vm._v("Email")]
+                    ),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "font-semibold text-2xl" }, [
+                      _vm._v(_vm._s(_vm.form.user.email)),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "flex justify-between mt-10" }, [
+                    _c(
+                      "span",
+                      { staticClass: "font-semibold text-2xl uppercase" },
+                      [_vm._v("Product")]
+                    ),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "font-semibold text-2xl" }, [
+                      _vm._v(
+                        _vm._s(_vm.item.item.name) +
+                          " , Number device: " +
+                          _vm._s(_vm.item.number_device) +
+                          ", Expiry date: " +
+                          _vm._s(_vm.item.item.package_time)
+                      ),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "flex justify-between mt-10" }, [
+                    _c(
+                      "span",
+                      { staticClass: "font-semibold text-2xl uppercase" },
+                      [_vm._v("Amount")]
+                    ),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "font-semibold text-2xl" }, [
+                      _vm._v("$" + _vm._s(_vm.item.price) + " ~ "),
+                      _c("span", { staticClass: "mr-24" }, [
+                        _vm._v(
+                          "  " +
+                            _vm._s(_vm.formatPrice(_vm.item.price * 25030)) +
+                            " VND"
+                        ),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("span", [
+                      _vm._v("Exchange Rate: USD 1.00 = VND 25,030"),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(6),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "bg-red-500 hover:bg-red-600 px-5 py-2 text-2xl text-white uppercase",
+                  },
+                  [_vm._v("Apply")]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "border-t mt-8" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "flex font-semibold justify-between py-6 text-2xl uppercase",
+                    },
+                    [
+                      _c("span", [_vm._v("Total cost")]),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("$" + _vm._s(_vm.item.price))]),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm._m(7),
+                ]),
+              ]
+            ),
+          ]),
+        ]),
+      ]),
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex justify-between border-b pb-8" }, [
+      _c("h1", { staticClass: "font-semibold text-2xl" }, [
+        _vm._v("CART SUMMARY"),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex justify-between mt-10" }, [
+      _c("span", { staticClass: "font-semibold text-2xl uppercase" }, [
+        _vm._v("Company name "),
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "font-semibold text-2xl" }, [
+        _vm._v("Holomia Technology Company Limited"),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex justify-between mt-10" }, [
+      _c("span", { staticClass: "font-semibold text-2xl uppercase" }, [
+        _vm._v("Company Address"),
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "font-semibold text-2xl" }, [
+        _vm._v(
+          "Tầng 3 tòa Hà Thành Plaza, 102 Thái Thịnh, Phường Trung\n                            Liệt, Quận Đống Đa, Hà Nội"
+        ),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex justify-between mt-10" }, [
+      _c("span", { staticClass: "font-semibold text-2xl uppercase" }, [
+        _vm._v("Tel"),
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "font-semibold text-2xl" }, [
+        _vm._v("+84 24 22149915"),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex justify-between mt-10" }, [
+      _c("span", { staticClass: "font-semibold text-2xl uppercase" }, [
+        _vm._v("Email"),
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "font-semibold text-2xl" }, [
+        _vm._v("hello@holomia.com"),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex justify-between mt-10" }, [
+      _c("span", { staticClass: "font-semibold text-2xl uppercase" }, [
+        _vm._v("Website"),
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "font-semibold text-2xl" }, [
+        _vm._v("www.holomia.com"),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex justify-between mt-10" }, [
+      _c("strong", [_c("em", [_vm._v("Terms And Conditions")])]),
+      _vm._v(" "),
+      _c(
+        "textarea",
+        {
+          staticClass: "text-2xl",
+          staticStyle: { width: "90%" },
+          attrs: { id: "termofpolicy", rows: "2", cols: "100%" },
+        },
+        [
+          _vm._v(
+            "                        PAYMENT TERMS\n                        The use of the MissionX VR Services, especially the creation of an Account, is free of charge unless otherwise stated. The basic version of the MissionX VR Services can be used indefinitely and without restrictions in function unless otherwise stated, without prejudice to Holomia's right to withdraw the MissionX VR Services.\n                        Some additional features are only available for paying Users. Payments are in general made via payment providers. When making payments, please make sure to carefully read and agree to the terms and conditions of such payment providers beforehand. You can find more information about the payment providers, their terms and conditions and their privacy policy on their respective websites.\n                        You will be informed separately in each case about the object of the purchase, the function and the features of such object, the duration of availability of such object (if any), the purchase price and the available payment method. The respective payments are due upon the execution of the purchase agreement. In case of default the statutory interest accrues. Holomia is also entitled to block the user account, to recover damages and to terminate services.\n                        Some MissionX VR Services may require payment of a subscription fee. You must have an Account and pay the subscription or other fees to participate in these activities. For information about subscription and other fees for particular services check the Holomia website. FEES ARE PAYABLE IN ADVANCE AND ARE NOT REFUNDABLE IN WHOLE OR IN PART. Holomia reserves the right to change our fees or billing methods at any time. If you pay a periodic (e.g. monthly) subscription for a MissionX VR Service, Holomia will provide you with notice of any changes to the fees or billing methods at least thirty (30) days in advance by posting such changes on the MissionX VR Service. You are responsible for reviewing the MissionX VR Service to obtain timely notice of such changes. Your continued use of the MissionX VR Service thirty (30) days or more after posting of the changes means that you accept such changes. If any change is unacceptable to you, you may cancel your subscription at any time, but Holomia will not refund any fees that may have accrued to your Account before cancellation of your subscription, and we will not prorate fees for any subscription. If your use of MissionX VR Services is subject to use or sales tax, then Holomia may also charge you for any such taxes, in addition to the subscription or other fees. For further information please contact us by visiting MissionX VR's customer service.\n                        Payment Options\n                        You may pay fees using the methods available for the particular MissionX VR Service and you agree to the terms and conditions applicable to each payment method you choose. Payment methods may vary by MissionX VR Service. When you provide credit card or other payment information to Holomia and/or its payment providers, you represent to Holomia and/or its payment providers that you are the authorized user of the credit card or other payment method. By agreeing to the MissionX VR’s Terms of Use you have agreed to permit Holomia and/or its payment providers to automatically renew your subscription to a MissionX VR Service by charging a valid credit card number which you have provided to Holomia. Your subscription will be automatically renewed seven (07) days prior to the expiration of the term and each anniversary thereafter for a fee no greater than MissionX VR's then-current price, excluding any promotional and discount pricing, unless you cancel your subscription. You must provide current, complete, and accurate information for your billing account. You must promptly update all information to keep your billing account current, complete, and accurate (such as a change in billing address, credit card number, or credit card expiration date), and you must promptly notify Holomia and/or its payment providers if your credit card is canceled (for example, for loss or theft). Changes to such information can be made by contacting MissionX VR's or the payment provider's customer service (as applicable). If you fail to provide Holomia any of the foregoing information, you agree that Holomia may continue charging you for any subscription automatically renewed unless you cancel your subscription at least seven (07) days prior to the expiration of the subscription. Holomia reserves the right to utilize third party credit card updating services to obtain current expiration dates on credit cards provided by you to MissionX VR. Customers who use a payment method other than credit card may incur an additional payment processing fee, and may not be able to automatically renew subscriptions. For further information please contact us by visiting MissionX VR's customer service. As the Account holder, you are responsible for all charges incurred, including applicable taxes, and all purchases made by you or anyone that uses your Account, including your family or friends. This means that, unless your account or payment information is obtained unlawfully or fraudulently by someone other than those authorized by you to use your Account, you will be responsible for all usage and purchases on your Account.\n                        Trial Subscriptions\n                        For some MissionX VR Services, Holomia may offer a free trial subscription. If you accept a free trial subscription, Holomia will begin to bill your Account for that MissionX VR Service when the free trial subscription expires, unless you cancel your subscription before that time. You are always responsible for any internet service provider, telephone, wireless and other connection fees that you may incur when using MissionX VR Services, even when we offer a free trial subscription. Trial subscriptions are not transferable.\n                        Fees Charged By Third-Party Sites and Vendors\n                        We may provide links to other websites. Some of these websites may charge separate fees which are not included in any subscription or other fees that you may pay to Holomia. Any separate charges or obligations that you incur in your dealings with third parties are your responsibility.\n\n                    "
+          ),
+        ]
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { attrs: { href: "/payment/order" } }, [
+      _c(
+        "button",
+        {
+          staticClass:
+            "bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-2xl text-white uppercase w-full",
+        },
+        [_vm._v("Checkout")]
+      ),
+    ])
+  },
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Payment/Order.vue?vue&type=template&id=7d8d788c&":
 /*!********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Payment/Order.vue?vue&type=template&id=7d8d788c& ***!
@@ -57570,169 +58072,244 @@ var render = function () {
       _c("div", { staticClass: "container mx-auto mt-10" }, [
         _c("div", { staticClass: "flex shadow-md my-10" }, [
           _c("div", { staticClass: "w-3/4 bg-white px-10 py-10" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _vm._m(1),
+            _c("div", { staticClass: "flex justify-between border-b pb-8" }, [
+              _c("h1", { staticClass: "font-semibold text-2xl" }, [
+                _vm._v("Your Cart " + _vm._s(_vm.form.user.name)),
+              ]),
+            ]),
             _vm._v(" "),
             _c("span", { staticClass: "font-semibold text-2xl uppercase " }, [
               _vm._v("Detail"),
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "flex justify-between border-b pb-8" }, [
-              _c(
-                "ul",
-                { staticClass: "space-y-5 my-7", attrs: { role: "list" } },
-                [
-                  _c("li", { staticClass: "flex space-x-3" }, [
-                    _c(
-                      "svg",
-                      {
-                        staticClass:
-                          "flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-500",
-                        attrs: {
-                          "aria-hidden": "true",
-                          fill: "currentColor",
-                          viewBox: "0 0 20 20",
-                          xmlns: "http://www.w3.org/2000/svg",
-                        },
-                      },
-                      [
-                        _c("title", [_vm._v("Check icon")]),
-                        _c("path", {
-                          attrs: {
-                            "fill-rule": "evenodd",
-                            d: "M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z",
-                            "clip-rule": "evenodd",
-                          },
-                        }),
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        staticClass:
-                          "text-2xl font-normal leading-tight text-gray-500 dark:text-gray-400",
-                      },
-                      [_vm._v("1 Month")]
-                    ),
-                  ]),
-                  _vm._v(" "),
-                  _c("li", { staticClass: "flex space-x-3" }, [
-                    _c(
-                      "svg",
-                      {
-                        staticClass:
-                          "flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-500",
-                        attrs: {
-                          "aria-hidden": "true",
-                          fill: "currentColor",
-                          viewBox: "0 0 20 20",
-                          xmlns: "http://www.w3.org/2000/svg",
-                        },
-                      },
-                      [
-                        _c("title", [_vm._v("Check icon")]),
-                        _c("path", {
-                          attrs: {
-                            "fill-rule": "evenodd",
-                            d: "M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z",
-                            "clip-rule": "evenodd",
-                          },
-                        }),
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _vm._m(2),
-                  ]),
-                  _vm._v(" "),
-                  _c("li", { staticClass: "flex space-x-3" }, [
-                    _c(
-                      "svg",
-                      {
-                        staticClass:
-                          "flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-500",
-                        attrs: {
-                          "aria-hidden": "true",
-                          fill: "currentColor",
-                          viewBox: "0 0 20 20",
-                          xmlns: "http://www.w3.org/2000/svg",
-                        },
-                      },
-                      [
-                        _c("title", [_vm._v("Check icon")]),
-                        _c("path", {
-                          attrs: {
-                            "fill-rule": "evenodd",
-                            d: "M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z",
-                            "clip-rule": "evenodd",
-                          },
-                        }),
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _vm._m(3),
-                  ]),
-                  _vm._v(" "),
-                  _c("li", { staticClass: "flex space-x-3" }, [
-                    _c(
-                      "svg",
-                      {
-                        staticClass:
-                          "flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-500",
-                        attrs: {
-                          "aria-hidden": "true",
-                          fill: "currentColor",
-                          viewBox: "0 0 20 20",
-                          xmlns: "http://www.w3.org/2000/svg",
-                        },
-                      },
-                      [
-                        _c("title", [_vm._v("Check icon")]),
-                        _c("path", {
-                          attrs: {
-                            "fill-rule": "evenodd",
-                            d: "M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z",
-                            "clip-rule": "evenodd",
-                          },
-                        }),
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _vm._m(4),
-                  ]),
-                ]
-              ),
-            ]),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass:
-                  "flex font-semibold text-indigo-600 text-2xl mt-10",
-                attrs: { href: "#" },
-              },
-              [
-                _c(
-                  "svg",
-                  {
-                    staticClass: "fill-current mr-2 text-indigo-600 w-4",
-                    attrs: { viewBox: "0 0 448 512" },
-                  },
+            _vm.item !== null
+              ? _c(
+                  "div",
+                  { staticClass: "flex justify-between border-b pb-8" },
                   [
-                    _c("path", {
-                      attrs: {
-                        d: "M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z",
+                    _c(
+                      "ul",
+                      {
+                        staticClass: "space-y-5 my-7",
+                        attrs: { role: "list" },
                       },
-                    }),
+                      [
+                        _c("li", { staticClass: "flex space-x-3" }, [
+                          _c(
+                            "span",
+                            {
+                              staticClass:
+                                "text-5xl font-normal leading-tight text-gray-500 dark:text-gray-400",
+                            },
+                            [_c("strong"), _vm._v(_vm._s(_vm.item.item.name))]
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _c("li", { staticClass: "flex space-x-3" }, [
+                          _c(
+                            "svg",
+                            {
+                              staticClass:
+                                "flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-500",
+                              attrs: {
+                                "aria-hidden": "true",
+                                fill: "currentColor",
+                                viewBox: "0 0 20 20",
+                                xmlns: "http://www.w3.org/2000/svg",
+                              },
+                            },
+                            [
+                              _c("title", [_vm._v("Check icon")]),
+                              _c("path", {
+                                attrs: {
+                                  "fill-rule": "evenodd",
+                                  d: "M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z",
+                                  "clip-rule": "evenodd",
+                                },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            {
+                              staticClass:
+                                "text-2xl font-normal leading-tight text-gray-500 dark:text-gray-400",
+                            },
+                            [
+                              _vm._v("Number device: "),
+                              _c("strong", [
+                                _vm._v(
+                                  " " +
+                                    _vm._s(_vm.item.number_device) +
+                                    " devices"
+                                ),
+                              ]),
+                            ]
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _c("li", { staticClass: "flex space-x-3" }, [
+                          _c(
+                            "svg",
+                            {
+                              staticClass:
+                                "flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-500",
+                              attrs: {
+                                "aria-hidden": "true",
+                                fill: "currentColor",
+                                viewBox: "0 0 20 20",
+                                xmlns: "http://www.w3.org/2000/svg",
+                              },
+                            },
+                            [
+                              _c("title", [_vm._v("Check icon")]),
+                              _c("path", {
+                                attrs: {
+                                  "fill-rule": "evenodd",
+                                  d: "M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z",
+                                  "clip-rule": "evenodd",
+                                },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            {
+                              staticClass:
+                                "text-2xl font-normal leading-tight text-gray-500 dark:text-gray-400",
+                            },
+                            [
+                              _vm._v("Price: "),
+                              _c("strong", [
+                                _vm._v("$ " + _vm._s(_vm.item.price)),
+                              ]),
+                            ]
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _c("li", { staticClass: "flex space-x-3" }, [
+                          _c(
+                            "svg",
+                            {
+                              staticClass:
+                                "flex-shrink-0 w-5 h-5 text-blue-600 dark:text-blue-500",
+                              attrs: {
+                                "aria-hidden": "true",
+                                fill: "currentColor",
+                                viewBox: "0 0 20 20",
+                                xmlns: "http://www.w3.org/2000/svg",
+                              },
+                            },
+                            [
+                              _c("title", [_vm._v("Check icon")]),
+                              _c("path", {
+                                attrs: {
+                                  "fill-rule": "evenodd",
+                                  d: "M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z",
+                                  "clip-rule": "evenodd",
+                                },
+                              }),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            {
+                              staticClass:
+                                "text-2xl font-normal leading-tight text-gray-500 dark:text-gray-400",
+                            },
+                            [
+                              _vm._v("Expiry date:  "),
+                              _c("strong", [
+                                _vm._v(
+                                  " " +
+                                    _vm._s(_vm.item.item.package_time) +
+                                    " days"
+                                ),
+                              ]),
+                            ]
+                          ),
+                        ]),
+                      ]
+                    ),
                   ]
+                )
+              : _c(
+                  "div",
+                  { staticClass: "flex justify-between border-b pb-8" },
+                  [_vm._m(0)]
                 ),
-                _vm._v("\n          Continue Shopping\n        "),
-              ]
-            ),
           ]),
           _vm._v(" "),
-          _vm._m(5),
+          _c(
+            "div",
+            { staticClass: "w-1/4 px-8 py-10", attrs: { id: "summary" } },
+            [
+              _c(
+                "h1",
+                { staticClass: "font-semibold text-2xl border-b pb-8" },
+                [_vm._v("Order Summary")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex justify-between mt-10 mb-5" }, [
+                _c(
+                  "span",
+                  { staticClass: "font-semibold text-2xl uppercase" },
+                  [_vm._v("Price ")]
+                ),
+                _vm._v(" "),
+                _c("span", { staticClass: "font-semibold text-2xl" }, [
+                  _vm._v("$" + _vm._s(_vm.item.price)),
+                ]),
+              ]),
+              _vm._v(" "),
+              _vm._m(1),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "bg-red-500 hover:bg-red-600 px-5 py-2 text-2xl text-white uppercase",
+                },
+                [_vm._v("Apply")]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "border-t mt-8" },
+                [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "flex font-semibold justify-between py-6 text-2xl uppercase",
+                    },
+                    [
+                      _c("span", [_vm._v("Total cost")]),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("$" + _vm._s(_vm.item.price))]),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("Link", { attrs: { href: _vm.route("topup.checkout") } }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-2xl text-white uppercase w-full",
+                      },
+                      [_vm._v("Checkout")]
+                    ),
+                  ]),
+                ],
+                1
+              ),
+            ]
+          ),
         ]),
       ]),
     ],
@@ -57744,62 +58321,35 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex justify-between border-b pb-8" }, [
-      _c("h1", { staticClass: "font-semibold text-2xl" }, [
-        _vm._v("Your Cart"),
-      ]),
-    ])
+    return _c(
+      "ul",
+      { staticClass: "space-y-5 my-7", attrs: { role: "list" } },
+      [
+        _c("li", { staticClass: "flex space-x-3" }, [
+          _vm._v("\n                      Empty\n                  "),
+        ]),
+      ]
+    )
   },
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex justify-between mt-10 mb-5" }, [
-      _c("span", { staticClass: "font-semibold text-2xl uppercase" }, [
-        _vm._v("Price "),
-      ]),
+    return _c("div", { staticClass: "py-10" }, [
+      _c(
+        "label",
+        {
+          staticClass: "font-semibold inline-block mb-3 text-2xl uppercase",
+          attrs: { for: "promo" },
+        },
+        [_vm._v("Promo Code")]
+      ),
       _vm._v(" "),
-      _c("span", { staticClass: "font-semibold text-2xl" }, [_vm._v("400$")]),
+      _c("input", {
+        staticClass: "p-2 text-2xl w-full",
+        attrs: { type: "text", id: "promo", placeholder: "Enter your code" },
+      }),
     ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "span",
-      {
-        staticClass:
-          "text-2xl font-normal leading-tight text-gray-500 dark:text-gray-400",
-      },
-      [_vm._v("Number device: "), _c("strong", [_vm._v("8 devices")])]
-    )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "span",
-      {
-        staticClass:
-          "text-2xl font-normal leading-tight text-gray-500 dark:text-gray-400",
-      },
-      [_vm._v("Price: "), _c("strong", [_vm._v("$ 400")])]
-    )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "span",
-      {
-        staticClass:
-          "text-2xl font-normal leading-tight text-gray-500 dark:text-gray-400",
-      },
-      [_vm._v("Expiry date:  "), _c("strong", [_vm._v(" 30 days")])]
-    )
   },
   function () {
     var _vm = this
@@ -57807,87 +58357,14 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "div",
-      { staticClass: "w-1/4 px-8 py-10", attrs: { id: "summary" } },
+      {
+        staticClass:
+          "flex font-semibold justify-between py-6 text-2xl uppercase",
+      },
       [
-        _c("h1", { staticClass: "font-semibold text-2xl border-b pb-8" }, [
-          _vm._v("Order Summary"),
-        ]),
+        _c("span", [_vm._v("Discounts")]),
         _vm._v(" "),
-        _c("div", { staticClass: "flex justify-between mt-10 mb-5" }, [
-          _c("span", { staticClass: "font-semibold text-2xl uppercase" }, [
-            _vm._v("Price "),
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "font-semibold text-2xl" }, [
-            _vm._v("400$"),
-          ]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "py-10" }, [
-          _c(
-            "label",
-            {
-              staticClass: "font-semibold inline-block mb-3 text-2xl uppercase",
-              attrs: { for: "promo" },
-            },
-            [_vm._v("Promo Code")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "p-2 text-2xl w-full",
-            attrs: {
-              type: "text",
-              id: "promo",
-              placeholder: "Enter your code",
-            },
-          }),
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass:
-              "bg-red-500 hover:bg-red-600 px-5 py-2 text-2xl text-white uppercase",
-          },
-          [_vm._v("Apply")]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "border-t mt-8" }, [
-          _c(
-            "div",
-            {
-              staticClass:
-                "flex font-semibold justify-between py-6 text-2xl uppercase",
-            },
-            [
-              _c("span", [_vm._v("Discounts")]),
-              _vm._v(" "),
-              _c("span", [_vm._v(" %")]),
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass:
-                "flex font-semibold justify-between py-6 text-2xl uppercase",
-            },
-            [
-              _c("span", [_vm._v("Total cost")]),
-              _vm._v(" "),
-              _c("span", [_vm._v("$400")]),
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass:
-                "bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-2xl text-white uppercase w-full",
-            },
-            [_vm._v("Checkout")]
-          ),
-        ]),
+        _c("span", [_vm._v(" %")]),
       ]
     )
   },
@@ -73384,6 +73861,8 @@ var map = {
 	"./Index.vue": "./resources/js/Pages/Index.vue",
 	"./Package/Index": "./resources/js/Pages/Package/Index.vue",
 	"./Package/Index.vue": "./resources/js/Pages/Package/Index.vue",
+	"./Payment/Checkout": "./resources/js/Pages/Payment/Checkout.vue",
+	"./Payment/Checkout.vue": "./resources/js/Pages/Payment/Checkout.vue",
 	"./Payment/Order": "./resources/js/Pages/Payment/Order.vue",
 	"./Payment/Order.vue": "./resources/js/Pages/Payment/Order.vue",
 	"./Payment/Pricing": "./resources/js/Pages/Payment/Pricing.vue",

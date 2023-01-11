@@ -12,14 +12,7 @@ class Cart extends Model
     public $items = null;
     public $totalPrice = 0;
     public $number_device = 2;
-    public function __construct($oldCart){
-		if($oldCart){
-			$this->items = $oldCart->items;
-			$this->totalQty = $oldCart->totalQty;
-			$this->totalPrice = $oldCart->totalPrice;
-            $this->number_device = $oldCart->number_device;
-		}
-	}
+
     public function totalPrice(){
 		if(Session::has('cart')){
 			$oldCart = Session::get('cart');
@@ -37,10 +30,11 @@ class Cart extends Model
 			}
 		}
 		$giohang['qty']++;
-		$giohang['price'] = $item->price *  $giohang['qty'];
-		$this->items[$id] = $giohang;
+		$giohang['price'] = $item->price *  $giohang['qty'] * $number_device;
+        $giohang['number_device'] = $number_device;
+		$this->items = $giohang;
 		$this->totalQty++;
-		$this->totalPrice += $item->price;
+		$this->totalPrice += $item->price*$number_device;
 	}
     public function cartList()
     {

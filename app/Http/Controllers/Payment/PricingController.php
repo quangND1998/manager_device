@@ -11,7 +11,7 @@ use App\Models\Cart;
 class PricingController extends Controller
 {
     public function index(){
-
+        Session::forget('cart');
         $package_products = ProductPackage::where('state', true)->orderBy('id_priority')->get();
         return Inertia::render('Payment/Pricing',compact('package_products'));
     }
@@ -20,25 +20,25 @@ class PricingController extends Controller
         // dd($request);
         Session::forget('cart');
         $package = ProductPackage::find($request->package_product_id);
-        $oldCart = Session('cart') ? Session::get('cart') : null;
-        $cart = new Cart($oldCart);
+
+        $cart = new Cart;
         $cart->add( $package->id,$package,$request->number_device);
         Session::put('cart', $cart);
-
-        // dd($cart);
-
-        return redirect('order_final');
+        return redirect('/topup/order_final');
     }
-    public function getOrderfinal()
+    public function getOrderfinal(Request $request)
     {
-        $cart = Session::get('cart');
-        if (Session::has('cart')) {
-            $oldCart = Session::get('cart');
-            $cart_new = new Cart($oldCart);
-            return Inertia::render('Payment/Order',['cart' => $cart, 'product_cart' => $cart_new->items, 'totalPrice' => $cart_new->totalPrice, 'totalQty' => $cart->totalQty]);
-        } else {
-            return view('guest.cart');
-        }
+        // $cart = Session::get('cart');
+        $cart = $request->session()->get('cart');
+        $item = $cart->items;
+        // dd($item);
+        return Inertia::render('Payment/Order',compact('cart','item'));
 
+    }
+    public function checkout(Request $request)
+    {
+        $cart = $request->session()->get('cart');
+        $item = $cart->items;
+        return Inertia::render('Payment/Checkout',compact('cart','item'));
     }
 }

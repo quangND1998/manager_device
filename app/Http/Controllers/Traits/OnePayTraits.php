@@ -18,8 +18,8 @@ trait OnePayTraits
     public $virtualPaymentClientURL_QueryQR = 'https://onepay.vn/msp/api/v1/vpc/invoices/queries';
     public function generateDataWithChecksum($data)
     {
-        $SECURE_SECRET = config('constants.SECURE_SECRET');
-        $vpcURL = config('constants.PAYMENT_UR');
+        $SECURE_SECRET = '6D0870CDE5F24F34F3915FB0045120DB';
+        $vpcURL = 'http://mtf.onepay.vn/paygate/vpcpay.op?';
         ksort($data);
 
         $stringHashData = "";
@@ -52,6 +52,12 @@ trait OnePayTraits
         $data['vpc_Version'] = config('constants.VPC_VERSION');
         $data['vpc_Command'] = config('constants.VPC_COMMAND');
         $data['vpc_Locale'] = config('constants.VPC_LOCADE');
+
+        // $data['vpc_Merchant'] = 'OP_HOLOMIA';
+        // $data['vpc_AccessCode'] = 'E1508B04';
+        // $data['vpc_Version'] = '2';
+        // $data['vpc_Command'] = 'pay';
+        // $data['vpc_Locale'] = 'en';
 
         $vpc_trait = $this->generateDataWithChecksum($data);
         return $vpc_trait;

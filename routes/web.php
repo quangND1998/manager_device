@@ -120,6 +120,8 @@ Route::middleware(['auth'])->group(
         Route::prefix('topup')->as('topup.')->group(function(){
             Route::get('',[PricingController::class,'index'])->name('index');
             Route::post('addToCart',[PricingController::class,'addToCart'])->name('addToCart');
+            Route::get('order_final',[PricingController::class,'getOrderfinal'])->name('order_final');
+            Route::get('checkout',[PricingController::class,'checkout'])->name('checkout');
         });
 
 
