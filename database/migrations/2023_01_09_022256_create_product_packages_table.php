@@ -20,6 +20,8 @@ class CreateProductPackagesTable extends Migration
             $table->float('save_money')->nullable();
             $table->integer('package_time')->nullable();
             $table->boolean('state')->default(false)->nullable();
+            $table->integer('limit_device')->default(5)->nullable();
+            $table->bigInteger('id_priority')->nullable();
             $table->timestamps();
         });
     }

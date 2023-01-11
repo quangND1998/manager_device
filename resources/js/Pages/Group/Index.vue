@@ -140,14 +140,14 @@
                                         <tr>
                                             <th scope="col" class="py-3 px-6 text-xl"><input type="checkbox"
                                                     id="check_all" v-model="selectAll"></th>
-                                            <th scope="col" class="py-3 px-6 text-xl">STT</th>
-                                            <th scope="col" class="py-3 px-6 text-xl">name</th>
-                                            <th scope="col" class="py-3 px-6 text-xl">device ID</th>
-                                            <th scope="col" class="py-3 px-6 text-xl">Brand</th>
+                                            <th scope="col" class="py-3 px-6 text-xl uppercase">No</th>
+                                            <th scope="col" class="py-3 px-6 text-xl uppercase">name</th>
+                                            <th scope="col" class="py-3 px-6 text-xl uppercase">device ID</th>
+                                            <th scope="col" class="py-3 px-6 text-xl uppercase">Brand</th>
 
                                             <!-- <th scope="col" class="py-3 px-6 text-xl">Os Version</th> -->
                                             <th scope="col" class="py-3 px-6 text-xl">Battery</th>
-                                            <th scope="col" class="py-3 px-6 text-xl">Connect Wifi</th>
+                                            <!-- <th scope="col" class="py-3 px-6 text-xl">Connect Wifi</th> -->
 
 
                                             <th scope="col" class="py-3 px-6 text-xl">
@@ -192,7 +192,7 @@
                                                         * 100)
                                                 }} %
                                             </th>
-                                            <th scope="row"
+                                            <!-- <th scope="row"
                                                 class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 <span v-if="device.connect_wifi"
                                                     class="text-xl inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-gray-600 text-white rounded"><i
@@ -200,7 +200,7 @@
                                                                 device.connect_wifi
                                                         }}</span>
                                                 <p v-else>Not Connect</p>
-                                            </th>
+                                            </th> -->
                                             <td class="py-4 px-6 text-right">
 
                                                 <button type="button" @click="Delete(device.id)"

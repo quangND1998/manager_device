@@ -11,6 +11,7 @@ use App\Models\Wifi;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 
@@ -35,6 +36,12 @@ class DeviceController extends Controller
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
             })->get();
             $applications = Applicaion::where('default', true)->groupby('packageName')->get();
+        }
+        else{
+            $devices = Devices::with('applications','default_app')->where('user_id',$user->id)->where(function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->term . '%');
+            })->get();
+            $applications = Applicaion::groupby('packageName')->get();
         }
        
      

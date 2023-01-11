@@ -8,7 +8,9 @@ use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\WifiController;
 use App\Http\Controllers\Payment\PackageController;
+use App\Http\Controllers\Payment\PricingController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Payment\OnePayController;
 use Inertia\Inertia;
 
 /*
@@ -36,6 +38,9 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+// Route::get('/topup', function () {
+//     return Inertia::render('topup');
+// })->middleware(['auth'])->name('topup');
 
 Route::middleware(['auth'])->group(
     function () {
@@ -66,15 +71,15 @@ Route::middleware(['auth'])->group(
             Route::get('', [GroupController::class, 'index'])->name('index');
             Route::post('', [GroupController::class, 'store'])->name('store');
             Route::put('/update/{id}', [GroupController::class, 'update'])->name('update');
-            
+
             Route::post('/{id}/ownerDevice', [GroupController::class, 'ownerDevice'])->name('ownerDevice');
             Route::post('/deleteOwnerDevice/{id}', [GroupController::class, 'deleteOwnerDevice'])->name('deleteOwnerDevice');
             Route::get('/devices/{id}', [GroupController::class, 'getDeviceGourps'])->name('device');
             Route::delete('/delete/{id}', [GroupController::class, 'destroy'])->name('destroy');
-            
+
             Route::post('default-app/{id}',[GroupController::class,'setAppDefaultGroup'])->name('default-app');
             Route::post('runAppGoup/{id}',[GroupController::class,'runAppGoup'])->name('runAppGoup');
-           
+
         });
 
         Route::prefix('devices')->as('device.')->group(function () {
@@ -91,19 +96,34 @@ Route::middleware(['auth'])->group(
             Route::get('', [ApplicationController::class, 'index'])->name('index');
             Route::post('changeDefault', [ApplicationController::class,'changeDefault'])->name('default');
         });
-    
+
         Route::prefix('wifis')->as('wifi.')->group(function () {
             Route::get('', [WifiController::class, 'index'])->name('index');
             Route::post('',[WifiController::class ,'store'])->name('store');
             Route::put('update/{id}',[WifiController::class ,'update'])->name('update');
             Route::delete('delete/{id}',[WifiController::class ,'delete'])->name('delete');
-           
+
         });
 
         Route::prefix('packages')->as('package.')->group(function(){
             Route::get('list',[PackageController::class,'index'])->name('index');
+            Route::post('',[PackageController::class,'store'])->name('store');
+            Route::put('update/{id}',[PackageController::class,'update'])->name('update');
+            Route::delete('delete/{id}',[PackageController::class,'delete'])->name('delete');
+            Route::post('changeState',[PackageController::class,'changeState'])->name('changeState');
+            Route::post('sort',[PackageController::class,'sort'])->name('sort');
         });
-        
+        Route::prefix('payment')->as('payment.')->group(function(){
+            Route::get('order',[OnePayController::class,'postDataPayment'])->name('order');
+            Route::get('response_order',[OnePayController::class,'responsePaymentOrder'])->name('response_order');
+        });
+        Route::prefix('topup')->as('topup.')->group(function(){
+            Route::get('',[PricingController::class,'index'])->name('index');
+            Route::post('addToCart',[PricingController::class,'addToCart'])->name('addToCart');
+            Route::get('order_final',[PricingController::class,'getOrderfinal'])->name('order_final');
+        });
+
+
     }
 );
 require __DIR__ . '/auth.php';
