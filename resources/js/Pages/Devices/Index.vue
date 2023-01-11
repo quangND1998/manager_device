@@ -3,9 +3,12 @@
     <ContentHeaderVue :name="'Devices'" />
     <alert :dismissible="true"></alert>
     <WifiModel :errors="errors" :ids="selected" :wifis="wifis" />
-    <OpenAppModal :errors="errors" :applications="application_deivce" :ids="selected" />
+    <OpenAppModal v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
+    <OpenAppModal v-else :errors="errors" :applications="application_deivce" :ids="selected" />
+ 
     <GroupModel :errors="errors" :ids="selected" />
-    <defaulAppModal :errors="errors" :applications="application_deivce" :ids="selected" />
+    <defaulAppModal v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
+    <defaulAppModal  v-else :errors="errors" :applications="application_deivce" :ids="selected" />
     <!-- Modal -->
 
 
