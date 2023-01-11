@@ -74,7 +74,7 @@
               scope="row"
               class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg dark:text-white"
             >
-              <img :src="application.icon" width="50px" />
+              <img :src="`data:image/png;base64,${application.icon}`" width="50px" />
             </th>
 
             <th
