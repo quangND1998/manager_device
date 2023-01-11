@@ -29,19 +29,19 @@ class DeviceController extends Controller
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
             })->get();
   
-            $applications = Applicaion::get();
+            $applications = Applicaion::groupby('packageName')->get();
         }
         elseif($user->hasPermissionTo('Lite')){
             $devices = Devices::with('default_app','applications')->where('user_id',$user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
             })->get();
-            $applications = Applicaion::where('default', true)->get();
+            $applications = Applicaion::where('default', true)->groupby('packageName')->get();
         }
         else{
             $devices = Devices::with('applications','default_app')->where('user_id',$user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
             })->get();
-            $applications = Applicaion::get();
+            $applications = Applicaion::groupby('packageName')->get();
         }
        
      
