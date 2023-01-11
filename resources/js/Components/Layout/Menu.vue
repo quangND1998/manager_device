@@ -19,7 +19,7 @@
     <li tag="li" class="pageli">
 
       <li :class="[$page.component === 'Devices/Index' ? 'active' : '']">
-          <Link :href="route('device.index')">
+          <Link :href="route('device.index')" :only="['devices']">
             <i class="fa fa-tasks"></i> Devices
           </Link>
         </li>
