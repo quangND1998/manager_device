@@ -122,7 +122,7 @@ Route::middleware(['auth'])->group(
             Route::post('addToCart',[PricingController::class,'addToCart'])->name('addToCart');
             Route::get('order_final',[PricingController::class,'getOrderfinal'])->name('order_final');
         });
-
+        Route::get('convert',[ApplicationController::class,'converBase64toImage']);
 
     }
 );

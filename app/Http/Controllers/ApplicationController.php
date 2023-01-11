@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
-
+use Illuminate\Support\Str;
 class ApplicationController extends Controller
 {
     function __construct()
@@ -45,15 +45,18 @@ class ApplicationController extends Controller
             if($check_app){
                $check_app->update([
                     'appName'=> $app['appName'],
-                    'icon' => $app['icon'],
+                    'icon' => $this->converBase64toImage($app['icon']),
                     'packageName' => $app['packageName'],
                     'version' => $app['versionName'],
                     'device_id' => $device_id['id']
                 ]);
+                $check_app->icon = $this->converBase64toImage($app['icon']);
+                $check_app->save();
+             
             }else{
-                Applicaion::create([
+               Applicaion::create([
                     'appName'=> $app['appName'],
-                    'icon' => $app['icon'],
+                    'icon' => $this->converBase64toImage($app['icon']),
                     'packageName' => $app['packageName'],
                     'version' => $app['versionName'],
                     'device_id' => $device_id['id']
@@ -72,5 +75,18 @@ class ApplicationController extends Controller
         $app->update(['default'=> $request->default]);
 
         return back()->with('success', 'Set default app successfully');
+    }
+
+
+    public function converBase64toImage($path){
+ 
+        $imageName = time().Str::random(10).'.'.'png';
+        $destinationpath= '/app_icon/';
+        if (!file_exists($destinationpath)) {
+            mkdir($destinationpath, 0777, true);
+        }
+        file_put_contents(public_path().$destinationpath.$imageName, base64_decode($path));
+        return $destinationpath.$imageName;
+        
     }
 }
