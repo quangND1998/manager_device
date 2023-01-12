@@ -24,7 +24,7 @@
                                         class="select-none cursor-pointer bg-gray-200 rounded-md flex flex-1 items-center p-4  transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">
                                         <div
                                             class="flex flex-col rounded-md w-10 h-10 bg-gray-100 justify-center items-center mr-4">
-                                            <img :src="`data:image/png;base64,${app.icon}`" width="50px" />
+                                            <img :src="app.icon" width="50px" />
                                         </div>
                                         <div class="flex-1 pl-1 mr-16">
                                             <div class="font-medium">{{ app.appName }}</div>

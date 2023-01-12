@@ -45,8 +45,8 @@ class DeviceController extends Controller
         }
        
      
-        // $wifis = Wifi::get();
-        return Inertia::render('Devices/Index',compact('devices','applications'));
+        $wifis = Wifi::get();
+        return Inertia::render('Devices/Index',compact('devices','applications','wifis'));
     }
 
     public function saveName(Request $request,  $id){
