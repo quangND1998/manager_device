@@ -6,6 +6,7 @@ use App\Models\Applicaion;
 use App\Models\Devices;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
@@ -74,7 +75,10 @@ class ApplicationController extends Controller
 
         return back()->with('success', 'Set default app successfully');
     }
-
+    public function convert(){
+        $app = Applicaion::find(4);
+        return $this->convertBase64toImage($app->icon);
+    }
 
     public function convertBase64toImage($path){
  
