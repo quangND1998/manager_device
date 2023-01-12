@@ -138,7 +138,7 @@
                   class="absolute inline-block top-0 right-0 bottom-auto left-auto translate-x-2/4 -translate-y-1/2 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 py-1 px-2.5 text-xl leading-none text-center whitespace-nowrap align-baseline font-bold bg-gray-400 text-white rounded-full z-10">
                   <i class="fa fa-times" aria-hidden="true" title="Disable Default App" @click="disableDefaultApp(device.id)" ></i></div>
                 <img class="w-15 h-15 rounded-full "
-                  :src="`data:image/png;base64,${device.default_app.icon}`" alt="Rounded avatar">
+                  :src="device.default_app.icon" alt="Rounded avatar">
               </div>
               <div class="text-center pt-2"  v-if="device.default_app" ><strong class="justify-center ">{{ device.default_app.appName }}</strong></div>
             </th>
