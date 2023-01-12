@@ -209,6 +209,7 @@ export default {
                 onSuccess: page => {
                     $("#openWifiNotification").modal("hide");
                     $("#WifiModal").modal("hide");
+                    $('#createWifiModal').modal('hide')
                     this.reset();
                 }
             });

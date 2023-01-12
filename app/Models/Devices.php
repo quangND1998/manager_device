@@ -51,6 +51,10 @@ class Devices extends Model
             return false;
         }
     }
+
+    public function history_devices(){
+        return $this->hasMany(HistoryDevice::class,'device_id');
+    }
     
 
  
