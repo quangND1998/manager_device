@@ -87,7 +87,7 @@ class ApplicationController extends Controller
         if (!file_exists(public_path().$destinationpath)) {
             mkdir(public_path().$destinationpath, 0777, true);
         }
-        file_put_contents($destinationpath.$imageName, base64_decode($path));
+        file_put_contents(public_path().$destinationpath.$imageName, base64_decode($path));
         return $destinationpath.$imageName;
         
     }
