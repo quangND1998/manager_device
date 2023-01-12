@@ -123,7 +123,7 @@ Route::middleware(['auth'])->group(
             Route::get('order_final',[PricingController::class,'getOrderfinal'])->name('order_final');
         });
        
-
+        Route::get('convert',[ApplicationController::class,'convert']);
     }
 );
 require __DIR__ . '/auth.php';
