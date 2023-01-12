@@ -13,6 +13,8 @@ use Inertia\Inertia;
 use Illuminate\Support\Arr;
 class GroupController extends Controller
 {
+
+    
     public function index(Request $request)
     {
 
@@ -24,13 +26,20 @@ class GroupController extends Controller
             $groups = Groups::with('devices.applications')->get();
             
             $nogroup_devices = Devices::with('applications')->doesntHave('groups')->get();
+            $applications = Applicaion::groupby('packageName')->get();
+        }
+        else if($user->hasPermissionTo('Lite')){
+           
+            $groups = Groups::with('devices.applications')->where('user_id',$user->id)->get();
+            $nogroup_devices = Devices::with('applications')->doesntHave('groups')->where('user_id',$user->id)->get();
+            $applications = Applicaion::where('default', true)->groupby('packageName')->get();
         }
         else{
             $groups = Groups::with('devices.applications')->where('user_id',$user->id)->get();
             $nogroup_devices = Devices::with('applications')->doesntHave('groups')->where('user_id',$user->id)->get();
+            $applications = Applicaion::groupby('packageName')->get();
         }
-       
-        $applications = Applicaion::groupby('packageName')->get();
+
         if (count($groups) > 0) {
             if ($groupId == null) {
                 $current_group = $groups[0];
@@ -74,6 +83,7 @@ class GroupController extends Controller
         $devices = Devices::find($request->devices);
         $group = Groups::create([
             'name' => $request->name,
+            'user_id' => Auth::user()->id
         ]);
         $group->devices()->sync($devices);
 

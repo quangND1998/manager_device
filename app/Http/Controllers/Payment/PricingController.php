@@ -6,19 +6,21 @@ use App\Http\Controllers\Controller;
 use App\Models\ProductPackage;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Session;
+use Illuminate\Support\Facades\Session;
 use App\Models\Cart;
 class PricingController extends Controller
 {
     public function index(){
         Session::forget('cart');
         $package_products = ProductPackage::where('state', true)->orderBy('id_priority')->get();
+        session()->forget('cart');
         return Inertia::render('Payment/Pricing',compact('package_products'));
     }
 
     public function addToCart(Request $request){
         // dd($request);
-        Session::forget('cart');
+        $request->session()->forget('cart');
+        $cart = session()->get('cart',[] );
         $package = ProductPackage::find($request->package_product_id);
 
         $cart = new Cart;

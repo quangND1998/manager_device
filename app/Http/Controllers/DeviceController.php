@@ -11,6 +11,7 @@ use App\Models\Wifi;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 
@@ -18,23 +19,29 @@ class DeviceController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:user-manager|Pro|Demo|Lite', ['only' => ['index']]);
-        $this->middleware('permission:user-manager|Pro|Demo', ['only' => ['saveName','update', 'delete','lanchApp','setDefaultApp']]);
+        $this->middleware('permission:user-manager|Pro|Demo|Lite', ['only' => ['index','setDefaultApp','lanchApp']]);
+        $this->middleware('permission:user-manager|Pro|Demo', ['only' => ['saveName','update', 'delete']]);
     }
     public function index(Request $request){
         $user = Auth::user();
         if($user->hasPermissionTo('user-manager')){
-            $devices = Devices::with('applications','default_app')->where(function ($query) use ($request) {
+            $devices = Devices::with('applications','default_app','user')->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
             })->get();
   
             $applications = Applicaion::groupby('packageName')->get();
         }
-        else if($user->hasPermissionTo('Lite')){
-            $devices = Devices::with('applications','default_app')->where('user_id',$user->id)->where(function ($query) use ($request) {
+        elseif($user->hasPermissionTo('Lite')){
+            $devices = Devices::with('default_app','applications','user')->where('user_id',$user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
             })->get();
             $applications = Applicaion::where('default', true)->groupby('packageName')->get();
+        }
+        else{
+            $devices = Devices::with('applications','default_app','user')->where('user_id',$user->id)->where(function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->term . '%');
+            })->get();
+            $applications = Applicaion::groupby('packageName')->get();
         }
        
      

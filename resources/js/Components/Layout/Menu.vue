@@ -1,6 +1,6 @@
 <template>
   <ul class="sidebar-menu">
-    <li class="header">TOOLS</li>
+    <!-- <li class="header">TOOLS</li> -->
     <li tag="li" :class="[$page.component === 'Dashboard' ? 'active' : '']">
       <Link :href="route('dashboard')" >
         <i class="fa fa-desktop"></i>
@@ -30,16 +30,16 @@
           </Link>
         </li>
     </li>
-    <li tag="li" class="pageli">
-      <li :class="[$page.component === 'Application/Index' ? 'active' : '']">
+    <li tag="li" class="pageli"  >
+      <li :class="[$page.component === 'Application/Index' ? 'active' : '']" v-if="hasAnyPermission(['user-manager'])">
           <Link :href="route('application.index')">
-            <i class="fa fa-th" aria-hidden="true"></i></i> Applications
+            <i class="fa fa-th" aria-hidden="true"></i> Applications
           </Link>
         </li>
 
     </li>
-    <li tag="li" class="pageli">
-      <li :class="[$page.component === 'Wifi/Index' ? 'active' : '']">
+    <li tag="li" class="pageli" >
+      <li :class="[$page.component === 'Wifi/Index' ? 'active' : '']"  v-if="hasAnyPermission(['user-manager'])">
           <Link :href="route('wifi.index')">
             <i class="fa fa-wifi" aria-hidden="true"></i></i> Wifi
           </Link>
@@ -97,7 +97,7 @@
             <i class="fa fa-product-hunt" aria-hidden="true"></i> Package License
           </Link>
         </li>
-        <!-- <li :class="[$page.component === 'Admin/Roles' ? 'active' : '']">
+        <li :class="[$page.component === 'Admin/Roles' ? 'active' : '']">
           <Link :href="route('roles.index')">
             <i class="fa fa-check-circle"></i> Roles
           </Link>
@@ -106,8 +106,15 @@
           <Link :href="route('users.index')">
             <i class="fa fa-users"></i> Users
           </Link>
-        </li> -->
+        </li>
       </ul>
+    </li>
+    <li class="header">Logout</li>
+    <li tag="li" class="pageli">
+      <Link :href="route('logout')" method="post">
+        <i class="fa fa-sign-out text-yellow"></i>
+        <span class="page">Logout</span>
+      </Link>
     </li>
     <!-- <li class="header">LOGS</li>
     <li tag="li" class="pageli">
@@ -128,9 +135,9 @@
         <span class="page">Repos</span>
         <small class="label pull-right bg-green">AJAX</small>
       </a>
-    </li> -->
+    </li>
 
-    <!-- <li class="header">PAGES</li>
+    <li class="header">PAGES</li>
     <li tag="li" class="pageli">
       <a>
         <i class="fa fa-circle-o text-yellow"></i>

@@ -66,7 +66,7 @@
 
             <div class="flex font-semibold justify-between py-6 text-2xl uppercase">
               <span>Discounts</span>
-              <span> %</span>
+              <span>{{ oldCart.discounts }} %</span>
             </div>
             <div class="flex font-semibold justify-between py-6 text-2xl uppercase">
               <span>Total cost</span>

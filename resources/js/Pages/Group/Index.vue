@@ -2,9 +2,16 @@
     <section class="content">
         <ContentHeaderVue :name="'Groups'" />
         <alert :dismissible="true"></alert>
-        <OpenAppModal :errors="errors" :applications="application_deivce" :ids="selected" />
-        <OpenGroupApp :errors="errors" :applications="applications" :current_group="current_group" />
-        <DefaultGroupAppVue :errors="errors" :applications="applications" :current_group="current_group"  />
+        <OpenAppModal v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
+        <OpenAppModal v-else  :errors="errors" :applications="application_deivce" :ids="selected" />
+
+
+        <OpenGroupApp v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :current_group="current_group" />
+        <OpenGroupApp v-else :errors="errors" :applications="applications" :current_group="current_group" />
+
+        
+        <DefaultGroupAppVue v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :current_group="current_group"  />
+        <DefaultGroupAppVue v-else :errors="errors" :applications="applications" :current_group="current_group"  />
         <button type="button"
             class="inline-block px-8 py-4 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
             data-toggle="modal" data-target="#exampleModal" @click="clickModal()">Create Group</button>
@@ -140,14 +147,14 @@
                                         <tr>
                                             <th scope="col" class="py-3 px-6 text-xl"><input type="checkbox"
                                                     id="check_all" v-model="selectAll"></th>
-                                            <th scope="col" class="py-3 px-6 text-xl">STT</th>
-                                            <th scope="col" class="py-3 px-6 text-xl">name</th>
-                                            <th scope="col" class="py-3 px-6 text-xl">device ID</th>
-                                            <th scope="col" class="py-3 px-6 text-xl">Brand</th>
+                                            <th scope="col" class="py-3 px-6 text-xl uppercase">No</th>
+                                            <th scope="col" class="py-3 px-6 text-xl uppercase">name</th>
+                                            <th scope="col" class="py-3 px-6 text-xl uppercase">device ID</th>
+                                            <th scope="col" class="py-3 px-6 text-xl uppercase">Brand</th>
 
                                             <!-- <th scope="col" class="py-3 px-6 text-xl">Os Version</th> -->
                                             <th scope="col" class="py-3 px-6 text-xl">Battery</th>
-                                            <th scope="col" class="py-3 px-6 text-xl">Connect Wifi</th>
+                                            <!-- <th scope="col" class="py-3 px-6 text-xl">Connect Wifi</th> -->
 
 
                                             <th scope="col" class="py-3 px-6 text-xl">
@@ -192,7 +199,7 @@
                                                         * 100)
                                                 }} %
                                             </th>
-                                            <th scope="row"
+                                            <!-- <th scope="row"
                                                 class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 <span v-if="device.connect_wifi"
                                                     class="text-xl inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-gray-600 text-white rounded"><i
@@ -200,7 +207,7 @@
                                                                 device.connect_wifi
                                                         }}</span>
                                                 <p v-else>Not Connect</p>
-                                            </th>
+                                            </th> -->
                                             <td class="py-4 px-6 text-right">
 
                                                 <button type="button" @click="Delete(device.id)"
@@ -395,7 +402,7 @@ export default {
         },
         DeleteGroup(id) {
             if (!confirm("Are you sure want to remove?")) return;
-            this.$inertia.delete(route("group.delete", id));
+            this.$inertia.delete(route("group.destroy", id));
         },
 
     }
