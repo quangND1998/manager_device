@@ -83,7 +83,7 @@ class ApplicationController extends Controller
     public function convertBase64toImage($path){
  
         $imageName = time().Str::random(10).'.'.'png';
-        $destinationpath= '/app_icon/';
+        $destinationpath= public_path().'/app_icon/';
         if (!file_exists($destinationpath)) {
             mkdir($destinationpath, 0777, true);
         }
