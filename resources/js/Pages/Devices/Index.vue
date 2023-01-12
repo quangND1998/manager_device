@@ -2,7 +2,7 @@
   <section class="content">
     <ContentHeaderVue :name="'Devices'" />
     <alert :dismissible="true"></alert>
-    <!-- <WifiModel :errors="errors" :ids="selected" :wifis="wifis" /> -->
+    <WifiModel v-if="hasAnyPermission(['user-manager'])" :errors="errors" :ids="selected" :wifis="wifis" />
     <OpenAppModal v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
     <OpenAppModal v-else :errors="errors" :applications="application_deivce" :ids="selected" />
  
@@ -65,8 +65,8 @@
             <li><button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
                 data-target="#openAppModal"><i class="fa fa-rocket mr-2" aria-hidden="true"></i>LauchApp</button></li>
        
-            <!-- <li><button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
-                data-target="#WifiModal"><i class="fa fa-wifi mr-2" aria-hidden="true"></i>Wifi</button></li> -->
+            <li v-if="hasAnyPermission(['user-manager'])"><button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
+                data-target="#WifiModal"><i class="fa fa-wifi mr-2" aria-hidden="true"></i>Wifi</button></li>
             <!-- <li><button  type="button"   class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal" data-target="#groupModal" ><i class="fa fa-folder-o mr-2" aria-hidden="true"></i>Group </button></li> -->
             <!-- <li><a href="#">Another action</a></li>
             <li><a href="#">Something else here</a></li>
@@ -138,7 +138,7 @@
                   class="absolute inline-block top-0 right-0 bottom-auto left-auto translate-x-2/4 -translate-y-1/2 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 py-1 px-2.5 text-xl leading-none text-center whitespace-nowrap align-baseline font-bold bg-gray-400 text-white rounded-full z-10">
                   <i class="fa fa-times" aria-hidden="true" title="Disable Default App" @click="disableDefaultApp(device.id)" ></i></div>
                 <img class="w-15 h-15 rounded-full "
-                  :src="`data:image/png;base64,${device.default_app.icon}`" alt="Rounded avatar">
+                  :src="device.default_app.icon" alt="Rounded avatar">
               </div>
               <div class="text-center pt-2"  v-if="device.default_app" ><strong class="justify-center ">{{ device.default_app.appName }}</strong></div>
             </th>
@@ -168,6 +168,7 @@ import Alert from "@/Components/Alert";
 import OpenAppModal from "@/Pages/Devices/Modal/OpenAppModal";
 import GroupModel from "@/Pages/Devices/Modal/GroupModel"
 import defaulAppModal from "@/Pages/Devices/Modal/defaulAppModal"
+import WifiModel from '@/Pages/Devices/Modal/WifiModel'
 export default {
   layout: Layout,
   components: {
@@ -177,7 +178,8 @@ export default {
     Alert,
     OpenAppModal,
     GroupModel,
-    defaulAppModal
+    defaulAppModal,
+    WifiModel
 
   },
   computed: {
@@ -230,7 +232,7 @@ export default {
   props: {
     devices: Array,
     errors: Object,
-    // wifis: Array,
+    wifis: Array,
     applications: Array
   },
   methods: {
