@@ -96,7 +96,7 @@
             <th scope="col" class="py-3 px-6 text-xl uppercase">Battery</th>
             <!-- <th scope="col" class="py-3 px-6 text-xl uppercase">Connect Wifi</th> -->
             <th scope="col" class="py-3 px-6 text-xl uppercase">Default App</th>
-
+            <th scope="col" class="py-3 px-6 text-xl uppercase" v-if="hasAnyPermission(['user-manager'])">User</th>
             <th scope="col" class="py-3 px-6 text-xl uppercase">
               <span class="sr-only">Edit</span>
             </th>
@@ -142,6 +142,8 @@
               </div>
               <div class="text-center pt-2"  v-if="device.default_app" ><strong class="justify-center ">{{ device.default_app.appName }}</strong></div>
             </th>
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white" v-if="hasAnyPermission(['user-manager'])">{{ device.user? device.user.name:null }}</th>
+
             <td class="py-4 px-6 text-right">
               <button @click="edit(device)" type="button" data-toggle="modal" data-target="#exampleModal"
                 class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out">Edit Name</button>
