@@ -13,6 +13,12 @@
         <span class="page">TopUp</span>
       </Link>
     </li>
+    <li tag="li" :class="[$page.component === 'payment' ? 'active' : '']">
+      <Link :href="route('payment.index')" >
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+        <span class="page">Bill</span>
+      </Link>
+    </li>
 
 
     <li class="header">Device Manager</li>
@@ -88,7 +94,7 @@
       <ul class="treeview-menu">
         <li :class="[$page.component === 'Package/Index' ? 'active' : '']">
           <Link :href="route('package.index')">
-            <i class="fa fa-product-hunt" aria-hidden="true"></i> Package License 
+            <i class="fa fa-product-hunt" aria-hidden="true"></i> Package License
           </Link>
         </li>
         <!-- <li :class="[$page.component === 'Admin/Roles' ? 'active' : '']">

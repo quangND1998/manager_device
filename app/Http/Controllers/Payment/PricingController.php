@@ -41,4 +41,8 @@ class PricingController extends Controller
         $item = $cart->items;
         return Inertia::render('Payment/Checkout',compact('cart','item'));
     }
+    public function response(Request $request)
+    {
+        return Inertia::render('Payment/Response');
+    }
 }

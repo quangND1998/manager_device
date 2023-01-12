@@ -9,7 +9,11 @@ use Carbon\Carbon;
 use App\Http\Controllers\Traits\OnePayTraits;
 use Session;
 use App\Models\Cart;
+use App\Models\Payment;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\URL;
+use App\Models\User;
+use Inertia\Inertia;
 class OnePayController extends Controller
 {
     use OnePayTraits;
@@ -44,20 +48,62 @@ class OnePayController extends Controller
     public function responsePaymentOrder()
     {
         $txnResponseCode = $this->responseDefault();
+        $state = $this->getResponseDescription($txnResponseCode);
         $response = [
             'result' => 0,
-            'message' => $this->getResponseDescription($txnResponseCode)
+            'message' => $state
         ];
-        //dd($_GET);
+        // dd($_GET);
+        $convent = 25030;
+        $amount = $_GET['vpc_Amount']/(100*$convent);
+        $data = $_GET;
         if ($txnResponseCode == "0") {
-            $this->saveSuccessdata();
+            $this->saveSuccessdata($data);
             $response = " Successful transaction";
         } elseif ($txnResponseCode != '0') {
             $response = " Pending transaction";
         } else {
             $response = "Fail transaction";
         }
-        $convent = 25030;
-        return view('guest.test_response', ['state' => $txnResponseCode, 'response' => $response, 'amount' => $_GET['vpc_Amount']/(100*$convent), 'data' => $_GET]);
+
+
+        // dd($data);
+        // return view('guest.test_response', ['state' => $txnResponseCode, 'response' => $response, 'amount' => $_GET['vpc_Amount']/(100*$convent), 'data' => $_GET]);
+        return Inertia::render('Payment/Response',compact('state','response','amount','data'));
+    }
+    public function saveSuccessdata($data){
+
+        if (Session::has('cart')) {
+            $cart = Session::get('cart');
+            // dd($cart->items['number_device']);
+            $des = $cart->items['item']->name . ', Number device : ' .$cart->items['number_device'];
+            $user =  User::findOrFail(Auth::user()->id);
+            $role = Role::where('name','Pro')->first();
+            $user->roles()->sync($role);
+            $this->savePayment($data,$des);
+            // save bill
+            Session::forget('cart');
+        }
+
+    }
+    public function savePayment($data,$des)
+    {
+        // dd($data['vpc_Amount'] / 100);
+        $check = payment::where('merch_TxnRef', $data['vpc_MerchTxnRef'])->count();
+        if($check == 0){
+            $payment = new Payment;
+            $payment->pay_gate = "onepay";
+            $payment->pay_type = $data['vpc_PayChannel'];
+            $payment->amount = $data['vpc_Amount'] / 100;
+            $payment->transID = $data['vpc_NetworkTransactionID'];
+            $payment->merch_TxnRef = $data['vpc_MerchTxnRef'];
+            $payment->card_number = $data['vpc_CardNum'];
+            $payment->state = $data['vpc_Message'];
+            $payment->description = $des;
+            $payment->user_id = Auth::user()->id;
+            $payment->save();
+
+        }
+
     }
 }

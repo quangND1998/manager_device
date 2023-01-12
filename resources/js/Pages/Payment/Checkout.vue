@@ -74,12 +74,10 @@
                         </textarea>
                             </div>
                         </div>
-                        <button
-                            class="bg-red-500 hover:bg-red-600 px-5 py-2 text-2xl text-white uppercase">Apply</button>
                         <div class="border-t mt-8">
                             <div class="flex font-semibold justify-between py-6 text-2xl uppercase">
                                 <span>Total cost</span>
-                                <span>${{ item.price }}</span>
+                                <span>${{ formatPrice(item.price) }}</span>
                             </div>
                             <a href="/payment/order">
                                 <button

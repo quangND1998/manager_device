@@ -16,9 +16,10 @@ trait OnePayTraits
     public $virtualPaymentClientURL_DO = 'https://onepay.vn/paygate/vpcpay.op';
     // qr
     public $virtualPaymentClientURL_QueryQR = 'https://onepay.vn/msp/api/v1/vpc/invoices/queries';
+    public  $SECURE_SECRET = '6D0870CDE5F24F34F3915FB0045120DB';
     public function generateDataWithChecksum($data)
     {
-        $SECURE_SECRET = '6D0870CDE5F24F34F3915FB0045120DB';
+
         $vpcURL = 'http://mtf.onepay.vn/paygate/vpcpay.op?';
         ksort($data);
 
@@ -38,9 +39,9 @@ trait OnePayTraits
             }
         }
         $stringHashData = rtrim($stringHashData, "&");
-        if (strlen($SECURE_SECRET) > 0) {
+        if (strlen($this->SECURE_SECRET) > 0) {
             // Thay hàm mã hóa dữ liệu
-            $vpcURL .= "&vpc_SecureHash=" . strtoupper(hash_hmac('SHA256', $stringHashData, pack('H*', $SECURE_SECRET)));
+            $vpcURL .= "&vpc_SecureHash=" . strtoupper(hash_hmac('SHA256', $stringHashData, pack('H*', $this->SECURE_SECRET)));
         }
 
         return $vpcURL;
