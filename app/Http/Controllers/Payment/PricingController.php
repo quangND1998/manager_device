@@ -37,6 +37,11 @@ class PricingController extends Controller
         return Inertia::render('Payment/Order',compact('cart','item'));
 
     }
+    public function gate(Request $request){
+        $cart = $request->session()->get('cart');
+        $item = $cart->items;
+        return Inertia::render('Payment/Gate',compact('cart','item'));
+    }
     public function checkout(Request $request)
     {
         $cart = $request->session()->get('cart');

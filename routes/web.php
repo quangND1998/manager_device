@@ -115,17 +115,18 @@ Route::middleware(['auth'])->group(
         });
         Route::prefix('payment')->as('payment.')->group(function(){
             Route::get('index',[BillManager::class,'index'])->name('index');
-            Route::get('order',[OnePayController::class,'postDataPayment'])->name('order');
+            Route::get('order',[OnePayController::class,'paidgate'])->name('order');
             Route::get('response_order',[OnePayController::class,'responsePaymentOrder'])->name('response_order');
         });
         Route::prefix('topup')->as('topup.')->group(function(){
             Route::get('',[PricingController::class,'index'])->name('index');
             Route::post('addToCart',[PricingController::class,'addToCart'])->name('addToCart');
             Route::get('order_final',[PricingController::class,'getOrderfinal'])->name('order_final');
+            Route::get('gate',[PricingController::class,'gate'])->name('gate');
             Route::get('checkout',[PricingController::class,'checkout'])->name('checkout');
             Route::get('response',[PricingController::class,'response'])->name('response');
         });
-       
+
         Route::get('convert',[ApplicationController::class,'convert']);
     }
 );

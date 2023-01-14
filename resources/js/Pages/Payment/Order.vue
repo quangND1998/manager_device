@@ -9,12 +9,6 @@
             <h1 class="font-semibold text-2xl">Your Cart {{ form.user.name }}</h1>
 
           </div>
-          <!-- @if(Session::has('cart')) -->
-          <!-- <div class="flex justify-between mt-10 mb-5">
-            <span class="font-semibold text-2xl uppercase">Price </span>
-            <span class="font-semibold text-2xl">400$</span>
-          </div> -->
-
             <span class="font-semibold text-2xl uppercase " >Detail</span>
             <div v-if="item !== null" class="flex justify-between border-b pb-8">
 
@@ -66,7 +60,7 @@
 
             <div class="flex font-semibold justify-between py-6 text-2xl uppercase">
               <span>Discounts</span>
-              <span>{{ oldCart.discounts }} %</span>
+              <span> %</span>
             </div>
             <div class="flex font-semibold justify-between py-6 text-2xl uppercase">
               <span>Total cost</span>
@@ -98,7 +92,6 @@ export default {
     ContentHeaderVue
   },
   props:{
-    cart : Array,
     item : Object
   },
   data() {
