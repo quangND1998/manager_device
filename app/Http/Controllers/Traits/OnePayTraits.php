@@ -20,7 +20,7 @@ trait OnePayTraits
     public function generateDataWithChecksum($data)
     {
 
-        $vpcURL = 'http://mtf.onepay.vn/paygate/vpcpay.op?';
+        $vpcURL = 'https://mtf.onepay.vn/paygate/vpcpay.op?';
         ksort($data);
 
         $stringHashData = "";

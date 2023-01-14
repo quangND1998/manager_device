@@ -7,6 +7,8 @@ redis.psubscribe('private-active-device.*', function(err, count) {});
 redis.psubscribe('lauch-app.*', function(err, count) {});
 redis.psubscribe('lauch-default-app.*', function(err, count) {});
 redis.psubscribe('connect-wifi.*', function(err, count) {});
+redis.psubscribe('apk-install.*', function(err, count) {});
+redis.psubscribe('apk-uninstall.*', function(err, count) {});
 redis.on('message', function(channel, message) {
     message = JSON.parse(message);
 

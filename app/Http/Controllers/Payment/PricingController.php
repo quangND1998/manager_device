@@ -34,6 +34,7 @@ class PricingController extends Controller
         $cart = $request->session()->get('cart');
         $item = $cart->items;
         // dd($item);
+        
         return Inertia::render('Payment/Order',compact('cart','item'));
 
     }

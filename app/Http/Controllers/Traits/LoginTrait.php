@@ -29,8 +29,23 @@ trait LoginTrait
         $output=curl_exec($ch);
         $data = json_decode($output, true);
         curl_close($ch);
-        
-        return $ipaddress;
+        if($data['status'] == 'fail'){
+
+        }
+        else{
+            $ipaddress->country_code = $data['countryCode'];
+            $ipaddress->country_name = $data['country'];
+            $ipaddress->region_code = $data['region'];
+            $ipaddress->region_name = $data['regionName'];
+            $ipaddress->city = $data['city'];
+            $ipaddress->zip_code = $data['zip'];
+            $ipaddress->time_zone = $data['timezone'];
+            $ipaddress->latitude = $data['lat'];
+            $ipaddress->longitude = $data['lon'];
+        }
+       
+      
+    
 
     }
 }

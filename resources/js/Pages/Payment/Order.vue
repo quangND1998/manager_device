@@ -66,11 +66,11 @@
 
             <div class="flex font-semibold justify-between py-6 text-2xl uppercase">
               <span>Discounts</span>
-              <span>{{ oldCart.discounts }} %</span>
+              <span>{{ item.discounts }} %</span>
             </div>
             <div class="flex font-semibold justify-between py-6 text-2xl uppercase">
               <span>Total cost</span>
-              <span>${{ item.price }}</span>
+              <span>$</span>
             </div>
             <Link :href="route('topup.checkout')">
                 <button
