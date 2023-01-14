@@ -7922,6 +7922,9 @@ __webpack_require__.r(__webpack_exports__);
       return this.selected.length > 0 ? false : true;
     }
   },
+  mounted: function mounted() {
+    $("#exampleModalTopup").modal("hide");
+  },
   data: function data() {
     return {
       term: null,
@@ -10207,6 +10210,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue */ "./node_modules/@inertiajs/inertia-vue/dist/index.js");
 /* harmony import */ var _Components_Layout_Layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Components/Layout/Layout */ "./resources/js/Components/Layout/Layout.vue");
+/* harmony import */ var _Pages_Devices_Modal_OpenAppModal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Pages/Devices/Modal/OpenAppModal */ "./resources/js/Pages/Devices/Modal/OpenAppModal.vue");
 //
 //
 //
@@ -10448,71 +10452,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   layout: _Components_Layout_Layout__WEBPACK_IMPORTED_MODULE_1__["default"],
+  components: {
+    OpenAppModal: _Pages_Devices_Modal_OpenAppModal__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
   props: {
     package_products: Array,
     errors: Object
@@ -10521,7 +10468,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       form: this.$inertia.form({
         number_device: 2,
-        package_product_id: null
+        package_product_id: null,
+        user: this.$page.props.auth.user
       })
     };
   },
@@ -10529,6 +10477,13 @@ __webpack_require__.r(__webpack_exports__);
     addtoCart: function addtoCart(data) {
       this.form.package_product_id = data.id;
       this.form.post(route("topup.addToCart"), {
+        preserveState: true,
+        onError: function onError(errors) {},
+        onSuccess: function onSuccess(page) {}
+      });
+    },
+    trielfree: function trielfree() {
+      this.form.post(route("topup.free"), {
         preserveState: true,
         onError: function onError(errors) {},
         onSuccess: function onSuccess(page) {}
@@ -11461,7 +11416,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.multiselect-tags-search {\r\n    font-size: 1.25rem;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.multiselect-tags-search {\n    font-size: 1.25rem;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -59665,207 +59620,15 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container my-24 px-6 mx-auto" }, [
     _c("section", { staticClass: "mb-32 text-gray-800" }, [
-      _c("h2", { staticClass: "text-6xl font-bold text-center mb-6" }, [
-        _vm._v("TopUp "),
+      _c("h2", { staticClass: "text-6xl font-bold text-center mb-40" }, [
+        _vm._v("Choose your plan "),
       ]),
       _vm._v(" "),
       _c("p", { staticClass: "text-center text-3xl mb-12 text-gray-500" }),
       _vm._v(" "),
       _c(
-        "h3",
-        { staticClass: " font-semibold text-gray-900 dark:text-white mb-8" },
-        [_vm._v("Number Devices:")]
-      ),
-      _vm._v(" "),
-      _c(
-        "ul",
-        {
-          staticClass:
-            "items-center w-full text-xl font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white",
-        },
-        [
-          _c(
-            "li",
-            {
-              staticClass:
-                "w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600",
-            },
-            [
-              _c("div", { staticClass: "flex items-center pl-3" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.form.number_device,
-                      expression: "form.number_device",
-                    },
-                  ],
-                  staticClass:
-                    "w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500",
-                  attrs: {
-                    id: "horizontal-list-radio-license",
-                    type: "radio",
-                    value: "2",
-                    name: "list-radio",
-                  },
-                  domProps: { checked: _vm._q(_vm.form.number_device, "2") },
-                  on: {
-                    change: function ($event) {
-                      return _vm.$set(_vm.form, "number_device", "2")
-                    },
-                  },
-                }),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  {
-                    staticClass:
-                      "w-full py-3 ml-2 text-2xl font-medium text-gray-900 dark:text-gray-300",
-                    attrs: { for: "horizontal-list-radio-license" },
-                  },
-                  [_vm._v("2 Devices ")]
-                ),
-              ]),
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            {
-              staticClass:
-                "w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600",
-            },
-            [
-              _c("div", { staticClass: "flex items-center pl-3" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.form.number_device,
-                      expression: "form.number_device",
-                    },
-                  ],
-                  staticClass:
-                    "w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500",
-                  attrs: {
-                    id: "horizontal-list-radio-id",
-                    type: "radio",
-                    value: "4",
-                    name: "list-radio",
-                  },
-                  domProps: { checked: _vm._q(_vm.form.number_device, "4") },
-                  on: {
-                    change: function ($event) {
-                      return _vm.$set(_vm.form, "number_device", "4")
-                    },
-                  },
-                }),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  {
-                    staticClass:
-                      "w-full py-3 ml-2 text-2xl font-medium text-gray-900 dark:text-gray-300",
-                    attrs: { for: "horizontal-list-radio-id" },
-                  },
-                  [_vm._v("4 Devices")]
-                ),
-              ]),
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            {
-              staticClass:
-                "w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600",
-            },
-            [
-              _c("div", { staticClass: "flex items-center pl-3" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.form.number_device,
-                      expression: "form.number_device",
-                    },
-                  ],
-                  staticClass:
-                    "w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500",
-                  attrs: {
-                    id: "horizontal-list-radio-millitary",
-                    type: "radio",
-                    value: "8",
-                    name: "list-radio",
-                  },
-                  domProps: { checked: _vm._q(_vm.form.number_device, "8") },
-                  on: {
-                    change: function ($event) {
-                      return _vm.$set(_vm.form, "number_device", "8")
-                    },
-                  },
-                }),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  {
-                    staticClass:
-                      "w-full py-3 ml-2 text-2xl font-medium text-gray-900 dark:text-gray-300",
-                    attrs: { for: "horizontal-list-radio-millitary" },
-                  },
-                  [_vm._v("8 Devices")]
-                ),
-              ]),
-            ]
-          ),
-          _vm._v(" "),
-          _c("li", { staticClass: "w-full dark:border-gray-600" }, [
-            _c("div", { staticClass: "flex items-center pl-3" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.form.number_device,
-                    expression: "form.number_device",
-                  },
-                ],
-                staticClass:
-                  "w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500",
-                attrs: {
-                  id: "horizontal-list-radio-passport",
-                  type: "radio",
-                  value: "10",
-                  name: "list-radio",
-                },
-                domProps: { checked: _vm._q(_vm.form.number_device, "10") },
-                on: {
-                  change: function ($event) {
-                    return _vm.$set(_vm.form, "number_device", "10")
-                  },
-                },
-              }),
-              _vm._v(" "),
-              _c(
-                "label",
-                {
-                  staticClass:
-                    "w-full py-3 ml-2 text-2xl font-medium text-gray-900 dark:text-gray-300",
-                  attrs: { for: "horizontal-list-radio-passport" },
-                },
-                [_vm._v("10 Devices")]
-              ),
-            ]),
-          ]),
-        ]
-      ),
-      _vm._v(" "),
-      _c(
         "div",
-        { staticClass: "grid lg:grid-cols-5 gap-6 xl:gap-x-12 mt-8" },
+        { staticClass: "grid lg:grid-cols-3 gap-6 xl:gap-x-12 mt-20" },
         [
           _vm._l(_vm.package_products, function (package_product, index) {
             return _c(
@@ -59880,84 +59643,546 @@ var render = function () {
                   "div",
                   { staticClass: "block rounded-lg shadow-lg bg-white h-full" },
                   [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "p-6 border-b border-gray-300 text-center",
-                      },
-                      [
-                        _c("p", { staticClass: "uppercase mb-4 text-4xl" }, [
-                          _c("strong", [_vm._v(_vm._s(package_product.name))]),
-                          _vm._v(" "),
-                          _c(
-                            "small",
-                            { staticClass: "text-gray-500 text-xl" },
-                            [
-                              _vm._v(
-                                "(" +
-                                  _vm._s(package_product.package_time) +
-                                  " days)"
-                              ),
-                            ]
-                          ),
-                        ]),
+                    _c("div", { staticClass: "p-6  text-center" }, [
+                      _c("p", { staticClass: "uppercase mb-8 text-4xl" }, [
+                        _c("strong", [_vm._v(_vm._s(package_product.name))]),
                         _vm._v(" "),
-                        _c("h3", { staticClass: "text-6xl mb-6" }, [
-                          _c("strong", [
-                            _vm._v(
-                              "$ " +
-                                _vm._s(
-                                  package_product.price * _vm.form.number_device
-                                )
+                        _c("small", { staticClass: "text-gray-500 text-xl" }),
+                      ]),
+                      _vm._v(" "),
+                      package_product.price == 0 ||
+                      package_product.name == "Demo"
+                        ? _c("h3", { staticClass: "text-6xl mb-6" }, [
+                            _c("strong", [
+                              _vm._v("$ " + _vm._s(package_product.price)),
+                            ]),
+                            _vm._v(" "),
+                            _c("br"),
+                            _vm._v(" "),
+                            _c(
+                              "small",
+                              { staticClass: "text-gray-500 text-4xl" },
+                              [_vm._v(" Unlimited devices ")]
+                            ),
+                          ])
+                        : _c("h3", { staticClass: "text-6xl mb-6" }, [
+                            _c("strong", [
+                              _vm._v("$ " + _vm._s(package_product.price)),
+                            ]),
+                            _vm._v(" "),
+                            _c("br"),
+                            _vm._v(" "),
+                            _c(
+                              "small",
+                              { staticClass: "text-gray-500 text-xl" },
+                              [_vm._v(" Per month, per device")]
                             ),
                           ]),
-                          _vm._v(" "),
-                          _c(
-                            "small",
-                            { staticClass: "text-gray-500 text-xl" },
-                            [
-                              _vm._v(
-                                "/" + _vm._s(_vm.form.number_device) + " Device"
+                      _vm._v(" "),
+                      _c("div", { staticClass: "p-6" }, [
+                        package_product.price == 0
+                          ? _c("ol", { staticClass: "list-inside text-left" }, [
+                              _c(
+                                "li",
+                                { staticClass: "mb-4 flex items-center" },
+                                [
+                                  _c(
+                                    "svg",
+                                    {
+                                      staticClass:
+                                        "text-green-600 w-4 h-4 mr-2",
+                                      attrs: {
+                                        "aria-hidden": "true",
+                                        focusable: "false",
+                                        "data-prefix": "fas",
+                                        "data-icon": "check",
+                                        role: "img",
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        viewBox: "0 0 512 512",
+                                      },
+                                    },
+                                    [
+                                      _c("path", {
+                                        attrs: {
+                                          fill: "currentColor",
+                                          d: "M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z",
+                                        },
+                                      }),
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("p", [
+                                    _vm._v(
+                                      " For Holomia Apps (Mission X and Infinity)"
+                                    ),
+                                  ]),
+                                ]
                               ),
-                            ]
-                          ),
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass:
-                              "inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full",
-                            attrs: {
-                              type: "button",
-                              "data-mdb-ripple": "true",
-                              "data-ripple-color": "light",
-                            },
-                            on: {
-                              click: function ($event) {
-                                return _vm.addtoCart(package_product)
-                              },
-                            },
+                              _vm._v(" "),
+                              _c(
+                                "li",
+                                { staticClass: "mb-4 flex items-center" },
+                                [
+                                  _c(
+                                    "svg",
+                                    {
+                                      staticClass:
+                                        "text-green-600 w-4 h-4 mr-2",
+                                      attrs: {
+                                        "aria-hidden": "true",
+                                        focusable: "false",
+                                        "data-prefix": "fas",
+                                        "data-icon": "check",
+                                        role: "img",
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        viewBox: "0 0 512 512",
+                                      },
+                                    },
+                                    [
+                                      _c("path", {
+                                        attrs: {
+                                          fill: "currentColor",
+                                          d: "M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z",
+                                        },
+                                      }),
+                                    ]
+                                  ),
+                                  _vm._v(
+                                    "Launch Apps Remotely\n                  "
+                                  ),
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "li",
+                                { staticClass: "mb-4 flex items-center" },
+                                [
+                                  _c(
+                                    "svg",
+                                    {
+                                      staticClass:
+                                        "text-green-600 w-4 h-4 mr-2",
+                                      attrs: {
+                                        "aria-hidden": "true",
+                                        focusable: "false",
+                                        "data-prefix": "fas",
+                                        "data-icon": "check",
+                                        role: "img",
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        viewBox: "0 0 512 512",
+                                      },
+                                    },
+                                    [
+                                      _c("path", {
+                                        attrs: {
+                                          fill: "currentColor",
+                                          d: "M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z",
+                                        },
+                                      }),
+                                    ]
+                                  ),
+                                  _vm._v("Kiosk Mode\n                  "),
+                                ]
+                              ),
+                            ])
+                          : _c("ol", { staticClass: "list-inside text-left" }, [
+                              _c("div", [
+                                _c(
+                                  "li",
+                                  { staticClass: "mb-4 flex items-center" },
+                                  [
+                                    _c(
+                                      "svg",
+                                      {
+                                        staticClass:
+                                          "text-green-600 w-4 h-4 mr-2",
+                                        attrs: {
+                                          "aria-hidden": "true",
+                                          focusable: "false",
+                                          "data-prefix": "fas",
+                                          "data-icon": "check",
+                                          role: "img",
+                                          xmlns: "http://www.w3.org/2000/svg",
+                                          viewBox: "0 0 512 512",
+                                        },
+                                      },
+                                      [
+                                        _c("path", {
+                                          attrs: {
+                                            fill: "currentColor",
+                                            d: "M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z",
+                                          },
+                                        }),
+                                      ]
+                                    ),
+                                    _vm._v(
+                                      "30 days trial, unlimited devices\n                      "
+                                    ),
+                                  ]
+                                ),
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "li",
+                                { staticClass: "mb-4 flex items-center" },
+                                [
+                                  _c(
+                                    "svg",
+                                    {
+                                      staticClass:
+                                        "text-green-600 w-4 h-4 mr-2",
+                                      attrs: {
+                                        "aria-hidden": "true",
+                                        focusable: "false",
+                                        "data-prefix": "fas",
+                                        "data-icon": "check",
+                                        role: "img",
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        viewBox: "0 0 512 512",
+                                      },
+                                    },
+                                    [
+                                      _c("path", {
+                                        attrs: {
+                                          fill: "currentColor",
+                                          d: "M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z",
+                                        },
+                                      }),
+                                    ]
+                                  ),
+                                  _vm._v(
+                                    "Launch Apps Remotely\n                  "
+                                  ),
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "li",
+                                { staticClass: "mb-4 flex items-center" },
+                                [
+                                  _c(
+                                    "svg",
+                                    {
+                                      staticClass:
+                                        "text-green-600 w-4 h-4 mr-2",
+                                      attrs: {
+                                        "aria-hidden": "true",
+                                        focusable: "false",
+                                        "data-prefix": "fas",
+                                        "data-icon": "check",
+                                        role: "img",
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        viewBox: "0 0 512 512",
+                                      },
+                                    },
+                                    [
+                                      _c("path", {
+                                        attrs: {
+                                          fill: "currentColor",
+                                          d: "M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z",
+                                        },
+                                      }),
+                                    ]
+                                  ),
+                                  _vm._v("Kiosk Mode\n                  "),
+                                ]
+                              ),
+                              _vm._v(" "),
+                              package_product.name == "Pro"
+                                ? _c("div", [
+                                    _c(
+                                      "li",
+                                      { staticClass: "mb-4 flex items-center" },
+                                      [
+                                        _c(
+                                          "svg",
+                                          {
+                                            staticClass:
+                                              "text-green-600 w-4 h-4 mr-2",
+                                            attrs: {
+                                              "aria-hidden": "true",
+                                              focusable: "false",
+                                              "data-prefix": "fas",
+                                              "data-icon": "check",
+                                              role: "img",
+                                              xmlns:
+                                                "http://www.w3.org/2000/svg",
+                                              viewBox: "0 0 512 512",
+                                            },
+                                          },
+                                          [
+                                            _c("path", {
+                                              attrs: {
+                                                fill: "currentColor",
+                                                d: "M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z",
+                                              },
+                                            }),
+                                          ]
+                                        ),
+                                        _vm._v(
+                                          "App & File Distribution\n                      "
+                                        ),
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "li",
+                                      { staticClass: "mb-4 flex items-center" },
+                                      [
+                                        _c(
+                                          "svg",
+                                          {
+                                            staticClass:
+                                              "text-green-600 w-4 h-4 mr-2",
+                                            attrs: {
+                                              "aria-hidden": "true",
+                                              focusable: "false",
+                                              "data-prefix": "fas",
+                                              "data-icon": "check",
+                                              role: "img",
+                                              xmlns:
+                                                "http://www.w3.org/2000/svg",
+                                              viewBox: "0 0 512 512",
+                                            },
+                                          },
+                                          [
+                                            _c("path", {
+                                              attrs: {
+                                                fill: "currentColor",
+                                                d: "M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z",
+                                              },
+                                            }),
+                                          ]
+                                        ),
+                                        _vm._v(
+                                          "Device Tracking & Reporting\n                      "
+                                        ),
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "li",
+                                      { staticClass: "mb-4 flex items-center" },
+                                      [
+                                        _c(
+                                          "svg",
+                                          {
+                                            staticClass:
+                                              "text-green-600 w-4 h-4 mr-2",
+                                            attrs: {
+                                              "aria-hidden": "true",
+                                              focusable: "false",
+                                              "data-prefix": "fas",
+                                              "data-icon": "check",
+                                              role: "img",
+                                              xmlns:
+                                                "http://www.w3.org/2000/svg",
+                                              viewBox: "0 0 512 512",
+                                            },
+                                          },
+                                          [
+                                            _c("path", {
+                                              attrs: {
+                                                fill: "currentColor",
+                                                d: "M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z",
+                                              },
+                                            }),
+                                          ]
+                                        ),
+                                        _vm._v(
+                                          "More function coming soon\n                      "
+                                        ),
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "li",
+                                      { staticClass: "mb-4 flex items-center" },
+                                      [
+                                        _c(
+                                          "svg",
+                                          {
+                                            staticClass:
+                                              "text-green-600 w-4 h-4 mr-2",
+                                            attrs: {
+                                              "aria-hidden": "true",
+                                              focusable: "false",
+                                              "data-prefix": "fas",
+                                              "data-icon": "check",
+                                              role: "img",
+                                              xmlns:
+                                                "http://www.w3.org/2000/svg",
+                                              viewBox: "0 0 512 512",
+                                            },
+                                          },
+                                          [
+                                            _c("path", {
+                                              attrs: {
+                                                fill: "currentColor",
+                                                d: "M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z",
+                                              },
+                                            }),
+                                          ]
+                                        ),
+                                        _vm._v(
+                                          "More function coming soon\n                      "
+                                        ),
+                                      ]
+                                    ),
+                                  ])
+                                : _vm._e(),
+                            ]),
+                      ]),
+                    ]),
+                  ]
+                ),
+                _vm._v(" "),
+                package_product.name == "Free"
+                  ? _c(
+                      "button",
+                      {
+                        staticClass:
+                          "mt-5 inline-block p-8  bg-gray-400 text-white font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-400 hover:shadow-lg focus:bg-gray-400 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out w-full",
+                        attrs: {
+                          type: "button",
+                          disabled: "",
+                          "data-mdb-ripple": "true",
+                          "data-ripple-color": "light",
+                        },
+                      },
+                      [_vm._v(" Your Account Default\n            ")]
+                    )
+                  : _vm.$page.props.auth.user.active_demo == 1
+                  ? _c(
+                      "button",
+                      {
+                        staticClass:
+                          "mt-5 inline-block p-8  mr-5 bg-blue-600 text-white font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full",
+                        attrs: {
+                          type: "button",
+                          "data-mdb-ripple": "true",
+                          "data-ripple-color": "light",
+                          "data-toggle": "modal",
+                          "data-target": "#exampleModalTopup",
+                        },
+                      },
+                      [
+                        _vm._v(
+                          "\n                  Get Your 30 days Trial\n            "
+                        ),
+                      ]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        staticClass:
+                          "mt-5 inline-block p-8  mr-5 bg-gray-600 text-white font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-700 hover:shadow-lg focus:bg-gray-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full",
+                        attrs: {
+                          type: "button",
+                          disabled: "",
+                          "data-mdb-ripple": "true",
+                          "data-ripple-color": "light",
+                        },
+                        on: {
+                          click: function ($event) {
+                            return _vm.addtoCart(package_product)
                           },
-                          [
-                            _c("i", {
-                              staticClass: "fa fa-cart-plus",
-                              attrs: { "aria-hidden": "true" },
-                            }),
-                            _vm._v(" Add to Cart\n            "),
-                          ]
+                        },
+                      },
+                      [
+                        _vm._v(
+                          "\n                      Get Your 30 days Trial\n              "
                         ),
                       ]
                     ),
-                  ]
-                ),
               ]
             )
           }),
           _vm._v(" "),
-          _vm._m(0),
+          _c("div", {
+            staticClass:
+              "mb-6 lg:mb-0 hover:shadow-2xl transition duration-500 transform hover:scale-105 cursor-pointer",
+          }),
         ],
         2
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "exampleModalTopup",
+            tabindex: "-1",
+            role: "dialog",
+            "aria-labelledby": "exampleModalLabel",
+            "aria-hidden": "true",
+          },
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "modal-dialog", attrs: { role: "document" } },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _c("div", { staticClass: "modal-header text-center" }, [
+                  _c(
+                    "h1",
+                    {
+                      staticClass: "modal-title text-4xl",
+                      attrs: { id: "exampleModalLabel" },
+                    },
+                    [_c("Strong", [_vm._v(" Package Demo")])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm._m(0),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-body" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _vm._v(
+                      "\n                                  30 days trial, unlimited devices\n                              "
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _vm.errors.devices
+                    ? _c("div", { staticClass: "text-red-500" }, [
+                        _vm._v(_vm._s(_vm.errors.devices)),
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out",
+                        attrs: { type: "button", "data-dismiss": "modal" },
+                      },
+                      [_vm._v("Cancel")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "inline-block px-6 py-2.5 bg-green-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-green-900 hover:shadow-lg focus:bg-green-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out",
+                        attrs: { type: "submit", "data-dismiss": "modal" },
+                        on: {
+                          click: function ($event) {
+                            return _vm.trielfree()
+                          },
+                        },
+                      },
+                      [_vm._v("Save\n                                      OK")]
+                    ),
+                  ]),
+                ]),
+              ]),
+            ]
+          ),
+        ]
       ),
     ]),
   ])
@@ -59968,38 +60193,16 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "div",
+      "button",
       {
-        staticClass:
-          "mb-6 lg:mb-0 hover:shadow-2xl transition duration-500 transform hover:scale-105 cursor-pointer",
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close",
+        },
       },
-      [
-        _c("div", { staticClass: "block rounded-lg bg-white h-full border" }, [
-          _c(
-            "div",
-            { staticClass: "p-6 border-b border-gray-300 text-center" },
-            [
-              _c("p", { staticClass: "uppercase mb-4 text-4xl" }, [
-                _c("strong", [_vm._v("More")]),
-              ]),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass:
-                    "inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full",
-                  attrs: {
-                    type: "button",
-                    "data-mdb-ripple": "true",
-                    "data-ripple-color": "light",
-                  },
-                },
-                [_vm._v("\n            Contact with us\n          ")]
-              ),
-            ]
-          ),
-        ]),
-      ]
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
     )
   },
 ]

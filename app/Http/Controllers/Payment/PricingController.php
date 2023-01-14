@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Session;
 use App\Models\Cart;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 class PricingController extends Controller
 {
     public function index(){
@@ -15,6 +18,25 @@ class PricingController extends Controller
         $package_products = ProductPackage::where('state', true)->orderBy('id_priority')->get();
         session()->forget('cart');
         return Inertia::render('Payment/Pricing',compact('package_products'));
+    }
+    public function free(Request $request){
+        // $package = ProductPackage::findOrFail($request->package_product_id);
+        // dd($package);
+        $user =  User::with('roles')->findOrFail(Auth::user()->id);
+        if($user->active_demo == 1){
+            $role = Role::where('name','Demo')->first();
+            $user->time_limit = 1;
+            $user->active_demo = 0;
+            $user->roles()->sync($role);
+            $user->save();
+            // return back()->with('success', 'Change account Demo succsessfully');
+
+            return redirect('/devices')->with('success', 'Change account Demo succsessfully');
+        }
+
+        return redirect('/devices')->with('success', 'Account have one use Demo');
+        // return back()->with('error', 'Account have one use Demo');
+
     }
 
     public function addToCart(Request $request){
