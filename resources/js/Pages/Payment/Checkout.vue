@@ -79,7 +79,7 @@
                                 <span>Total cost</span>
                                 <span>${{ formatPrice(item.price) }}</span>
                             </div>
-                            <a href="/payment/order">
+                            <a href="/topup/gate">
                                 <button
                                 class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-2xl text-white uppercase w-full"
                                 >Checkout</button>

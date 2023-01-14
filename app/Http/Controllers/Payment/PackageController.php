@@ -25,8 +25,8 @@ class PackageController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'price' => 'required|numeric|gt:0',
-            'save_money' => 'nullable|numeric|between:0,100',
+            'price' => 'required|numeric|gt:-1',
+            'save_money' => 'nullable|numeric|between:12,100',
             'package_time' => 'required|numeric|gt:0'
         ]);
    
@@ -43,8 +43,8 @@ class PackageController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'price' => 'required|numeric|gt:0',
-            'save_money' => 'nullable|numeric|between:0,100',
+            'price' => 'required|numeric|gt:-1',
+            'save_money' => 'nullable|numeric|between:12,100',
             'package_time' => 'required|numeric|gt:0'
         ]);
  

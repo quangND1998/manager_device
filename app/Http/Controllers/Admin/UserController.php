@@ -67,6 +67,8 @@ class UserController extends InertiaController
                 'email' => 'required|email|unique:users,email',
                 'phone' => 'required|unique:users,phone|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
                 'roles' => 'required',
+                'time_limit' => 'nullable|date|after:tomorrow',
+                'number_device' => 'nullable|numeric|gt:-1',
             ]
         );
 
@@ -88,6 +90,8 @@ class UserController extends InertiaController
                 'email' => 'required|email|unique:users,email,' . $user->id,
                 'phone' => 'nullable|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|unique:users,phone,' . $user->id,
                 'roles' => 'required',
+                'time_limit' => 'nullable|date|after:tomorrow',
+                'number_device' => 'nullable|numeric|gt:-1',
             ]
         );
 
