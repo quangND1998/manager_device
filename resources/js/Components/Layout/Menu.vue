@@ -158,6 +158,7 @@ export default {
        console.log(`Navigated to ${event.detail.page.url}`)
   })
   }
+  
 };
 </script>
 <style>
