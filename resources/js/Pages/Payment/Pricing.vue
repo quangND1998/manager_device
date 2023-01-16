@@ -39,7 +39,7 @@
 
       <div class="grid lg:grid-cols-3 gap-6 xl:gap-x-12 mt-20">
         <div v-for="(package_product, index) in package_products" :key="index"
-          class="mb-6 lg:mb-0 hover:shadow-2xl transition duration-500 transform hover:scale-105 cursor-pointer">
+          class="lg:mb-0 hover:shadow-2xl transition duration-500 transform hover:scale-105 cursor-pointer mb-40">
           <div class="block rounded-lg shadow-lg bg-white h-full">
             <div class="p-6  text-center">
               <p class="uppercase mb-8 text-4xl">

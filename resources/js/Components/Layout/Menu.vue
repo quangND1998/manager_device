@@ -147,9 +147,16 @@
 </template>
 <script>
 import { Link } from "@inertiajs/inertia-vue";
+import { Inertia } from '@inertiajs/inertia'
 export default {
   components: {
     Link
+  },
+  mounted(){
+    Inertia.on('navigate', (event) => {
+      $('body').removeClass('sidebar-open')
+       console.log(`Navigated to ${event.detail.page.url}`)
+  })
   }
 };
 </script>
