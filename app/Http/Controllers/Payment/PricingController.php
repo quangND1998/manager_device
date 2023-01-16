@@ -23,7 +23,7 @@ class PricingController extends Controller
         // $package = ProductPackage::findOrFail($request->package_product_id);
         // dd($package);
         $user =  User::with('roles')->findOrFail(Auth::user()->id);
-        if($user->active_demo == 1){
+        if($user->active_demo == 0){
             $role = Role::where('name','Demo')->first();
             $user->time_limit = 1;
             $user->active_demo = 0;
@@ -56,7 +56,7 @@ class PricingController extends Controller
         $cart = $request->session()->get('cart');
         $item = $cart->items;
         // dd($item);
-        
+
         return Inertia::render('Payment/Order',compact('cart','item'));
 
     }
