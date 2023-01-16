@@ -46,7 +46,7 @@
         </div>
 
 
-        <div class="modal fade" id="WifiModal" tabindex="-1" role="dialog" aria-labelledby="WifiModalLabel"
+        <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="WifiModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">

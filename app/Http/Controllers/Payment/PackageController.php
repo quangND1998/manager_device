@@ -25,11 +25,11 @@ class PackageController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'price' => 'required|numeric|gt:0',
-            'save_money' => 'nullable|numeric|between:0,100',
-            'package_time' => 'required|numeric|gt:0'
+            'price' => 'required|numeric|gt:-1',
+            'save_money' => 'nullable|numeric|between:-1,100',
+            'package_time' => 'required|numeric|gt:-1'
         ]);
-   
+
         $package = ProductPackage::create([
             'name' => $request->name,
             'price' => $request->price,
@@ -43,11 +43,11 @@ class PackageController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'price' => 'required|numeric|gt:0',
-            'save_money' => 'nullable|numeric|between:0,100',
-            'package_time' => 'required|numeric|gt:0'
+            'price' => 'required|numeric|gt:-1',
+            'save_money' => 'nullable|numeric|between:-1,100',
+            'package_time' => 'required|numeric|gt:-1'
         ]);
- 
+
         $package = ProductPackage::findOrFail($id);
         $package->update([
             'name' => $request->name,

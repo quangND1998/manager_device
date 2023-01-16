@@ -8,15 +8,20 @@ use App\Events\LaunchAppEvent;
 use App\Models\Applicaion;
 use App\Models\Devices;
 use App\Models\Wifi;
+use App\Models\HistoryDevice;
+use App\Models\ipaddress;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
+use App\Http\Controllers\Traits\LoginTrait;
+use Carbon\Carbon;
 
 class DeviceController extends Controller
 {
+    use LoginTrait;
     function __construct()
     {
         $this->middleware('permission:user-manager|Pro|Demo|Lite', ['only' => ['index','setDefaultApp','lanchApp']]);
@@ -66,6 +71,9 @@ class DeviceController extends Controller
 
     public function delete($id){
         $device = Devices::with('applications')->findOrFail($id);
+        foreach($device->applications as $app){
+             uniqid($app->icon);
+        }
         $device->applications()->delete();
         $device->delete();
         return back()->with('success', 'Delete succsessfully');
@@ -125,6 +133,15 @@ class DeviceController extends Controller
             ]);
            
         }
+
+        $new_history_login = HistoryDevice::create([
+            'device_id' =>$device->id,
+            'time_login'=> Carbon::now()
+        ]);
+        $new_ip = new ipaddress();
+        $new_ip->ip =  $this->getOriginalClientIp($request);
+        $this->checkaddressIp($new_ip);
+        $new_history_login->ipaddress()->save($new_ip);
         return response()->json('Create successfully', Response::HTTP_OK);
 
     }

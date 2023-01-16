@@ -1,18 +1,24 @@
 <template>
   <ul class="sidebar-menu">
     <!-- <li class="header">TOOLS</li> -->
-    <!-- <li tag="li" :class="[$page.component === 'Dashboard' ? 'active' : '']">
+    <li tag="li" :class="[$page.component === 'Dashboard' ? 'active' : '']">
       <Link :href="route('dashboard')" >
         <i class="fa fa-desktop"></i>
         <span class="page">Dashboard</span>
       </Link>
-    </li> -->
-    <!-- <li tag="li" :class="[$page.component === 'topup' ? 'active' : '']">
+    </li>
+    <li tag="li" :class="[$page.component === 'topup' ? 'active' : '']">
       <Link :href="route('topup.index')" >
         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
         <span class="page">TopUp</span>
       </Link>
-    </li> -->
+    </li>
+    <li tag="li" :class="[$page.component === 'payment' ? 'active' : '']">
+      <Link :href="route('payment.index')" >
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+        <span class="page">Bill</span>
+      </Link>
+    </li>
 
 
     <li class="header">Device Manager</li>
@@ -88,19 +94,10 @@
       <ul class="treeview-menu">
         <li :class="[$page.component === 'Package/Index' ? 'active' : '']">
           <Link :href="route('package.index')">
-            <i class="fa fa-product-hunt" aria-hidden="true"></i> Package License 
+            <i class="fa fa-product-hunt" aria-hidden="true"></i> Package License
           </Link>
         </li>
-        <!-- <li :class="[$page.component === 'Admin/Roles' ? 'active' : '']">
-          <Link :href="route('roles.index')">
-            <i class="fa fa-check-circle"></i> Roles
-          </Link>
-        </li>
-        <li :class="[$page.component === 'Admin/User' ? 'active' : '']">
-          <Link :href="route('users.index')">
-            <i class="fa fa-users"></i> Users
-          </Link>
-        </li> -->
+      
       </ul>
     </li>
     <li class="header">Logout</li>
@@ -129,9 +126,9 @@
         <span class="page">Repos</span>
         <small class="label pull-right bg-green">AJAX</small>
       </a>
-    </li> -->
+    </li>
 
-    <!-- <li class="header">PAGES</li>
+    <li class="header">PAGES</li>
     <li tag="li" class="pageli">
       <a>
         <i class="fa fa-circle-o text-yellow"></i>

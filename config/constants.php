@@ -6,7 +6,7 @@
     'VPC_VERSION' => 2,
     'VPC_COMMAND' => 'pay',
     'VPC_LOCADE' => 'en',
-    'PAYMENT_UR' => 'https://mtf.onepay.vn/paygate/vpcpay.op',
+    'PAYMENT_URL' => 'https://mtf.onepay.vn/paygate/vpcpay.op?',
     'EXCHANGE_CENT' => 230,
     'RETURN_URL_PAID_INVOICE' => 'http://127.0.0.1:8000/payment/response_order',
     'VALUE_CONVERT_USD_TO_VN' => '25030',
@@ -18,7 +18,7 @@
     // 'VPC_VERSION' => 2,
     // 'VPC_COMMAND' => 'pay',
     // 'VPC_LOCADE' => 'en',
-    // 'PAYMENT_UR' => 'https://onepay.vn/paygate/vpcpay.op',
+    // 'PAYMENT_URL' => 'https://onepay.vn/paygate/vpcpay.op',
     // 'EXCHANGE_CENT' => 230,
     // 'RETURN_URL_PAID_INVOICE' => 'http://127.0.0.1:8000/payment/response_order',
 

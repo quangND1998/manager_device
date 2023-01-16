@@ -25,6 +25,8 @@ class User extends Authenticatable implements JWTSubject
         'password',
         'phone',
         'created_byId',
+        'time_limit',
+        'number_device',
         'created_at',
         'updated_at'
     ];
@@ -79,6 +81,10 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+    public function payment()
+    {
+        return $this->hasMany(Payment::class,'user_id');
     }
 
 }
