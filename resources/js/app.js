@@ -4,7 +4,6 @@ import Vue from 'vue'
 import { createInertiaApp } from '@inertiajs/inertia-vue'
 import { InertiaProgress } from '@inertiajs/progress'
 import VueCompositionAPI from '@vue/composition-api'
-import moment from 'moment';
 InertiaProgress.init({})
 Vue.use(VueCompositionAPI)
 createInertiaApp({
@@ -66,6 +65,9 @@ Vue.mixin({
     },
 })
 
+// router.on('navigate', (event) => {
+//     console.log(`Navigated to ${event.detail.page.url}`)
+// })
 Vue.mixin(require('./base'))
 const el = document.getElementById('app')
 Vue.mixin({
