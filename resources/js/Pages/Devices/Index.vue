@@ -5,7 +5,7 @@
     <WifiModel v-if="hasAnyPermission(['user-manager'])" :errors="errors" :ids="selected" :wifis="wifis" />
     <OpenAppModal v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
     <OpenAppModal v-else :errors="errors" :applications="application_deivce" :ids="selected" />
- 
+
     <GroupModel :errors="errors" :ids="selected" />
     <defaulAppModal v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
     <defaulAppModal  v-else :errors="errors" :applications="application_deivce" :ids="selected" />
@@ -64,7 +64,7 @@
             </li>
             <li><button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
                 data-target="#openAppModal"><i class="fa fa-rocket mr-2" aria-hidden="true"></i>LauchApp</button></li>
-       
+
             <li v-if="hasAnyPermission(['user-manager'])"><button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
                 data-target="#WifiModal"><i class="fa fa-wifi mr-2" aria-hidden="true"></i>Wifi</button></li>
             <!-- <li><button  type="button"   class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal" data-target="#groupModal" ><i class="fa fa-folder-o mr-2" aria-hidden="true"></i>Group </button></li> -->
@@ -214,6 +214,9 @@ export default {
       return this.selected.length > 0 ? false : true
     }
 
+  },
+  mounted(){
+    $("#exampleModalTopup").modal("hide");
   },
   data() {
     return {
