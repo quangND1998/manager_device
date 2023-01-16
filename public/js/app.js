@@ -60052,7 +60052,7 @@ var render = function () {
                       },
                       [_vm._v(" Your Account Default\n            ")]
                     )
-                  : _vm.$page.props.auth.user.active_demo == 1
+                  : _vm.$page.props.auth.user.active_demo == 0
                   ? _c(
                       "button",
                       {
