@@ -209,7 +209,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header text-center">
-                            <h1 class="modal-title text-4xl" id="exampleModalLabel"><Strong> Package Demo</Strong></h1>
+                            <h1 class="modal-title text-4xl" id="exampleModalLabel"><Strong> Free Trial </Strong></h1>
 
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -217,7 +217,7 @@
                         </div>
                         <div class="modal-body">
                                 <div class="form-group">
-                                    30 days trial, unlimited devices
+                                    Please confirm to use Free of charge the Kiosk mode HoloStartup for 30 days, unlimited devices
                                 </div>
                                 <div class="text-red-500" v-if="errors.devices">{{ errors.devices }}</div>
                                 <div class="modal-footer">
@@ -225,7 +225,7 @@
                                         class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
                                         data-dismiss="modal">Cancel</button>
                                     <button @click="trielfree()" type="submit" data-dismiss="modal"
-                                        class="inline-block px-6 py-2.5 bg-green-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-green-900 hover:shadow-lg focus:bg-green-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out">Save
+                                        class="inline-block px-6 py-2.5 bg-green-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-green-900 hover:shadow-lg focus:bg-green-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out">
                                         OK</button>
                                 </div>
                         </div>

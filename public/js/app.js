@@ -5480,6 +5480,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -11549,7 +11551,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* override default */\n.sidebar-menu > li > a {\r\n  padding: 12px 15px 12px 15px;\n}\n.sidebar-menu li.active > a > .fa-angle-left,\r\n.sidebar-menu li.active > a > .pull-right-container > .fa-angle-left {\r\n  -webkit-animation-name: rotate;\r\n          animation-name: rotate;\r\n  -webkit-animation-duration: 0.2s;\r\n          animation-duration: 0.2s;\r\n  -webkit-animation-fill-mode: forwards;\r\n          animation-fill-mode: forwards;\n}\n.treeview-title {\r\n  z-index: 1;\n}\n@-webkit-keyframes rotate {\n0% {\r\n    transform: rotate(0deg);\n}\n100% {\r\n    transform: rotate(-90deg);\n}\n}\n@keyframes rotate {\n0% {\r\n    transform: rotate(0deg);\n}\n100% {\r\n    transform: rotate(-90deg);\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* override default */\n.sidebar-menu > li > a {\n  padding: 12px 15px 12px 15px;\n}\n.sidebar-menu li.active > a > .fa-angle-left,\n.sidebar-menu li.active > a > .pull-right-container > .fa-angle-left {\n  -webkit-animation-name: rotate;\n          animation-name: rotate;\n  -webkit-animation-duration: 0.2s;\n          animation-duration: 0.2s;\n  -webkit-animation-fill-mode: forwards;\n          animation-fill-mode: forwards;\n}\n.treeview-title {\n  z-index: 1;\n}\n@-webkit-keyframes rotate {\n0% {\n    transform: rotate(0deg);\n}\n100% {\n    transform: rotate(-90deg);\n}\n}\n@keyframes rotate {\n0% {\n    transform: rotate(0deg);\n}\n100% {\n    transform: rotate(-90deg);\n}\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -72320,60 +72322,6 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("ul", { staticClass: "sidebar-menu" }, [
-    _c(
-      "li",
-      {
-        class: [_vm.$page.component === "Dashboard" ? "active" : ""],
-        attrs: { tag: "li" },
-      },
-      [
-        _c("Link", { attrs: { href: _vm.route("dashboard") } }, [
-          _c("i", { staticClass: "fa fa-desktop" }),
-          _vm._v(" "),
-          _c("span", { staticClass: "page" }, [_vm._v("Dashboard")]),
-        ]),
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "li",
-      {
-        class: [_vm.$page.component === "topup" ? "active" : ""],
-        attrs: { tag: "li" },
-      },
-      [
-        _c("Link", { attrs: { href: _vm.route("topup.index") } }, [
-          _c("i", {
-            staticClass: "fa fa-shopping-cart",
-            attrs: { "aria-hidden": "true" },
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "page" }, [_vm._v("TopUp")]),
-        ]),
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "li",
-      {
-        class: [_vm.$page.component === "payment" ? "active" : ""],
-        attrs: { tag: "li" },
-      },
-      [
-        _c("Link", { attrs: { href: _vm.route("payment.index") } }, [
-          _c("i", {
-            staticClass: "fa fa-shopping-cart",
-            attrs: { "aria-hidden": "true" },
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "page" }, [_vm._v("Bill")]),
-        ]),
-      ],
-      1
-    ),
-    _vm._v(" "),
     _c("li", { staticClass: "header" }, [_vm._v("Device Manager")]),
     _vm._v(" "),
     _c("li", { staticClass: "pageli", attrs: { tag: "li" } }),
@@ -72444,6 +72392,46 @@ var render = function () {
             attrs: { "aria-hidden": "true" },
           }),
           _vm._v(" Groups\n        "),
+        ]),
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c("li", { staticClass: "header" }),
+    _vm._v(" "),
+    _c(
+      "li",
+      {
+        class: [_vm.$page.component === "topup" ? "active" : ""],
+        attrs: { tag: "li" },
+      },
+      [
+        _c("Link", { attrs: { href: _vm.route("topup.index") } }, [
+          _c("i", {
+            staticClass: "fa fa-shopping-cart",
+            attrs: { "aria-hidden": "true" },
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "page" }, [_vm._v("Top Up")]),
+        ]),
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "li",
+      {
+        class: [_vm.$page.component === "payment" ? "active" : ""],
+        attrs: { tag: "li" },
+      },
+      [
+        _c("Link", { attrs: { href: _vm.route("payment.index") } }, [
+          _c("i", {
+            staticClass: "fa fa-shopping-cart",
+            attrs: { "aria-hidden": "true" },
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "page" }, [_vm._v("Bill")]),
         ]),
       ],
       1
@@ -82808,7 +82796,7 @@ var render = function () {
                       staticClass: "modal-title text-4xl",
                       attrs: { id: "exampleModalLabel" },
                     },
-                    [_c("Strong", [_vm._v(" Package Demo")])],
+                    [_c("Strong", [_vm._v(" Free Trial ")])],
                     1
                   ),
                   _vm._v(" "),
@@ -82818,7 +82806,7 @@ var render = function () {
                 _c("div", { staticClass: "modal-body" }, [
                   _c("div", { staticClass: "form-group" }, [
                     _vm._v(
-                      "\n                                  30 days trial, unlimited devices\n                              "
+                      "\n                                  Please confirm to use Free of charge the Kiosk mode HoloStartup for 30 days, unlimited devices\n                              "
                     ),
                   ]),
                   _vm._v(" "),
@@ -82851,7 +82839,7 @@ var render = function () {
                           },
                         },
                       },
-                      [_vm._v("Save\n                                      OK")]
+                      [_vm._v("\n                                      OK")]
                     ),
                   ]),
                 ]),
