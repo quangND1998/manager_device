@@ -82716,7 +82716,8 @@ var render = function () {
                       },
                       [_vm._v(" Your Account Default\n            ")]
                     )
-                  : _vm.$page.props.auth.user.active_demo == 0
+                  : _vm.$page.props.auth.user.active_demo == 0 &&
+                    package_product.name == "Standard"
                   ? _c(
                       "button",
                       {
