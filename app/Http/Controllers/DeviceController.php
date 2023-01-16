@@ -72,7 +72,7 @@ class DeviceController extends Controller
     public function delete($id){
         $device = Devices::with('applications')->findOrFail($id);
         foreach($device->applications as $app){
-             uniqid($app->icon);
+             unlink($app->icon);
         }
         $device->applications()->delete();
         $device->delete();
