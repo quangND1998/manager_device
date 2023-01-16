@@ -5335,6 +5335,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue */ "./node_modules/@inertiajs/inertia-vue/dist/index.js");
+/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
 //
 //
 //
@@ -5483,9 +5484,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     Link: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.Link
+  },
+  mounted: function mounted() {
+    _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__.Inertia.on('navigate', function (event) {
+      $('body').removeClass('sidebar-open');
+      console.log("Navigated to ".concat(event.detail.page.url));
+    });
   }
 });
 
@@ -11551,7 +11559,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* override default */\n.sidebar-menu > li > a {\n  padding: 12px 15px 12px 15px;\n}\n.sidebar-menu li.active > a > .fa-angle-left,\n.sidebar-menu li.active > a > .pull-right-container > .fa-angle-left {\n  -webkit-animation-name: rotate;\n          animation-name: rotate;\n  -webkit-animation-duration: 0.2s;\n          animation-duration: 0.2s;\n  -webkit-animation-fill-mode: forwards;\n          animation-fill-mode: forwards;\n}\n.treeview-title {\n  z-index: 1;\n}\n@-webkit-keyframes rotate {\n0% {\n    transform: rotate(0deg);\n}\n100% {\n    transform: rotate(-90deg);\n}\n}\n@keyframes rotate {\n0% {\n    transform: rotate(0deg);\n}\n100% {\n    transform: rotate(-90deg);\n}\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* override default */\n.sidebar-menu > li > a {\n  padding: 12px 15px 12px 15px;\n}\n.sidebar-menu li.active > a > .fa-angle-left,\n.sidebar-menu li.active > a > .pull-right-container > .fa-angle-left {\n  -webkit-animation-name: rotate;\n          animation-name: rotate;\n  -webkit-animation-duration: 0.2s;\n          animation-duration: 0.2s;\n  -webkit-animation-fill-mode: forwards;\n          animation-fill-mode: forwards;\n}\n.treeview-title {\n  z-index: 1;\n}\n@-webkit-keyframes rotate {\n0% {\n    transform: rotate(0deg);\n}\n100% {\n    transform: rotate(-90deg);\n}\n}\n@keyframes rotate {\n0% {\n    transform: rotate(0deg);\n}\n100% {\n    transform: rotate(-90deg);\n}\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -82300,7 +82308,7 @@ var render = function () {
               {
                 key: index,
                 staticClass:
-                  "mb-6 lg:mb-0 hover:shadow-2xl transition duration-500 transform hover:scale-105 cursor-pointer",
+                  "lg:mb-0 hover:shadow-2xl transition duration-500 transform hover:scale-105 cursor-pointer mb-40",
               },
               [
                 _c(
