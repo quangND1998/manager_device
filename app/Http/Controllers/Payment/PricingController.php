@@ -26,7 +26,7 @@ class PricingController extends Controller
         if($user->active_demo == 0){
             $role = Role::where('name','Demo')->first();
             $user->time_limit = 1;
-            $user->active_demo = 0;
+            $user->active_demo = 1;
             $user->roles()->sync($role);
             $user->save();
             // return back()->with('success', 'Change account Demo succsessfully');
