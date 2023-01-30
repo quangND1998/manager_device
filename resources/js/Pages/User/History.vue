@@ -22,7 +22,7 @@
                         {{ history.device ? history.device.name : null }}
                     </th>
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"> {{
-                        formatDate(history.time_login)
+                        formatDate(history.created_at)
                     }}</th>
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"><span
                             class="text-xl inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">{{
