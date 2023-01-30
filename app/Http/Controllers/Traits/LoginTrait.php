@@ -20,8 +20,8 @@ trait LoginTrait
         }
         return $ip;
     }
-    public function checkaddressIp($ipaddress){
-        $url = "http://ip-api.com/json/".$ipaddress->ip;
+    public function checkaddressIp($new_ip){
+        $url = "http://ip-api.com/json/".$new_ip->ip;
         $ch = curl_init();
         curl_setopt($ch,CURLOPT_URL,$url);
         curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
@@ -33,17 +33,16 @@ trait LoginTrait
 
         }
         else{
-            $ipaddress->ip = $data['query'];
-            $ipaddress->country_code = $data['countryCode'];
-            $ipaddress->country_name = $data['country'];
-            $ipaddress->region_code = $data['region'];
-            $ipaddress->region_name = $data['regionName'];
-            $ipaddress->city = $data['city'];
-            $ipaddress->zip_code = $data['zip'];
-            $ipaddress->time_zone = $data['timezone'];
-            $ipaddress->latitude = $data['lat'];
-            $ipaddress->longitude = $data['lon'];
-            $ipaddress->save();
+            $new_ip->country_code = $data['countryCode'];
+            $new_ip->country_name = $data['country'];
+            $new_ip->region_code = $data['region'];
+            $new_ip->region_name = $data['regionName'];
+            $new_ip->city = $data['city'];
+            $new_ip->zip_code = $data['zip'];
+            $new_ip->time_zone = $data['timezone'];
+            $new_ip->latitude = $data['lat'];
+            $new_ip->longitude = $data['lon'];
+            $new_ip->save();
         }
        
       
