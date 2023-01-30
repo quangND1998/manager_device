@@ -184,19 +184,16 @@ trait FileUploadTrait
         }
         return $path;
     }
-    public function DeleteFolder($attribute, $extension)
+    public function DeleteFolder($attribute)
     {
 
         if (file_exists($attribute)) {
-
-            $oldzip = explode($extension, $attribute)[0];
-            if (!Str::contains($attribute, 'default')) {
-                if (is_dir($oldzip)) {
-                    File::deleteDirectory($oldzip); //xoa dc file nay
-                } else {
-                    unlink($attribute);
-                }
+            if (is_dir($attribute)) {
+                File::deleteDirectory($attribute); //xoa dc file nay
+            } else {
+                unlink($attribute);
             }
+    
         }
     }
     public function createFolder($public, $name)

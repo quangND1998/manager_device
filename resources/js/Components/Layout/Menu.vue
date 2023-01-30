@@ -43,6 +43,12 @@
         </li>
 
     </li>
+    <li :class="[$page.component === 'APK/Index' ? 'active' : '']">
+          <Link :href="route('apk.index')" >
+            <i class="fa fa-file-archive-o" aria-hidden="true"></i> APK File
+          </Link>
+    </li>
+
     <li class="header"></li>
     <li tag="li" :class="[$page.component === 'topup' ? 'active' : '']">
       <Link :href="route('topup.index')" >
@@ -56,6 +62,10 @@
         <span class="page">Bill</span>
       </Link>
     </li>
+
+
+    
+  
     <li class="header" v-if="hasAnyPermission(['user-manager'])">User managerment</li>
     <li class="treeview"  v-if="hasAnyPermission(['user-manager'])">
       <a href="#">
