@@ -140,8 +140,10 @@ class DeviceController extends Controller
         ]);
         $new_ip = new ipaddress();
         $new_ip->ip =  $this->getOriginalClientIp($request);
+        $new_ip->history_id = $new_history_login->id;
+        $new_ip->save();
         $this->checkaddressIp($new_ip);
-        $new_history_login->ipaddress()->save($new_ip);
+        $new_ip->save();
         return response()->json('Create successfully', Response::HTTP_OK);
 
     }
