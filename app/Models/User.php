@@ -91,4 +91,8 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(ApkFile::class,'user_id');
     }
 
+    public function devices(){
+        return $this->hasMany(Devices::class,'user_id');
+    }
+
 }
