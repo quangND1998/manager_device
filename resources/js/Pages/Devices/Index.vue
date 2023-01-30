@@ -9,6 +9,8 @@
     <GroupModel :errors="errors" :ids="selected" />
     <defaulAppModal v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
     <defaulAppModal  v-else :errors="errors" :applications="application_deivce" :ids="selected" />
+
+    <!-- <RunApkModal :errors="errors" ></RunApkModal> -->
     <!-- Modal -->
 
 
@@ -169,6 +171,7 @@ import OpenAppModal from "@/Pages/Devices/Modal/OpenAppModal";
 import GroupModel from "@/Pages/Devices/Modal/GroupModel"
 import defaulAppModal from "@/Pages/Devices/Modal/defaulAppModal"
 import WifiModel from '@/Pages/Devices/Modal/WifiModel'
+import RunApkModal from "@/Pages/Devices/Modal/RunApkModal";
 export default {
   layout: Layout,
   components: {
@@ -179,7 +182,8 @@ export default {
     OpenAppModal,
     GroupModel,
     defaulAppModal,
-    WifiModel
+    WifiModel,
+    RunApkModal
 
   },
   computed: {

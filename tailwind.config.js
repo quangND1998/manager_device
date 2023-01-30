@@ -15,6 +15,14 @@ module.exports = {
         colors: {
             ...colors,
         },
+        screens: {
+            vs: '320px',
+            sm: '576px',
+            md: '768px',
+            lg: '992px',
+            xl: '1200px',
+            xxl: '1600px',
+        },
         extend: {
             minHeight: {
                 "screen-75": "75vh",
@@ -72,6 +80,7 @@ module.exports = {
             backgroundSize: {
                 full: "100%",
             },
+
         },
     },
     variants: [

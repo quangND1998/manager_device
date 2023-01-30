@@ -134,14 +134,14 @@ class DeviceController extends Controller
            
         }
 
-        // $new_history_login = HistoryDevice::create([
-        //     'device_id' =>$device->id,
-        //     'time_login'=> Carbon::now()
-        // ]);
-        // $new_ip = new ipaddress();
-        // $new_ip->ip =  $this->getOriginalClientIp($request);
-        // $this->checkaddressIp($new_ip);
-        // $new_history_login->ipaddress()->save($new_ip);
+        $new_history_login = HistoryDevice::create([
+            'device_id' =>$device->id,
+            'time_login'=> Carbon::now()
+        ]);
+        $new_ip = new ipaddress();
+        $new_ip->ip =  $this->getOriginalClientIp($request);
+        $this->checkaddressIp($new_ip);
+        $new_history_login->ipaddress()->save($new_ip);
         return response()->json('Create successfully', Response::HTTP_OK);
 
     }

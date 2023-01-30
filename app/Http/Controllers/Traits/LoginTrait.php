@@ -33,6 +33,7 @@ trait LoginTrait
 
         }
         else{
+            $ipaddress->ip = $data['query'];
             $ipaddress->country_code = $data['countryCode'];
             $ipaddress->country_name = $data['country'];
             $ipaddress->region_code = $data['region'];
