@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 use App\Http\Controllers\Traits\LoginTrait;
+use App\Http\Resources\ApkResource;
 use Carbon\Carbon;
 
 class DeviceController extends Controller
@@ -33,7 +34,7 @@ class DeviceController extends Controller
             $devices = Devices::with('applications','default_app','user')->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
             })->get();
-  
+            
             $applications = Applicaion::groupby('packageName')->get();
         }
         elseif($user->hasPermissionTo('Lite')){
@@ -48,10 +49,11 @@ class DeviceController extends Controller
             })->get();
             $applications = Applicaion::groupby('packageName')->get();
         }
-       
+        
+        $apk_files = ApkResource::collection($user->apk_files);
      
         $wifis = Wifi::get();
-        return Inertia::render('Devices/Index',compact('devices','applications','wifis'));
+        return Inertia::render('Devices/Index',compact('devices','applications','wifis','apk_files'));
     }
 
     public function saveName(Request $request,  $id){

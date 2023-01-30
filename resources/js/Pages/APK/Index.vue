@@ -38,6 +38,11 @@
                     </div>
                     <div class="modal-body">
                         <form @submit.prevent="save">
+                            <div class="w-1/4 bg-gray-200 rounded-full dark:bg-gray-700 mb-8 ml-3" v-if="form.progress">
+                                <div class="bg-blue-600 text-xl font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+                                    :style="{ width: form.progress.percentage + '%' }">{{ form.progress.percentage }}%
+                                </div>
+                            </div>
                             <div class="form-group" :class="errors.name ? 'is-valid' : ''">
                                 <label for="recipient-name" class="col-form-label">Name:</label>
                                 <input type="text" class="form-control text-xl" :class="errors.name ? 'is-valid' : ''"
@@ -56,16 +61,17 @@
                                             <i class="fa fa-file-o w-12 h-15" aria-hidden="true"></i>
                                             <p
                                                 class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
-                                               Drag .apk</p>
-                                          
-                                               {{ nameFile }}
+                                                Drag .apk</p>
+
+                                            {{ nameFile }}
                                             <input type="file" @input="form.path = $event.target.files[0]"
-                                            :class="errors.path ? 'border-red-500' : ''" class="opacity-0" accept=".apk" @change="onChangeFile" />
-                                         
+                                                :class="errors.path ? 'border-red-500' : ''" class="opacity-0"
+                                                accept=".apk" @change="onChangeFile" />
+
                                         </div>
-                                    
+
                                     </label>
-                               
+
                                     <div class="text-red-500" v-if="errors.path">{{ errors.path }}</div>
                                 </div>
                             </div>
@@ -92,8 +98,7 @@
                         <th scope="col" class="py-3 px-6 text-xl uppercase">name</th>
                         <th scope="col" class="py-3 px-6 text-xl uppercase">Size</th>
                         <th scope="col" class="py-3 px-6 text-xl uppercase">User</th>
-                        <th scope="col" class="py-3 px-6 text-xl uppercase" v-if="hasAnyPermission(['user-manager'])">
-                            User</th>
+
                         <th scope="col" class="py-3 px-6 text-xl uppercase">
                             <span class="sr-only">Edit</span>
                         </th>
@@ -109,9 +114,9 @@
                         }}
                         </th>
                         <th apk="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ device.name }}</th>
+                            {{ apk.name }}</th>
                         <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{
-                            apk.size
+                            bytesToHuman(apk.size)
                         }}</th>
                         <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             v-if="hasAnyPermission(['user-manager'])">{{ apk.user ? apk.user.name : null }}</th>
@@ -153,7 +158,7 @@ export default {
         return {
             ssid: null,
             editMode: false,
-            nameFile:null,
+            nameFile: null,
             form: this.$inertia.form({
                 id: null,
                 name: null,
@@ -175,7 +180,7 @@ export default {
                     },
                     onSuccess: page => {
                         $("#exampleModal").modal("hide");
-                        this.form.reset();
+                        this.reset();
                     }
                 });
             } else {
@@ -188,7 +193,7 @@ export default {
                     },
                     onSuccess: page => {
                         $("#exampleModal").modal("hide");
-                        this.form.reset();
+                        this.reset();
                     }
                 });
             }
@@ -204,13 +209,20 @@ export default {
             this.form.name = data.name;
             this.form.path = data.path;
         },
+        reset() {
+            this.form = this.$inertia.form({
+                id: null,
+                name: null,
+                path: null
+            })
+        },
         Delete(id) {
             if (!confirm("Are you sure want to remove?")) return;
             this.$inertia.delete(route("apk.delete", id));
         },
-        onChangeFile(e){
+        onChangeFile(e) {
             this.nameFile = e.target.files[0].name
-            
+
         }
     }
 

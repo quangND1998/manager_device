@@ -10,6 +10,8 @@
     <defaulAppModal v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
     <defaulAppModal  v-else :errors="errors" :applications="application_deivce" :ids="selected" />
 
+
+    <InstallApk :errors="errors" :ids="selected" :apk_files="apk_files"  />
     <!-- <RunApkModal :errors="errors" ></RunApkModal> -->
     <!-- Modal -->
 
@@ -66,6 +68,10 @@
             </li>
             <li><button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
                 data-target="#openAppModal"><i class="fa fa-rocket mr-2" aria-hidden="true"></i>LauchApp</button></li>
+            <li><button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
+            data-target="#openInstallApk"><i class="fa fa-download mr-2" aria-hidden="true"></i>Install Apk</button></li>
+            <li><button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
+            data-target="#openUninstallApk"><i class="fa fa-trash mr-2" aria-hidden="true"></i>Uninstall Apk</button></li>
 
             <li v-if="hasAnyPermission(['user-manager'])"><button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
                 data-target="#WifiModal"><i class="fa fa-wifi mr-2" aria-hidden="true"></i>Wifi</button></li>
@@ -172,6 +178,7 @@ import GroupModel from "@/Pages/Devices/Modal/GroupModel"
 import defaulAppModal from "@/Pages/Devices/Modal/defaulAppModal"
 import WifiModel from '@/Pages/Devices/Modal/WifiModel'
 import RunApkModal from "@/Pages/Devices/Modal/RunApkModal";
+import InstallApk from "@/Pages/Devices/Modal/InstallApk";
 export default {
   layout: Layout,
   components: {
@@ -183,7 +190,8 @@ export default {
     GroupModel,
     defaulAppModal,
     WifiModel,
-    RunApkModal
+    RunApkModal,
+    InstallApk
 
   },
   computed: {
@@ -240,7 +248,8 @@ export default {
     devices: Array,
     errors: Object,
     wifis: Array,
-    applications: Array
+    applications: Array,
+    apk_files:Array
   },
   methods: {
     search() {

@@ -18,7 +18,8 @@ class ApkResource extends JsonResource
         [
             'id' => $this->id,
             'name' => $this->name,
-            'size' => $this->path == null ? 0 :  File::size($this->path),
+            'path' =>($this->path !== null && file_exists(public_path().$this->path)) ? $this->path : null,
+            'size' =>($this->path !== null && file_exists(public_path().$this->path)) ? File::size(public_path().$this->path) : 0,
             'extension' => $this->path !== null ? pathinfo(public_path($this->path), PATHINFO_EXTENSION) : null,
             'user' => $this->user
 
