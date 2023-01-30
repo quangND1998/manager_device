@@ -159,10 +159,9 @@ class UserController extends InertiaController
     }
 
     public function history_login($id){
-        $user = User::with('roles')->findOrFail($id);
-        
-
-        $histories = HistoryDevice::with(['ipaddress', 'device.user'])->orderBy('id', 'desc')->paginate(15);
+        $user = User::with('roles', 'devices')->findOrFail($id);
+        $devices = $user->devices->pluck('id');
+        $histories = HistoryDevice::with(['ipaddress', 'device.user'])->whereIn('device_id', $devices)->orderBy('id', 'desc')->paginate(15);
         return Inertia::render('User/History', compact('user','histories'));
 
     }
