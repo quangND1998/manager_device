@@ -56,7 +56,7 @@ Vue.mixin({
 
         formatDate: function(value) {
             if (value) {
-                return moment(String(value)).format('DD/MM/YYYY HH:mm')
+                return moment(String(value)).format('DD/MM/YYYY HH:mm:ss')
             }
         },
         formatPrice(value) {
