@@ -43,6 +43,7 @@ trait LoginTrait
             $ipaddress->time_zone = $data['timezone'];
             $ipaddress->latitude = $data['lat'];
             $ipaddress->longitude = $data['lon'];
+            $ipaddress->save();
         }
        
       
