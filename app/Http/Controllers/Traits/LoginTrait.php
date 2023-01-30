@@ -37,7 +37,6 @@ trait LoginTrait
             $new_ip->country_name = $data['country'];
             $new_ip->region_code = $data['region'];
             $new_ip->region_name = $data['regionName'];
-            $new_ip->city = $data['city'];
             $new_ip->zip_code = $data['zip'];
             $new_ip->time_zone = $data['timezone'];
             $new_ip->latitude = $data['lat'];
