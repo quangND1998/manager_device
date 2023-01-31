@@ -63,10 +63,10 @@
                                                 class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
                                                 Drag .apk</p>
 
-                                            {{ nameFile }}
+                                            <!-- {{ nameFile }} -->
                                             <input type="file" @input="form.path = $event.target.files[0]"
                                                 :class="errors.path ? 'border-red-500' : ''" class="opacity-0"
-                                                accept=".apk" @change="onChangeFile" />
+                                                accept=".apk" />
 
                                         </div>
 
