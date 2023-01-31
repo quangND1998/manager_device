@@ -110,19 +110,16 @@ class ApkFileController extends Controller
         $devices =Devices::whereIn('id', $ids)->get();
       
         foreach($devices as $device){
-            if($device->hasApp($request->path)){
-                broadcast(new InstallApkFile($device, $request->root().$request->path));
-            }
+            broadcast(new InstallApkFile($device, $request->root().$request->path));
           
         }
 
-        return back()->with('success', 'Lauch successfully');
+        return back()->with('success', 'Install successfully');
     }
 
     public function UninstallApk(Request $request){
-
-        $this->validate($request,[
-            'path' => 'required',
+         $this->validate($request,[
+            'link_app' => 'required',
 
         ]);
      
@@ -133,12 +130,12 @@ class ApkFileController extends Controller
         $devices =Devices::whereIn('id', $ids)->get();
       
         foreach($devices as $device){
-            if($device->hasApp($request->path)){
-                broadcast(new UnInstallApkFile($device, $request->path));
+            if($device->hasApp($request->link_app)){
+                broadcast(new UnInstallApkFile($device, $request->link_app));
             }
           
         }
-        return back()->with('success', 'Lauch successfully');
+        return back()->with('success', 'Uninstall successfully');
     }
     
 

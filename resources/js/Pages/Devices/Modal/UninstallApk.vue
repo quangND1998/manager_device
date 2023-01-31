@@ -1,11 +1,11 @@
 <template>
     <div>
-        <div class="modal fade" id="openAppModal" tabindex="-1" role="dialog" aria-labelledby="openAppModalLabel"
+        <div class="modal fade" id="openUninstallApp" tabindex="-1" role="dialog" aria-labelledby="openopenopenUninstallAppLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="openAppModalLabel">Launch App</h5>
+                        <h5 class="modal-title" id="openopenopenUninstallAppLabel">Uninstall App</h5>
                         <button type="button" class="close" data-dismiss="modal"  @click="close()" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -41,12 +41,12 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="openNotification" tabindex="-1" role="dialog"
-            aria-labelledby="openNotificationLabel" aria-hidden="true" style="padding-right:0px">
+        <div class="modal fade" id="openUninstallAppNotification" tabindex="-1" role="dialog"
+            aria-labelledby="openUninstallAppNotificationLabel" aria-hidden="true" style="padding-right:0px">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="openNotificationLabel" >Launch App</h5>
+                        <h5 class="modal-title" id="openUninstallAppNotificationLabel" >Unstall App</h5>
                         <button type="button" class="close" data-dismiss="modal"   @click="close()" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -62,7 +62,7 @@
                                         d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z">
                                     </path>
                                 </svg>
-                                Are you want to run app &nbsp; <strong>{{ form.appName }}</strong>&nbsp; for
+                                Are you want to Uninstall app &nbsp; <strong>{{ form.appName }}</strong>&nbsp; for
                                 {{ ids.length }} devices ?
                             </div>
                             <div class="modal-footer">
@@ -118,12 +118,12 @@ export default {
     },
     close(){
         Bus.$emit('cloesModal')
-        $("#openNotification").modal("hide");
-                    $("#openAppModal").modal("hide");
+        $("#openUninstallAppNotification").modal("hide");
+                    $("#openUninstallApp").modal("hide");
     },
         clickApp(app) {
-            $("#openAppModal").modal("hide");
-            $("#openNotification").modal("show");
+            $("#openUninstallApp").modal("hide");
+            $("#openUninstallAppNotification").modal("show");
             this.form.ids = this.ids;
             this.form.link_app = app.packageName;
             this.form.appName = app.appName;
@@ -133,15 +133,15 @@ export default {
         lauchApp() {
             console.log(this.form.ids)
          
-            this.form.post(route("device.lanchApp"), {
+            this.form.post(route("apk.uninstall"), {
                 preserveState: true,
                 onError: errors => {
 
                 },
                 onSuccess: page => {
                     Bus.$emit('LauchAppSuccess')
-                    $("#openNotification").modal("hide");
-                    $("#openAppModal").modal("hide");
+                    $("#openUninstallAppNotification").modal("hide");
+                    $("#openUninstallApp").modal("hide");
                   
                     this.reset();
                 }

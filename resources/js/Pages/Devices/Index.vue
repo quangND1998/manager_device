@@ -12,6 +12,8 @@
 
 
     <InstallApk :errors="errors" :ids="selected" :apk_files="apk_files"  />
+    <UninstallApk v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
+    <UninstallApk v-else :errors="errors" :applications="application_deivce" :ids="selected" />
     <!-- <RunApkModal :errors="errors" ></RunApkModal> -->
     <!-- Modal -->
 
@@ -71,7 +73,7 @@
             <li v-if="hasAnyPermission(['user-manager'])" ><button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
             data-target="#openInstallApk"><i class="fa fa-download mr-2" aria-hidden="true"></i>Install Apk</button></li>
             <li v-if="hasAnyPermission(['user-manager'])" ><button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
-            data-target="#openUninstallApk"><i class="fa fa-trash mr-2" aria-hidden="true"></i>Uninstall Apk</button></li>
+            data-target="#openUninstallApp"><i class="fa fa-trash mr-2" aria-hidden="true"></i>Uninstall Apk</button></li>
 
             <li v-if="hasAnyPermission(['user-manager'])"><button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
                 data-target="#WifiModal"><i class="fa fa-wifi mr-2" aria-hidden="true"></i>Wifi</button></li>
@@ -179,6 +181,7 @@ import defaulAppModal from "@/Pages/Devices/Modal/defaulAppModal"
 import WifiModel from '@/Pages/Devices/Modal/WifiModel'
 import RunApkModal from "@/Pages/Devices/Modal/RunApkModal";
 import InstallApk from "@/Pages/Devices/Modal/InstallApk";
+import UninstallApk from "@/Pages/Devices/Modal/UninstallApk";
 export default {
   layout: Layout,
   components: {
@@ -191,7 +194,8 @@ export default {
     defaulAppModal,
     WifiModel,
     RunApkModal,
-    InstallApk
+    InstallApk,
+    UninstallApk
 
   },
   computed: {
