@@ -9,7 +9,7 @@ class ApkFile extends Model
 {
     use HasFactory;
     protected $table = 'apk_files';
-    protected $fillable = ['id',    'name',  'path',  'created_at',  'updated_at'];
+    protected $fillable = ['id',    'name',  'path','user_id',  'created_at',  'updated_at'];
     // protected $hidden = [
     //     'icon',
     //     // 'remember_token',

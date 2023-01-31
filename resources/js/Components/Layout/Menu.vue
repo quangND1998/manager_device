@@ -43,7 +43,7 @@
         </li>
 
     </li>
-    <li :class="[$page.component === 'APK/Index' ? 'active' : '']">
+    <li :class="[$page.component === 'APK/Index' ? 'active' : '']" v-if="hasAnyPermission(['user-manager'])">
           <Link :href="route('apk.index')" >
             <i class="fa fa-file-archive-o" aria-hidden="true"></i> APK File
           </Link>

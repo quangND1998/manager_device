@@ -87,7 +87,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Payment::class,'user_id');
     }
 
-    public function apk_file(){
+    public function apk_files(){
         return $this->hasMany(ApkFile::class,'user_id');
     }
 

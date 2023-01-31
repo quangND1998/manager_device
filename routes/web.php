@@ -147,9 +147,11 @@ Route::middleware(['auth'])->group(
         });
         Route::prefix('apk')->as('apk.')->group(function(){
             Route::get('list',[ApkFileController::class,'index'])->name('index');
-            Route::post('',[ApkFileController::class ,'store'])->name('store');
+            Route::post('store',[ApkFileController::class ,'store'])->name('store');
             Route::post('update/{id}',[ApkFileController::class ,'update'])->name('update');
             Route::delete('delete/{id}',[ApkFileController::class ,'delete'])->name('delete');
+            Route::post('install', [ApkFileController::class,'installApk'])->name('install');
+            Route::post('uninstall', [ApkFileController::class,'UninstallApk'])->name('uninstall');
         });
        
         Route::get('convert',[ApplicationController::class,'convert']);
