@@ -19,7 +19,7 @@
                     }}
                     </th>
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{ history.device ? history.device.name : null }}
+                        {{ history.device ? history.device.name  : null }} ({{ history.device ? history.device.device_id : null }})
                     </th>
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"> {{
                         formatDate(history.created_at)
