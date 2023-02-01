@@ -82,6 +82,13 @@ class Cart extends Model
         $this->totalPrice -= $this->items[$id]['price'];
         unset($this->items[$id]);
     }
+    public function updateNumberDevice($item,$number_device){
+    //    dd($item);
+        $this->items['price'] = $item['item']->price * $number_device;
+		$this->items['number_device'] = $number_device;
+        $this->number_device = $number_device;
+		$this->totalPrice = $item['item']->price*$number_device;
+    }
 
 
 }

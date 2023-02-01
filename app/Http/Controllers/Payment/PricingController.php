@@ -11,7 +11,16 @@ use App\Models\Cart;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
-use App\Models\Payment;
+use Carbon\Carbon;
+
+use PayPal\Api\ItemList;
+use PayPal\Api\Payer;
+use PayPal\Api\Payment;
+use PayPal\Api\PaymentExecution;
+use PayPal\Api\RedirectUrls;
+use PayPal\Api\Transaction;
+use PayPal\Auth\OAuthTokenCredential;
+use PayPal\Rest\ApiContext;
 class PricingController extends Controller
 {
     public function index(){
@@ -50,6 +59,12 @@ class PricingController extends Controller
         Session::put('cart', $cart);
         return redirect('/topup/order_final');
     }
+    public function updateCart(Request $request){
+        $cart = $request->session()->get('cart');
+        $cart->updateNumberDevice($cart->items,$request->number_device);
+        Session::put('cart', $cart);
+        return redirect('/topup/order_final');
+    }
     public function getOrderfinal(Request $request)
     {
         // $cart = Session::get('cart');
@@ -77,6 +92,18 @@ class PricingController extends Controller
     }
     public function response_paypal(Request $request){
         // return $request;
+        // $payment_id = Session::get('paypal_payment_id');
+        // /** clear the session payment ID **/
+        // Session::forget('paypal_payment_id');
+        // if (empty(Input::get('PayerID')) || empty(Input::get('token'))) {
+        //     Session::put('error', 'Payment failed');
+        //     return Redirect::to('/');
+        // }
+        // $payment = Payment::get($payment_id, $this->_api_context);
+        // $execution = new PaymentExecution();
+        // $execution->setPayerId($request->PayerID);
+        // dd($execution);
+
         if($request->PayerID != null){
             $cart = $request->session()->get('cart');
             $item = $cart->items;
@@ -92,9 +119,12 @@ class PricingController extends Controller
 
         if (Session::has('cart')) {
             $cart = Session::get('cart');
-            // dd($cart->items['number_device']);
+            $timelimit = Carbon::now()->addDays($cart->items['item']->package_time);
             $des = $cart->items['item']->name . ', Number device : ' .$cart->items['number_device'];
             $user =  User::findOrFail(Auth::user()->id);
+            $user->number_device = $cart->items['number_device'];
+            $user->time_limit = $timelimit;
+            $user->save();
             $role = Role::where('name','Pro')->first();
             $user->roles()->sync($role);
             $this->savePaymentPayPal($data,$des,$cart->items);
