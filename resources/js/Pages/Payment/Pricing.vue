@@ -261,7 +261,7 @@ export default {
   data() {
     return {
       form:this.$inertia.form({
-         number_device:2,
+         number_device:1,
          package_product_id: null,
          user : this.$page.props.auth.user,
       })
