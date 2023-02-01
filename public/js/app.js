@@ -10199,7 +10199,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -10255,6 +10254,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_Layout_Layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Components/Layout/Layout */ "./resources/js/Components/Layout/Layout.vue");
 /* harmony import */ var _Components_Layout_ContentHeader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Components/Layout/ContentHeader */ "./resources/js/Components/Layout/ContentHeader.vue");
 /* harmony import */ var _Components_Pagination__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Components/Pagination */ "./resources/js/Components/Pagination.vue");
+//
+//
+//
 //
 //
 //
@@ -10736,6 +10738,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -10952,13 +10960,15 @@ __webpack_require__.r(__webpack_exports__);
     ContentHeaderVue: _Components_Layout_ContentHeader__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   props: {
-    data: Array
+    item: Object,
+    transaction: Text
   },
   data: function data() {
     return {
       form: this.$inertia.form({
         user: this.$page.props.auth.user,
-        data: this.data
+        item: this.item,
+        transaction: this.transaction
       })
     };
   }
@@ -81263,24 +81273,7 @@ var render = function () {
                   _vm._m(6),
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "border-t mt-8" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "flex font-semibold justify-between py-6 text-2xl uppercase",
-                    },
-                    [
-                      _c("span", [_vm._v("Total cost")]),
-                      _vm._v(" "),
-                      _c("span", [
-                        _vm._v("$" + _vm._s(_vm.formatPrice(_vm.item.price))),
-                      ]),
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm._m(7),
-                ]),
+                _vm._m(7),
               ]
             ),
           ]),
@@ -81399,15 +81392,17 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "/topup/gate" } }, [
-      _c(
-        "button",
-        {
-          staticClass:
-            "bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-2xl text-white uppercase w-full",
-        },
-        [_vm._v("Checkout")]
-      ),
+    return _c("div", { staticClass: "border-t mt-8" }, [
+      _c("a", { attrs: { href: "/topup/gate" } }, [
+        _c(
+          "button",
+          {
+            staticClass:
+              "bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-2xl text-white uppercase w-full",
+          },
+          [_vm._v("Checkout")]
+        ),
+      ]),
     ])
   },
 ]
@@ -81705,6 +81700,15 @@ var render = function () {
                         staticClass: "py-3 px-6 text-xl uppercase",
                         attrs: { scope: "col" },
                       },
+                      [_vm._v("Price ($)")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "th",
+                      {
+                        staticClass: "py-3 px-6 text-xl uppercase",
+                        attrs: { scope: "col" },
+                      },
                       [_vm._v("Card")]
                     ),
                     _vm._v(" "),
@@ -81724,15 +81728,6 @@ var render = function () {
                         attrs: { scope: "col" },
                       },
                       [_vm._v("State")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "th",
-                      {
-                        staticClass: "py-3 px-6 text-xl uppercase",
-                        attrs: { scope: "col" },
-                      },
-                      [_vm._v("Price")]
                     ),
                     _vm._v(" "),
                     _vm.hasAnyPermission(["user-manager"])
@@ -81838,6 +81833,35 @@ var render = function () {
                             "py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white",
                           attrs: { scope: "row" },
                         },
+                        [_vm._v(_vm._s(payment.state))]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "th",
+                        {
+                          staticClass:
+                            "py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white",
+                          attrs: { scope: "row" },
+                        },
+                        [
+                          _c(
+                            "span",
+                            {
+                              staticClass:
+                                "text-xl inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded",
+                            },
+                            [_vm._v(_vm._s(_vm.formatPrice(payment.amount)))]
+                          ),
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "th",
+                        {
+                          staticClass:
+                            "py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white",
+                          attrs: { scope: "row" },
+                        },
                         [_vm._v(_vm._s(payment.pay_gate))]
                       ),
                       _vm._v(" "),
@@ -81859,35 +81883,6 @@ var render = function () {
                           attrs: { scope: "row" },
                         },
                         [_vm._v(_vm._s(payment.created_at))]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "th",
-                        {
-                          staticClass:
-                            "py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white",
-                          attrs: { scope: "row" },
-                        },
-                        [_vm._v(_vm._s(payment.state))]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "th",
-                        {
-                          staticClass:
-                            "py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white",
-                          attrs: { scope: "row" },
-                        },
-                        [
-                          _c(
-                            "span",
-                            {
-                              staticClass:
-                                "text-xl inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded",
-                            },
-                            [_vm._v(_vm._s(_vm.formatPrice(payment.amount)))]
-                          ),
-                        ]
                       ),
                       _vm._v(" "),
                       _vm.hasAnyPermission(["user-manager"])
@@ -82745,6 +82740,26 @@ var render = function () {
                         ),
                       ]
                     )
+                  : _vm.$page.props.auth.user.active_demo == 1 &&
+                    package_product.name == "Standard"
+                  ? _c(
+                      "button",
+                      {
+                        staticClass:
+                          "mt-5 inline-block p-8  mr-5 bg-blue-600 text-white font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full",
+                        attrs: {
+                          type: "button",
+                          "data-mdb-ripple": "true",
+                          "data-ripple-color": "light",
+                        },
+                        on: {
+                          click: function ($event) {
+                            return _vm.addtoCart(package_product)
+                          },
+                        },
+                      },
+                      [_vm._v("\n              Add to Cart\n            ")]
+                    )
                   : _c(
                       "button",
                       {
@@ -82764,7 +82779,7 @@ var render = function () {
                       },
                       [
                         _vm._v(
-                          "\n                      Get Your 30 days Trial\n              "
+                          "\n                  Get Your 30 days Trial\n              "
                         ),
                       ]
                     ),
@@ -83103,7 +83118,7 @@ var render = function () {
                 },
                 [
                   _c("h1", { staticClass: "font-semibold text-4xl " }, [
-                    _vm._v(" " + _vm._s(_vm.state) + " !"),
+                    _vm._v(" Transaction payment success!"),
                   ]),
                   _vm._v(" "),
                   _c(
@@ -83166,11 +83181,7 @@ var render = function () {
                     ),
                     _vm._v(" "),
                     _c("span", { staticClass: "font-semibold text-2xl" }, [
-                      _c("strong", [
-                        _vm._v(
-                          "$ " + _vm._s(_vm.formatPrice(_vm.data.vpc_Amount))
-                        ),
-                      ]),
+                      _c("strong", [_vm._v("$ " + _vm._s(_vm.item.price))]),
                     ]),
                   ]),
                   _vm._v(" "),
@@ -83180,7 +83191,7 @@ var render = function () {
                     ]),
                     _vm._v(" "),
                     _c("span", { staticClass: "font-semibold text-2xl" }, [
-                      _vm._v(_vm._s(_vm.data.paymentId)),
+                      _vm._v(_vm._s(_vm.transaction)),
                     ]),
                   ]),
                   _vm._v(" "),
@@ -83205,9 +83216,7 @@ var staticRenderFns = [
         _vm._v("Payment type"),
       ]),
       _vm._v(" "),
-      _c("span", { staticClass: "font-semibold text-2xl" }, [
-        _vm._v("Net banking"),
-      ]),
+      _c("span", { staticClass: "font-semibold text-2xl" }, [_vm._v("PayPal")]),
     ])
   },
   function () {

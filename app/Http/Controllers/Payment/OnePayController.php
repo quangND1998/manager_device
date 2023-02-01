@@ -23,8 +23,7 @@ class OnePayController extends Controller
     use OnePayTraits,PayPalTrait;
     public function paidgate(Request $request){
         $check_gate = $request->gate;
-
-        if ($check_gate != "onepay") {
+        if ($check_gate == "onepay") {
             $payment = $this->paidInvoicePaypal($request);
             try {
                 $payment->create($this->_api_context);
@@ -131,7 +130,7 @@ class OnePayController extends Controller
             $payment = new Payment;
             $payment->pay_gate = "onepay";
             $payment->pay_type = $data['vpc_PayChannel'];
-            $payment->amount = $data['vpc_Amount'] / 100;
+            $payment->amount = $data['vpc_Amount'] / (100*25300);
             $payment->transID = $data['vpc_NetworkTransactionID'];
             $payment->merch_TxnRef = $data['vpc_MerchTxnRef'];
             $payment->card_number = $data['vpc_CardNum'];
