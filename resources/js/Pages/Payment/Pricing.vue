@@ -178,10 +178,16 @@
                 >
                     Get Your 30 days Trial
               </button>
+              <button v-else-if="$page.props.auth.user.active_demo == 1 && package_product.name == 'Standard'" type="button" @click="addtoCart(package_product)"
+                class="mt-5 inline-block p-8  mr-5 bg-blue-600 text-white font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
+                data-mdb-ripple="true" data-ripple-color="light"
+                >
+                Add to Cart
+              </button>
                 <button v-else type="button"  @click="addtoCart(package_product)" disabled
                     class="mt-5 inline-block p-8  mr-5 bg-gray-600 text-white font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-700 hover:shadow-lg focus:bg-gray-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
                     data-mdb-ripple="true" data-ripple-color="light">
-                        Get Your 30 days Trial
+                    Get Your 30 days Trial
                 </button>
 
               <!-- model -->

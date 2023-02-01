@@ -37,13 +37,12 @@
                             </div>
                         </div>
                         <div class="border-t mt-8">
-                            <a href="/payment/order">
-                                <button 
+                            <a :href="'/payment/order/?gate='+form.gate">
+                            <!-- <a> -->
+                                <button
                                 class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-2xl text-white uppercase w-full"
                                 >Checkout</button>
                             </a>
-                            <!-- <button
-                                class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-2xl text-white uppercase w-full">Checkout</button> -->
                         </div>
                     </div>
                 </div>

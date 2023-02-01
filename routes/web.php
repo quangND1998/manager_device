@@ -144,6 +144,7 @@ Route::middleware(['auth'])->group(
             Route::get('gate',[PricingController::class,'gate'])->name('gate');
             Route::get('checkout',[PricingController::class,'checkout'])->name('checkout');
             Route::get('response',[PricingController::class,'response'])->name('response');
+            Route::get('response_paypal',[PricingController::class,'response_paypal'])->name('response_paypal');
         });
         Route::prefix('apk')->as('apk.')->group(function(){
             Route::get('list',[ApkFileController::class,'index'])->name('index');

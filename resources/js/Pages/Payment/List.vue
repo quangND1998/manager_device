@@ -15,10 +15,11 @@
               <th scope="col" class="py-3 px-6 text-xl">No</th>
               <th scope="col" class="py-3 px-6 text-xl uppercase">Type</th>
               <th scope="col" class="py-3 px-6 text-xl uppercase">Method</th>
+              <th scope="col" class="py-3 px-6 text-xl uppercase">Price ($)</th>
               <th scope="col" class="py-3 px-6 text-xl uppercase">Card</th>
               <th scope="col" class="py-3 px-6 text-xl uppercase">Create at ( UTC +7)</th>
               <th scope="col" class="py-3 px-6 text-xl uppercase">State</th>
-              <th scope="col" class="py-3 px-6 text-xl uppercase">Price</th>
+
               <th scope="col" class="py-3 px-6 text-xl uppercase" v-if="hasAnyPermission(['user-manager'])">User</th>
               <!-- <th scope="col" class="py-3 px-6 text-xl uppercase">
                 <span class="sr-only">Edit</span>
@@ -34,18 +35,20 @@
               </th>
               <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                 {{ payment.description }}</th>
-              <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{
-                 payment.pay_gate
-              }}</th>
-              <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{
-                    payment.card_number
-                  }}</th>
-              <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ (payment.created_at) }}</th>
-                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ (payment.state) }}</th>
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ (payment.state) }}</th>
 
                   <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"><span
                   class="text-xl inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">{{ formatPrice(payment.amount) }}</span>
               </th>
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{
+                 payment.pay_gate
+              }}</th>
+
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{
+                    payment.card_number
+                  }}</th>
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ (payment.created_at) }}</th>
+
               <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white" v-if="hasAnyPermission(['user-manager'])">{{ payment.user? payment.user.name:null }}</th>
 
               <!-- <td class="py-4 px-6 text-right">
