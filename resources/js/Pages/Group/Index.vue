@@ -269,7 +269,7 @@ export default {
         Bus.$on('cloesModal', () => {
             this.selected = [];
         })
-        
+    
     },
     data() {
 

@@ -227,7 +227,7 @@
                     </div>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-xl text-gray-900">{{ user.name }}</div>
+                   <Link :href="route('user.devices.index',user.id)">{{ user.name }}</Link>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
                     <div class="text-xl text-gray-900">{{ user.email }}</div>

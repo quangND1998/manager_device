@@ -12,7 +12,7 @@ class HistoryDevice extends Model
     protected $fillable = ['id', 'device_id','time_login', 'created_at', 'updated_at'];
 
     public function device(){
-        return $this->hasOne(Devices::class,'device_id');
+        return $this->belongsTo(Devices::class,'device_id');
     }
 
     public function ipaddress(){

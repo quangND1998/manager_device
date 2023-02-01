@@ -56,16 +56,31 @@ Vue.mixin({
 
         formatDate: function(value) {
             if (value) {
-                return moment(String(value)).format('DD/MM/YYYY HH:mm')
+                return moment(String(value)).format('DD/MM/YYYY HH:mm:ss')
             }
         },
         formatPrice(value) {
             let val = (value / 1).toFixed(0).replace('.', ',')
             return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-        }
+        },
+        bytesToHuman(bytes) {
+            const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+
+            if (bytes === 0) return '0 Bytes';
+
+            const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10);
+
+            if (i === 0) return `${bytes} ${sizes[i]}`;
+
+            return `${(bytes / 1024 ** i).toFixed(1)} ${sizes[i]}`;
+        },
+
     },
 })
 
+// router.on('navigate', (event) => {
+//     console.log(`Navigated to ${event.detail.page.url}`)
+// })
 Vue.mixin(require('./base'))
 const el = document.getElementById('app')
 Vue.mixin({

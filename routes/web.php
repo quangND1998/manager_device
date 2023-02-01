@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\PermisionsController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\ApkFileController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\GroupController;
@@ -65,7 +66,24 @@ Route::middleware(['auth'])->group(
             Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('destroy');
 
             Route::post('import',  [UserController::class, 'importUser'])->name('import');
+
+        
         });
+
+        Route::prefix('user')->as('user.')->group(function () {
+            Route::prefix('{id}/detail')->as('detail.')->group(function(){
+                Route::get('',[UserController::class,'detail'])->name('index');
+                Route::get('devices',[UserController::class,'list_device'])->name('devices');
+            });
+            Route::prefix('{id}/devices')->as('devices.')->group(function(){
+                Route::get('',[UserController::class,'list_device'])->name('index');
+                Route::get('history',[UserController::class,'history_login'])->name('history');
+            });
+          
+        
+        
+        });
+      
 
         Route::prefix('groups')->as('group.')->group(function () {
             Route::get('', [GroupController::class, 'index'])->name('index');
@@ -128,7 +146,15 @@ Route::middleware(['auth'])->group(
             Route::get('response',[PricingController::class,'response'])->name('response');
             Route::get('response_paypal',[PricingController::class,'response_paypal'])->name('response_paypal');
         });
-
+        Route::prefix('apk')->as('apk.')->group(function(){
+            Route::get('list',[ApkFileController::class,'index'])->name('index');
+            Route::post('store',[ApkFileController::class ,'store'])->name('store');
+            Route::post('update/{id}',[ApkFileController::class ,'update'])->name('update');
+            Route::delete('delete/{id}',[ApkFileController::class ,'delete'])->name('delete');
+            Route::post('install', [ApkFileController::class,'installApk'])->name('install');
+            Route::post('uninstall', [ApkFileController::class,'UninstallApk'])->name('uninstall');
+        });
+       
         Route::get('convert',[ApplicationController::class,'convert']);
     }
 );

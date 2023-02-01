@@ -9,6 +9,12 @@
     <GroupModel :errors="errors" :ids="selected" />
     <defaulAppModal v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
     <defaulAppModal  v-else :errors="errors" :applications="application_deivce" :ids="selected" />
+
+
+    <InstallApk :errors="errors" :ids="selected" :apk_files="apk_files"  />
+    <UninstallApk v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
+    <UninstallApk v-else :errors="errors" :applications="application_deivce" :ids="selected" />
+    <!-- <RunApkModal :errors="errors" ></RunApkModal> -->
     <!-- Modal -->
 
 
@@ -64,6 +70,10 @@
             </li>
             <li><button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
                 data-target="#openAppModal"><i class="fa fa-rocket mr-2" aria-hidden="true"></i>LauchApp</button></li>
+            <li v-if="hasAnyPermission(['user-manager'])" ><button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
+            data-target="#openInstallApk"><i class="fa fa-download mr-2" aria-hidden="true"></i>Install Apk</button></li>
+            <li v-if="hasAnyPermission(['user-manager'])" ><button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
+            data-target="#openUninstallApp"><i class="fa fa-trash mr-2" aria-hidden="true"></i>Uninstall Apk</button></li>
 
             <li v-if="hasAnyPermission(['user-manager'])"><button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
                 data-target="#WifiModal"><i class="fa fa-wifi mr-2" aria-hidden="true"></i>Wifi</button></li>
@@ -97,6 +107,7 @@
             <!-- <th scope="col" class="py-3 px-6 text-xl uppercase">Connect Wifi</th> -->
             <th scope="col" class="py-3 px-6 text-xl uppercase">Default App</th>
             <th scope="col" class="py-3 px-6 text-xl uppercase" v-if="hasAnyPermission(['user-manager'])">User</th>
+            <th scope="col" class="py-3 px-6 text-xl uppercase">Time Update</th>
             <th scope="col" class="py-3 px-6 text-xl uppercase">
               <span class="sr-only">Edit</span>
             </th>
@@ -143,7 +154,7 @@
               <div class="text-center pt-2"  v-if="device.default_app" ><strong class="justify-center ">{{ device.default_app.appName }}</strong></div>
             </th>
             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white" v-if="hasAnyPermission(['user-manager'])">{{ device.user? device.user.name:null }}</th>
-
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white" >{{ formatDate(device.updated_at) }}</th>
             <td class="py-4 px-6 text-right">
               <button @click="edit(device)" type="button" data-toggle="modal" data-target="#exampleModal"
                 class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out">Edit Name</button>
@@ -169,6 +180,9 @@ import OpenAppModal from "@/Pages/Devices/Modal/OpenAppModal";
 import GroupModel from "@/Pages/Devices/Modal/GroupModel"
 import defaulAppModal from "@/Pages/Devices/Modal/defaulAppModal"
 import WifiModel from '@/Pages/Devices/Modal/WifiModel'
+import RunApkModal from "@/Pages/Devices/Modal/RunApkModal";
+import InstallApk from "@/Pages/Devices/Modal/InstallApk";
+import UninstallApk from "@/Pages/Devices/Modal/UninstallApk";
 export default {
   layout: Layout,
   components: {
@@ -179,7 +193,10 @@ export default {
     OpenAppModal,
     GroupModel,
     defaulAppModal,
-    WifiModel
+    WifiModel,
+    RunApkModal,
+    InstallApk,
+    UninstallApk
 
   },
   computed: {
@@ -236,7 +253,8 @@ export default {
     devices: Array,
     errors: Object,
     wifis: Array,
-    applications: Array
+    applications: Array,
+    apk_files:Array
   },
   methods: {
     search() {
