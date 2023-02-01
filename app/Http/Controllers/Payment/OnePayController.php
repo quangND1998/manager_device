@@ -23,7 +23,7 @@ class OnePayController extends Controller
     use OnePayTraits,PayPalTrait;
     public function paidgate(Request $request){
         $check_gate = $request->gate;
-        if ($check_gate == "onepay") {
+        if ($check_gate == "paypal") {
             $payment = $this->paidInvoicePaypal($request);
             try {
                 $payment->create($this->_api_context);

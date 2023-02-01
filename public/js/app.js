@@ -81528,7 +81528,24 @@ var render = function () {
                   ]
                 ),
                 _vm._v(" "),
-                _vm._m(3),
+                _c("div", { staticClass: "border-t mt-8" }, [
+                  _c(
+                    "a",
+                    {
+                      attrs: { href: "/payment/order/?gate=" + _vm.form.gate },
+                    },
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-2xl text-white uppercase w-full",
+                        },
+                        [_vm._v("Checkout")]
+                      ),
+                    ]
+                  ),
+                ]),
               ]
             ),
           ]),
@@ -81563,23 +81580,6 @@ var staticRenderFns = [
       _c("img", { attrs: { src: "/static/img/paypal_logo.png" } }),
       _vm._v(" "),
       _c("img", { attrs: { src: "/static/img/mastercard_logo.png" } }),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "border-t mt-8" }, [
-      _c("a", { attrs: { href: "/payment/order" } }, [
-        _c(
-          "button",
-          {
-            staticClass:
-              "bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-2xl text-white uppercase w-full",
-          },
-          [_vm._v("Checkout")]
-        ),
-      ]),
     ])
   },
 ]
