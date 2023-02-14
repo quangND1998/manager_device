@@ -7,7 +7,7 @@
         <div class="w-3/4 bg-white px-10 py-10">
           <div class="flex justify-between border-b pb-8">
             <h1 class="font-semibold text-2xl">Your Cart {{ form.user.name }}</h1>
-
+            
           </div>
             <span class="font-semibold text-2xl uppercase " >Detail</span>
             <div v-if="item !== null" class="flex justify-between border-b pb-8">
@@ -95,6 +95,7 @@ import { Link } from "@inertiajs/inertia-vue";
 import Layout from "@/Components/Layout/Layout";
 import ContentHeaderVue from "@/Components/Layout/ContentHeader";
 import Alert from "@/Components/Alert";
+import { thisExpression } from "@babel/types";
 export default {
   layout: Layout,
   components: {
@@ -113,7 +114,7 @@ export default {
             user : this.$page.props.auth.user,
             cart : this.cart,
             item : this.item,
-            number_device : this.number_device
+            number_device : this.item ? this.item.number_device: this.number_device
         })
     }
   },
