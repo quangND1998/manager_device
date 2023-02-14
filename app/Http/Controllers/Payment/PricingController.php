@@ -28,6 +28,10 @@ class PricingController extends Controller
         // dd($package);
         
         $user =  User::with('roles')->findOrFail(Auth::user()->id);
+        if($user->hasPermissionTo('user-manager')){
+
+            return back();
+        }
         if($user->active_demo == 0){
             $role = Role::where('name','Demo')->first();
             $user->time_limit = Carbon::now()->addDays($request->time_trail);
