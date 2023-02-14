@@ -47,6 +47,15 @@
                 <div class="text-red-500" v-if="errors.package_time">{{ errors.package_time }}</div>
               </div>
 
+              <div class="form-group" :class="errors.free_trail_time ? 'is-valid' : ''">
+                <label for="recipient-name" class="col-form-label">Free Trail Days:</label>
+                <input type="number" class="form-control text-xl" min="0"
+                  :class="errors.free_trail_time ? 'is-valid border-red-500' : ''" v-model="form.free_trail_time"
+                  id="recipient-package_time" />
+                <div class="text-red-500" v-if="errors.free_trail_time">{{ errors.free_trail_time }}</div>
+              </div>
+
+
               <div class="modal-footer">
                 <button type="button"
                   class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
@@ -81,8 +90,12 @@
               Save Money
             </th>
             <th scope="col" class="px-6 py-3">
+              Free Trail Days
+            </th>
+            <th scope="col" class="px-6 py-3">
               State
             </th>
+            
             <th scope="col" class="px-6 py-3">
               Action
             </th>
@@ -106,6 +119,9 @@
               </td>
               <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                 {{ package_product.save_money }}
+              </td>
+              <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                {{ package_product.free_trail_time }}
               </td>
               <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                 <input :checked="package_product.state == 1 ? true : false"
@@ -133,6 +149,7 @@ import ContentHeaderVue from "@/Components/Layout/ContentHeader";
 import Pagination from "@/Components/Pagination";
 import Alert from "@/Components/Alert";
 import draggable from "vuedraggable";
+import { thisExpression } from "@babel/types";
 export default {
   layout: Layout,
   components: {
@@ -155,7 +172,8 @@ export default {
         name: null,
         price: null,
         save_money: null,
-        package_time: null
+        package_time: null,
+        free_trail_time:null
       })
     };
   },
@@ -213,6 +231,7 @@ export default {
       this.form.price = data.price;
       this.form.save_money = data.save_money;
       this.form.package_time = data.package_time;
+      this.form.free_trail_time= data.free_trail_time;
     },
     Delete(id) {
       if (!confirm("Are you sure want to remove?")) return;

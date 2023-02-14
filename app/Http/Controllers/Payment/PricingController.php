@@ -26,10 +26,11 @@ class PricingController extends Controller
     public function free(Request $request){
         // $package = ProductPackage::findOrFail($request->package_product_id);
         // dd($package);
+        
         $user =  User::with('roles')->findOrFail(Auth::user()->id);
         if($user->active_demo == 0){
             $role = Role::where('name','Demo')->first();
-            $user->time_limit = 1;
+            $user->time_limit = Carbon::now()->addDays($request->time_trail);
             $user->active_demo = 1;
             $user->roles()->sync($role);
             $user->save();
