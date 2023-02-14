@@ -92,6 +92,9 @@ export default {
   font-size:18px;
   color: #fff;
 }
+.pc{
+    display: block;
+  }
 .mobile{
   display: none;
 }
@@ -109,6 +112,9 @@ export default {
 }
   .mobile{
     display: block;
+  }
+  .pc{
+    display: none;
   }
   .login-section_mobile{
     width: 70%;
