@@ -60,6 +60,10 @@ class PricingController extends Controller
         return redirect('/topup/order_final');
     }
     public function updateCart(Request $request){
+
+        $this->validate($request,[
+            'number_device' => 'required|numeric|min:2|not_in:0'
+        ]);
         $cart = $request->session()->get('cart');
         $cart->updateNumberDevice($cart->items,$request->number_device);
         Session::put('cart', $cart);

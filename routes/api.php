@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\WifiController;
+use App\Models\Devices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,7 +38,9 @@ Route::group([
         Route::post('getUser',[AuthController::class,'getUserByToken']);
     });
 
-
+    // Route::get('getDevices', function(){
+    //     return Devices::get();
+    // });
     Route::post('create-user',[AuthController::class,'create_user']);
     
     Route::put('update-user',[AuthController::class,'update_user']);

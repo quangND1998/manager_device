@@ -41,12 +41,13 @@
                     </li>
                 </ul>
             </div>
+            <div class="text-red-500" v-if="errors.number_device">{{ errors.number_device }}</div>
             <div class="flex justify-between border-b pb-8" >
                 <h3 class=" font-semibold text-gray-900 dark:text-white mb-8">Number Devices:</h3>
                 <ul class="items-center w-full text-xl font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                     <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                         <div class="flex items-center pl-3">
-                            <input id="horizontal-list-radio-license" v-model="form.number_device" v-on:keyup="changeNumberDevice" type="number" placeholder="2"  min="2" name="list-radio" class="p-2 text-2xl w-2/3 bg-gray-100 border-gray-300">
+                            <input id="horizontal-list-radio-license"  v-model="form.number_device" v-on:keyup="changeNumberDevice" type="number" placeholder="2"  min="2" name="list-radio" class="p-2 text-2xl w-2/3 bg-gray-100 border-gray-300">
                             <label for="horizontal-list-radio-license" class="w-full py-3 ml-2 text-2xl font-medium text-gray-900 dark:text-gray-300">Devices </label>
                         </div>
                     </li>
@@ -103,7 +104,8 @@ export default {
   },
   props:{
     item : Object,
-    number_device : 2
+    number_device : 2,
+    errors:Object
   },
   data() {
     return {

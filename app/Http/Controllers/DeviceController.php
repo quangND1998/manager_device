@@ -17,12 +17,13 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 use App\Http\Controllers\Traits\LoginTrait;
+use App\Http\Controllers\Traits\FileUploadTrait;
 use App\Http\Resources\ApkResource;
 use Carbon\Carbon;
 
 class DeviceController extends Controller
 {
-    use LoginTrait;
+    use LoginTrait,FileUploadTrait;
     function __construct()
     {
         $this->middleware('permission:user-manager|Pro|Demo|Lite', ['only' => ['index','setDefaultApp','lanchApp']]);
@@ -74,7 +75,8 @@ class DeviceController extends Controller
     public function delete($id){
         $device = Devices::with('applications')->findOrFail($id);
         foreach($device->applications as $app){
-             unlink($app->icon);
+            $extension = " ";
+            $this->DeleteFolder($app->icon, $extension);
         }
         $device->applications()->delete();
         $device->delete();
