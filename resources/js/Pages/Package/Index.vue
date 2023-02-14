@@ -90,7 +90,7 @@
               Save Money
             </th>
             <th scope="col" class="px-6 py-3">
-              Free Trail Days
+              Free Trial Days
             </th>
             <th scope="col" class="px-6 py-3">
               State
