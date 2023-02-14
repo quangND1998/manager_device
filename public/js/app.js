@@ -87121,7 +87121,7 @@ var render = function () {
                         staticClass: "py-3 px-6 text-xl uppercase",
                         attrs: { scope: "col" },
                       },
-                      [_vm._v("Method")]
+                      [_vm._v("State ")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -87139,7 +87139,16 @@ var render = function () {
                         staticClass: "py-3 px-6 text-xl uppercase",
                         attrs: { scope: "col" },
                       },
-                      [_vm._v("Card")]
+                      [_vm._v("Method ")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "th",
+                      {
+                        staticClass: "py-3 px-6 text-xl uppercase",
+                        attrs: { scope: "col" },
+                      },
+                      [_vm._v("Card ")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -87149,15 +87158,6 @@ var render = function () {
                         attrs: { scope: "col" },
                       },
                       [_vm._v("Create at ( UTC +7)")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "th",
-                      {
-                        staticClass: "py-3 px-6 text-xl uppercase",
-                        attrs: { scope: "col" },
-                      },
-                      [_vm._v("State")]
                     ),
                     _vm._v(" "),
                     _vm.hasAnyPermission(["user-manager"])

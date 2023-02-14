@@ -14,11 +14,11 @@
               <th scope="col" class="py-3 px-6 text-xl"><input type="checkbox" id="check_all"></th>
               <th scope="col" class="py-3 px-6 text-xl">No</th>
               <th scope="col" class="py-3 px-6 text-xl uppercase">Type</th>
-              <th scope="col" class="py-3 px-6 text-xl uppercase">Method</th>
+              <th scope="col" class="py-3 px-6 text-xl uppercase">State </th>
               <th scope="col" class="py-3 px-6 text-xl uppercase">Price ($)</th>
-              <th scope="col" class="py-3 px-6 text-xl uppercase">Card</th>
+              <th scope="col" class="py-3 px-6 text-xl uppercase">Method </th>
+              <th scope="col" class="py-3 px-6 text-xl uppercase">Card </th>
               <th scope="col" class="py-3 px-6 text-xl uppercase">Create at ( UTC +7)</th>
-              <th scope="col" class="py-3 px-6 text-xl uppercase">State</th>
 
               <th scope="col" class="py-3 px-6 text-xl uppercase" v-if="hasAnyPermission(['user-manager'])">User</th>
               <!-- <th scope="col" class="py-3 px-6 text-xl uppercase">

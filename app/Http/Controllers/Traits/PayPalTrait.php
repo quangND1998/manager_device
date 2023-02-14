@@ -27,7 +27,6 @@ use PayPal\Api\Transaction;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
 use Redirect;
-use Session;
 use Carbon\Carbon;
 use App\cart;
 use PayPalConnectionException;
@@ -37,7 +36,7 @@ use App\Http\Controllers\Traits\OnePayTraits;
 use App\invoice_userchild;
 use App\invoice;
 use Illuminate\Support\Facades\URL;
-
+use Illuminate\Support\Facades\Session;
 trait PayPalTrait
 {
     // use OnePayTraits;
@@ -112,6 +111,21 @@ trait PayPalTrait
         $payment->create($this->_api_context);
         return $payment;
 
+    }
+    public function responsePayPal(Request $request){
+        $payment_id = Session::get('paypal_payment_id');
+        /** clear the session payment ID **/
+        Session::forget('paypal_payment_id');
+        if (empty($request->PayerID) || empty($request->token)) {
+            Session::put('error', 'Payment failed');
+            return redirect('/');
+        }
+        $payment = Payment::get($payment_id, $this->_api_context);
+        $execution = new PaymentExecution();
+        $execution->setPayerId($request->PayerID);
+        $result = $payment->execute($execution, $this->_api_context);
+
+        return $result;
     }
     // public function getPaymentStatus(){
     //     $payment_id = Session::get('paypal_payment_id');
