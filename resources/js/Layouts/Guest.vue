@@ -7,7 +7,8 @@
    
       <div class="  text-banner fixed rounded-lg">
         <p class="p-8 " >The Kiosk-mode HoloStartup locks the headset with an app of your choice, and when your headset booted up, it automatically launch that app.
-         You can also activate other apps on your headset remotely right on your desktop.</p>
+         You can also activate other apps on your headset remotely right on your desktop. 
+         HoloStartup works on Pico, Vive Focus, and Meta Quest headsets</p>
       </div>
       <div class="w-full xl:max-w-md mt-6 px-6 py-4 shadow-md overflow-hidden sm:rounded-lg login-section_pc">
         <slot />
@@ -25,7 +26,8 @@
       </div>
       <div class="  text_banner_mobile fixed rounded-lg shadow-md">
         <p class="p-8 " >The Kiosk-mode HoloStartup locks the headset with an app of your choice, and when your headset booted up, it automatically launch that app.
-         You can also activate other apps on your headset remotely right on your desktop.</p>
+         You can also activate other apps on your headset remotely right on your desktop. 
+         HoloStartup works on Pico, Vive Focus, and Meta Quest headsets</p>
       </div>
    </div>
      
