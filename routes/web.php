@@ -67,7 +67,7 @@ Route::middleware(['auth'])->group(
 
             Route::post('import',  [UserController::class, 'importUser'])->name('import');
 
-        
+
         });
 
         Route::prefix('user')->as('user.')->group(function () {
@@ -79,11 +79,11 @@ Route::middleware(['auth'])->group(
                 Route::get('',[UserController::class,'list_device'])->name('index');
                 Route::get('history',[UserController::class,'history_login'])->name('history');
             });
-          
-        
-        
+
+
+
         });
-      
+
 
         Route::prefix('groups')->as('group.')->group(function () {
             Route::get('', [GroupController::class, 'index'])->name('index');
@@ -140,10 +140,12 @@ Route::middleware(['auth'])->group(
             Route::get('',[PricingController::class,'index'])->name('index');
             Route::post('free',[PricingController::class,'free'])->name('free');
             Route::post('addToCart',[PricingController::class,'addToCart'])->name('addToCart');
+            Route::post('updateCart',[PricingController::class,'updateCart'])->name('updateCart');
             Route::get('order_final',[PricingController::class,'getOrderfinal'])->name('order_final');
             Route::get('gate',[PricingController::class,'gate'])->name('gate');
             Route::get('checkout',[PricingController::class,'checkout'])->name('checkout');
             Route::get('response',[PricingController::class,'response'])->name('response');
+            Route::get('response_paypal',[PricingController::class,'response_paypal'])->name('response_paypal');
         });
         Route::prefix('apk')->as('apk.')->group(function(){
             Route::get('list',[ApkFileController::class,'index'])->name('index');
@@ -153,7 +155,7 @@ Route::middleware(['auth'])->group(
             Route::post('install', [ApkFileController::class,'installApk'])->name('install');
             Route::post('uninstall', [ApkFileController::class,'UninstallApk'])->name('uninstall');
         });
-       
+
         Route::get('convert',[ApplicationController::class,'convert']);
     }
 );

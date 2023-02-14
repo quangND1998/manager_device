@@ -14,6 +14,9 @@
     <InstallApk :errors="errors" :ids="selected" :apk_files="apk_files"  />
     <UninstallApk v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
     <UninstallApk v-else :errors="errors" :applications="application_deivce" :ids="selected" />
+
+
+    
     <!-- <RunApkModal :errors="errors" ></RunApkModal> -->
     <!-- Modal -->
 

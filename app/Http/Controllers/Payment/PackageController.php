@@ -27,7 +27,8 @@ class PackageController extends Controller
             'name' => 'required',
             'price' => 'required|numeric|gt:-1',
             'save_money' => 'nullable|numeric|between:-1,100',
-            'package_time' => 'required|numeric|gt:-1'
+            'package_time' => 'required|numeric|gt:-1',
+            'free_trail_time' => 'required|numeric|gt:0'
         ]);
 
         $package = ProductPackage::create([
@@ -35,6 +36,7 @@ class PackageController extends Controller
             'price' => $request->price,
             'save_money' => $request->save_money,
             'package_time' => $request->package_time,
+            'free_trail_time' => $request->free_trail_time
         ]);
 
         return back()->with('success', 'Create successfully');
@@ -45,7 +47,8 @@ class PackageController extends Controller
             'name' => 'required',
             'price' => 'required|numeric|gt:-1',
             'save_money' => 'nullable|numeric|between:-1,100',
-            'package_time' => 'required|numeric|gt:-1'
+            'package_time' => 'required|numeric|gt:-1',
+            'free_trail_time' => 'required|numeric|gt:0'
         ]);
 
         $package = ProductPackage::findOrFail($id);
@@ -54,6 +57,7 @@ class PackageController extends Controller
             'price' => $request->price,
             'save_money' => $request->save_money,
             'package_time' => $request->package_time,
+            'free_trail_time' => $request->free_trail_time
         ]);
 
         return back()->with('success', 'Update successfully');

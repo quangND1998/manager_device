@@ -42,7 +42,6 @@ class UserController extends InertiaController
     public function queryUser($user, $request)
     {
 
-
         if ($user->hasRole('administrator')) {
             return User::with('roles',  'owner')->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');

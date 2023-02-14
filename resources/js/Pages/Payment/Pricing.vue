@@ -174,14 +174,22 @@
                <button v-else-if="$page.props.auth.user.active_demo == 0 && package_product.name == 'Standard'" type="button"
                 class="mt-5 inline-block p-8  mr-5 bg-blue-600 text-white font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
                 data-mdb-ripple="true" data-ripple-color="light"
+                @click="getTrail(package_product)"
                 data-toggle="modal" data-target="#exampleModalTopup"
                 >
-                    Get Your 30 days Trial
+                    Get Your {{ package_product.free_trail_time }} days Trial
+              </button>
+              <button v-else-if="$page.props.auth.user.active_demo == 1 && package_product.name == 'Standard'" type="button" @click="addtoCart(package_product)"
+                class="mt-5 inline-block p-8  mr-5 bg-blue-600 text-white font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
+                data-mdb-ripple="true" data-ripple-color="light"
+                >
+                Add to Cart
               </button>
                 <button v-else type="button"  @click="addtoCart(package_product)" disabled
                     class="mt-5 inline-block p-8  mr-5 bg-gray-600 text-white font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-700 hover:shadow-lg focus:bg-gray-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
-                    data-mdb-ripple="true" data-ripple-color="light">
-                        Get Your 30 days Trial
+                    data-mdb-ripple="true" data-ripple-color="light"
+                    >
+                    Get Your {{ package_product.free_trail_time }}  days Trial
                 </button>
 
               <!-- model -->
@@ -217,7 +225,7 @@
                         </div>
                         <div class="modal-body">
                                 <div class="form-group">
-                                    Please confirm to use Free of charge the Kiosk mode HoloStartup for 30 days, unlimited devices
+                                    Please confirm to use Free of charge the Kiosk mode HoloStartup for {{ form.time_trail }} days, unlimited devices
                                 </div>
                                 <div class="text-red-500" v-if="errors.devices">{{ errors.devices }}</div>
                                 <div class="modal-footer">
@@ -255,9 +263,10 @@ export default {
   data() {
     return {
       form:this.$inertia.form({
-         number_device:2,
+         number_device:1,
          package_product_id: null,
          user : this.$page.props.auth.user,
+         time_trail:null
       })
     }
   },
@@ -273,6 +282,10 @@ export default {
           }
         });
      },
+     getTrail(data){
+        console.log(data)
+        this.form.time_trail =data.free_trail_time
+    },
      trielfree(){
         this.form.post(route("topup.free"), {
           preserveState: true,

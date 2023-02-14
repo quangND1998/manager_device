@@ -6,14 +6,14 @@
             <div class="flex shadow-md my-10 w-2/5 items-center">
                 <div class="w-full bg-white px-10 py-10 items-center m-2">
                     <div class="flex flex-col items-center justify-between border-b pb-8 text-green-600/100">
-                        <h1 class="font-semibold text-4xl "> {{ state }} !</h1>
+                        <h1 class="font-semibold text-4xl "> Transaction payment success!</h1>
                         <svg aria-hidden="true" class="m-4 flex-shrink-0 w-14 h-14 text-green-600 dark:text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Check icon</title><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
 
                     </div>
                     <div id="summary" class="w px-8 py-10">
                         <div class="flex justify-between mt-10">
                             <span class="font-semibold text-2xl ">Payment type</span>
-                            <span class="font-semibold text-2xl">Net banking</span>
+                            <span class="font-semibold text-2xl">PayPal</span>
                         </div>
                         <div class="flex justify-between mt-10">
                                 <span class="font-semibold text-2xl ">Customer Name</span>
@@ -25,11 +25,11 @@
                             </div>
                             <div class="flex justify-between mt-10">
                                 <span class="font-semibold text-2xl uppercase">Amount paid</span>
-                                <span class="font-semibold text-2xl"><strong>$ {{ formatPrice(data.vpc_Amount)}}</strong></span>
+                                <span class="font-semibold text-2xl"><strong>$ {{ item.price }}</strong></span>
                             </div>
                             <div class="flex justify-between mt-10">
                                 <span class="font-semibold text-2xl">Transaction id</span>
-                                <span class="font-semibold text-2xl">{{  data.paymentId}}</span>
+                                <span class="font-semibold text-2xl">{{ transaction }}</span>
                             </div>
                         <!-- <div class="py-10">
 
@@ -63,13 +63,15 @@ export default {
         ContentHeaderVue
     },
     props:{
-        data : Array
+        item : Object,
+        transaction : Text
     },
     data() {
         return {
             form:this.$inertia.form({
                 user : this.$page.props.auth.user,
-                data : this.data
+                item : this.item,
+                transaction : this.transaction
             })
         }
     }

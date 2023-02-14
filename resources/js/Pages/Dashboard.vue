@@ -17,6 +17,7 @@ export default {
   },
   mounted() {
       this.listenEvent();
+      // this.getData();
   },
   methods:{
      listenEvent(){
@@ -30,7 +31,28 @@ export default {
       // window.client.subscribe("active-device").bind('App\\Events\\TestEvent', (e)=>{
       //     console.log(e);
       // });
-     }
+     },
+     getData (){
+    
+
+    // Tạo một request để truy xuất người dùng ứng với ID cho sẵn:
+       axios.get('https://devinfinity.holomia.com/api/v1/player/show/5')
+          .then(response =>{
+             
+              console.log(response);
+              // console.log(response.data.entries[1].Description);
+        
+          }
+          
+          //    this.posts.response.data.entries
+              )
+          .catch( error=>{
+              // xử trí khi bị lỗi
+              console.log(error);
+              console.log("123")
+          });
+        
+    }
   }
 
 };

@@ -187,7 +187,7 @@ trait FileUploadTrait
     public function DeleteFolder($attribute, $extension)
     {
         if (file_exists((public_path().$attribute))) {
-           
+        
                 if (is_dir(public_path().$attribute)) {
                     File::deleteDirectory(public_path().$attribute); //xoa dc file nay
                 } else {
