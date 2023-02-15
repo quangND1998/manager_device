@@ -57,6 +57,7 @@ export default {
   width: 40% !important;
     font-size: 22px;
   background: rgba(255, 255, 255, 0.71);
+  margin-bottom: 5%;
 }
 .background_login{
   
@@ -77,16 +78,18 @@ export default {
 }
 .pc_content{
   position: fixed;
-    top: 6%;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
     align-content: space-around;
     align-items: center;
 }
 .text-banner{
-  width: 35%;
+  width: 50%;
     text-align: center;
-    margin-bottom: 5%;
+    margin-bottom: 7%;
 }
 .text-banner p{
   font-size:18px;
