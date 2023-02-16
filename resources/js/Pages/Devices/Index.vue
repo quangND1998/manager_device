@@ -321,15 +321,15 @@ export default {
       this.$inertia.get(route('device.disableDefaultApp',id),{ preserveScroll: true });
     },
     listenActiveDevice(){
-            // var self = this;
-      // this.devices.map(element =>{
-          window.socketio.on(`recive-active-device.1ac93732a7cef155:App\\Events\\ReciveActiveDeviceEvent`, function (e) {
+            var self = this;
+      this.devices.map(element =>{
+          window.socketio.on(`recive-active-device.${element.device_id}:App\\Events\\ReciveActiveDeviceEvent`, function (e) {
             console.log(e)
-            //     if(element.device_id == e.device_id){
-            //       element.active =true;
-            //       // element.battery = e.battery
-            //     }
-            // });
+                if(element.device_id == e.device_id){
+                  element.active =true;
+                  // element.battery = e.battery
+                }
+            });
       })      
       
     },
