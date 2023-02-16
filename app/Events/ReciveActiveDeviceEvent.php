@@ -41,7 +41,8 @@ class ReciveActiveDeviceEvent implements ShouldBroadcast
         return
             [
                 'device_id' => $this->device->device_id,
-                'active' => true
+                'active' => true,
+                'battery' => $this->device->battery
             
             ];
     }
