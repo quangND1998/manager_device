@@ -40,8 +40,8 @@ class SendDeviceActiveEvent implements ShouldBroadcast
 
         return
             [
-                'device_id' => $this->device->device_id
-            
+                'device_id' => $this->device->device_id,
+                'battery' => $this->device->battery
             ];
     }
 }
