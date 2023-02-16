@@ -20,7 +20,7 @@
     @routes
     @inertiaHead
   </head>
-  <body class="hold-transition skin-blue sidebar-mini" style="padding-right:0px !important; position: relative;">
+  <body class="hold-transition skin-blue " style="padding-right:0px !important; position: relative;">
    
     @inertia
     <script src="/static/js/plugins/jQuery/jQuery-2.2.0.min.js"></script>

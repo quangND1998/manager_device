@@ -75,10 +75,10 @@
                             </div>
                         </div>
                         <div class="border-t mt-8">
-                            <div class="flex font-semibold justify-between py-6 text-2xl uppercase">
+                            <!-- <div class="flex font-semibold justify-between py-6 text-2xl uppercase">
                                 <span>Total cost</span>
                                 <span>${{ formatPrice(item.price) }}</span>
-                            </div>
+                            </div> -->
                             <a href="/topup/gate">
                                 <button
                                 class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-2xl text-white uppercase w-full"

@@ -6,6 +6,8 @@ use App\Errors\InertiaErrors;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\InertiaController;
 use App\Jobs\ImportUser;
+use App\Models\Devices;
+use App\Models\HistoryDevice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Spatie\Permission\Models\Role;
@@ -18,7 +20,7 @@ class UserController extends InertiaController
 
     public function __construct()
     {
-        $this->middleware('permission:user-manager|create-user|delete-user', ['only' => ['index']]);
+        $this->middleware('permission:user-manager|create-user|delete-user|list_device', ['only' => ['index']]);
         $this->middleware('permission:create-user', ['only' => ['store', 'update']]);
         $this->middleware('permission:delete-user', ['only' => ['destroy']]);
     }
@@ -39,7 +41,6 @@ class UserController extends InertiaController
 
     public function queryUser($user, $request)
     {
-
 
         if ($user->hasRole('administrator')) {
             return User::with('roles',  'owner')->where(function ($query) use ($request) {
@@ -140,4 +141,31 @@ class UserController extends InertiaController
        
         return redirect('/users')->with('success', 'Import user successfully');
     }
+
+
+    public function detail($id){
+        $user = User::with('roles')->findOrFail($id);
+        return Inertia::render('User/Index', compact('user'));
+    }
+
+    public function list_device($id, Request $request){
+       
+        $user = User::with('roles')->findOrFail($id);
+        $devices = Devices::with('user','default_app')->where('user_id',$id)->where(function ($query) use ($request) {
+            $query->where('name', 'LIKE', '%' . $request->term . '%');
+        })->paginate(15)->appends(['name' => $request->name]);
+        return Inertia::render('User/Devices',compact('user','devices'));
+    }
+
+    public function history_login($id){
+        $user = User::with('roles', 'devices')->findOrFail($id);
+        $devices = $user->devices->pluck('id');
+        $histories = HistoryDevice::with(['ipaddress', 'device.user'])->whereIn('device_id', $devices)->orderBy('id', 'desc')->paginate(15);
+        return Inertia::render('User/History', compact('user','histories'));
+
+    }
+
+    
+
+
 }

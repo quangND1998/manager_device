@@ -9,7 +9,7 @@
         <OpenGroupApp v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :current_group="current_group" />
         <OpenGroupApp v-else :errors="errors" :applications="applications" :current_group="current_group" />
 
-        
+
         <DefaultGroupAppVue v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :current_group="current_group"  />
         <DefaultGroupAppVue v-else :errors="errors" :applications="applications" :current_group="current_group"  />
         <button type="button"
@@ -172,7 +172,7 @@
                                             </td>
                                             <th scope="row"
                                                 class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{ index }}
+                                                {{ index +1 }}
                                             </th>
                                             <th scope="row"
                                                 class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -269,6 +269,7 @@ export default {
         Bus.$on('cloesModal', () => {
             this.selected = [];
         })
+    
     },
     data() {
 

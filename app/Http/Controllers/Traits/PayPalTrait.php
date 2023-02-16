@@ -27,7 +27,6 @@ use PayPal\Api\Transaction;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
 use Redirect;
-use Session;
 use Carbon\Carbon;
 use App\cart;
 use PayPalConnectionException;
@@ -37,6 +36,7 @@ use App\Http\Controllers\Traits\OnePayTraits;
 use App\invoice_userchild;
 use App\invoice;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Session;
 trait PayPalTrait
 {
     // use OnePayTraits;
@@ -99,15 +99,72 @@ trait PayPalTrait
             ->setItemList($item_list)
             ->setDescription('Your transaction description');
         $redirect_urls = new RedirectUrls();
-        $redirect_urls->setReturnUrl(URL::to('status_invoicee'))
+        $redirect_urls->setReturnUrl(URL::to('topup/response_paypal'))
             /** Specify return URL **/
-            ->setCancelUrl(URL::to('status_invoicee'));
+            ->setCancelUrl(URL::to('topup/response_paypal'));
         $payment = new Payment();
         $payment->setIntent('Sale')
             ->setPayer($payer)
             ->setRedirectUrls($redirect_urls)
             ->setTransactions(array($transaction));
+
+        $payment->create($this->_api_context);
         return $payment;
+
     }
+    public function responsePayPal(Request $request){
+        $payment_id = Session::get('paypal_payment_id');
+        /** clear the session payment ID **/
+        Session::forget('paypal_payment_id');
+        if (empty($request->PayerID) || empty($request->token)) {
+            Session::put('error', 'Payment failed');
+            return redirect('/');
+        }
+        $payment = Payment::get($payment_id, $this->_api_context);
+        $execution = new PaymentExecution();
+        $execution->setPayerId($request->PayerID);
+        $result = $payment->execute($execution, $this->_api_context);
+
+        return $result;
+    }
+    // public function getPaymentStatus(){
+    //     $payment_id = Session::get('paypal_payment_id');
+    //     Session::forget('paypal_payment_id');
+
+    //     if(empty(Input::get('PayerID')) || empty(Input::get('token'))){
+    //         return redirect()
+    //                 ->route('bookstore.shipping')
+    //                 ->with('danger', 'Payment failed.');
+    //     }
+
+    //     $payment = Payment::get($payment_id, $this->_api_context);
+    //     $execution = new PaymentExecution();
+    //     $execution->setPayerId(Input::get('PayerID'));
+
+    //     $result = $payment->execute($execution, $this->_api_context);
+
+    //     if($result->getState() == 'approved'){
+    //         // Send Email
+    //         $email_data = [
+    //             'number_of_books' => $payment->transactions[0]->item_list->items[0]->name,
+    //             'shipping' => [
+    //                 'street' => $payment->payer->payer_info->shipping_address->line1,
+    //                 'city' => $payment->payer->payer_info->shipping_address->city,
+    //                 'state' => $payment->payer->payer_info->shipping_address->state,
+    //                 'country' => $payment->payer->payer_info->shipping_address->country_code,
+    //             ]
+    //         ];
+
+    //         // Send email function here ...
+
+    //         return redirect()
+    //                 ->route('bookstore.shipping')
+    //                 ->with('success', 'Transaction payment success!');
+    //     }
+
+    //     return redirect()
+    //             ->route('bookstore.shipping')
+    //             ->with('danger', 'Payment failed.');
+    // }
 
 }

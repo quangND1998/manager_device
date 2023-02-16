@@ -162,7 +162,8 @@
         </div>
       </div>
     </div>
-    <div class="w-full max-w-md mr-4 mb-8 mt-8">
+    <div class="w-full  mb-8 mt-8 flex justify-between ">
+     <div>
       <input
         v-model="term"
         @keyup="search"
@@ -172,6 +173,21 @@
         name="search"
         placeholder="Search…"
       />
+     </div>
+      <div class="flex justify-center">
+  <div class="mb-3 xl:w-96">
+    <select v-model="filter" @change="Filter" class="form-select form-select-lg mb-3   appearance-none block w-full px-4 py-2 text-2xl font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition  ease-in-out m-0
+      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label=".form-select-lg example">
+        <option value="0">Filter</option>
+        <option value="active">User Active</option>
+        <option value="Demo">Role:Demo</option>
+        <option value="Lite">Role: Lite</option>
+        <option value="Pro">Role: Pro</option>
+    </select>
+
+   
+  </div>
+</div>
     </div>
     <div class="flex flex-col mt-6">
       <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -207,6 +223,10 @@
                   <th
                     scope="col"
                     class="px-6 py-3 text-left text-xl font-back text-gray-500 uppercase tracking-wider"
+                  >Active</th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xl font-back text-gray-500 uppercase tracking-wider"
                   >Time Limit</th>
                   <th
                     scope="col"
@@ -222,12 +242,12 @@
                   <td class="px-6 py-4 whitespace-nowrap">
                     <div class="flex items-center">
                       <div class="ml-4">
-                        <div class="text-xl font-medium text-gray-900">{{ index }}</div>
+                        <div class="text-xl font-medium text-gray-900">{{ index +1 }}</div>
                       </div>
                     </div>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-xl text-gray-900">{{ user.name }}</div>
+                   <Link :href="route('user.devices.index',user.id)">{{ user.name }}</Link>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
                     <div class="text-xl text-gray-900">{{ user.email }}</div>
@@ -247,6 +267,9 @@
                       class="text-xl text-gray-900"
                       v-if="hasAnyPermission(['users-manage']) && $page.props.auth.user.id !== user.id && user.owner !== null"
                     >{{ user.owner.name }}</div>
+                  </td>
+                  <td  class="px-6 py-4 whitespace-nowrap">
+                    <span v-if="user.active_demo ==1" class="text-2xl inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-green-500 text-white rounded">Active</span>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
                     {{ formatDate(user.time_limit) }}
@@ -286,6 +309,7 @@ import Alert from "@/Components/Alert";
 import Multiselect from "@vueform/multiselect/dist/multiselect.vue2.js";
 import ImportModal from "@/Pages/Admin/ImportModal";
 import admin from "./mixins/admin";
+import { eventNames } from 'process';
 export default {
   layout: Layout,
   mixins: [admin],
@@ -307,6 +331,7 @@ export default {
     return {
       term: null,
       editMode: false,
+      filter: 0,
       form: this.$inertia.form({
         id: null,
         name: null,
@@ -323,6 +348,22 @@ export default {
       this.$inertia.get(
         this.route("users.index"),
         { term: this.term },
+        {
+          preserveState: true
+        }
+      );
+    },
+
+    Filter(event) {
+      this.filter = event.target.value;
+      let query = {
+         filter: this.filter,
+          term: this.term,
+          answered: this.answered
+      };
+      this.$inertia.get(
+        this.route("users.index"),
+        query,
         {
           preserveState: true
         }
@@ -369,6 +410,7 @@ export default {
         number_device:null
       });
     },
+    
 
     clickModal() {
       this.editMode = false;

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\PermisionsController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\ApkFileController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\GroupController;
@@ -65,7 +66,24 @@ Route::middleware(['auth'])->group(
             Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('destroy');
 
             Route::post('import',  [UserController::class, 'importUser'])->name('import');
+
+
         });
+
+        Route::prefix('user')->as('user.')->group(function () {
+            Route::prefix('{id}/detail')->as('detail.')->group(function(){
+                Route::get('',[UserController::class,'detail'])->name('index');
+                Route::get('devices',[UserController::class,'list_device'])->name('devices');
+            });
+            Route::prefix('{id}/devices')->as('devices.')->group(function(){
+                Route::get('',[UserController::class,'list_device'])->name('index');
+                Route::get('history',[UserController::class,'history_login'])->name('history');
+            });
+
+
+
+        });
+
 
         Route::prefix('groups')->as('group.')->group(function () {
             Route::get('', [GroupController::class, 'index'])->name('index');
@@ -90,6 +108,8 @@ Route::middleware(['auth'])->group(
             Route::post('/setDefaultApp', [DeviceController::class, 'setDefaultApp'])->name('setDefaultApp');
             Route::post('connectWifi',[DeviceController::class ,'connectWifi'])->name('connectWifi');
             Route::get('disableDefaultApp/{id}',[DeviceController::class,'disableDefaultApp'])->name('disableDefaultApp');
+
+            Route::post('checkDevice', [DeviceController::class,'checkDevice'])->name('checkDevice');
         });
 
         Route::prefix('applications')->as('application.')->group(function () {
@@ -120,11 +140,22 @@ Route::middleware(['auth'])->group(
         });
         Route::prefix('topup')->as('topup.')->group(function(){
             Route::get('',[PricingController::class,'index'])->name('index');
+            Route::post('free',[PricingController::class,'free'])->name('free');
             Route::post('addToCart',[PricingController::class,'addToCart'])->name('addToCart');
+            Route::post('updateCart',[PricingController::class,'updateCart'])->name('updateCart');
             Route::get('order_final',[PricingController::class,'getOrderfinal'])->name('order_final');
             Route::get('gate',[PricingController::class,'gate'])->name('gate');
             Route::get('checkout',[PricingController::class,'checkout'])->name('checkout');
             Route::get('response',[PricingController::class,'response'])->name('response');
+            Route::get('response_paypal',[PricingController::class,'response_paypal'])->name('response_paypal');
+        });
+        Route::prefix('apk')->as('apk.')->group(function(){
+            Route::get('list',[ApkFileController::class,'index'])->name('index');
+            Route::post('store',[ApkFileController::class ,'store'])->name('store');
+            Route::post('update/{id}',[ApkFileController::class ,'update'])->name('update');
+            Route::delete('delete/{id}',[ApkFileController::class ,'delete'])->name('delete');
+            Route::post('install', [ApkFileController::class,'installApk'])->name('install');
+            Route::post('uninstall', [ApkFileController::class,'UninstallApk'])->name('uninstall');
         });
 
         Route::get('convert',[ApplicationController::class,'convert']);

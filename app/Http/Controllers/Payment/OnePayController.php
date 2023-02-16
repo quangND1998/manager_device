@@ -23,8 +23,7 @@ class OnePayController extends Controller
     use OnePayTraits,PayPalTrait;
     public function paidgate(Request $request){
         $check_gate = $request->gate;
-
-        if ($check_gate != "onepay") {
+        if ($check_gate == "paypal") {
             $payment = $this->paidInvoicePaypal($request);
             try {
                 $payment->create($this->_api_context);
@@ -112,9 +111,14 @@ class OnePayController extends Controller
 
         if (Session::has('cart')) {
             $cart = Session::get('cart');
-            // dd($cart->items['number_device']);
+
+            $timelimit = Carbon::now()->addDays($cart->items['item']->package_time);
+            // dd($timelimit);
             $des = $cart->items['item']->name . ', Number device : ' .$cart->items['number_device'];
             $user =  User::findOrFail(Auth::user()->id);
+            $user->number_device = $cart->items['number_device'];
+            $user->time_limit = $timelimit;
+            $user->save();
             $role = Role::where('name','Pro')->first();
             $user->roles()->sync($role);
             $this->savePayment($data,$des);
@@ -131,7 +135,7 @@ class OnePayController extends Controller
             $payment = new Payment;
             $payment->pay_gate = "onepay";
             $payment->pay_type = $data['vpc_PayChannel'];
-            $payment->amount = $data['vpc_Amount'] / 100;
+            $payment->amount = $data['vpc_Amount'] / (100*25300);
             $payment->transID = $data['vpc_NetworkTransactionID'];
             $payment->merch_TxnRef = $data['vpc_MerchTxnRef'];
             $payment->card_number = $data['vpc_CardNum'];

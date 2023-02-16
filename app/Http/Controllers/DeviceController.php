@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Events\ConnectWifiEvent;
 use App\Events\DefaultAppEvent;
 use App\Events\LaunchAppEvent;
+use App\Events\ReciveActiveDeviceEvent;
+use App\Events\SendDeviceActiveEvent;
 use App\Models\Applicaion;
 use App\Models\Devices;
 use App\Models\Wifi;
@@ -17,11 +19,13 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 use App\Http\Controllers\Traits\LoginTrait;
+use App\Http\Controllers\Traits\FileUploadTrait;
+use App\Http\Resources\ApkResource;
 use Carbon\Carbon;
 
 class DeviceController extends Controller
 {
-    use LoginTrait;
+    use LoginTrait,FileUploadTrait;
     function __construct()
     {
         $this->middleware('permission:user-manager|Pro|Demo|Lite', ['only' => ['index','setDefaultApp','lanchApp']]);
@@ -29,29 +33,34 @@ class DeviceController extends Controller
     }
     public function index(Request $request){
         $user = Auth::user();
+    
         if($user->hasPermissionTo('user-manager')){
+       
             $devices = Devices::with('applications','default_app','user')->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
             })->get();
-  
+            
             $applications = Applicaion::groupby('packageName')->get();
         }
         elseif($user->hasPermissionTo('Lite')){
+           
             $devices = Devices::with('default_app','applications','user')->where('user_id',$user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
             })->get();
             $applications = Applicaion::where('default', true)->groupby('packageName')->get();
         }
         else{
+         
             $devices = Devices::with('applications','default_app','user')->where('user_id',$user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
             })->get();
             $applications = Applicaion::groupby('packageName')->get();
         }
-       
+        
+        $apk_files = ApkResource::collection($user->apk_files);
      
         $wifis = Wifi::get();
-        return Inertia::render('Devices/Index',compact('devices','applications','wifis'));
+        return Inertia::render('Devices/Index',compact('devices','applications','wifis','apk_files'));
     }
 
     public function saveName(Request $request,  $id){
@@ -72,7 +81,8 @@ class DeviceController extends Controller
     public function delete($id){
         $device = Devices::with('applications')->findOrFail($id);
         foreach($device->applications as $app){
-             unlink($app->icon);
+            $extension = " ";
+            $this->DeleteFolder($app->icon, $extension);
         }
         $device->applications()->delete();
         $device->delete();
@@ -140,8 +150,10 @@ class DeviceController extends Controller
         ]);
         $new_ip = new ipaddress();
         $new_ip->ip =  $this->getOriginalClientIp($request);
+        $new_ip->history_id = $new_history_login->id;
+        $new_ip->save();
         $this->checkaddressIp($new_ip);
-        $new_history_login->ipaddress()->save($new_ip);
+        
         return response()->json('Create successfully', Response::HTTP_OK);
 
     }
@@ -264,7 +276,37 @@ class DeviceController extends Controller
 
     }
 
+    public function checkDevice(){
+        $user = Auth::user();
     
+        if($user->hasPermissionTo('user-manager')){
+            $devices = Devices::get();
+        }
+        elseif($user->hasPermissionTo('Lite')){
+            $devices = Devices::where('user_id',$user->id)->get();
+        }
+        else{
+            $devices = Devices::where('user_id',$user->id)->get();
+        }
+        foreach($devices as $device){
+            $device->active =false;
+            $device->save();
+            broadcast(new SendDeviceActiveEvent($device));
+        }
+        return redirect()->route('device.index');
+    }
+    public function getActiveDevice( $id){
+        $device = Devices::where('device_id', $id)->first();
+
+        if($device){
+            $device->active = true;
+            $device->save();
+            broadcast(new ReciveActiveDeviceEvent($device));
+            return response()->json(Response::HTTP_OK);
+        }else{
+            return response()->json('Device Not Fond',Response::HTTP_BAD_REQUEST);
+        }
+    }
      
 
     

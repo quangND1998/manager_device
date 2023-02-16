@@ -1,24 +1,13 @@
 <template>
   <ul class="sidebar-menu">
     <!-- <li class="header">TOOLS</li> -->
-    <li tag="li" :class="[$page.component === 'Dashboard' ? 'active' : '']">
+    <!-- <li tag="li" :class="[$page.component === 'Dashboard' ? 'active' : '']">
       <Link :href="route('dashboard')" >
         <i class="fa fa-desktop"></i>
         <span class="page">Dashboard</span>
       </Link>
-    </li>
-    <li tag="li" :class="[$page.component === 'topup' ? 'active' : '']">
-      <Link :href="route('topup.index')" >
-        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-        <span class="page">TopUp</span>
-      </Link>
-    </li>
-    <li tag="li" :class="[$page.component === 'payment' ? 'active' : '']">
-      <Link :href="route('payment.index')" >
-        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-        <span class="page">Bill</span>
-      </Link>
-    </li>
+    </li> -->
+
 
 
     <li class="header">Device Manager</li>
@@ -54,6 +43,29 @@
         </li>
 
     </li>
+    <li :class="[$page.component === 'APK/Index' ? 'active' : '']" v-if="hasAnyPermission(['user-manager'])">
+          <Link :href="route('apk.index')" >
+            <i class="fa fa-file-archive-o" aria-hidden="true"></i> Installl Link
+          </Link>
+    </li>
+
+    <li class="header"></li>
+    <li tag="li" :class="[$page.component === 'topup' ? 'active' : '']">
+      <Link :href="route('topup.index')" >
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+        <span class="page">Top Up</span>
+      </Link>
+    </li>
+    <li tag="li" :class="[$page.component === 'payment' ? 'active' : '']">
+      <Link :href="route('payment.index')" >
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+        <span class="page">Bill</span>
+      </Link>
+    </li>
+
+
+    
+  
     <li class="header" v-if="hasAnyPermission(['user-manager'])">User managerment</li>
     <li class="treeview"  v-if="hasAnyPermission(['user-manager'])">
       <a href="#">
@@ -97,7 +109,7 @@
             <i class="fa fa-product-hunt" aria-hidden="true"></i> Package License
           </Link>
         </li>
-      
+
       </ul>
     </li>
     <li class="header">Logout</li>
@@ -145,10 +157,18 @@
 </template>
 <script>
 import { Link } from "@inertiajs/inertia-vue";
+import { Inertia } from '@inertiajs/inertia'
 export default {
   components: {
     Link
+  },
+  mounted(){
+    Inertia.on('navigate', (event) => {
+      $('body').removeClass('sidebar-open')
+       console.log(`Navigated to ${event.detail.page.url}`)
+  })
   }
+  
 };
 </script>
 <style>

@@ -45,7 +45,7 @@ trait FileUploadTrait
     {
         $user_id = Auth::user()->id;
         $name = time() . $user_id . "_" . Str::slug($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
-        $file->move($destinationpath, $name);
+        $file->move(public_path().$destinationpath, $name);
         $path = $destinationpath . $name;
 
 
@@ -186,17 +186,14 @@ trait FileUploadTrait
     }
     public function DeleteFolder($attribute, $extension)
     {
-
-        if (file_exists($attribute)) {
-
-            $oldzip = explode($extension, $attribute)[0];
-            if (!Str::contains($attribute, 'default')) {
-                if (is_dir($oldzip)) {
-                    File::deleteDirectory($oldzip); //xoa dc file nay
+        if (file_exists((public_path().$attribute))) {
+        
+                if (is_dir(public_path().$attribute)) {
+                    File::deleteDirectory(public_path().$attribute); //xoa dc file nay
                 } else {
-                    unlink($attribute);
+                    unlink(public_path().$attribute);
                 }
-            }
+            
         }
     }
     public function createFolder($public, $name)
