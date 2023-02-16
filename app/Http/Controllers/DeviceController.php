@@ -300,7 +300,7 @@ class DeviceController extends Controller
 
         if($device){
             $device->active = true;
-            $device->battery = $request->battery;
+            // $device->battery = $request->battery;
             $device->save();
             broadcast(new ReciveActiveDeviceEvent($device));
             return response()->json(Response::HTTP_OK);
