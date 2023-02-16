@@ -327,6 +327,7 @@ export default {
             console.log(e)
                 if(element.device_id == e.device_id){
                   element.active =true;
+                  element.battery = e.battery
                 }
             });
       })      
