@@ -45,5 +45,13 @@ Broadcast::channel('lauch-default-app.{id}', function ($user,$id) {
 Broadcast::channel('connect-wifi.{id}', function ($user,$id) {
     return true;
 });
+Broadcast::channel('recive-active-device.{id}', function ($user,$id) {
+    return true;
+});
+
+Broadcast::channel('check-active-device.{id}', function ($user,$id) {
+    return true;
+});
+
 
 

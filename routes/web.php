@@ -108,6 +108,8 @@ Route::middleware(['auth'])->group(
             Route::post('/setDefaultApp', [DeviceController::class, 'setDefaultApp'])->name('setDefaultApp');
             Route::post('connectWifi',[DeviceController::class ,'connectWifi'])->name('connectWifi');
             Route::get('disableDefaultApp/{id}',[DeviceController::class,'disableDefaultApp'])->name('disableDefaultApp');
+
+            Route::post('checkDevice', [DeviceController::class,'checkDevice'])->name('checkDevice');
         });
 
         Route::prefix('applications')->as('application.')->group(function () {

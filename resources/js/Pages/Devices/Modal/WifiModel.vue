@@ -115,7 +115,7 @@
                                     </path>
                                 </svg>
                                 Are you want to connect  &nbsp;  <i class="fa fa-wifi" aria-hidden="true"></i>  &nbsp; <strong>{{ form.ssid }}</strong>&nbsp; for
-                                {{ ids.length }} devices ?
+                                {{ ids.length }} devices?
                             </div>
                             <div class="modal-footer">
                                 <button type="button"

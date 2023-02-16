@@ -15,7 +15,7 @@
     <UninstallApk v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
     <UninstallApk v-else :errors="errors" :applications="application_deivce" :ids="selected" />
 
-
+   
     
     <!-- <RunApkModal :errors="errors" ></RunApkModal> -->
     <!-- Modal -->
@@ -80,6 +80,9 @@
 
             <li v-if="hasAnyPermission(['user-manager'])"><button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
                 data-target="#WifiModal"><i class="fa fa-wifi mr-2" aria-hidden="true"></i>Wifi</button></li>
+            <li ><button type="button" class="btn btn-secondary" 
+              ><i class="fa fa-refresh mr-2" aria-hidden="true"></i>Get Active</button></li>
+            
             <!-- <li><button  type="button"   class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal" data-target="#groupModal" ><i class="fa fa-folder-o mr-2" aria-hidden="true"></i>Group </button></li> -->
             <!-- <li><a href="#">Another action</a></li>
             <li><a href="#">Something else here</a></li>
@@ -90,6 +93,8 @@
 
       </div>
     </div>
+    <button type="button" @click="FreshDevice()" class="inline-block px-6 py-2.5 bg-blue-400 text-white font-medium text-2xl leading-tight  rounded-full shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out"><i class="fa fa-refresh mr-2" aria-hidden="true"></i>Fresh Active Device</button>
+   
     <div class="overflow-x-auto relative shadow-md sm:rounded-lg mt-5">
 
 
@@ -107,6 +112,7 @@
 
             <!-- <th scope="col" class="py-3 px-6 text-xl">Os Version</th> -->
             <th scope="col" class="py-3 px-6 text-xl uppercase">Battery</th>
+            <th scope="col" class="py-3 px-6 text-xl uppercase">Active</th>
             <!-- <th scope="col" class="py-3 px-6 text-xl uppercase">Connect Wifi</th> -->
             <th scope="col" class="py-3 px-6 text-xl uppercase">Default App</th>
             <th scope="col" class="py-3 px-6 text-xl uppercase" v-if="hasAnyPermission(['user-manager'])">User</th>
@@ -121,7 +127,7 @@
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
             <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"><input
                 type="checkbox" class="checkbox" v-model="selected" :value="device.id"></td>
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ index }}
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ index  +1}}
             </th>
             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
               {{ device.name }}</th>
@@ -138,6 +144,11 @@
               {{ device.os_version }}</th> -->
             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"><i
                 class="fa fa-battery-full" aria-hidden="true"></i>{{ (device.battery * 100) }} %</th>
+
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              <span v-if=device.active class="text-xl inline-block py-2 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-green-600 text-white rounded-full"></span>
+              <span v-else class="text-xl inline-block py-2 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-gray-400 text-gray-800 rounded-full"></span>
+            </th>
             <!-- <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"><span
                 v-if="device.connect_wifi"
                 class="text-xl inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-gray-600 text-white rounded"><i
@@ -251,6 +262,9 @@ export default {
     }
 
   },
+  mounted(){
+    this.listenActiveDevice();
+  },
 
   props: {
     devices: Array,
@@ -306,6 +320,24 @@ export default {
     disableDefaultApp(id){
       if (!confirm("Are you sure want to disable default app?")) return;
       this.$inertia.get(route('device.disableDefaultApp',id),{ preserveScroll: true });
+    },
+    listenActiveDevice(){
+            var self = this;
+      this.devices.map(element =>{
+          window.socketio.on(`recive-active-device.${element.device_id}:App\\Events\\ReciveActiveDeviceEvent`, function (e) {
+            console.log(e)
+                if(element.device_id == e.device_id){
+                  element.active =true;
+                }
+            });
+      })      
+      
+    },
+    FreshDevice(){
+      this.$inertia.post(route('device.checkDevice')),
+        {
+          preserveState: true
+        }
     }
   }
 }

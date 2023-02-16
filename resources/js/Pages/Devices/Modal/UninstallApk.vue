@@ -63,7 +63,7 @@
                                     </path>
                                 </svg>
                                 Are you want to Uninstall app &nbsp; <strong>{{ form.appName }}</strong>&nbsp; for
-                                {{ ids.length }} devices ?
+                                {{ ids.length }} devices?
                             </div>
                             <div class="modal-footer">
                                 <button type="button" @click="close()"

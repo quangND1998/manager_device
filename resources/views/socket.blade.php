@@ -26,10 +26,19 @@
     socket.on('message',(message)=>{
         $('#power').text(parseInt($('#power').text()) + message);
     })
-    socket.on("private-active-device.3:App\\Events\\TestEvent", function(message){
+    socket.on("device-active",(device)=>{
+        console.log(device);
+    })
+    {{--  socket.on("private-active-device.3:App\\Events\\TestEvent", function(message){
         // increase the power everytime we load test route
         $('#power').text(parseInt($('#power').text()) + message.deviceName);
     
+    });  --}}
+    {{--  socket.emit('app_offline', '123')  --}}
+    socket.emit('listen-active', '123')
+    socket.on('disconnect', () => {
+        console.log('disconnect')
+       
     });
 </script>
 </html>
