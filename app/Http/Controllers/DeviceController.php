@@ -295,12 +295,11 @@ class DeviceController extends Controller
         }
         return redirect()->route('device.index');
     }
-    public function getActiveDevice(Request $request){
-        $device = Devices::where('device_id', $request->device_id)->first();
+    public function getActiveDevice( $id){
+        $device = Devices::where('device_id', $id)->first();
 
         if($device){
             $device->active = true;
-            // $device->battery = $request->battery;
             $device->save();
             broadcast(new ReciveActiveDeviceEvent($device));
             return response()->json(Response::HTTP_OK);
