@@ -1,6 +1,6 @@
 <template>
     <section class="content">
-        <ContentHeaderVue :name="'APK'" />
+        <ContentHeaderVue :name="'APK File'" />
         <alert :dismissible="true"></alert>
         <!-- <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
         <h3 class="text-xl font-medium leading-6 text-gray-900">APK Manager</h3>
@@ -21,7 +21,7 @@
     </div> -->
         <button type="button"
             class="inline-block px-8 py-4 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-            data-toggle="modal" data-target="#exampleModal" @click="clickModal()">Create News</button>
+            data-toggle="modal" data-target="#exampleModal" @click="clickModal()">Upload Apk File</button>
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -29,8 +29,8 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel" v-if="editMode">Update Wifi</h5>
-                        <h5 class="modal-title" id="exampleModalLabel" v-else>Create Wifi</h5>
+                        <!-- <h5 class="modal-title" id="exampleModalLabel" v-if="editMode">Update Wifi</h5>
+                        <h5 class="modal-title" id="exampleModalLabel" v-else>Create Wifi</h5> -->
 
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -61,7 +61,7 @@
                                             <i class="fa fa-file-o w-12 h-15" aria-hidden="true"></i>
                                             <p
                                                 class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
-                                                Drag .apk</p>
+                                                Drag  file .apk</p>
 
                                             {{ nameFile }}
                                             <input type="file" @input="form.path = $event.target.files[0]"
@@ -78,10 +78,10 @@
                             <div class="modal-footer">
                                 <button type="button"
                                     class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
-                                    data-dismiss="modal">Close</button>
+                                    data-dismiss="modal">Cancel</button>
                                 <button @click.prevent="save()" type="submit"
-                                    class="inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out">Save
-                                    changes</button>
+                                    class="inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out">
+                                    Upload</button>
                             </div>
                         </form>
                     </div>
@@ -110,7 +110,7 @@
                         <!-- <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"><input
           type="checkbox" class="checkbox" v-model="selected" :value="device.id"></td> -->
                         <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{
-                            index
+                            index +1
                         }}
                         </th>
                         <th apk="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">

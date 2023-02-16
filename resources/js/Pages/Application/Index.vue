@@ -50,7 +50,7 @@
             <th
               scope="row"
               class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg dark:text-white"
-            >{{ index }}</th>
+            >{{ index +1 }}</th>
             <th
               scope="row"
               class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap transition duration-500 ease-in-out transform hover:-translate-y-1 hover:shadow-lg dark:text-white"

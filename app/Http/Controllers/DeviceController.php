@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Events\ConnectWifiEvent;
 use App\Events\DefaultAppEvent;
 use App\Events\LaunchAppEvent;
+use App\Events\ReciveActiveDeviceEvent;
+use App\Events\SendDeviceActiveEvent;
 use App\Models\Applicaion;
 use App\Models\Devices;
 use App\Models\Wifi;
@@ -274,7 +276,37 @@ class DeviceController extends Controller
 
     }
 
+    public function checkDevice(){
+        $user = Auth::user();
     
+        if($user->hasPermissionTo('user-manager')){
+            $devices = Devices::get();
+        }
+        elseif($user->hasPermissionTo('Lite')){
+            $devices = Devices::where('user_id',$user->id)->get();
+        }
+        else{
+            $devices = Devices::where('user_id',$user->id)->get();
+        }
+        foreach($devices as $device){
+            $device->active =false;
+            $device->save();
+            broadcast(new SendDeviceActiveEvent($device));
+        }
+        return redirect()->route('device.index');
+    }
+    public function getActiveDevice(Request $request, $id){
+        $device = Devices::where('device_id', $id)->first();
+
+        if($device){
+            $device->active = true;
+            $device->save();
+            broadcast(new ReciveActiveDeviceEvent($device));
+            return response()->json(Response::HTTP_OK);
+        }else{
+            return response()->json('Device Not Fond',Response::HTTP_BAD_REQUEST);
+        }
+    }
      
 
     

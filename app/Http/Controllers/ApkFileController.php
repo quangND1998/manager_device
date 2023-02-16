@@ -114,7 +114,7 @@ class ApkFileController extends Controller
           
         }
 
-        return back()->with('success', 'Install successfully');
+        return back()->with('success', 'Open the VR headset  to wait until a message asking for permission to install the application is displayed?');
     }
 
     public function UninstallApk(Request $request){
@@ -135,7 +135,7 @@ class ApkFileController extends Controller
             }
           
         }
-        return back()->with('success', 'Uninstall successfully');
+        return back()->with('success', 'Open the VR headset  to wait until a message asking for permission to uninstall the application is displayed?');
     }
     
 

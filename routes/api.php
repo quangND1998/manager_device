@@ -36,6 +36,8 @@ Route::group([
         Route::post('device',[DeviceController::class ,'store']);
         Route::post('default-app',[DeviceController::class ,'default_app']);
         Route::post('getUser',[AuthController::class,'getUserByToken']);
+
+        Route::get('getActiveDevice/{id}', [DeviceController::class, 'getActiveDevice']);
     });
 
     // Route::get('getDevices', function(){
