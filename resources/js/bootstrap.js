@@ -18,6 +18,14 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 import Echo from 'laravel-echo';
 
+
+// window.io = require('socket.io-client')
+
+// window.Echo = new Echo({
+//     broadcaster: 'socket.io',
+//     host: `${window.location.protocol}//${window.location.hostname}:${process.env.MIX_FRONTEND_PORT}`
+// });
+// // console.log(`${ window.location.protocol }//${window.location.hostname}:${process.env.MIX_FRONTEND_PORT}`)
 window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
@@ -30,6 +38,7 @@ window.Echo = new Echo({
     disableStats: true,
     enabledTransports: ['ws', 'wss'],
 });
+
 
 
 const PusherJS = require('pusher-js');

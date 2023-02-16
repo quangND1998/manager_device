@@ -40,15 +40,19 @@
         "jquery": "^2.2.4",
         "laravel-vite-plugin": "^0.5.2",
         "moment": "^2.29.4",
+        "node": "^19.3.0",
         "node-sass": "^8.0.0",
         "redis": "^4.5.1",
         "sass": "^1.56.1",
         "sass-loader": "^13.2.0",
+        "server": "^1.0.38",
         "socket.io": "^4.5.4",
+        "socket.io-client": "^2.4.0",
         "socket.io-redis": "^6.1.1",
         "tw-elements": "^1.0.0-alpha13",
         "vite": "^3.0.3",
         "vue": "^2.6.14",
+        "vuedraggable": "^2.24.3",
         "webpack-node-externals": "^3.0.0"
     }
 }

@@ -28,7 +28,22 @@ Broadcast::channel('lauch-group.{group}', function ($device, Groups $group) {
         return true;
     }
 });
+
 Broadcast::channel('lauch-app.{id}', function ($user,$id) {
         return true;
 });
+Broadcast::channel('apk-install.{id}', function ($user,$id) {
+    return true;
+});
+Broadcast::channel('apk-uninstall.{id}', function ($user,$id) {
+    return true;
+});
+Broadcast::channel('lauch-default-app.{id}', function ($user,$id) {
+    return true;
+});
+
+Broadcast::channel('connect-wifi.{id}', function ($user,$id) {
+    return true;
+});
+
 

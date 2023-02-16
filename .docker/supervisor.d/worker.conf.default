@@ -1,0 +1,8 @@
+[program:laravel-worker]
+process_name=%(program_name)s_%(process_num)02d
+command=php /home/holomia/manager_device/artisan queue:work --sleep=0.05
+user=www-data
+autostart=true
+autorestart=true
+numprocs=2
+redirect_stderr=true

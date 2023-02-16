@@ -9,11 +9,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
-
-class User extends Authenticatable
+use Tymon\JWTAuth\Contracts\JWTSubject;
+class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
-
+    // protected $connection = 'mysql2';
     /**
      * The attributes that are mass assignable.
      *
@@ -25,6 +25,8 @@ class User extends Authenticatable
         'password',
         'phone',
         'created_byId',
+        'time_limit',
+        'number_device',
         'created_at',
         'updated_at'
     ];
@@ -71,4 +73,18 @@ class User extends Authenticatable
             return [$pr['name'] => true];
         });
     }
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+    public function payment()
+    {
+        return $this->hasMany(Payment::class,'user_id');
+    }
+
 }

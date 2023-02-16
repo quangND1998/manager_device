@@ -1,0 +1,5 @@
+{
+    "name": "server-3000",
+    "script": "node",
+    "args": "server"
+}

@@ -6,15 +6,33 @@ use App\Models\Applicaion;
 use App\Models\Devices;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
-
+use Illuminate\Support\Str;
 class ApplicationController extends Controller
 {
-    public function index(){
-        $applications = Applicaion::with('device')->get();
-        
-        return Inertia::render('Application/Index', compact('applications'));
+    function __construct()
+    {
+        $this->middleware('permission:user-manager', ['only' => ['changeDefault']]);
+    }
+
+    public function index(Request $request){
+        $active = $request->input('default');
+        if($active){
+            $applications = Applicaion::with('device')->where(function ($query) use ($request) {
+                $query->where('appName', 'LIKE', '%' . $request->name . '%');
+                $query->where('default', 1);
+            })->paginate(15)->appends(['name' => $request->name, 'default'=>$request->input('default')]);
+    
+        }
+        else{
+                $applications = Applicaion::with('device')->where(function ($query) use ($request) {
+                    $query->where('appName', 'LIKE', '%' . $request->name . '%');
+                })->paginate(15)->appends(['name' => $request->name, 'default'=>$request->input('default')]);
+        }
+       
+        return Inertia::render('Application/Index', compact('applications','active'));
     }
     
 
@@ -28,15 +46,16 @@ class ApplicationController extends Controller
             if($check_app){
                $check_app->update([
                     'appName'=> $app['appName'],
-                    'icon' => $app['icon'],
+                    'icon' => $this->convertBase64toImage($app['icon']),
                     'packageName' => $app['packageName'],
                     'version' => $app['versionName'],
                     'device_id' => $device_id['id']
                 ]);
+             
             }else{
-                Applicaion::create([
+               Applicaion::create([
                     'appName'=> $app['appName'],
-                    'icon' => $app['icon'],
+                    'icon' => $this->convertBase64toImage($app['icon']),
                     'packageName' => $app['packageName'],
                     'version' => $app['versionName'],
                     'device_id' => $device_id['id']
@@ -49,5 +68,27 @@ class ApplicationController extends Controller
 
 
     }
+    public function changeDefault(Request $request){
 
+        $app = Applicaion::findOrFail($request->id);
+        $app->update(['default'=> $request->default]);
+
+        return back()->with('success', 'Set default app successfully');
+    }
+    public function convert(){
+        $app = Applicaion::find(4);
+        return $this->convertBase64toImage($app->icon);
+    }
+
+    public function convertBase64toImage($path){
+ 
+        $imageName = time().Str::random(10).'.'.'png';
+        $destinationpath= '/app_icon/';
+        if (!file_exists(public_path().$destinationpath)) {
+            mkdir(public_path().$destinationpath, 0777, true);
+        }
+        file_put_contents(public_path().$destinationpath.$imageName, base64_decode($path));
+        return $destinationpath.$imageName;
+        
+    }
 }

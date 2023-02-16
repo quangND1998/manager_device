@@ -10,8 +10,12 @@
       data-target="#exampleModal"
       @click="clickModal()"
     >Create User</button>
-
+    <button type="button"
+            class="inline-block px-8 py-4 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+            data-toggle="modal" data-target="#importModal" >Import User</button>
     <!-- Modal -->
+
+    <ImportModal :errors="errors"/>
     <div
       class="modal fade"
       id="exampleModal"
@@ -108,6 +112,38 @@
                     <div class="text-red-500" v-if="errors.roles">{{ errors.roles }}</div>
                   </div>
                 </div>
+                <div class="flex flex-wrap -mx-3 mb-6">
+                  <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <label
+                      class="block uppercase tracking-wide text-gray-700 text-xl font-bold mb-2"
+                      for="grid-first-name"
+                    >{{__('Time Limit')}}</label>
+                    <input
+                      class="appearance-none block w-full bg-gray-200 text-gray-500 border rounded py-4 px-3 mb-3 text-xl leading-tight focus:outline-none focus:bg-white"
+                      id="grid-first-name"
+                      type="date"
+                      placeholder
+                      v-model="form.time_limit"
+                      :class="errors.time_limit ? 'border-red-500' :''"
+                    />
+                    <p class="text-red-500 text-xl italic" v-if="errors.time_limit">{{ errors.time_limit }}</p>
+                  </div>
+                  <div class="w-full md:w-1/2 px-3">
+                    <label
+                      class="block uppercase tracking-wide text-gray-700 text-xl font-bold mb-2"
+                      for="grid-last-name"
+                    >{{__('Number Device')}}</label>
+                    <input
+                      class="appearance-none block w-full bg-gray-200 text-gray-700 border text-xl border-gray-200 rounded py-4 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                      id="grid-last-name"
+                      type="number"
+              
+                      v-model="form.number_device"
+                      :class="errors.number_device ? 'border-red-500' :''"
+                    />
+                    <p class="text-red-500 text-xl italic" v-if="errors.number_device">{{ errors.number_device }}</p>
+                  </div>
+                </div>
               </div>
               <div class="modal-footer">
                 <button
@@ -168,7 +204,14 @@
                     scope="col"
                     class="px-6 py-3 text-left text-xl font-back text-gray-500 uppercase tracking-wider"
                   >Onwer</th>
-
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xl font-back text-gray-500 uppercase tracking-wider"
+                  >Time Limit</th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xl font-back text-gray-500 uppercase tracking-wider"
+                  >Number Device</th>
                   <th scope="col" class="relative px-6 py-3">
                     <span class="sr-only">Edit</span>
                   </th>
@@ -205,6 +248,12 @@
                       v-if="hasAnyPermission(['users-manage']) && $page.props.auth.user.id !== user.id && user.owner !== null"
                     >{{ user.owner.name }}</div>
                   </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    {{ formatDate(user.time_limit) }}
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    {{ user.number_device }}
+                  </td>
                   <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <button
                       data-toggle="modal"
@@ -235,6 +284,7 @@ import ContentHeaderVue from "@/Components/Layout/ContentHeader";
 import Pagination from "@/Components/Pagination";
 import Alert from "@/Components/Alert";
 import Multiselect from "@vueform/multiselect/dist/multiselect.vue2.js";
+import ImportModal from "@/Pages/Admin/ImportModal";
 import admin from "./mixins/admin";
 export default {
   layout: Layout,
@@ -250,7 +300,8 @@ export default {
     ContentHeaderVue,
     Pagination,
     Alert,
-    Multiselect
+    Multiselect,
+    ImportModal
   },
   data() {
     return {
@@ -261,7 +312,9 @@ export default {
         name: null,
         phone: null,
         email: null,
-        roles: null
+        roles: null,
+        time_limit:null,
+        number_device:null
       })
     };
   },
@@ -311,7 +364,9 @@ export default {
         name: null,
         phone: null,
         email: null,
-        roles: null
+        roles: null,
+        time_limit:null,
+        number_device:null
       });
     },
 
@@ -325,6 +380,8 @@ export default {
       this.form.name = data.name;
       this.form.phone = data.phone;
       this.form.email = data.email;
+      this.form.time_limit = data.time_limit;
+      this.form.number_device = data.number_device;
 
       //trả về một biến array chưa id của permission
       // this.form = Object.assign({}, data);

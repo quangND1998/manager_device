@@ -27,9 +27,9 @@ export default {
         }
       );
 
-      window.client.subscribe("active-device").bind('App\\Events\\TestEvent', (e)=>{
-          console.log(e);
-      });
+      // window.client.subscribe("active-device").bind('App\\Events\\TestEvent', (e)=>{
+      //     console.log(e);
+      // });
      }
   }
 

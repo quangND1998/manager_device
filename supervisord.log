@@ -1,0 +1,416 @@
+2022-12-17 04:50:35,989 WARN received SIGQUIT indicating exit request
+2022-12-17 04:50:36,000 INFO waiting for laravel-worker_00, laravel-worker_01, php-fpm to die
+2022-12-17 04:50:36,064 INFO stopped: php-fpm (exit status 0)
+2022-12-17 04:50:38,196 INFO stopped: laravel-worker_00 (exit status 0)
+2022-12-17 04:50:38,198 INFO stopped: laravel-worker_01 (exit status 0)
+2022-12-17 04:51:08,845 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-12-17 04:51:08,845 INFO Included extra file "/etc/supervisor.d/node.conf" during parsing
+2022-12-17 04:51:08,846 INFO Included extra file "/etc/supervisor.d/php-fpm.conf" during parsing
+2022-12-17 04:51:08,846 INFO Included extra file "/etc/supervisor.d/worker.conf" during parsing
+2022-12-17 04:51:08,860 INFO supervisord started with pid 1
+2022-12-17 04:51:09,867 INFO spawned: 'laravel-worker_00' with pid 8
+2022-12-17 04:51:09,876 INFO spawned: 'laravel-worker_01' with pid 9
+2022-12-17 04:51:09,880 INFO spawnerr: can't find command 'node'
+2022-12-17 04:51:09,881 INFO spawnerr: can't find command 'node'
+2022-12-17 04:51:09,888 INFO spawned: 'php-fpm' with pid 10
+2022-12-17 04:51:11,007 INFO success: laravel-worker_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-17 04:51:11,008 INFO success: laravel-worker_01 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-17 04:51:11,009 INFO spawnerr: can't find command 'node'
+2022-12-17 04:51:11,009 INFO spawnerr: can't find command 'node'
+2022-12-17 04:51:11,010 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-17 04:51:13,013 INFO spawnerr: can't find command 'node'
+2022-12-17 04:51:13,014 INFO spawnerr: can't find command 'node'
+2022-12-17 04:51:16,019 INFO spawnerr: can't find command 'node'
+2022-12-17 04:51:16,020 INFO gave up: node_00 entered FATAL state, too many start retries too quickly
+2022-12-17 04:51:16,020 INFO spawnerr: can't find command 'node'
+2022-12-17 04:51:16,021 INFO gave up: node_01 entered FATAL state, too many start retries too quickly
+2022-12-19 06:51:13,849 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-12-19 06:51:13,850 INFO Included extra file "/etc/supervisor.d/node.conf" during parsing
+2022-12-19 06:51:13,851 INFO Included extra file "/etc/supervisor.d/php-fpm.conf" during parsing
+2022-12-19 06:51:13,852 INFO Included extra file "/etc/supervisor.d/worker.conf" during parsing
+2022-12-19 06:51:13,895 INFO supervisord started with pid 1
+2022-12-19 06:51:14,903 INFO spawned: 'laravel-worker_00' with pid 7
+2022-12-19 06:51:14,920 INFO spawned: 'laravel-worker_01' with pid 8
+2022-12-19 06:51:14,935 INFO spawnerr: can't find command 'node'
+2022-12-19 06:51:14,994 INFO spawnerr: can't find command 'node'
+2022-12-19 06:51:14,999 INFO spawned: 'php-fpm' with pid 9
+2022-12-19 06:51:16,729 INFO success: laravel-worker_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 06:51:16,730 INFO success: laravel-worker_01 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 06:51:16,731 INFO spawnerr: can't find command 'node'
+2022-12-19 06:51:16,733 INFO spawnerr: can't find command 'node'
+2022-12-19 06:51:16,734 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 06:51:18,739 INFO spawnerr: can't find command 'node'
+2022-12-19 06:51:18,740 INFO spawnerr: can't find command 'node'
+2022-12-19 06:51:21,750 INFO spawnerr: can't find command 'node'
+2022-12-19 06:51:21,762 INFO gave up: node_00 entered FATAL state, too many start retries too quickly
+2022-12-19 06:51:21,773 INFO spawnerr: can't find command 'node'
+2022-12-19 06:51:21,779 INFO gave up: node_01 entered FATAL state, too many start retries too quickly
+2022-12-19 06:52:48,931 WARN received SIGQUIT indicating exit request
+2022-12-19 06:52:48,933 INFO waiting for laravel-worker_00, laravel-worker_01, php-fpm to die
+2022-12-19 06:52:48,958 INFO stopped: php-fpm (exit status 0)
+2022-12-19 06:52:51,065 INFO stopped: laravel-worker_00 (exit status 0)
+2022-12-19 06:52:51,116 INFO stopped: laravel-worker_01 (exit status 0)
+2022-12-19 06:53:39,233 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-12-19 06:53:39,234 INFO Included extra file "/etc/supervisor.d/node.conf" during parsing
+2022-12-19 06:53:39,234 INFO Included extra file "/etc/supervisor.d/php-fpm.conf" during parsing
+2022-12-19 06:53:39,235 INFO Included extra file "/etc/supervisor.d/worker.conf" during parsing
+2022-12-19 06:53:39,249 INFO supervisord started with pid 1
+2022-12-19 06:53:40,256 INFO spawned: 'laravel-worker_00' with pid 8
+2022-12-19 06:53:40,271 INFO spawned: 'laravel-worker_01' with pid 9
+2022-12-19 06:53:40,275 INFO spawnerr: can't find command 'node'
+2022-12-19 06:53:40,278 INFO spawnerr: can't find command 'node'
+2022-12-19 06:53:40,283 INFO spawned: 'php-fpm' with pid 10
+2022-12-19 06:53:41,415 INFO success: laravel-worker_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 06:53:41,416 INFO success: laravel-worker_01 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 06:53:41,417 INFO spawnerr: can't find command 'node'
+2022-12-19 06:53:41,417 INFO spawnerr: can't find command 'node'
+2022-12-19 06:53:41,418 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 06:53:43,421 INFO spawnerr: can't find command 'node'
+2022-12-19 06:53:43,423 INFO spawnerr: can't find command 'node'
+2022-12-19 06:53:46,429 INFO spawnerr: can't find command 'node'
+2022-12-19 06:53:46,432 INFO gave up: node_00 entered FATAL state, too many start retries too quickly
+2022-12-19 06:53:46,433 INFO spawnerr: can't find command 'node'
+2022-12-19 06:53:46,434 INFO gave up: node_01 entered FATAL state, too many start retries too quickly
+2022-12-19 06:53:57,451 WARN received SIGQUIT indicating exit request
+2022-12-19 06:53:57,453 INFO waiting for laravel-worker_00, laravel-worker_01, php-fpm to die
+2022-12-19 06:53:57,465 INFO stopped: php-fpm (exit status 0)
+2022-12-19 06:53:59,494 INFO stopped: laravel-worker_00 (exit status 0)
+2022-12-19 06:53:59,495 INFO stopped: laravel-worker_01 (exit status 0)
+2022-12-19 06:54:30,035 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-12-19 06:54:30,036 INFO Included extra file "/etc/supervisor.d/node.conf" during parsing
+2022-12-19 06:54:30,037 INFO Included extra file "/etc/supervisor.d/php-fpm.conf" during parsing
+2022-12-19 06:54:30,037 INFO Included extra file "/etc/supervisor.d/worker.conf" during parsing
+2022-12-19 06:54:30,072 INFO supervisord started with pid 1
+2022-12-19 06:54:31,078 INFO spawned: 'laravel-worker_00' with pid 8
+2022-12-19 06:54:31,086 INFO spawned: 'laravel-worker_01' with pid 9
+2022-12-19 06:54:31,098 INFO spawnerr: can't find command 'node'
+2022-12-19 06:54:31,099 INFO spawnerr: can't find command 'node'
+2022-12-19 06:54:31,106 INFO spawned: 'php-fpm' with pid 10
+2022-12-19 06:54:32,295 INFO success: laravel-worker_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 06:54:32,364 INFO success: laravel-worker_01 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 06:54:32,398 INFO spawnerr: can't find command 'node'
+2022-12-19 06:54:32,403 INFO spawnerr: can't find command 'node'
+2022-12-19 06:54:32,403 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 06:54:34,407 INFO spawnerr: can't find command 'node'
+2022-12-19 06:54:34,408 INFO spawnerr: can't find command 'node'
+2022-12-19 06:54:37,415 INFO spawnerr: can't find command 'node'
+2022-12-19 06:54:37,416 INFO gave up: node_00 entered FATAL state, too many start retries too quickly
+2022-12-19 06:54:37,417 INFO spawnerr: can't find command 'node'
+2022-12-19 06:54:37,418 INFO gave up: node_01 entered FATAL state, too many start retries too quickly
+2022-12-19 06:56:43,556 WARN received SIGQUIT indicating exit request
+2022-12-19 06:56:43,557 INFO waiting for laravel-worker_00, laravel-worker_01, php-fpm to die
+2022-12-19 06:56:43,567 INFO stopped: php-fpm (exit status 0)
+2022-12-19 06:56:45,634 INFO stopped: laravel-worker_00 (exit status 0)
+2022-12-19 06:56:45,635 INFO stopped: laravel-worker_01 (exit status 0)
+2022-12-19 06:57:22,914 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-12-19 06:57:22,914 INFO Included extra file "/etc/supervisor.d/node.conf" during parsing
+2022-12-19 06:57:22,915 INFO Included extra file "/etc/supervisor.d/php-fpm.conf" during parsing
+2022-12-19 06:57:22,915 INFO Included extra file "/etc/supervisor.d/worker.conf" during parsing
+2022-12-19 06:57:22,925 INFO supervisord started with pid 1
+2022-12-19 06:57:23,929 INFO spawned: 'laravel-worker_00' with pid 8
+2022-12-19 06:57:23,933 INFO spawned: 'laravel-worker_01' with pid 9
+2022-12-19 06:57:23,936 INFO spawnerr: can't find command 'node'
+2022-12-19 06:57:23,937 INFO spawnerr: can't find command 'node'
+2022-12-19 06:57:23,939 INFO spawned: 'php-fpm' with pid 10
+2022-12-19 06:57:25,038 INFO success: laravel-worker_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 06:57:25,038 INFO success: laravel-worker_01 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 06:57:25,039 INFO spawnerr: can't find command 'node'
+2022-12-19 06:57:25,040 INFO spawnerr: can't find command 'node'
+2022-12-19 06:57:25,041 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 06:57:27,045 INFO spawnerr: can't find command 'node'
+2022-12-19 06:57:27,046 INFO spawnerr: can't find command 'node'
+2022-12-19 06:57:30,054 INFO spawnerr: can't find command 'node'
+2022-12-19 06:57:30,057 INFO gave up: node_00 entered FATAL state, too many start retries too quickly
+2022-12-19 06:57:30,058 INFO spawnerr: can't find command 'node'
+2022-12-19 06:57:30,060 INFO gave up: node_01 entered FATAL state, too many start retries too quickly
+2022-12-19 07:00:01,251 WARN received SIGQUIT indicating exit request
+2022-12-19 07:00:01,252 INFO waiting for laravel-worker_00, laravel-worker_01, php-fpm to die
+2022-12-19 07:00:01,260 INFO stopped: php-fpm (exit status 0)
+2022-12-19 07:00:03,312 INFO stopped: laravel-worker_00 (exit status 0)
+2022-12-19 07:00:03,313 INFO stopped: laravel-worker_01 (exit status 0)
+2022-12-19 07:00:49,462 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-12-19 07:00:49,463 INFO Included extra file "/etc/supervisor.d/node.conf" during parsing
+2022-12-19 07:00:49,463 INFO Included extra file "/etc/supervisor.d/php-fpm.conf" during parsing
+2022-12-19 07:00:49,464 INFO Included extra file "/etc/supervisor.d/worker.conf" during parsing
+2022-12-19 07:00:49,474 INFO supervisord started with pid 1
+2022-12-19 07:00:50,481 INFO spawned: 'laravel-worker_00' with pid 8
+2022-12-19 07:00:50,498 INFO spawned: 'laravel-worker_01' with pid 9
+2022-12-19 07:00:50,504 INFO spawnerr: can't find command 'node'
+2022-12-19 07:00:50,505 INFO spawnerr: can't find command 'node'
+2022-12-19 07:00:50,516 INFO spawned: 'php-fpm' with pid 10
+2022-12-19 07:00:51,700 INFO success: laravel-worker_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 07:00:51,702 INFO success: laravel-worker_01 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 07:00:51,703 INFO spawnerr: can't find command 'node'
+2022-12-19 07:00:51,705 INFO spawnerr: can't find command 'node'
+2022-12-19 07:00:51,706 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 07:00:53,711 INFO spawnerr: can't find command 'node'
+2022-12-19 07:00:53,714 INFO spawnerr: can't find command 'node'
+2022-12-19 07:00:56,721 INFO spawnerr: can't find command 'node'
+2022-12-19 07:00:56,722 INFO gave up: node_00 entered FATAL state, too many start retries too quickly
+2022-12-19 07:00:56,723 INFO spawnerr: can't find command 'node'
+2022-12-19 07:00:56,724 INFO gave up: node_01 entered FATAL state, too many start retries too quickly
+2022-12-19 07:06:42,991 WARN received SIGQUIT indicating exit request
+2022-12-19 07:06:42,992 INFO waiting for laravel-worker_00, laravel-worker_01, php-fpm to die
+2022-12-19 07:06:43,000 INFO stopped: php-fpm (exit status 0)
+2022-12-19 07:06:45,069 INFO stopped: laravel-worker_00 (exit status 0)
+2022-12-19 07:06:45,072 INFO stopped: laravel-worker_01 (exit status 0)
+2022-12-19 07:07:23,590 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-12-19 07:07:23,592 INFO Included extra file "/etc/supervisor.d/node.conf" during parsing
+2022-12-19 07:07:23,594 INFO Included extra file "/etc/supervisor.d/php-fpm.conf" during parsing
+2022-12-19 07:07:23,596 INFO Included extra file "/etc/supervisor.d/worker.conf" during parsing
+2022-12-19 07:07:23,649 INFO supervisord started with pid 1
+2022-12-19 07:07:24,657 INFO spawned: 'laravel-worker_00' with pid 8
+2022-12-19 07:07:24,666 INFO spawned: 'laravel-worker_01' with pid 9
+2022-12-19 07:07:24,670 INFO spawnerr: can't find command 'node'
+2022-12-19 07:07:24,671 INFO spawnerr: can't find command 'node'
+2022-12-19 07:07:24,675 INFO spawned: 'php-fpm' with pid 10
+2022-12-19 07:07:25,781 INFO success: laravel-worker_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 07:07:25,782 INFO success: laravel-worker_01 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 07:07:25,783 INFO spawnerr: can't find command 'node'
+2022-12-19 07:07:25,784 INFO spawnerr: can't find command 'node'
+2022-12-19 07:07:25,785 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 07:07:27,787 INFO spawnerr: can't find command 'node'
+2022-12-19 07:07:27,788 INFO spawnerr: can't find command 'node'
+2022-12-19 07:07:30,792 INFO spawnerr: can't find command 'node'
+2022-12-19 07:07:30,793 INFO gave up: node_00 entered FATAL state, too many start retries too quickly
+2022-12-19 07:07:30,795 INFO spawnerr: can't find command 'node'
+2022-12-19 07:07:30,795 INFO gave up: node_01 entered FATAL state, too many start retries too quickly
+2022-12-19 07:10:00,917 WARN received SIGQUIT indicating exit request
+2022-12-19 07:10:00,919 INFO waiting for laravel-worker_00, laravel-worker_01, php-fpm to die
+2022-12-19 07:10:00,931 INFO stopped: php-fpm (exit status 0)
+2022-12-19 07:10:03,051 INFO stopped: laravel-worker_00 (exit status 0)
+2022-12-19 07:10:03,052 INFO stopped: laravel-worker_01 (exit status 0)
+2022-12-19 07:10:34,352 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-12-19 07:10:34,353 INFO Included extra file "/etc/supervisor.d/node.conf" during parsing
+2022-12-19 07:10:34,354 INFO Included extra file "/etc/supervisor.d/php-fpm.conf" during parsing
+2022-12-19 07:10:34,355 INFO Included extra file "/etc/supervisor.d/worker.conf" during parsing
+2022-12-19 07:10:34,369 INFO supervisord started with pid 1
+2022-12-19 07:10:35,373 INFO spawned: 'laravel-worker_00' with pid 7
+2022-12-19 07:10:35,381 INFO spawned: 'laravel-worker_01' with pid 8
+2022-12-19 07:10:35,383 INFO spawnerr: can't find command 'node'
+2022-12-19 07:10:35,385 INFO spawnerr: can't find command 'node'
+2022-12-19 07:10:35,389 INFO spawned: 'php-fpm' with pid 9
+2022-12-19 07:10:36,487 INFO success: laravel-worker_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 07:10:36,488 INFO success: laravel-worker_01 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 07:10:36,489 INFO spawnerr: can't find command 'node'
+2022-12-19 07:10:36,491 INFO spawnerr: can't find command 'node'
+2022-12-19 07:10:36,491 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 07:10:38,496 INFO spawnerr: can't find command 'node'
+2022-12-19 07:10:38,498 INFO spawnerr: can't find command 'node'
+2022-12-19 07:10:41,502 INFO spawnerr: can't find command 'node'
+2022-12-19 07:10:41,503 INFO gave up: node_00 entered FATAL state, too many start retries too quickly
+2022-12-19 07:10:41,504 INFO spawnerr: can't find command 'node'
+2022-12-19 07:10:41,505 INFO gave up: node_01 entered FATAL state, too many start retries too quickly
+2022-12-19 07:35:37,346 WARN received SIGQUIT indicating exit request
+2022-12-19 07:35:37,347 INFO waiting for laravel-worker_00, laravel-worker_01, php-fpm to die
+2022-12-19 07:35:37,357 INFO stopped: php-fpm (exit status 0)
+2022-12-19 07:35:39,433 INFO stopped: laravel-worker_00 (exit status 0)
+2022-12-19 07:35:39,434 INFO stopped: laravel-worker_01 (exit status 0)
+2022-12-19 07:42:46,745 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-12-19 07:42:46,746 INFO Included extra file "/etc/supervisor.d/node.conf" during parsing
+2022-12-19 07:42:46,746 INFO Included extra file "/etc/supervisor.d/php-fpm.conf" during parsing
+2022-12-19 07:42:46,747 INFO Included extra file "/etc/supervisor.d/worker.conf" during parsing
+2022-12-19 07:42:46,760 INFO supervisord started with pid 1
+2022-12-19 07:42:47,765 INFO spawned: 'laravel-worker_00' with pid 8
+2022-12-19 07:42:47,774 INFO spawned: 'laravel-worker_01' with pid 9
+2022-12-19 07:42:47,777 INFO spawnerr: can't find command 'node'
+2022-12-19 07:42:47,778 INFO spawnerr: can't find command 'node'
+2022-12-19 07:42:47,782 INFO spawned: 'php-fpm' with pid 10
+2022-12-19 07:42:48,884 INFO success: laravel-worker_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 07:42:48,885 INFO success: laravel-worker_01 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 07:42:48,886 INFO spawnerr: can't find command 'node'
+2022-12-19 07:42:48,887 INFO spawnerr: can't find command 'node'
+2022-12-19 07:42:48,887 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 07:42:50,891 INFO spawnerr: can't find command 'node'
+2022-12-19 07:42:50,892 INFO spawnerr: can't find command 'node'
+2022-12-19 07:42:53,896 INFO spawnerr: can't find command 'node'
+2022-12-19 07:42:53,897 INFO gave up: node_00 entered FATAL state, too many start retries too quickly
+2022-12-19 07:42:53,898 INFO spawnerr: can't find command 'node'
+2022-12-19 07:42:53,899 INFO gave up: node_01 entered FATAL state, too many start retries too quickly
+2022-12-19 07:53:37,642 WARN received SIGQUIT indicating exit request
+2022-12-19 07:53:37,646 INFO waiting for laravel-worker_00, laravel-worker_01, php-fpm to die
+2022-12-19 07:53:37,659 INFO stopped: php-fpm (exit status 0)
+2022-12-19 07:53:39,742 INFO stopped: laravel-worker_00 (exit status 0)
+2022-12-19 07:53:39,744 INFO stopped: laravel-worker_01 (exit status 0)
+2022-12-19 09:07:29,764 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-12-19 09:07:29,766 INFO Included extra file "/etc/supervisor.d/node.conf" during parsing
+2022-12-19 09:07:29,766 INFO Included extra file "/etc/supervisor.d/php-fpm.conf" during parsing
+2022-12-19 09:07:29,767 INFO Included extra file "/etc/supervisor.d/worker.conf" during parsing
+2022-12-19 09:07:29,780 INFO supervisord started with pid 1
+2022-12-19 09:07:30,785 INFO spawned: 'laravel-worker_00' with pid 8
+2022-12-19 09:07:30,797 INFO spawned: 'laravel-worker_01' with pid 9
+2022-12-19 09:07:30,802 INFO spawnerr: can't find command 'node'
+2022-12-19 09:07:30,803 INFO spawnerr: can't find command 'node'
+2022-12-19 09:07:30,810 INFO spawned: 'php-fpm' with pid 10
+2022-12-19 09:07:32,074 INFO success: laravel-worker_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 09:07:32,081 INFO success: laravel-worker_01 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 09:07:32,086 INFO spawnerr: can't find command 'node'
+2022-12-19 09:07:32,097 INFO spawnerr: can't find command 'node'
+2022-12-19 09:07:32,109 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-19 09:07:34,122 INFO spawnerr: can't find command 'node'
+2022-12-19 09:07:34,123 INFO spawnerr: can't find command 'node'
+2022-12-19 09:07:37,127 INFO spawnerr: can't find command 'node'
+2022-12-19 09:07:37,128 INFO gave up: node_00 entered FATAL state, too many start retries too quickly
+2022-12-19 09:07:37,129 INFO spawnerr: can't find command 'node'
+2022-12-19 09:07:37,130 INFO gave up: node_01 entered FATAL state, too many start retries too quickly
+2022-12-19 10:15:16,022 WARN received SIGQUIT indicating exit request
+2022-12-19 10:15:16,052 INFO waiting for laravel-worker_00, laravel-worker_01, php-fpm to die
+2022-12-19 10:15:17,178 INFO stopped: php-fpm (exit status 0)
+2022-12-19 10:15:19,555 INFO stopped: laravel-worker_00 (exit status 0)
+2022-12-19 10:15:19,556 INFO stopped: laravel-worker_01 (exit status 0)
+2022-12-20 02:45:15,608 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-12-20 02:45:15,616 INFO Included extra file "/etc/supervisor.d/node.conf" during parsing
+2022-12-20 02:45:15,617 INFO Included extra file "/etc/supervisor.d/php-fpm.conf" during parsing
+2022-12-20 02:45:15,618 INFO Included extra file "/etc/supervisor.d/worker.conf" during parsing
+2022-12-20 02:45:15,654 INFO supervisord started with pid 1
+2022-12-20 02:45:16,661 INFO spawned: 'laravel-worker_00' with pid 8
+2022-12-20 02:45:16,671 INFO spawned: 'laravel-worker_01' with pid 9
+2022-12-20 02:45:16,676 INFO spawnerr: can't find command 'node'
+2022-12-20 02:45:16,677 INFO spawnerr: can't find command 'node'
+2022-12-20 02:45:16,686 INFO spawned: 'php-fpm' with pid 10
+2022-12-20 02:45:17,736 INFO success: laravel-worker_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-20 02:45:17,738 INFO success: laravel-worker_01 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-20 02:45:17,740 INFO spawnerr: can't find command 'node'
+2022-12-20 02:45:17,745 INFO spawnerr: can't find command 'node'
+2022-12-20 02:45:17,747 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-20 02:45:19,753 INFO spawnerr: can't find command 'node'
+2022-12-20 02:45:19,754 INFO spawnerr: can't find command 'node'
+2022-12-20 02:45:22,759 INFO spawnerr: can't find command 'node'
+2022-12-20 02:45:22,760 INFO gave up: node_00 entered FATAL state, too many start retries too quickly
+2022-12-20 02:45:22,761 INFO spawnerr: can't find command 'node'
+2022-12-20 02:45:22,762 INFO gave up: node_01 entered FATAL state, too many start retries too quickly
+2022-12-20 03:06:50,573 WARN received SIGQUIT indicating exit request
+2022-12-20 03:06:50,575 INFO waiting for laravel-worker_00, laravel-worker_01, php-fpm to die
+2022-12-20 03:06:50,586 INFO stopped: php-fpm (exit status 0)
+2022-12-20 03:06:52,708 INFO stopped: laravel-worker_00 (exit status 0)
+2022-12-20 03:06:52,711 INFO stopped: laravel-worker_01 (exit status 0)
+2022-12-20 03:09:02,017 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-12-20 03:09:02,037 INFO Included extra file "/etc/supervisor.d/node.conf" during parsing
+2022-12-20 03:09:02,038 INFO Included extra file "/etc/supervisor.d/php-fpm.conf" during parsing
+2022-12-20 03:09:02,039 INFO Included extra file "/etc/supervisor.d/worker.conf" during parsing
+2022-12-20 03:09:02,055 INFO supervisord started with pid 1
+2022-12-20 03:09:03,060 INFO spawned: 'laravel-worker_00' with pid 8
+2022-12-20 03:09:03,066 INFO spawned: 'laravel-worker_01' with pid 9
+2022-12-20 03:09:03,069 INFO spawnerr: can't find command 'node'
+2022-12-20 03:09:03,069 INFO spawnerr: can't find command 'node'
+2022-12-20 03:09:03,073 INFO spawned: 'php-fpm' with pid 10
+2022-12-20 03:09:04,153 INFO success: laravel-worker_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-20 03:09:04,154 INFO success: laravel-worker_01 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-20 03:09:04,156 INFO spawnerr: can't find command 'node'
+2022-12-20 03:09:04,157 INFO spawnerr: can't find command 'node'
+2022-12-20 03:09:04,157 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-20 03:09:06,161 INFO spawnerr: can't find command 'node'
+2022-12-20 03:09:06,162 INFO spawnerr: can't find command 'node'
+2022-12-20 03:09:09,167 INFO spawnerr: can't find command 'node'
+2022-12-20 03:09:09,167 INFO gave up: node_00 entered FATAL state, too many start retries too quickly
+2022-12-20 03:09:09,168 INFO spawnerr: can't find command 'node'
+2022-12-20 03:09:09,168 INFO gave up: node_01 entered FATAL state, too many start retries too quickly
+2022-12-20 03:14:31,071 WARN received SIGQUIT indicating exit request
+2022-12-20 03:14:31,073 INFO waiting for laravel-worker_00, laravel-worker_01, php-fpm to die
+2022-12-20 03:14:31,085 INFO stopped: php-fpm (exit status 0)
+2022-12-20 03:14:33,141 INFO stopped: laravel-worker_00 (exit status 0)
+2022-12-20 03:14:33,142 INFO stopped: laravel-worker_01 (exit status 0)
+2022-12-20 03:15:07,046 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-12-20 03:15:07,047 INFO Included extra file "/etc/supervisor.d/node.conf" during parsing
+2022-12-20 03:15:07,048 INFO Included extra file "/etc/supervisor.d/php-fpm.conf" during parsing
+2022-12-20 03:15:07,048 INFO Included extra file "/etc/supervisor.d/worker.conf" during parsing
+2022-12-20 03:15:07,061 INFO supervisord started with pid 1
+2022-12-20 03:15:08,067 INFO spawned: 'laravel-worker_00' with pid 8
+2022-12-20 03:15:08,075 INFO spawned: 'laravel-worker_01' with pid 9
+2022-12-20 03:15:08,081 INFO spawnerr: can't find command 'node'
+2022-12-20 03:15:08,082 INFO spawnerr: can't find command 'node'
+2022-12-20 03:15:08,089 INFO spawned: 'php-fpm' with pid 10
+2022-12-20 03:15:09,295 INFO success: laravel-worker_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-20 03:15:09,296 INFO success: laravel-worker_01 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-20 03:15:09,297 INFO spawnerr: can't find command 'node'
+2022-12-20 03:15:09,298 INFO spawnerr: can't find command 'node'
+2022-12-20 03:15:09,299 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-20 03:15:11,303 INFO spawnerr: can't find command 'node'
+2022-12-20 03:15:11,304 INFO spawnerr: can't find command 'node'
+2022-12-20 03:15:14,309 INFO spawnerr: can't find command 'node'
+2022-12-20 03:15:14,310 INFO gave up: node_00 entered FATAL state, too many start retries too quickly
+2022-12-20 03:15:14,311 INFO spawnerr: can't find command 'node'
+2022-12-20 03:15:14,311 INFO gave up: node_01 entered FATAL state, too many start retries too quickly
+2022-12-20 03:18:33,090 WARN received SIGQUIT indicating exit request
+2022-12-20 03:18:33,092 INFO waiting for laravel-worker_00, laravel-worker_01, php-fpm to die
+2022-12-20 03:18:33,101 INFO stopped: php-fpm (exit status 0)
+2022-12-20 03:18:34,156 INFO stopped: laravel-worker_00 (exit status 0)
+2022-12-20 03:18:35,159 INFO stopped: laravel-worker_01 (exit status 0)
+2022-12-20 03:19:13,130 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-12-20 03:19:13,130 INFO Included extra file "/etc/supervisor.d/node.conf" during parsing
+2022-12-20 03:19:13,131 INFO Included extra file "/etc/supervisor.d/php-fpm.conf" during parsing
+2022-12-20 03:19:13,132 INFO Included extra file "/etc/supervisor.d/worker.conf" during parsing
+2022-12-20 03:19:13,145 INFO supervisord started with pid 1
+2022-12-20 03:19:14,151 INFO spawned: 'laravel-worker_00' with pid 9
+2022-12-20 03:19:14,159 INFO spawned: 'laravel-worker_01' with pid 10
+2022-12-20 03:19:14,166 INFO spawnerr: can't find command 'node'
+2022-12-20 03:19:14,168 INFO spawnerr: can't find command 'node'
+2022-12-20 03:19:14,172 INFO spawned: 'php-fpm' with pid 11
+2022-12-20 03:19:15,302 INFO success: laravel-worker_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-20 03:19:15,303 INFO success: laravel-worker_01 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-20 03:19:15,304 INFO spawnerr: can't find command 'node'
+2022-12-20 03:19:15,306 INFO spawnerr: can't find command 'node'
+2022-12-20 03:19:15,306 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-20 03:19:17,310 INFO spawnerr: can't find command 'node'
+2022-12-20 03:19:17,311 INFO spawnerr: can't find command 'node'
+2022-12-20 03:19:20,316 INFO spawnerr: can't find command 'node'
+2022-12-20 03:19:20,317 INFO gave up: node_00 entered FATAL state, too many start retries too quickly
+2022-12-20 03:19:20,318 INFO spawnerr: can't find command 'node'
+2022-12-20 03:19:20,318 INFO gave up: node_01 entered FATAL state, too many start retries too quickly
+2022-12-20 03:30:17,188 WARN received SIGQUIT indicating exit request
+2022-12-20 03:30:17,192 INFO waiting for laravel-worker_00, laravel-worker_01, php-fpm to die
+2022-12-20 03:30:17,212 INFO stopped: php-fpm (exit status 0)
+2022-12-20 03:30:18,597 INFO stopped: laravel-worker_00 (exit status 0)
+2022-12-20 03:30:19,621 INFO stopped: laravel-worker_01 (exit status 0)
+2022-12-20 03:31:58,929 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-12-20 03:31:58,937 INFO Included extra file "/etc/supervisor.d/node.conf" during parsing
+2022-12-20 03:31:58,939 INFO Included extra file "/etc/supervisor.d/php-fpm.conf" during parsing
+2022-12-20 03:31:58,940 INFO Included extra file "/etc/supervisor.d/worker.conf" during parsing
+2022-12-20 03:31:58,962 INFO supervisord started with pid 1
+2022-12-20 03:31:59,969 INFO spawned: 'laravel-worker_00' with pid 8
+2022-12-20 03:31:59,988 INFO spawned: 'laravel-worker_01' with pid 9
+2022-12-20 03:31:59,997 INFO spawnerr: can't find command 'node'
+2022-12-20 03:31:59,999 INFO spawnerr: can't find command 'node'
+2022-12-20 03:32:00,004 INFO spawned: 'php-fpm' with pid 10
+2022-12-20 03:32:01,404 INFO success: laravel-worker_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-20 03:32:01,423 INFO success: laravel-worker_01 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-20 03:32:01,429 INFO spawnerr: can't find command 'node'
+2022-12-20 03:32:01,433 INFO spawnerr: can't find command 'node'
+2022-12-20 03:32:01,434 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-20 03:32:03,441 INFO spawnerr: can't find command 'node'
+2022-12-20 03:32:03,442 INFO spawnerr: can't find command 'node'
+2022-12-20 03:32:06,447 INFO spawnerr: can't find command 'node'
+2022-12-20 03:32:06,448 INFO gave up: node_00 entered FATAL state, too many start retries too quickly
+2022-12-20 03:32:06,449 INFO spawnerr: can't find command 'node'
+2022-12-20 03:32:06,450 INFO gave up: node_01 entered FATAL state, too many start retries too quickly
+2022-12-20 03:39:50,097 WARN received SIGQUIT indicating exit request
+2022-12-20 03:39:50,104 INFO waiting for laravel-worker_00, laravel-worker_01, php-fpm to die
+2022-12-20 03:39:50,133 INFO stopped: php-fpm (exit status 0)
+2022-12-20 03:39:52,223 INFO stopped: laravel-worker_00 (exit status 0)
+2022-12-20 03:39:52,224 INFO stopped: laravel-worker_01 (exit status 0)
+2022-12-20 03:41:00,127 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-12-20 03:41:00,128 INFO Included extra file "/etc/supervisor.d/node.conf" during parsing
+2022-12-20 03:41:00,129 INFO Included extra file "/etc/supervisor.d/php-fpm.conf" during parsing
+2022-12-20 03:41:00,131 INFO Included extra file "/etc/supervisor.d/worker.conf" during parsing
+2022-12-20 03:41:00,156 INFO supervisord started with pid 1
+2022-12-20 03:41:01,163 INFO spawned: 'laravel-worker_00' with pid 8
+2022-12-20 03:41:01,171 INFO spawned: 'laravel-worker_01' with pid 9
+2022-12-20 03:41:01,182 INFO spawnerr: can't find command 'node'
+2022-12-20 03:41:01,184 INFO spawnerr: can't find command 'node'
+2022-12-20 03:41:01,189 INFO spawned: 'php-fpm' with pid 10
+2022-12-20 03:41:02,415 INFO success: laravel-worker_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-20 03:41:02,416 INFO success: laravel-worker_01 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-20 03:41:02,417 INFO spawnerr: can't find command 'node'
+2022-12-20 03:41:02,419 INFO spawnerr: can't find command 'node'
+2022-12-20 03:41:02,419 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-12-20 03:41:04,423 INFO spawnerr: can't find command 'node'
+2022-12-20 03:41:04,425 INFO spawnerr: can't find command 'node'
+2022-12-20 03:41:07,430 INFO spawnerr: can't find command 'node'
+2022-12-20 03:41:07,431 INFO gave up: node_00 entered FATAL state, too many start retries too quickly
+2022-12-20 03:41:07,433 INFO spawnerr: can't find command 'node'
+2022-12-20 03:41:07,433 INFO gave up: node_01 entered FATAL state, too many start retries too quickly
+2022-12-20 04:11:40,136 WARN received SIGQUIT indicating exit request
+2022-12-20 04:11:40,139 INFO waiting for laravel-worker_00, laravel-worker_01, php-fpm to die
+2022-12-20 04:11:40,164 INFO stopped: php-fpm (exit status 0)
+2022-12-20 04:11:42,246 INFO stopped: laravel-worker_00 (exit status 0)
+2022-12-20 04:11:42,248 INFO stopped: laravel-worker_01 (exit status 0)

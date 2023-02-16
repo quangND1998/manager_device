@@ -19,7 +19,7 @@
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-          <UserMenu></UserMenu>
+          <!-- <UserMenu></UserMenu> -->
         </ul>
       </div>
     </nav>
