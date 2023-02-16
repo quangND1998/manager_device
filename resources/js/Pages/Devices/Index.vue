@@ -80,8 +80,7 @@
 
             <li v-if="hasAnyPermission(['user-manager'])"><button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
                 data-target="#WifiModal"><i class="fa fa-wifi mr-2" aria-hidden="true"></i>Wifi</button></li>
-            <li ><button type="button" class="btn btn-secondary" 
-              ><i class="fa fa-refresh mr-2" aria-hidden="true"></i>Get Active</button></li>
+          
             
             <!-- <li><button  type="button"   class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal" data-target="#groupModal" ><i class="fa fa-folder-o mr-2" aria-hidden="true"></i>Group </button></li> -->
             <!-- <li><a href="#">Another action</a></li>
