@@ -3,7 +3,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var Redis = require('ioredis');
 var redis = new Redis();
-// redis.subscribe('active-device', function(err, count) {});
+redis.subscribe('active-device', function(err, count) {});
 redis.psubscribe('private-active-device.*', function(err, count) {});
 redis.psubscribe('lauch-app.*', function(err, count) {});
 redis.psubscribe('lauch-default-app.*', function(err, count) {});

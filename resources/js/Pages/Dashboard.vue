@@ -24,12 +24,7 @@ export default {
 
       var self = this;
       window.socketio.on("active-device:App\\Events\\TestEvent", function (e) {
-        console.log(e);
-
-      });
-
-      window.socketio.on("test", (e)=>{
-          console.log(e);
+         console.log(e);
 
       });
       // window.Echo.channel("active-device").listen(
