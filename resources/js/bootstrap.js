@@ -69,4 +69,4 @@ var connectionOptions = {
     "transports": ["websocket", "wss"]
 };
 console.log(`${window.location.protocol}//${window.location.hostname}:3000`)
-window.socketio = io("http://178.128.125.34:3000", connectionOptions);
+window.socketio = io("http://startup.holomia.com:3000", connectionOptions);
