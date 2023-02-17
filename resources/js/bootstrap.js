@@ -26,31 +26,31 @@ import Echo from 'laravel-echo';
 //     host: `${window.location.protocol}//${window.location.hostname}:${process.env.MIX_FRONTEND_PORT}`
 // });
 // // console.log(`${ window.location.protocol }//${window.location.hostname}:${process.env.MIX_FRONTEND_PORT}`)
-// window.Pusher = require('pusher-js');
+window.Pusher = require('pusher-js');
 
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     wsHost: process.env.MIX_PUSHER_HOST,
-//     wsPort: process.env.MIX_PUSHER_PORT,
-//     forceTLS: false,
-//     encrypted: true,
-//     disableStats: true,
-//     enabledTransports: ['ws', 'wss'],
-// });
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: process.env.MIX_PUSHER_APP_KEY,
+    wsHost: process.env.MIX_PUSHER_HOST,
+    wsPort: process.env.MIX_PUSHER_PORT,
+    forceTLS: false,
+    encrypted: true,
+    disableStats: true,
+    enabledTransports: ['ws', 'wss'],
+});
 
 
 
-// const PusherJS = require('pusher-js');
+const PusherJS = require('pusher-js');
 
-// window.client = new PusherJS('app-key', {
-//     wsHost: process.env.MIX_PUSHER_HOST,
-//     wsPort: process.env.MIX_PUSHER_PORT,
-//     forceTLS: false,
-//     encrypted: true,
-//     disableStats: true,
-//     enabledTransports: ['ws', 'wss'],
-// });
+window.client = new PusherJS('app-key', {
+    wsHost: process.env.MIX_PUSHER_HOST,
+    wsPort: process.env.MIX_PUSHER_PORT,
+    forceTLS: false,
+    encrypted: true,
+    disableStats: true,
+    enabledTransports: ['ws', 'wss'],
+});
 
 
 import io from 'socket.io-client'
@@ -66,11 +66,7 @@ var connectionOptions = {
     "force new connection": true,
     "reconnectionAttempts": "Infinity", //avoid having user reconnect manually in order to prevent dead clients after a server restart
     "timeout": 10000, //before connect_error and connect_timeout are emitted.
-
-    "transports": ["ws"],
-
-
-
+    "transports": ["wss", "ws"]
 };
 // console.log(`${window.location.protocol}//${window.location.hostname}:3000`)
 window.socketio = io("http://startup.holomia.com:3000", connectionOptions);
