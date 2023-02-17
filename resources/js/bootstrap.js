@@ -70,4 +70,4 @@ import io from 'socket.io-client'
 // };
 // console.log(`${window.location.protocol}//${window.location.hostname}:3000`)
 // window.socketio = io("http://192.168.1.169:3000", connectionOptions);
-window.socketio = io("http://192.168.1.169:3000", connectionOptions);
+window.socketio = io("http://192.168.1.169:3000");
