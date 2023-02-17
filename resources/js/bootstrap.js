@@ -69,4 +69,4 @@ var connectionOptions = {
     "transports": ["websocket"]
 };
 console.log(`${window.location.protocol}//${window.location.hostname}:3000`)
-window.socketio = io("http://192.168.0.108:3000", connectionOptions);
+window.socketio = io("http://172.128.125.34:3000", connectionOptions);
