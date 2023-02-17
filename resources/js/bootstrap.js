@@ -68,5 +68,5 @@ var connectionOptions = {
     "timeout": 10000, //before connect_error and connect_timeout are emitted.
     "transports": ["websocket"]
 };
-
-window.socketio = io(`${window.location.protocol}//${window.location.hostname}:3000`, connectionOptions);
+console.log(`${window.location.protocol}//${window.location.hostname}:3000`)
+window.socketio = io("http://192.168.0.108:3000", connectionOptions);

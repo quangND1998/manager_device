@@ -145,7 +145,7 @@
                 class="fa fa-battery-full" aria-hidden="true"></i>{{ (device.battery * 100) }} %</th>
 
             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              <span v-if=device.active class="text-xl inline-block py-2 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-green-600 text-white rounded-full"></span>
+              <span v-if="device.active" class="text-xl inline-block py-2 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-green-600 text-white rounded-full"></span>
               <span v-else class="text-xl inline-block py-2 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-gray-400 text-gray-800 rounded-full"></span>
             </th>
             <!-- <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"><span
@@ -321,15 +321,22 @@ export default {
       this.$inertia.get(route('device.disableDefaultApp',id),{ preserveScroll: true });
     },
     listenActiveDevice(){
-            // var self = this;
-      // this.devices.map(element =>{
-          window.socketio.on(`recive-active-device.1ac93732a7cef155:App\\Events\\ReciveActiveDeviceEvent`, function (e) {
-            console.log(e)
-            //     if(element.device_id == e.device_id){
-            //       element.active =true;
-            //       // element.battery = e.battery
-            //     }
-            // });
+            var self = this;
+      this.devices.map(element =>{
+          window.socketio.on(`recive-active-device.${element.device_id}:App\\Events\\ReciveActiveDeviceEvent`, function (e) {
+            // console.log(e)
+              let index = self.devices.findIndex(x => x.device_id == e.device_id);
+              if(index !== -1){
+                self.devices[index].active = true
+              }
+              // console.log(index)
+                // if(element.device_id === e.device_id){
+                //   self.map
+                //   element.active =true;
+                //   console.log(element)
+                //   // element.battery = e.battery
+                // }
+            });
       })      
       
     },
