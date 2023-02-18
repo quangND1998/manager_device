@@ -66,6 +66,7 @@ Route::middleware(['auth'])->group(
             Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('destroy');
 
             Route::post('import',  [UserController::class, 'importUser'])->name('import');
+            Route::post('update-users',  [UserController::class, 'updateUsers'])->name('update-users');
 
 
         });

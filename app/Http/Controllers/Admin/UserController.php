@@ -6,6 +6,7 @@ use App\Errors\InertiaErrors;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\InertiaController;
 use App\Jobs\ImportUser;
+use App\Jobs\UpdateUser;
 use App\Models\Devices;
 use App\Models\HistoryDevice;
 use Illuminate\Http\Request;
@@ -122,7 +123,13 @@ class UserController extends InertiaController
 
     public function importUser(Request $request){
  
-       
+        $this->validate(
+            $request,
+            [
+                'check' => 'required',
+              
+            ]
+        );
         if($request->check =='us'){
             $response = Http::post(env('API_MISSIONX_US').'/api/v1/logindata', [
                 'email' => 'holomiadev@gmail.com',
@@ -151,8 +158,15 @@ class UserController extends InertiaController
         return redirect('/users')->with('success', 'Import user successfully');
     }
 
-    public function updateUser(Request $request){
-        
+    public function updateUsers(Request $request){
+        $this->validate(
+            $request,
+            [
+                'check' => 'required',
+              
+            ]
+        );
+   
         if($request->check =='us'){
             $response = Http::post(env('API_MISSIONX_US').'/api/v1/logindata', [
                 'email' => 'holomiadev@gmail.com',
@@ -162,7 +176,7 @@ class UserController extends InertiaController
             $data =$response->json();
             foreach($data['users'] as $user){
            
-                dispatch(new ImportUser($user));
+                dispatch(new UpdateUser($user));
             }
         }
 
@@ -174,7 +188,7 @@ class UserController extends InertiaController
             $data =$response->json();
             foreach($data['users'] as $user){
            
-                dispatch(new ImportUser($user));
+                dispatch(new UpdateUser($user));
             }
         }
        
