@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -48,24 +49,5 @@ class UpdateUser  implements ShouldQueue
             $user->password = $this->user['password'];
             $user->save();  
         }
-
-        // if($this->user['role']['name_role'] =='Pro' || $this->user['role']['name_role'] =='Pro2' || $this->user['role']['name_role'] =='Manager' ||  $this->user['role']['name_role'] =='Sub Admin' ){
-        //     $user->assignRole('Pro');
-
-        // }
-        // else if($this->user['role']['name_role'] =='Admin'){
-        //     $user->assignRole('administrator');
-
-        // }
-        // else if($this->user['role']['name_role'] =='Demo'){
-        //     $user->assignRole('Demo');
-
-        // } else{
-            if(count($user->roles) ==0){
-                $role= Role::where('name', 'Lite')->first();
-                $user->roles()->sync($role);
-            }
-        
-        // }
     }
 }
