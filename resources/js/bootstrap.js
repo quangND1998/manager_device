@@ -68,5 +68,5 @@ var connectionOptions = {
     "timeout": 10000, //before connect_error and connect_timeout are emitted.
     "transports": ["websocket"]
 };
-console.log(`${window.location.protocol}//${window.location.hostname}:3000`)
-window.socketio = io("http://178.128.125.34:3000", connectionOptions);
+// console.log(`${window.location.protocol}//${window.location.hostname}:3000`)
+window.socketio = io("http://devstartup.holomia.com:3000", connectionOptions);

@@ -67,7 +67,7 @@ class UserController extends InertiaController
             [
                 'name' => 'required',
                 'email' => 'required|email|unique:users,email',
-                'phone' => 'required|unique:users,phone|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+                'phone' => 'nullable|unique:users,phone|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
                 'roles' => 'required',
                 'time_limit' => 'nullable|date|after:tomorrow',
                 'number_device' => 'nullable|numeric|gt:-1',

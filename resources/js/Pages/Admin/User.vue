@@ -69,9 +69,10 @@
                     <p class="text-red-500 text-xl italic" v-if="errors.email">{{ errors.email }}</p>
                   </div>
                 </div>
+
                 <div class="flex flex-wrap -mx-3 mb-6">
                   <div class="w-full md:w-1/2 px-3">
-                    <label
+                    <!-- <label
                       class="block uppercase tracking-wide text-gray-700 text-xl font-bold mb-2"
                       for="grid-phone"
                     >{{__('phone')}}</label>
@@ -83,7 +84,21 @@
                       v-model="form.phone"
                       :class="errors.phone? 'border-red-500' :''"
                     />
-                    <p class="text-red-500 text-xl italic" v-if="errors.phone">{{ errors.phone }}</p>
+                    <p class="text-red-500 text-xl italic" v-if="errors.phone">{{ errors.phone }}</p> -->
+
+                    <label
+                      class="block uppercase tracking-wide text-gray-700 text-xl font-bold mb-2"
+                      for="grid-first-name"
+                    >{{__('password')}}</label>
+                    <input
+                      class="appearance-none block w-full bg-gray-200 text-gray-500 border rounded py-4 px-3 mb-3 text-xl leading-tight focus:outline-none focus:bg-white"
+                      id="grid-first-name"
+                      type="text"
+                      placeholder
+                      v-model="form.password"
+                      :class="errors.password ? 'border-red-500' :''"
+                    />
+                    <p class="text-red-500 text-xl italic" v-if="errors.password">{{ errors.password }}</p>
                   </div>
 
                   <div class="w-full md:w-1/2 px-3">
@@ -407,6 +422,7 @@ export default {
         email: null,
         roles: null,
         time_limit:null,
+        password:null,
         number_device:null
       });
     },
@@ -424,8 +440,7 @@ export default {
       this.form.email = data.email;
       this.form.time_limit = data.time_limit;
       this.form.number_device = data.number_device;
-
-      //trả về một biến array chưa id của permission
+            //trả về một biến array chưa id của permission
       // this.form = Object.assign({}, data);
       this.form.roles = this.multipleSelect(data.roles);
       this.editMode = true;
