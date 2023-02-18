@@ -14,6 +14,7 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 class UserController extends InertiaController
 {
@@ -70,6 +71,7 @@ class UserController extends InertiaController
                 'roles' => 'required',
                 'time_limit' => 'nullable|date|after:tomorrow',
                 'number_device' => 'nullable|numeric|gt:-1',
+                'password' => 'nullable'
             ]
         );
 
@@ -77,6 +79,9 @@ class UserController extends InertiaController
         $roles = $request->input('roles') ? $request->input('roles') : [];
         $user->assignRole($roles);
         $user->created_byId = Auth::user()->id;
+        if($request->password){
+            $user->password = Hash::make($request->password);
+        }
         $user->save();
         return back()->with('success', 'Create user successfully');
     }
@@ -93,6 +98,7 @@ class UserController extends InertiaController
                 'roles' => 'required',
                 'time_limit' => 'nullable|date|after:tomorrow',
                 'number_device' => 'nullable|numeric|gt:-1',
+                'password' => 'nullable'
             ]
         );
 
@@ -100,6 +106,9 @@ class UserController extends InertiaController
         $roles = $request->input('roles') ? $request->input('roles') : [];
         $user->syncRoles($roles);
         $user->created_byId = Auth::user()->id;
+        if($request->password){
+            $user->password = Hash::make($request->password);
+        }
         $user->save();
         return back()->with('success', 'Update user successfully');
     }

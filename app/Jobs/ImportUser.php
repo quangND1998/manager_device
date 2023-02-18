@@ -64,6 +64,7 @@ class ImportUser implements ShouldQueue
         //     $user->assignRole('Demo');
 
         // } else{
+            
             $role= Role::where('name', 'Lite')->first();
             $user->roles()->sync($role);
 
