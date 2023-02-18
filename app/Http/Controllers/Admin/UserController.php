@@ -151,6 +151,36 @@ class UserController extends InertiaController
         return redirect('/users')->with('success', 'Import user successfully');
     }
 
+    public function updateUser(Request $request){
+        
+        if($request->check =='us'){
+            $response = Http::post(env('API_MISSIONX_US').'/api/v1/logindata', [
+                'email' => 'holomiadev@gmail.com',
+                'password' => 'HoLoMX@210904*#',
+            ]);
+        
+            $data =$response->json();
+            foreach($data['users'] as $user){
+           
+                dispatch(new ImportUser($user));
+            }
+        }
+
+        if($request->check =='china'){
+            $response = Http::post(env('API_MISSIONX_CN').'/api/v1/logindata', [
+                'email' => 'holomiadev@gmail.com',
+                'password' => 'HoLoMX@210904*#',
+            ]);
+            $data =$response->json();
+            foreach($data['users'] as $user){
+           
+                dispatch(new ImportUser($user));
+            }
+        }
+       
+        return redirect('/users')->with('success', 'Import user successfully');
+    }
+
 
     public function detail($id){
         $user = User::with('roles')->findOrFail($id);
