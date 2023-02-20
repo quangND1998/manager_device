@@ -29,13 +29,18 @@ class ApkFileController extends Controller
       
     }
     public function store(Request $request){
-  
+        $user = Auth::user();
         $this->validate($request,[
             'name' => 'required',
             'path' => 'required'
     
         ]);
-    
+       
+        if(!$user->hasPermissionTo('user-manager')){
+            if(count($user->apk_files) >=1 ){
+                return redirect()->route('apk.index')->with('warning', 'Only 1 file can be uploaded per account');
+            }
+        }
         $allowedfileExtension =['apk'];
         if($request->hasFile('path')){
             $extension = $request->file('path')->getClientOriginalExtension();
