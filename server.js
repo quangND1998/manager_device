@@ -1,8 +1,13 @@
 var app = require('express')();
+var fs = require('fs');
 
+var options = {
+    key: fs.readFileSync('/etc/letsencrypt/live/startup.holomia.com/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/startup.holomia.com/fullchain.pem')
+};
 
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var https = require('https').createServer(options, app);
+var io = require('socket.io')(https);
 var Redis = require('ioredis');
 var redis = new Redis();
 redis.subscribe('active-device', function(err, count) {});
@@ -91,6 +96,6 @@ io.on("connection", (socket) => {
         }
     });
 });
-http.listen(3000, function() {
+https.listen(3000, function() {
     console.log('Listening on Port 3000');
 });
