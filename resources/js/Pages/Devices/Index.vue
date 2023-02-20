@@ -324,7 +324,7 @@ export default {
             var self = this;
       this.devices.map(element =>{
           window.socketio.on(`recive-active-device.${element.device_id}:App\\Events\\ReciveActiveDeviceEvent`, function (e) {
-            console.log(e)
+            // console.log(e)
               let index = self.devices.findIndex(x => x.device_id == e.device_id);
               if(index !== -1){
                 self.devices[index].active = true
