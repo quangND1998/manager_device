@@ -10,12 +10,16 @@
       data-target="#exampleModal"
       @click="clickModal()"
     >Create User</button>
-    <button type="button"
+    <button type="button"   v-if="hasAnyPermission(['user-manager'])"
             class="inline-block px-8 py-4 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
             data-toggle="modal" data-target="#importModal" >Import User</button>
+      <button type="button"  v-if="hasAnyPermission(['user-manager'])"
+      class="inline-block px-8 py-4 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+      data-toggle="modal" data-target="#updateAllModal" >Update All User</button>
     <!-- Modal -->
 
     <ImportModal :errors="errors"/>
+    <UpdateUser :errors="errors"/>
     <div
       class="modal fade"
       id="exampleModal"
@@ -69,9 +73,10 @@
                     <p class="text-red-500 text-xl italic" v-if="errors.email">{{ errors.email }}</p>
                   </div>
                 </div>
+
                 <div class="flex flex-wrap -mx-3 mb-6">
                   <div class="w-full md:w-1/2 px-3">
-                    <label
+                    <!-- <label
                       class="block uppercase tracking-wide text-gray-700 text-xl font-bold mb-2"
                       for="grid-phone"
                     >{{__('phone')}}</label>
@@ -83,7 +88,21 @@
                       v-model="form.phone"
                       :class="errors.phone? 'border-red-500' :''"
                     />
-                    <p class="text-red-500 text-xl italic" v-if="errors.phone">{{ errors.phone }}</p>
+                    <p class="text-red-500 text-xl italic" v-if="errors.phone">{{ errors.phone }}</p> -->
+
+                    <label
+                      class="block uppercase tracking-wide text-gray-700 text-xl font-bold mb-2"
+                      for="grid-first-name"
+                    >{{__('password')}}</label>
+                    <input
+                      class="appearance-none block w-full bg-gray-200 text-gray-500 border rounded py-4 px-3 mb-3 text-xl leading-tight focus:outline-none focus:bg-white"
+                      id="grid-first-name"
+                      type="text"
+                      placeholder
+                      v-model="form.password"
+                      :class="errors.password ? 'border-red-500' :''"
+                    />
+                    <p class="text-red-500 text-xl italic" v-if="errors.password">{{ errors.password }}</p>
                   </div>
 
                   <div class="w-full md:w-1/2 px-3">
@@ -308,6 +327,7 @@ import Pagination from "@/Components/Pagination";
 import Alert from "@/Components/Alert";
 import Multiselect from "@vueform/multiselect/dist/multiselect.vue2.js";
 import ImportModal from "@/Pages/Admin/ImportModal";
+import UpdateUser from "@/Pages/Admin/UpdateUser";
 import admin from "./mixins/admin";
 import { eventNames } from 'process';
 export default {
@@ -325,7 +345,8 @@ export default {
     Pagination,
     Alert,
     Multiselect,
-    ImportModal
+    ImportModal,
+    UpdateUser
   },
   data() {
     return {
@@ -407,6 +428,7 @@ export default {
         email: null,
         roles: null,
         time_limit:null,
+        password:null,
         number_device:null
       });
     },
@@ -424,8 +446,7 @@ export default {
       this.form.email = data.email;
       this.form.time_limit = data.time_limit;
       this.form.number_device = data.number_device;
-
-      //trả về một biến array chưa id của permission
+            //trả về một biến array chưa id của permission
       // this.form = Object.assign({}, data);
       this.form.roles = this.multipleSelect(data.roles);
       this.editMode = true;

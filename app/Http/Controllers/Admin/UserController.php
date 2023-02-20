@@ -6,6 +6,7 @@ use App\Errors\InertiaErrors;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\InertiaController;
 use App\Jobs\ImportUser;
+use App\Jobs\UpdateUser;
 use App\Models\Devices;
 use App\Models\HistoryDevice;
 use Illuminate\Http\Request;
@@ -14,6 +15,7 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 class UserController extends InertiaController
 {
@@ -66,10 +68,11 @@ class UserController extends InertiaController
             [
                 'name' => 'required',
                 'email' => 'required|email|unique:users,email',
-                'phone' => 'required|unique:users,phone|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+                'phone' => 'nullable|unique:users,phone|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
                 'roles' => 'required',
                 'time_limit' => 'nullable|date|after:tomorrow',
                 'number_device' => 'nullable|numeric|gt:-1',
+                'password' => 'nullable'
             ]
         );
 
@@ -77,6 +80,9 @@ class UserController extends InertiaController
         $roles = $request->input('roles') ? $request->input('roles') : [];
         $user->assignRole($roles);
         $user->created_byId = Auth::user()->id;
+        if($request->password){
+            $user->password = Hash::make($request->password);
+        }
         $user->save();
         return back()->with('success', 'Create user successfully');
     }
@@ -93,6 +99,7 @@ class UserController extends InertiaController
                 'roles' => 'required',
                 'time_limit' => 'nullable|date|after:tomorrow',
                 'number_device' => 'nullable|numeric|gt:-1',
+                'password' => 'nullable'
             ]
         );
 
@@ -100,6 +107,9 @@ class UserController extends InertiaController
         $roles = $request->input('roles') ? $request->input('roles') : [];
         $user->syncRoles($roles);
         $user->created_byId = Auth::user()->id;
+        if($request->password){
+            $user->password = Hash::make($request->password);
+        }
         $user->save();
         return back()->with('success', 'Update user successfully');
     }
@@ -113,7 +123,13 @@ class UserController extends InertiaController
 
     public function importUser(Request $request){
  
-       
+        $this->validate(
+            $request,
+            [
+                'check' => 'required',
+              
+            ]
+        );
         if($request->check =='us'){
             $response = Http::post(env('API_MISSIONX_US').'/api/v1/logindata', [
                 'email' => 'holomiadev@gmail.com',
@@ -136,6 +152,43 @@ class UserController extends InertiaController
             foreach($data['users'] as $user){
            
                 dispatch(new ImportUser($user));
+            }
+        }
+       
+        return redirect('/users')->with('success', 'Import user successfully');
+    }
+
+    public function updateUsers(Request $request){
+        $this->validate(
+            $request,
+            [
+                'check' => 'required',
+              
+            ]
+        );
+   
+        if($request->check =='us'){
+            $response = Http::post(env('API_MISSIONX_US').'/api/v1/logindata', [
+                'email' => 'holomiadev@gmail.com',
+                'password' => 'HoLoMX@210904*#',
+            ]);
+        
+            $data =$response->json();
+            foreach($data['users'] as $user){
+           
+                dispatch(new UpdateUser($user));
+            }
+        }
+
+        if($request->check =='china'){
+            $response = Http::post(env('API_MISSIONX_CN').'/api/v1/logindata', [
+                'email' => 'holomiadev@gmail.com',
+                'password' => 'HoLoMX@210904*#',
+            ]);
+            $data =$response->json();
+            foreach($data['users'] as $user){
+           
+                dispatch(new UpdateUser($user));
             }
         }
        

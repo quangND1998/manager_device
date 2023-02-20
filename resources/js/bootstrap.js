@@ -69,4 +69,4 @@ var connectionOptions = {
     "transports": ["websocket"]
 };
 // console.log(`${window.location.protocol}//${window.location.hostname}:3000`)
-window.socketio = io("https://devstartup.holomia.com:3001", connectionOptions);
+window.socketio = io("http://startup.holomia.com:3001", connectionOptions);
