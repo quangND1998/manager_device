@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\PermisionsController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\PermisssionController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\WifiController;
@@ -38,8 +40,15 @@ Route::group([
         Route::post('getUser',[AuthController::class,'getUserByToken']);
 
         Route::get('getActiveDevice/{id}', [DeviceController::class, 'getActiveDevice']);
+
+
+        Route::get('permissions',[PermisssionController::class,'index']);
+        Route::post('permission',[PermisssionController::class,'store']);
+        Route::get('permission/{id}',[PermisssionController::class,'get']);
+        Route::put('permission/{id}/update',[PermisssionController::class,'update']);
+        Route::delete('permission/delete/{id}',[PermisssionController::class,'delete']);
     });
-    
+
 
     // Route::get('getDevices', function(){
     //     return Devices::get();

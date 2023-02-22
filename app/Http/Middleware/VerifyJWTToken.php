@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Exception;
+use Illuminate\Http\Response;
 
 class VerifyJWTToken
 {
@@ -35,7 +36,7 @@ class VerifyJWTToken
                 return response()->json(['status' => 'Token is Expired']);
             } else {
 
-                return response()->json(['status' => 'Authorization Token not found']);
+                return response()->json(['status' => 'Authorization Token not found'],  Response::HTTP_BAD_REQUEST);
             }
         }
 

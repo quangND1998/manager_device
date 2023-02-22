@@ -77,4 +77,6 @@ class PermisionsController extends Controller
             return Inertia::render('Erros/401', ['erros' => $erros]);
         }
     }
+
+   
 }
