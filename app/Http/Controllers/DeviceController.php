@@ -299,9 +299,10 @@ class DeviceController extends Controller
         $device = Devices::where('device_id', $id)->first();
 
         if($device){
+            broadcast(new ReciveActiveDeviceEvent($device));
             $device->active = true;
             $device->save();
-            broadcast(new ReciveActiveDeviceEvent($device));
+       
             return response()->json(Response::HTTP_OK);
         }else{
             return response()->json('Device Not Fond',Response::HTTP_BAD_REQUEST);

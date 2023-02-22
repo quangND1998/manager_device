@@ -39,6 +39,7 @@ Route::group([
 
         Route::get('getActiveDevice/{id}', [DeviceController::class, 'getActiveDevice']);
     });
+    
 
     // Route::get('getDevices', function(){
     //     return Devices::get();
