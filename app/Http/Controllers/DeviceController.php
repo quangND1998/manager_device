@@ -38,23 +38,25 @@ class DeviceController extends Controller
        
             $devices = Devices::with('applications','default_app','user')->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
-            })->get();
+            })->paginate(10)->appends(['name' => $request->name]);
             
-            $applications = Applicaion::groupby('packageName')->get();
-        }
+            $applications = Applicaion::whereIn('device_id', $devices)->groupby('packageName')->get();
+            
+        }   
         elseif($user->hasPermissionTo('Lite')){
            
             $devices = Devices::with('default_app','applications','user')->where('user_id',$user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
-            })->get();
-            $applications = Applicaion::where('default', true)->groupby('packageName')->get();
+            })->paginate(10)->appends(['name' => $request->name]);;
+       
+            $applications = Applicaion::groupby('packageName')->whereIn('device_id', $devices)->get();
         }
         else{
          
             $devices = Devices::with('applications','default_app','user')->where('user_id',$user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
-            })->get();
-            $applications = Applicaion::groupby('packageName')->get();
+            })->paginate(10)->appends(['name' => $request->name]);
+            $applications = Applicaion::groupby('packageName')->whereIn('device_id', $devices)->get();
         }
         
         $apk_files = ApkResource::collection($user->apk_files);
@@ -299,9 +301,10 @@ class DeviceController extends Controller
         $device = Devices::where('device_id', $id)->first();
 
         if($device){
+            broadcast(new ReciveActiveDeviceEvent($device));
             $device->active = true;
             $device->save();
-            broadcast(new ReciveActiveDeviceEvent($device));
+       
             return response()->json(Response::HTTP_OK);
         }else{
             return response()->json('Device Not Fond',Response::HTTP_BAD_REQUEST);
