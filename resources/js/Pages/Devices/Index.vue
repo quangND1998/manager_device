@@ -122,7 +122,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(device, index) in devices" :key="index"
+          <tr v-for="(device, index) in devices.data" :key="index"
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
             <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"><input 
                 type="checkbox" class="checkbox" v-model="selected" :value="device.id"></td>
@@ -178,7 +178,7 @@
         </tbody>
       </table>
     </div>
-    <!-- <pagination :links="devices.links" /> -->
+    <pagination :links="devices.links" />
   </section>
 
 </template>
@@ -215,13 +215,13 @@ export default {
   computed: {
     selectAll: {
       get: function () {
-        return this.devices ? this.selected.length == this.devices : false;
+        return this.devices.data ? this.selected.length == this.devices.data : false;
       },
       set: function (value) {
         var selected = [];
 
         if (value) {
-          this.devices.forEach(function (device) {
+          this.devices.data.forEach(function (device) {
             selected.push(device.id);
           });
         }
@@ -232,7 +232,7 @@ export default {
     application_deivce() {
       if (this.selected.length > 0) {
         if (this.selected.length == 1) {
-          const found = this.devices.find(element => element.id == this.selected[0]);
+          const found = this.devices.data.find(element => element.id == this.selected[0]);
           return found.applications
         }
 
@@ -266,7 +266,7 @@ export default {
   },
 
   props: {
-    devices: Array,
+    devices: Object,
     errors: Object,
     wifis: Array,
     applications: Array,
@@ -322,12 +322,12 @@ export default {
     },
     listenActiveDevice(){
             var self = this;
-      this.devices.map(element =>{
+      this.devices.data.map(element =>{
           window.socketio.on(`recive-active-device.${element.device_id}:App\\Events\\ReciveActiveDeviceEvent`, function (e) {
             // console.log(e)
-              let index = self.devices.findIndex(x => x.device_id == e.device_id);
+              let index = self.devices.data.findIndex(x => x.device_id == e.device_id);
               if(index !== -1){
-                self.devices[index].active = true
+                self.devices.data[index].active = true
               }
               // console.log(index)
                 // if(element.device_id === e.device_id){
