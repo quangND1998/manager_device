@@ -42,13 +42,13 @@ class DeviceController extends Controller
             })->orderBy('active', 'desc')->paginate(10)->appends(['name' => $request->term ]);
           
             $applications = Applicaion::whereIn('device_id', $devices)->groupby('packageName')->get();
-            
+            // return  $devices;
         }   
         elseif($user->hasPermissionTo('Lite')){
            
             $devices = Devices::with('default_app','applications','user')->where('user_id',$user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
-            })->paginate(10)->appends(['name' => $request->name]);
+            })->orderBy('active', 'desc')->paginate(10)->appends(['name' => $request->name]);
        
             $applications = Applicaion::groupby('packageName')->whereIn('device_id', $devices)->get();
         }
@@ -56,7 +56,7 @@ class DeviceController extends Controller
          
             $devices = Devices::with('applications','default_app','user')->where('user_id',$user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
-            })->paginate(10)->appends(['name' => $request->name]);
+            })->orderBy('active', 'desc')->paginate(10)->appends(['name' => $request->name]);
             $applications = Applicaion::groupby('packageName')->whereIn('device_id', $devices)->get();
         }
         
