@@ -15,7 +15,7 @@
                 <tr v-for="(history, index) in histories.data" :key="index"
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{
-                        index
+                            histories.current_page ==1? index+1 :(histories.current_page - 1) * histories.per_page + index + 1
                     }}
                     </th>
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
