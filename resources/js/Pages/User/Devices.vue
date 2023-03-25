@@ -17,15 +17,16 @@
 
 
                     <th scope="col" class="py-3 px-6 text-xl uppercase">Battery</th>
-
+                    <th scope="col" class="py-3 px-6 text-xl uppercase">Active</th>
                     <th scope="col" class="py-3 px-6 text-xl uppercase">Default App</th>
+                    <th scope="col" class="py-3 px-6 text-xl uppercase">Time Update</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(device, index) in devices.data" :key="index"
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{
-                        index
+                        devices.current_page == 1 ? index + 1 : (devices.current_page - 1) * devices.per_page + index + 1
                     }}
                     </th>
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -38,10 +39,14 @@
                                 device.brand
                             }}</span>
                     </th>
-
-
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"><i
                             class="fa fa-battery-full" aria-hidden="true"></i>{{ (device.battery * 100) }} %</th>
+                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <span v-if="device.active"
+                            class="text-xl inline-block py-2 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-green-600 text-white rounded-full"></span>
+                        <span v-else
+                            class="text-xl inline-block py-2 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-gray-400 text-gray-800 rounded-full"></span>
+                    </th>
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white ">
                         <div class=" relative w-fit block m-auto" v-if="device.default_app">
 
@@ -51,6 +56,7 @@
                             device.default_app.appName
                         }}</strong></div>
                     </th>
+                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white" >{{ formatDate(device.updated_at) }}</th>
 
 
 
@@ -89,6 +95,4 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

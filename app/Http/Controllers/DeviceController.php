@@ -33,22 +33,24 @@ class DeviceController extends Controller
     }
     public function index(Request $request){
         $user = Auth::user();
-    
+        $sortBy = $request->order ? $request->order:'id';
+        $sortDirection = $request->sortDirection ?  $request->sortDirection :'asc';
         if($user->hasPermissionTo('user-manager')){
        
             $devices = Devices::with('applications','default_app','user')->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
-              
-            })->orderBy('active', 'desc')->paginate(10)->appends(['name' => $request->term ]);
+                $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
+            })->orderBy('active', 'desc')->orderBy($sortBy , $sortDirection)->paginate(10)->appends(['name' => $request->term ]);
           
             $applications = Applicaion::whereIn('device_id', $devices)->groupby('packageName')->get();
-            // return  $devices;
+
         }   
         elseif($user->hasPermissionTo('Lite')){
            
             $devices = Devices::with('default_app','applications','user')->where('user_id',$user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
-            })->orderBy('active', 'desc')->paginate(10)->appends(['name' => $request->name]);
+                $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
+            })->orderBy('active', 'desc')->orderBy($sortBy , $sortDirection)->paginate(10)->appends(['name' => $request->name,'device_id' => $request->device_id]);
        
             $applications = Applicaion::groupby('packageName')->whereIn('device_id', $devices)->get();
         }
@@ -56,14 +58,15 @@ class DeviceController extends Controller
          
             $devices = Devices::with('applications','default_app','user')->where('user_id',$user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
-            })->orderBy('active', 'desc')->paginate(10)->appends(['name' => $request->name]);
+                $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
+            })->orderBy('active', 'desc')->orderBy($sortBy , $sortDirection)->paginate(10)->appends(['name' => $request->name]);
             $applications = Applicaion::groupby('packageName')->whereIn('device_id', $devices)->get();
         }
         
         $apk_files = ApkResource::collection($user->apk_files);
      
         $wifis = Wifi::get();
-        return Inertia::render('Devices/Index',compact('devices','applications','wifis','apk_files'));
+        return Inertia::render('Devices/Index',compact('devices','applications','wifis','apk_files', 'sortBy'));
     }
 
     public function saveName(Request $request,  $id){
