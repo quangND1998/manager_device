@@ -138,8 +138,16 @@
             </th>
 
             <!-- <th scope="col" class="py-3 px-6 text-xl">Os Version</th> -->
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">Battery</th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">Active</th>
+            <th @click="sortValue('battery')"  scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
+              <i class="fa fa-arrow-up" :class="[(sortDirection === 'asc' && sort=='battery') ? 'text-gray-800' : 'text-gray-300']">
+              </i>
+              <i  class="fa fa-arrow-down" :class="[(sortDirection === 'desc' && sort=='battery')  ? 'text-gray-800' : 'text-gray-300']">
+              </i>Battery</th>
+            <th @click="sortValue('active')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
+              <i class="fa fa-arrow-up" :class="[(sortDirection === 'asc' && sort=='active') ? 'text-gray-800' : 'text-gray-300']">
+              </i>
+              <i  class="fa fa-arrow-down" :class="[(sortDirection === 'desc' && sort=='active')  ? 'text-gray-800' : 'text-gray-300']">
+              </i>Active</th>
             <!-- <th scope="col" class="py-3 px-6 text-xl uppercase">Connect Wifi</th> -->
             <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">Default App</th>
             <th @click="sortValue('user.name')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500"
