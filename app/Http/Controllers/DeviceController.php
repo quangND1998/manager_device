@@ -43,7 +43,7 @@ class DeviceController extends Controller
             })->orderBy('active', 'desc')->orderBy($sortBy , $sortDirection)->paginate(10)->appends(['name' => $request->term ]);
           
             $applications = Applicaion::whereIn('device_id', $devices)->groupby('packageName')->get();
-            // return  $devices;
+
         }   
         elseif($user->hasPermissionTo('Lite')){
            

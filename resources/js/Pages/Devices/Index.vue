@@ -110,22 +110,31 @@
           <tr>
             <th scope="col" class="py-3 px-6 text-xl"><input type="checkbox" id="check_all" v-model="selectAll"></th>
             <th @click="sortValue('id')" scope="col" class="py-3 px-6 text-xl text-gray-500">
-              <i v-if="sort == 'id'" :class="[sortDirection === 'asc' ? 'fa fa-arrow-up' : 'fa fa-arrow-down']">
+              <i class="fa fa-arrow-up" :class="[(sortDirection === 'asc' && sort=='id') ? 'text-gray-800' : 'text-gray-300']">
+              </i>
+              <i  class="fa fa-arrow-down" :class="[(sortDirection === 'desc' && sort=='id')  ? 'text-gray-800' : 'text-gray-300']">
               </i>
               No
             </th>
             <th @click="sortValue('name')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
-              <i v-if="sort == 'name'" :class="[sortDirection === 'asc' ? 'fa fa-arrow-up' : 'fa fa-arrow-down']"> </i>
+              <i class="fa fa-arrow-up" :class="[(sortDirection === 'asc' && sort=='name') ? 'text-gray-800' : 'text-gray-300']">
+              </i>
+              <i  class="fa fa-arrow-down" :class="[(sortDirection === 'desc' && sort=='name')  ? 'text-gray-800' : 'text-gray-300']">
+              </i>
               name
             </th>
             <th @click="sortValue('device_id')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
-              <i v-if="sort == 'device_id'" :class="[sortDirection === 'asc' ? 'fa fa-arrow-up' : 'fa fa-arrow-down']">
+              <i class="fa fa-arrow-up" :class="[(sortDirection === 'asc' && sort=='device_id') ? 'text-gray-800' : 'text-gray-300']">
+              </i>
+              <i  class="fa fa-arrow-down" :class="[(sortDirection === 'desc' && sort=='device_id')  ? 'text-gray-800' : 'text-gray-300']">
               </i>
               device ID
             </th>
             <th @click="sortValue('brand')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
-              <i v-if="sort == 'brand'"
-                :class="[sortDirection === 'asc' ? 'fa fa-arrow-up' : 'fa fa-arrow-down']"></i>Brand
+              <i class="fa fa-arrow-up" :class="[(sortDirection === 'asc' && sort=='brand') ? 'text-gray-800' : 'text-gray-300']">
+              </i>
+              <i  class="fa fa-arrow-down" :class="[(sortDirection === 'desc' && sort=='brand')  ? 'text-gray-800' : 'text-gray-300']">
+              </i>Brand
             </th>
 
             <!-- <th scope="col" class="py-3 px-6 text-xl">Os Version</th> -->
@@ -133,13 +142,15 @@
             <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">Active</th>
             <!-- <th scope="col" class="py-3 px-6 text-xl uppercase">Connect Wifi</th> -->
             <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">Default App</th>
-            <th @click="sortValue('user')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500"
+            <th @click="sortValue('user.name')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500"
               v-if="hasAnyPermission(['user-manager'])">
-              <i v-if="sortBy == 'user'" :class="[sortDirection === 'asc' ? 'fa fa-arrow-up' : 'fa fa-arrow-down']"></i>User
+              <i v-if="sortBy == 'user.name'" :class="[sortDirection === 'asc' ? 'fa fa-arrow-up' : 'fa fa-arrow-down']"></i>User
             </th>
             <th @click="sortValue('updated_at')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
-              <i v-if="sort == 'updated_at'"
-                :class="[sortDirection === 'asc' ? 'fa fa-arrow-up' : 'fa fa-arrow-down']"></i>Time Update
+              <i class="fa fa-arrow-up" :class="[(sortDirection === 'asc' && sort=='updated_at') ? 'text-gray-800' : 'text-gray-300']">
+              </i>
+              <i  class="fa fa-arrow-down" :class="[(sortDirection === 'desc' && sort=='updated_at')  ? 'text-gray-800' : 'text-gray-300']">
+              </i>Time Update
             </th>
             <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
               <span class="sr-only">Edit</span>
@@ -277,16 +288,7 @@ export default {
     },
     lauchDisabled() {
       return this.selected.length > 0 ? false : true
-    },
-    sortedDevices: function () {
-      return this.devices == null ? [] : this.devices.data.sort((p1, p2) => {
-        let modifier = 1;
-        if (this.sortDirection === 'desc') modifier = -1;
-        if (p1[this.sort] < p2[this.sort]) return -1 * modifier; if (p1[this.sort] > p2[this.sort]) return 1 * modifier;
-        return 0;
-      });
     }
-
   },
   mounted() {
     $("#exampleModalTopup").modal("hide");
@@ -412,4 +414,25 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.up-arrow {
+    width: 0;
+    height: 0;
+    border: solid 5px transparent;
+    background: transparent;
+    border-bottom: solid 7px black;
+    border-top-width: 0;
+    cursor: pointer;
+}
+
+.down-arrow {
+    width: 0;
+    height: 0;
+    border: solid 5px transparent;
+    background: transparent;
+    border-top: solid 7px black;
+    border-bottom-width: 0;
+    margin-top:1px;
+    cursor: pointer;
+}
+</style>
