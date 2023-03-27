@@ -306,8 +306,8 @@ class DeviceController extends Controller
 
     public function checkActiveDevice(Request $request){
 
-        $user = User::find($request->user_id);
-
+        $user = User::with('devices')->find($request->user_id);
+        return $user;
         if($user){
             $devices = Devices::where('user_id',$user->id)->get();
             foreach($devices as $device){
