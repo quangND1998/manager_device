@@ -411,7 +411,7 @@ export default {
 
       this.$inertia.get(
         this.route("device.index"),
-        { sortBy: this.sort,sortDirection:this.sortDirection },
+        { sortBy: this.sort,sortDirection:this.sortDirection  ,page: this.devices.current_page},
         {
           preserveState: true
         }
