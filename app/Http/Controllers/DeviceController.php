@@ -307,10 +307,10 @@ class DeviceController extends Controller
     public function checkActiveDevice(Request $request){
 
         $user = User::with('devices')->find($request->user_id);
-        return $user;
+        // return $user;
         if($user){
-            $devices = Devices::where('user_id',$user->id)->get();
-            foreach($devices as $device){
+         
+            foreach($user->devices as $device){
                 $device->active =false;
                 $device->save();
                 broadcast(new SendDeviceActiveEvent($device));
