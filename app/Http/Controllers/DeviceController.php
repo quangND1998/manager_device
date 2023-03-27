@@ -315,11 +315,9 @@ class DeviceController extends Controller
                 $device->save();
                 broadcast(new SendDeviceActiveEvent($device));
             }
-            return back()->with('success','Check active successfully');
+            return back();
         }
-        else{
-            return back()->with('warning','Errors');
-        }
+       
         
         
     }
