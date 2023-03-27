@@ -21,6 +21,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\Traits\LoginTrait;
 use App\Http\Controllers\Traits\FileUploadTrait;
 use App\Http\Resources\ApkResource;
+use App\Models\User;
 use Carbon\Carbon;
 
 class DeviceController extends Controller
@@ -33,11 +34,11 @@ class DeviceController extends Controller
     }
     public function index(Request $request){
         $user = Auth::user();
-        $sortBy = $request->order ? $request->order:'id';
+        $sortBy = $request->sortBy ? $request->sortBy:'id';
         $sortDirection = $request->sortDirection ?  $request->sortDirection :'asc';
         if($user->hasPermissionTo('user-manager')){
        
-            $devices = Devices::with('applications','default_app','user')->where(function ($query) use ($request) {
+            $devices = Devices::with('applications','default_app','user','last_login')->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
             })->orderBy('active', 'desc')->orderBy($sortBy , $sortDirection)->paginate(10)->appends(['name' => $request->term ]);
@@ -47,7 +48,7 @@ class DeviceController extends Controller
         }   
         elseif($user->hasPermissionTo('Lite')){
            
-            $devices = Devices::with('default_app','applications','user')->where('user_id',$user->id)->where(function ($query) use ($request) {
+            $devices = Devices::with('default_app','applications','user','last_login')->where('user_id',$user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
             })->orderBy('active', 'desc')->orderBy($sortBy , $sortDirection)->paginate(10)->appends(['name' => $request->name,'device_id' => $request->device_id]);
@@ -56,7 +57,7 @@ class DeviceController extends Controller
         }
         else{
          
-            $devices = Devices::with('applications','default_app','user')->where('user_id',$user->id)->where(function ($query) use ($request) {
+            $devices = Devices::with('applications','default_app','user','last_login')->where('user_id',$user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
             })->orderBy('active', 'desc')->orderBy($sortBy , $sortDirection)->paginate(10)->appends(['name' => $request->name]);
@@ -297,9 +298,27 @@ class DeviceController extends Controller
         foreach($devices as $device){
             $device->active =false;
             $device->save();
-            // broadcast(new SendDeviceActiveEvent($device));
+            broadcast(new SendDeviceActiveEvent($device));
         }
         return redirect()->route('device.index');
+    }
+
+
+    public function checkActiveDevice(Request $request){
+
+        $user = User::find($request->user_id);
+
+        if($user){
+            $devices = Devices::where('user_id',$request->user)->get();
+            foreach($devices as $device){
+                $device->active =false;
+                $device->save();
+                broadcast(new SendDeviceActiveEvent($device));
+            }
+            return back()->with('success','Check active successfully');
+        }
+        return back()->with('warning','Errors');
+        
     }
     public function getActiveDevice( $id){
         $device = Devices::where('device_id', $id)->first();
