@@ -306,8 +306,8 @@ class DeviceController extends Controller
 
     public function checkActiveDevice(Request $request){
 
-        $user = User::find($request->user_id);
-
+        $user = User::with('devices')->find($request->user_id);
+        return $user;
         if($user){
             $devices = Devices::where('user_id',$user->id)->get();
             foreach($devices as $device){
@@ -317,7 +317,10 @@ class DeviceController extends Controller
             }
             return back()->with('success','Check active successfully');
         }
-        return back()->with('warning','Errors');
+        else{
+            return back()->with('warning','Errors');
+        }
+        
         
     }
     public function getActiveDevice( $id){
