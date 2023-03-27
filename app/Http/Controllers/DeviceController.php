@@ -317,7 +317,10 @@ class DeviceController extends Controller
             }
             return back()->with('success','Check active successfully');
         }
-        return back()->with('warning','Errors');
+        else{
+            return back()->with('warning','Errors');
+        }
+        
         
     }
     public function getActiveDevice( $id){
