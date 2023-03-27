@@ -308,14 +308,14 @@ class DeviceController extends Controller
 
         $user = User::with('devices')->find($request->user_id);
         // return $user;
-      
+       
          
         foreach($user->devices as $device){
             $device->active =false;
             $device->save();
             broadcast(new SendDeviceActiveEvent($device));
         }
-
+    
         return back();
         
         
