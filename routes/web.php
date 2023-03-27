@@ -111,6 +111,7 @@ Route::middleware(['auth'])->group(
             Route::get('disableDefaultApp/{id}',[DeviceController::class,'disableDefaultApp'])->name('disableDefaultApp');
 
             Route::post('checkDevice', [DeviceController::class,'checkDevice'])->name('checkDevice');
+            Route::post('checkActiveDevice', [DeviceController::class,'checkActiveDevice'])->name('checkActiveDevice');
         });
 
         Route::prefix('applications')->as('application.')->group(function () {

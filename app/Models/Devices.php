@@ -9,7 +9,7 @@ class Devices extends Model
 {
     use HasFactory;
     protected $table = 'devices';
-    protected $fillable = ['id',   'app_default_id', 'device_id',  'name', 'brand', 'os_version', 'battery', 'connect_wifi', 'created_at','active', 'state', 'user_id',  'updated_at'];
+    protected $fillable = ['app_default_id', 'device_id',  'name', 'brand', 'os_version', 'battery', 'connect_wifi', 'created_at','active', 'state', 'user_id',  'updated_at'];
     protected $casts = [
         'active' => 'boolean'
     ];
@@ -57,6 +57,14 @@ class Devices extends Model
     public function history_devices(){
         return $this->hasMany(HistoryDevice::class,'device_id');
     }
+
+    public function last_login()
+    {
+        return $this->hasOne(HistoryDevice::class,'device_id')->latest();
+    }
+
+
+
     
 
  

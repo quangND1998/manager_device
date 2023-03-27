@@ -1,5 +1,8 @@
 <template>
     <div class="overflow-x-auto relative shadow-md sm:rounded-lg mt-5">
+        <button type="button" @click="FreshDevice()"
+      class="inline-block px-6 py-2.5 bg-blue-400 text-white font-medium text-2xl leading-tight  rounded-full shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out"><i
+        class="fa fa-refresh mr-2" aria-hidden="true"></i>Active devices</button>
         <div class="w-full  mb-8 mt-8 flex justify-between ">
             <div>
                 <input v-model="term" @keyup="search"
@@ -56,7 +59,8 @@
                             device.default_app.appName
                         }}</strong></div>
                     </th>
-                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white" >{{ formatDate(device.updated_at) }}</th>
+                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{
+                        formatDate(device.updated_at) }}</th>
 
 
 
@@ -81,6 +85,9 @@ export default {
         }
 
     },
+    mounted() {
+        this.listenActiveDevice();
+    },
     methods: {
         search() {
             this.$inertia.get(
@@ -90,6 +97,35 @@ export default {
                     preserveState: true
                 }
             );
+        },
+        listenActiveDevice() {
+            var self = this;
+            this.devices.data.map(element => {
+                window.socketio.on(`recive-active-device.${element.device_id}:App\\Events\\ReciveActiveDeviceEvent`, function (e) {
+                    // console.log(e)
+                    let index = self.devices.data.findIndex(x => x.device_id == e.device_id);
+                    if (index !== -1) {
+                        self.devices.data[index].active = true
+                    }
+                    // console.log(index)
+                    // if(element.device_id === e.device_id){
+                    //   self.map
+                    //   element.active =true;
+                    //   console.log(element)
+                    //   // element.battery = e.battery
+                    // }
+                });
+            })
+
+        },
+        FreshDevice() {
+            const query={
+                user_id: this.user.id
+            }
+            this.$inertia.post(route('device.checkActiveDevice',query)),
+            {
+                preserveState: true
+            }
         },
     }
 }
