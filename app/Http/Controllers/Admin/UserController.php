@@ -202,11 +202,12 @@ class UserController extends InertiaController
     }
 
     public function list_device($id, Request $request){
-       
+        $sortBy = $request->sortBy ? $request->sortBy:'id';
+        $sortDirection = $request->sortDirection ?  $request->sortDirection :'asc';
         $user = User::with('roles')->findOrFail($id);
-        $devices = Devices::with('user','default_app')->where('user_id',$id)->where(function ($query) use ($request) {
+        $devices = Devices::with('user','default_app', 'last_login')->where('user_id',$id)->where(function ($query) use ($request) {
             $query->where('name', 'LIKE', '%' . $request->term . '%');
-        })->paginate(15)->appends(['name' => $request->name]);
+        })->orderBy('active', 'desc')->orderBy($sortBy , $sortDirection)->paginate(15)->appends(['page'=> $request->page,'name' => $request->term ,'sortBy' => $request->sortBy, 'sortDirection'=> $request->sortDirection]);
         return Inertia::render('User/Devices',compact('user','devices'));
     }
 
