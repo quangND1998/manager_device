@@ -42,8 +42,9 @@ class DeviceController extends Controller
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
             })->orderBy('active', 'desc')->orderBy($sortBy , $sortDirection)->paginate(10)->appends(['page'=> $request->page,'name' => $request->term ,'sortBy' => $request->sortBy, 'sortDirection'=> $request->sortDirection]);
-
-            $applications = Applicaion::whereIn('device_id', $devices)->groupby('packageName')->get();
+         
+            $applications = Applicaion::groupby('packageName')->whereIn('device_id',$devices->pluck('id'))->get();
+           
            
         }   
         elseif($user->hasPermissionTo('Lite')){
@@ -53,7 +54,7 @@ class DeviceController extends Controller
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
             })->orderBy('active', 'desc')->orderBy($sortBy , $sortDirection)->paginate(10)->appends(['page'=> $request->page,'name' => $request->term ,'sortBy' => $request->sortBy, 'sortDirection'=> $request->sortDirection]);
          
-            $applications = Applicaion::groupby('packageName')->whereIn('device_id', $devices)->get();
+            $applications = Applicaion::groupby('packageName')->whereIn('device_id',$devices->pluck('id'))->get();
         }
         else{
          
@@ -61,7 +62,7 @@ class DeviceController extends Controller
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
             })->orderBy('active', 'desc')->orderBy($sortBy , $sortDirection)->paginate(10)->appends(['name' => $request->term ,'sortBy' => $request->sortBy, 'sortDirection'=> $request->sortDirection]);
-            $applications = Applicaion::groupby('packageName')->whereIn('device_id', $devices)->get();
+            $applications = Applicaion::groupby('packageName')->whereIn('device_id',$devices->pluck('id'))->get();
         }
         
         $apk_files = ApkResource::collection($user->apk_files);
