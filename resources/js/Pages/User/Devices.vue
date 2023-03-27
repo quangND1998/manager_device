@@ -1,8 +1,8 @@
 <template>
     <div class="overflow-x-auto relative shadow-md sm:rounded-lg mt-5">
         <button type="button" @click="FreshDevice()"
-      class="inline-block px-6 py-2.5 bg-blue-400 text-white font-medium text-2xl leading-tight  rounded-full shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out"><i
-        class="fa fa-refresh mr-2" aria-hidden="true"></i>Active devices</button>
+            class="inline-block px-6 py-2.5 bg-blue-400 text-white font-medium text-2xl leading-tight  rounded-full shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out"><i
+                class="fa fa-refresh mr-2" aria-hidden="true"></i>Active devices</button>
         <div class="w-full  mb-8 mt-8 flex justify-between ">
             <div>
                 <input v-model="term" @keyup="search"
@@ -13,16 +13,60 @@
         <table class="w-full text-xl text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xl text-gray-700  bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th scope="col" class="py-3 px-6 text-xl">No</th>
-                    <th scope="col" class="py-3 px-6 text-xl uppercase">name</th>
-                    <th scope="col" class="py-3 px-6 text-xl uppercase">device ID</th>
-                    <th scope="col" class="py-3 px-6 text-xl uppercase">Brand</th>
+                    <th @click="sortValue('id')" scope="col" class="py-3 px-6 text-xl">
+                        <i class="fa fa-arrow-up"
+                            :class="[(sortDirection === 'asc' && sort == 'id') ? 'text-gray-800' : 'text-gray-300']">
+                        </i>
+                        <i class="fa fa-arrow-down"
+                            :class="[(sortDirection === 'desc' && sort == 'id') ? 'text-gray-800' : 'text-gray-300']">
+                        </i>
+                        No
+                    </th>
+                    <th @click="sortValue('name')" scope="col" class="py-3 px-6 text-xl uppercase">
+                        <i class="fa fa-arrow-up"
+                            :class="[(sortDirection === 'asc' && sort == 'name') ? 'text-gray-800' : 'text-gray-300']">
+                        </i>
+                        <i class="fa fa-arrow-down"
+                            :class="[(sortDirection === 'desc' && sort == 'name') ? 'text-gray-800' : 'text-gray-300']">
+                        </i>name</th>
+                    <th @click="sortValue('device_id')" scope="col" class="py-3 px-6 text-xl uppercase">
+                        <i class="fa fa-arrow-up"
+                            :class="[(sortDirection === 'asc' && sort == 'device_id') ? 'text-gray-800' : 'text-gray-300']">
+                        </i>
+                        <i class="fa fa-arrow-down"
+                            :class="[(sortDirection === 'desc' && sort == 'device_id') ? 'text-gray-800' : 'text-gray-300']">
+                        </i>device ID</th>
+                    <th   @click="sortValue('brand')"  scope="col" class="py-3 px-6 text-xl uppercase">
+                        <i class="fa fa-arrow-up"
+                            :class="[(sortDirection === 'asc' && sort == 'brand') ? 'text-gray-800' : 'text-gray-300']">
+                        </i>
+                        <i class="fa fa-arrow-down"
+                            :class="[(sortDirection === 'desc' && sort == 'brand') ? 'text-gray-800' : 'text-gray-300']">
+                        </i>Brand</th>
 
 
-                    <th scope="col" class="py-3 px-6 text-xl uppercase">Battery</th>
-                    <th scope="col" class="py-3 px-6 text-xl uppercase">Active</th>
+                    <th  @click="sortValue('battery')" scope="col" class="py-3 px-6 text-xl uppercase">
+                        <i class="fa fa-arrow-up"
+                            :class="[(sortDirection === 'asc' && sort == 'battery') ? 'text-gray-800' : 'text-gray-300']">
+                        </i>
+                        <i class="fa fa-arrow-down"
+                            :class="[(sortDirection === 'desc' && sort == 'battery') ? 'text-gray-800' : 'text-gray-300']">
+                        </i>Battery</th>
+                    <th  @click="sortValue('active')" scope="col" class="py-3 px-6 text-xl uppercase">
+                        <i class="fa fa-arrow-up"
+                            :class="[(sortDirection === 'asc' && sort == 'active') ? 'text-gray-800' : 'text-gray-300']">
+                        </i>
+                        <i class="fa fa-arrow-down"
+                            :class="[(sortDirection === 'desc' && sort == 'active') ? 'text-gray-800' : 'text-gray-300']">
+                        </i>Active</th>
                     <th scope="col" class="py-3 px-6 text-xl uppercase">Default App</th>
-                    <th scope="col" class="py-3 px-6 text-xl uppercase">Time Update</th>
+                    <th  @click="sortValue('updated_at')" scope="col" class="py-3 px-6 text-xl uppercase">
+                        <i class="fa fa-arrow-up"
+                            :class="[(sortDirection === 'asc' && sort == 'updated_at') ? 'text-gray-800' : 'text-gray-300']">
+                        </i>
+                        <i class="fa fa-arrow-down"
+                            :class="[(sortDirection === 'desc' && sort == 'updated_at') ? 'text-gray-800' : 'text-gray-300']">
+                        </i>Time Update</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,6 +75,7 @@
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{
                         devices.current_page == 1 ? index + 1 : (devices.current_page - 1) * devices.per_page + index + 1
                     }}
+
                     </th>
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {{ device.name }}</th>
@@ -60,7 +105,7 @@
                         }}</strong></div>
                     </th>
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{
-                        formatDate(device.updated_at) }}</th>
+                        device.last_login ? formatDate(device.last_login.created_at) : null }}</th>
 
 
 
@@ -81,6 +126,8 @@ export default {
     data() {
         return {
             term: null,
+            sort: this.sortBy,
+            sortDirection: 'asc',
 
         }
 
@@ -119,13 +166,27 @@ export default {
 
         },
         FreshDevice() {
-            const query={
+            const query = {
                 user_id: this.user.id
             }
-            this.$inertia.post(route('device.checkActiveDevice',query)),
+            this.$inertia.post(route('device.checkActiveDevice', query)),
             {
                 preserveState: true
             }
+        },
+        sortValue: function (s) {
+            if (s === this.sort) {
+                this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+            }
+            this.sort = s;
+
+            this.$inertia.get(
+                this.route("user.devices.index", this.user.id),
+                { sortBy: this.sort, sortDirection: this.sortDirection, page: this.devices.current_page },
+                {
+                    preserveState: true
+                }
+            );
         },
     }
 }
