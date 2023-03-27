@@ -150,9 +150,9 @@
               </i>Active</th>
             <!-- <th scope="col" class="py-3 px-6 text-xl uppercase">Connect Wifi</th> -->
             <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">Default App</th>
-            <th @click="sortValue('user.name')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500"
+            <th  scope="col" class="py-3 px-6 text-xl uppercase text-gray-500"
               v-if="hasAnyPermission(['user-manager'])">
-              <i v-if="sortBy == 'user.name'" :class="[sortDirection === 'asc' ? 'fa fa-arrow-up' : 'fa fa-arrow-down']"></i>User
+              User
             </th>
             <th @click="sortValue('updated_at')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
               <i class="fa fa-arrow-up" :class="[(sortDirection === 'asc' && sort=='updated_at') ? 'text-gray-800' : 'text-gray-300']">
