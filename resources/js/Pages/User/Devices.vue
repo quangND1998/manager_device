@@ -184,7 +184,7 @@ export default {
                 this.route("user.devices.index", this.user.id),
                 { sortBy: this.sort, sortDirection: this.sortDirection, page: this.devices.current_page },
                 {
-                    preserveState: true
+                    preserveState: false
                 }
             );
         },
