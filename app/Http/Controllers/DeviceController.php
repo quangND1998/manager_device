@@ -309,7 +309,7 @@ class DeviceController extends Controller
         $user = User::find($request->user_id);
 
         if($user){
-            $devices = Devices::where('user_id',$request->user)->get();
+            $devices = Devices::where('user_id',$user->id)->get();
             foreach($devices as $device){
                 $device->active =false;
                 $device->save();
