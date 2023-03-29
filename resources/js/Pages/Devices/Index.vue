@@ -116,25 +116,16 @@
               </i>
               No
             </th>
-            <th @click="sortValue('name')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
-              <i class="fa fa-arrow-up" :class="[(sortDirection === 'asc' && sort=='name') ? 'text-gray-800' : 'text-gray-300']">
-              </i>
-              <i  class="fa fa-arrow-down" :class="[(sortDirection === 'desc' && sort=='name')  ? 'text-gray-800' : 'text-gray-300']">
-              </i>
+            <th  scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
+           
               name
             </th>
-            <th @click="sortValue('device_id')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
-              <i class="fa fa-arrow-up" :class="[(sortDirection === 'asc' && sort=='device_id') ? 'text-gray-800' : 'text-gray-300']">
-              </i>
-              <i  class="fa fa-arrow-down" :class="[(sortDirection === 'desc' && sort=='device_id')  ? 'text-gray-800' : 'text-gray-300']">
-              </i>
+            <th  scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
+        
               device ID
             </th>
-            <th @click="sortValue('brand')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
-              <i class="fa fa-arrow-up" :class="[(sortDirection === 'asc' && sort=='brand') ? 'text-gray-800' : 'text-gray-300']">
-              </i>
-              <i  class="fa fa-arrow-down" :class="[(sortDirection === 'desc' && sort=='brand')  ? 'text-gray-800' : 'text-gray-300']">
-              </i>Brand
+            <th  scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
+              Brand
             </th>
 
             <!-- <th scope="col" class="py-3 px-6 text-xl">Os Version</th> -->
@@ -147,7 +138,7 @@
               <i class="fa fa-arrow-up" :class="[(sortDirection === 'asc' && sort=='active') ? 'text-gray-800' : 'text-gray-300']">
               </i>
               <i  class="fa fa-arrow-down" :class="[(sortDirection === 'desc' && sort=='active')  ? 'text-gray-800' : 'text-gray-300']">
-              </i>Active</th>
+              </i><span v-if="sortDirection =='desc'">Active</span><span v-if="sortDirection =='asc'">InActive</span></th>
             <!-- <th scope="col" class="py-3 px-6 text-xl uppercase">Connect Wifi</th> -->
             <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">Default App</th>
             <th  scope="col" class="py-3 px-6 text-xl uppercase text-gray-500"
@@ -383,8 +374,10 @@ export default {
         window.socketio.on(`recive-active-device.${element.device_id}:App\\Events\\ReciveActiveDeviceEvent`, function (e) {
           // console.log(e)
           let index = self.devices.data.findIndex(x => x.device_id == e.device_id);
+          console.log(index);
           if (index !== -1) {
             self.devices.data[index].active = true
+            self.devices.data[index].battery = e.battery
           }
           // console.log(index)
           // if(element.device_id === e.device_id){
