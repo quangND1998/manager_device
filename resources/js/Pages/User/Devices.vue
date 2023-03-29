@@ -149,10 +149,11 @@ export default {
             var self = this;
             this.devices.data.map(element => {
                 window.socketio.on(`recive-active-device.${element.device_id}:App\\Events\\ReciveActiveDeviceEvent`, function (e) {
-                    // console.log(e)
+                    console.log(e)
                     let index = self.devices.data.findIndex(x => x.device_id == e.device_id);
                     if (index !== -1) {
                         self.devices.data[index].active = true
+                        self.devices.data[index].battery = e.battery
                     }
                     // console.log(index)
                     // if(element.device_id === e.device_id){

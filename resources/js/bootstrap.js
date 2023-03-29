@@ -68,6 +68,6 @@ var connectionOptions = {
     "timeout": 10000, //before connect_error and connect_timeout are emitted.
     "transports": ["websocket"]
 };
-console.log(process.env.MIX_SOCKET_URL)
-    // console.log(`${window.location.protocol}//${window.location.hostname}:3000`)
+// console.log(process.env.MIX_SOCKET_URL)
+// console.log(`${window.location.protocol}//${window.location.hostname}:3000`)
 window.socketio = io(process.env.MIX_SOCKET_URL, connectionOptions);
