@@ -41,6 +41,8 @@ Route::group([
 
         Route::get('getActiveDevice/{id}', [DeviceController::class, 'getActiveDevice']);
 
+        Route::put('active-device/{id}', [DeviceController::class, 'activeDevice']);
+
 
         Route::get('permissions',[PermisssionController::class,'index']);
         Route::post('permission',[PermisssionController::class,'store']);

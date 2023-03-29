@@ -41,7 +41,7 @@ class DeviceController extends Controller
             $devices = Devices::with('applications','default_app','user','last_login')->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
-            })->orderBy('active', 'desc')->orderBy($sortBy , $sortDirection)->paginate(10)->appends(['page'=> $request->page,'name' => $request->term ,'sortBy' => $request->sortBy, 'sortDirection'=> $request->sortDirection]);
+            })->orderBy($sortBy , $sortDirection)->paginate(10)->appends(['page'=> $request->page,'name' => $request->term ,'sortBy' => $request->sortBy, 'sortDirection'=> $request->sortDirection]);
          
             $applications = Applicaion::groupby('packageName')->whereIn('device_id',$devices->pluck('id'))->get();
            
@@ -52,7 +52,7 @@ class DeviceController extends Controller
             $devices = Devices::with('default_app','applications','user','last_login')->where('user_id',$user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
-            })->orderBy('active', 'desc')->orderBy($sortBy , $sortDirection)->paginate(10)->appends(['page'=> $request->page,'name' => $request->term ,'sortBy' => $request->sortBy, 'sortDirection'=> $request->sortDirection]);
+            })->orderBy($sortBy , $sortDirection)->paginate(10)->appends(['page'=> $request->page,'name' => $request->term ,'sortBy' => $request->sortBy, 'sortDirection'=> $request->sortDirection]);
          
             $applications = Applicaion::groupby('packageName')->whereIn('device_id',$devices->pluck('id'))->get();
         }
@@ -61,7 +61,7 @@ class DeviceController extends Controller
             $devices = Devices::with('applications','default_app','user','last_login')->where('user_id',$user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
-            })->orderBy('active', 'desc')->orderBy($sortBy , $sortDirection)->paginate(10)->appends(['name' => $request->term ,'sortBy' => $request->sortBy, 'sortDirection'=> $request->sortDirection]);
+            })->orderBy($sortBy , $sortDirection)->paginate(10)->appends(['name' => $request->term ,'sortBy' => $request->sortBy, 'sortDirection'=> $request->sortDirection]);
             $applications = Applicaion::groupby('packageName')->whereIn('device_id',$devices->pluck('id'))->get();
         }
         
@@ -328,6 +328,23 @@ class DeviceController extends Controller
             broadcast(new ReciveActiveDeviceEvent($device));
             $device->active = true;
             $device->save();
+       
+            return response()->json(Response::HTTP_OK);
+        }else{
+            return response()->json('Device Not Fond',Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    public function activeDevice(Request $request,$id){
+
+        $device = Devices::where('device_id', $id)->first();
+
+        if($device){
+            
+            $device->active = true;
+            $device->battery = $request->battery;
+            $device->save();
+            broadcast(new ReciveActiveDeviceEvent($device));
        
             return response()->json(Response::HTTP_OK);
         }else{
