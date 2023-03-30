@@ -33,26 +33,27 @@ class DeviceController extends Controller
         $this->middleware('permission:user-manager|Pro|Demo', ['only' => ['saveName','update', 'delete']]);
     }
     public function index(Request $request){
+    //    dd( env('API_MISSIONX_US'));
         $user = Auth::user();
         $sortBy = $request->sortBy ? $request->sortBy:'id';
-        $sortDirection = $request->sortDirection ?  $request->sortDirection :'asc';
+        $sort_Direction = $request->sortDirection ?  $request->sortDirection :'asc';
         if($user->hasPermissionTo('user-manager')){
        
             $devices = Devices::with('applications','default_app','user','last_login')->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
-            })->orderBy($sortBy , $sortDirection)->paginate(10)->appends(['page'=> $request->page,'name' => $request->term ,'sortBy' => $request->sortBy, 'sortDirection'=> $request->sortDirection]);
+            })->orderBy($sortBy , $sort_Direction)->paginate(2)->appends(['page'=> $request->page,'name' => $request->term ,'sortBy' => $request->sortBy, 'sortDirection'=> $request->sortDirection]);
          
             $applications = Applicaion::groupby('packageName')->whereIn('device_id',$devices->pluck('id'))->get();
-           
-           
+         
+          
         }   
         elseif($user->hasPermissionTo('Lite')){
            
             $devices = Devices::with('default_app','applications','user','last_login')->where('user_id',$user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
-            })->orderBy($sortBy , $sortDirection)->paginate(10)->appends(['page'=> $request->page,'name' => $request->term ,'sortBy' => $request->sortBy, 'sortDirection'=> $request->sortDirection]);
+            })->orderBy($sortBy , $sort_Direction)->paginate(10)->appends(['page'=> $request->page,'name' => $request->term ,'sortBy' => $request->sortBy, 'sortDirection'=> $request->sortDirection]);
          
             $applications = Applicaion::groupby('packageName')->whereIn('device_id',$devices->pluck('id'))->get();
         }
@@ -61,14 +62,20 @@ class DeviceController extends Controller
             $devices = Devices::with('applications','default_app','user','last_login')->where('user_id',$user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
-            })->orderBy($sortBy , $sortDirection)->paginate(10)->appends(['name' => $request->term ,'sortBy' => $request->sortBy, 'sortDirection'=> $request->sortDirection]);
+            })->orderBy($sortBy , $sort_Direction)->paginate(10)->appends(['name' => $request->term ,'sortBy' => $request->sortBy, 'sortDirection'=> $request->sort_Direction]);
             $applications = Applicaion::groupby('packageName')->whereIn('device_id',$devices->pluck('id'))->get();
         }
         
         $apk_files = ApkResource::collection($user->apk_files);
      
         $wifis = Wifi::get();
-        return Inertia::render('Devices/Index',compact('devices','applications','wifis','apk_files', 'sortBy'));
+        $count = $devices->total(); 
+        $firstItem = $devices->firstItem();
+        $lastItem = $devices->lastItem();
+        // dd($lastItem);
+      
+        // return $firstItem;
+        return Inertia::render('Devices/Index',compact('devices','applications','wifis','apk_files', 'sortBy','count','firstItem','lastItem','sort_Direction'));
     }
 
     public function saveName(Request $request,  $id){
