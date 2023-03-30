@@ -129,11 +129,8 @@
             </th>
 
             <!-- <th scope="col" class="py-3 px-6 text-xl">Os Version</th> -->
-            <th @click="sortValue('battery')"  scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
-              <i class="fa fa-arrow-up" :class="[(sortDirection === 'asc' && sort=='battery') ? 'text-gray-800' : 'text-gray-300']">
-              </i>
-              <i  class="fa fa-arrow-down" :class="[(sortDirection === 'desc' && sort=='battery')  ? 'text-gray-800' : 'text-gray-300']">
-              </i>Battery</th>
+            <th   scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
+             Battery</th>
             <th @click="sortValue('active')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
               <i class="fa fa-arrow-up" :class="[(sortDirection === 'asc' && sort=='active') ? 'text-gray-800' : 'text-gray-300']">
               </i>
@@ -160,9 +157,13 @@
           <tr v-for="(device, index) in devices.data" :key="index"
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
             <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"><input
-                type="checkbox" class="checkbox" v-model="selected" :value="device.id"></td>
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{
-             device.id }}
+                type="checkbox" class="checkbox" v-model="selected" :value="device.id">
+           
+              </td>
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              <!-- {{ sortDirection =='asc'?  firstItem + index :    count -(devices.current_page ==1? -index +1 : -index-1) }} -->
+              {{ sortDirection ==='asc'?  firstItem + index :    ((count -firstItem) -index)+1 }}
+              <!-- {{ sortDirection =='asc'? devices.per_page * (devices.current_page - 1)+index +1 : count -firstItem -index -1}} -->
             </th>
             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
               {{ device.name }}</th>
@@ -222,8 +223,9 @@
             </td>
           </tr>
         </tbody>
-      </table>
+      </table>  
     </div>
+    <span class="mt-4 text-2xl"> &nbsp; <i>Displaying {{ devices.data.length }} of {{ devices.total }} devices.</i></span>
     <pagination :links="devices.links" />
   </section>
 </template>
@@ -272,7 +274,8 @@ export default {
         }
 
         this.selected = selected;
-      }
+      },
+    
     },
     application_deivce() {
       if (this.selected.length > 0) {
@@ -287,7 +290,10 @@ export default {
     },
     lauchDisabled() {
       return this.selected.length > 0 ? false : true
-    }
+    },
+    sst_id(){
+       return  this.count;
+       }
   },
   mounted() {
     $("#exampleModalTopup").modal("hide");
@@ -295,10 +301,10 @@ export default {
   data() {
     return {
       sort: this.sortBy,
-      sortDirection: 'asc',
+      sortDirection: this.sort_Direction,
       term: null,
       editMode: true,
-
+      id_sort: this.count,
       selected: [],
       form: this.$inertia.form({
         id: null,
@@ -310,14 +316,18 @@ export default {
   mounted() {
     this.listenActiveDevice();
   },
-
+ 
   props: {
     devices: Object,
     errors: Object,
     wifis: Array,
     applications: Array,
     apk_files: Array,
-    sortBy:String
+    sortBy:String,
+    count:Number,
+    sort_Direction: String,
+    firstItem:Number,
+    lastItem:Number
   },
 
   methods: {
@@ -409,6 +419,9 @@ export default {
           preserveState: true
         }
       );
+    },
+    serialNumber(key) {
+      return (this.devices.current_page - 1) * this.devices.per_page + 1 + key
     },
 
   }
