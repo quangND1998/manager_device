@@ -62,6 +62,8 @@ Route::group([
             Route::post('/setDefaultApp', [ApiController::class, 'setDefaultApp'])->name('setDefaultApp');
             Route::post('checkDevice', [ApiController::class, 'checkDevice'])->name('checkDevice');
             Route::post('checkActiveDevice', [ApiController::class, 'checkActiveDevice'])->name('checkActiveDevice');
+            Route::get('{id}/disableDefaultApp', [ApiController::class, 'disableDefaultApp'])->name('disableDefaultApp');
+            Route::post('/lanchApp', [DeviceController::class, 'lanchApp'])->name('lanchApp');
         });
         Route::prefix('applications')->as('applications.')->group(function () {
             Route::post('list', [apiAppController::class, 'applications'])->name('list');

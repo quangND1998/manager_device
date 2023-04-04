@@ -103,7 +103,10 @@ class ApiController extends Controller
 
     public function disableDefaultApp($id)
     {
-        $device = Devices::findOrFail($id);
+        $device = Devices::find($id);
+        if (!$device) {
+            return response()->json('Not found Device', 404);
+        }
         $device->update(['app_default_id' => null]);
         return new DevicesResource($device->load('applications', 'default_app', 'user', 'last_login'));
     }
