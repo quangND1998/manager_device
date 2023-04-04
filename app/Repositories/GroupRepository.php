@@ -29,6 +29,8 @@ class GroupRepository extends BaseRepository
     public function show($id)
     {
         $user = Auth::user();
+    
+
         return !$user->hasPermissionTo('user-manager') ? $this->model()->with('devices.applications')->where('user_id', $user->id)->find($id) : $this->model()->with('devices.applications')->find($id);
     }
 }

@@ -73,6 +73,7 @@ Route::group([
 
         Route::prefix('groups')->as('group.')->group(function () {
             Route::get('', [GroupController::class, 'getGroups']);
+            Route::get('{id}', [GroupController::class, 'groupById']);
         });
     });
 

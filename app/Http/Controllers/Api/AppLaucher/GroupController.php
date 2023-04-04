@@ -10,6 +10,7 @@ use App\Repositories\DeviceRepository;
 use App\Repositories\GroupRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
 
 class GroupController extends Controller
 {
@@ -39,6 +40,18 @@ class GroupController extends Controller
         $groups = $this->group->groups();
         $devices =   $this->device->devicesNoGroup();
         $applications = $this->application->applicationsByDeivces($devices);
+        // $groups = Cache::remember('groups', 15, function () {
+        //     return
+        //         $this->group->groups();
+        // });
+        // $devices = Cache::remember('devices', 15, function () {
+        //     return
+        //          $this->device->devicesNoGroup();
+        // });
+        // $applications = Cache::remember('applications', 15, function () use($devices){
+        //     return
+        //         $this->application->applicationsByDeivces($devices);
+        // });
 
         $response  = [
             'groups' => $groups,
@@ -48,17 +61,25 @@ class GroupController extends Controller
         return response()->json($response, 200);
     }
 
-    public function groupBId()
+    public function groupById($id)
     {
-        $groups = $this->group->groups();
-        $devices =   $this->device->devicesNoGroup();
-        $applications = $this->application->applicationsByDeivces($devices);
 
-        $response  = [
-            'groups' => $groups,
-            'devices' => DevicesResource::collection($devices),
-            'applications' => ApplicationResource::collection($applications)
-        ];
-        return response()->json($response, 200);
+        $group = $this->group->show($id);
+
+        if (!$group) {
+            return response()->json('Not found group', 404);
+        } else {
+            $nogroup_devices =   $this->device->devicesNoGroup();
+
+            $applications = $this->application->applicationsByDeivces($nogroup_devices);
+
+            $devices = Arr::collapse([$nogroup_devices, $group->devices ?? []]);
+            $response  = [
+                'group' => $group,
+                'devices' => DevicesResource::collection($devices),
+                'applications' => ApplicationResource::collection($applications)
+            ];
+            return response()->json($response, 200);
+        }
     }
 }
