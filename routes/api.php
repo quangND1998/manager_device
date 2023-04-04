@@ -10,7 +10,7 @@ use App\Models\Devices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\HTTP\Controllers\ApplicationController;
-use App\HTTP\Controllers\Api\AppLaucher\ApiApplicationController;
+use App\HTTP\Controllers\Api\AppLaucher\apiAppController;
 use App\Http\Controllers\Api\AppLaucher\GroupController;
 
 /*
@@ -64,7 +64,7 @@ Route::group([
             Route::post('checkActiveDevice', [ApiController::class, 'checkActiveDevice'])->name('checkActiveDevice');
         });
         Route::prefix('applications')->as('applications.')->group(function () {
-            Route::post('', [ApiApplicationController::class, 'applications'])->name('applications');
+            Route::post('', [apiAppController::class, 'applications'])->name('applications');
         });
 
 
