@@ -64,7 +64,7 @@ Route::group([
             Route::post('checkActiveDevice', [ApiController::class, 'checkActiveDevice'])->name('checkActiveDevice');
         });
         Route::prefix('applications')->as('applications.')->group(function () {
-            Route::post('', [apiAppController::class, 'applications'])->name('applications');
+            Route::post('list', [apiAppController::class, 'applications'])->name('applications');
         });
 
 
