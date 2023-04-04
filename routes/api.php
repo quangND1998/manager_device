@@ -1,16 +1,14 @@
 <?php
 
-use App\Http\Controllers\Admin\PermisionsController;
 use App\Http\Controllers\Api\AppLaucher\ApiController;
+use App\Http\Controllers\Api\AppLaucher\AppController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PermisssionController;
 use App\Http\Controllers\DeviceController;
-use App\Http\Controllers\WifiController;
-use App\Models\Devices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApplicationController;
-use App\HTTP\Controllers\Api\AppLaucher\apiAppController;
+
 use App\Http\Controllers\Api\AppLaucher\GroupController;
 
 /*
@@ -64,10 +62,13 @@ Route::group([
             Route::post('checkActiveDevice', [ApiController::class, 'checkActiveDevice'])->name('checkActiveDevice');
             Route::get('{id}/disableDefaultApp', [ApiController::class, 'disableDefaultApp'])->name('disableDefaultApp');
             Route::post('lanchApp', [ApiController::class, 'lanchApp'])->name('lanchApp');
+            Route::post('checkDevice', [ApiController::class, 'checkDevice'])->name('checkDevice');
+            Route::post('checkActiveDevice', [ApiController::class, 'checkActiveDevice'])->name('checkActiveDevice');
         });
-        // Route::prefix('applications')->as('applications.')->group(function () {
-        //     Route::post('list', [apiAppController::class, 'applications'])->name('list');
-        // });
+        Route::prefix('applications')->as('app.')->group(function () {
+
+            Route::post('', [AppController::class, 'applications'])->name('index');
+        });
 
 
         Route::prefix('groups')->as('group.')->group(function () {

@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Api\AppLaucher;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\ApplicationRepository;
-use App\Http\Resources\ApplicationResource;
 use App\Http\Requests\RequestApplication;
+use App\Http\Resources\ApplicationResource;
 
-class ApiApplicationController extends Controller
+class AppController extends Controller
 {
     protected $application;
 
