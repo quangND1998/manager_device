@@ -51,6 +51,9 @@ class ApiController extends Controller
     public function saveName(Request $request, $id)
     {
         $device = Devices::find($id);
+        if (!$device) {
+            return response()->json('Not found Device', 404);
+        }
         $validator = Validator::make($request->all(), [
             'name' => [
                 'required',
@@ -69,7 +72,10 @@ class ApiController extends Controller
 
     public function delete($id)
     {
-        $device = Devices::with('applications')->findOrFail($id);
+        $device = Devices::with('applications')->find($id);
+        if (!$device) {
+            return response()->json('Not found Device', 404);
+        }
         foreach ($device->applications as $app) {
             $extension = " ";
             $this->DeleteFolder($app->icon, $extension);
