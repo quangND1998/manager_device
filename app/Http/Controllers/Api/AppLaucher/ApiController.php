@@ -23,6 +23,7 @@ use App\Repositories\DeviceRepository;
 use Faker\DefaultGenerator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Response;
+use Illuminate\Validation\Rule;
 
 class ApiController extends Controller
 {
@@ -44,14 +45,17 @@ class ApiController extends Controller
 
         ));
     }
-   
+
 
 
     public function saveName(Request $request, $id)
     {
-        $device = Devices::findOrFail($id);
+        $device = Devices::find($id);
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:devices,name,' . $device->id
+            'name' => [
+                'required',
+                Rule::unique('devices')->ignore($device->id),
+            ]
 
         ]);
         if ($validator->fails()) {
