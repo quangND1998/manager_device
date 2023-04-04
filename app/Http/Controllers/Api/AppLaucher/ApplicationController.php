@@ -32,6 +32,7 @@ class ApplicationController extends Controller
 
     public function applications(RequestApplication $request)
     {
+
         return ApplicationResource::collection($this->application->applicationsByDeivces($request->devices));
     }
 }
