@@ -117,6 +117,7 @@ class ApiController extends Controller
     {
 
         $devices = Devices::whereIn('id', $request->ids)->get();
+        return $devices;
         foreach ($devices as $device) {
             if ($device->hasApp($request->link_app)) {
                 broadcast(new LaunchAppEvent($device, $request->link_app));
