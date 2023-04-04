@@ -20,7 +20,7 @@ class ApplicationController extends Controller
 
     public function index(Request $request)
     {
-        dd($request);
+       
         $active = $request->input('default');
         if ($active) {
             $applications = Applicaion::with('device')->where(function ($query) use ($request) {
