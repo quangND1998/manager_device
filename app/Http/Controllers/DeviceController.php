@@ -33,7 +33,7 @@ class DeviceController extends Controller
         $this->middleware('permission:user-manager|Pro|Demo', ['only' => ['saveName','update', 'delete']]);
     }
     public function index(Request $request){
-    //    dd( env('API_MISSIONX_US'));
+   
         $user = Auth::user();
         $sortBy = $request->sortBy ? $request->sortBy:'id';
         $sort_Direction = $request->sortDirection ?  $request->sortDirection :'asc';
@@ -178,7 +178,7 @@ class DeviceController extends Controller
             'link_app' => 'required',
 
         ]);
-     
+
         $ids = $request->ids;
         if($ids ==null){
             return back()->with('warning' ,"You must choose in checkbox !!!.");
