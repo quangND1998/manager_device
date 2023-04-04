@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Api\AppLaucher;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RequestApplication;
-use App\Http\Resources\ApplicationResource;
 use Illuminate\Http\Request;
 use App\Repositories\ApplicationRepository;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Response;
+use App\Http\Resources\ApplicationResource;
+use App\Http\Requests\RequestApplication;
 
 class ApiApplicationController extends Controller
 {
