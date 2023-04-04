@@ -63,11 +63,11 @@ Route::group([
             Route::post('checkDevice', [ApiController::class, 'checkDevice'])->name('checkDevice');
             Route::post('checkActiveDevice', [ApiController::class, 'checkActiveDevice'])->name('checkActiveDevice');
             Route::get('{id}/disableDefaultApp', [ApiController::class, 'disableDefaultApp'])->name('disableDefaultApp');
-            Route::post('/lanchApp', [DeviceController::class, 'lanchApp'])->name('lanchApp');
+            Route::post('/lanchApp', [ApiController::class, 'lanchApp'])->name('lanchApp');
         });
-        Route::prefix('applications')->as('applications.')->group(function () {
-            Route::post('list', [apiAppController::class, 'applications'])->name('list');
-        });
+        // Route::prefix('applications')->as('applications.')->group(function () {
+        //     Route::post('list', [apiAppController::class, 'applications'])->name('list');
+        // });
 
 
         Route::prefix('groups')->as('group.')->group(function () {
