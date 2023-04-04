@@ -9,7 +9,7 @@ use App\Http\Controllers\WifiController;
 use App\Models\Devices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\HTTP\Controllers\ApplicationController;
+use App\Http\Controllers\ApplicationController;
 use App\HTTP\Controllers\Api\AppLaucher\apiAppController;
 use App\Http\Controllers\Api\AppLaucher\GroupController;
 

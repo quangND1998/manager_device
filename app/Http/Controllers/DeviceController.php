@@ -33,7 +33,7 @@ class DeviceController extends Controller
         $this->middleware('permission:user-manager|Pro|Demo', ['only' => ['saveName','update', 'delete']]);
     }
     public function index(Request $request){
-   
+    
         $user = Auth::user();
         $sortBy = $request->sortBy ? $request->sortBy:'id';
         $sort_Direction = $request->sortDirection ?  $request->sortDirection :'asc';
