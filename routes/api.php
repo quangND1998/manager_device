@@ -71,9 +71,20 @@ Route::group([
         });
 
 
-        Route::prefix('groups')->as('group.')->group(function () {
+        Route::prefix('group')->as('api-group.')->group(function () {
             Route::get('', [GroupController::class, 'getGroups']);
             Route::get('{id}', [GroupController::class, 'groupById']);
+
+            Route::post('', [GroupController::class, 'store'])->name('store');
+            Route::put('/update/{id}', [GroupController::class, 'update'])->name('update');
+
+            Route::post('/{id}/ownerDevice', [GroupController::class, 'ownerDevice'])->name('ownerDevice');
+            Route::post('/deleteOwnerDevice/{id}', [GroupController::class, 'deleteOwnerDevice'])->name('deleteOwnerDevice');
+            Route::get('/devices/{id}', [GroupController::class, 'getDeviceGourps'])->name('device');
+            Route::delete('/delete/{id}', [GroupController::class, 'delete'])->name('destroy');
+
+            Route::post('default-app/{id}', [GroupController::class, 'setAppDefaultGroup'])->name('default-app');
+            Route::post('runAppGoup/{id}', [GroupController::class, 'runAppGoup'])->name('runAppGoup');
         });
     });
 
