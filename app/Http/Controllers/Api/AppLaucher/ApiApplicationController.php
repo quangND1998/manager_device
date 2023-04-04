@@ -10,7 +10,7 @@ use App\Repositories\ApplicationRepository;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Response;
 
-class ApplicationController extends Controller
+class ApiApplicationController extends Controller
 {
     protected $application;
 
