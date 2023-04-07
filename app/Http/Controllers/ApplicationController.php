@@ -90,4 +90,6 @@ class ApplicationController extends Controller
         file_put_contents(public_path() . $destinationpath . $imageName, base64_decode($path));
         return $destinationpath . $imageName;
     }
+
+    
 }

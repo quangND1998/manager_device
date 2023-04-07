@@ -10,6 +10,7 @@ use App\Http\Requests\LauchAppRequest;
 use App\Http\Requests\RemoveOwnerDeviceRequest;
 use App\Http\Requests\RequestAppGroupAction;
 use App\Http\Requests\RequestApplication;
+use App\Http\Requests\UpdateGroupRequest;
 use App\Http\Resources\ApplicationResource;
 use App\Http\Resources\DevicesResource;
 use App\Models\Applicaion;
@@ -109,7 +110,7 @@ class GroupController extends Controller
     }
 
 
-    public function update(GroupRequest $request, $id)
+    public function update(UpdateGroupRequest $request, $id)
     {
 
         $group = Groups::find($id);
