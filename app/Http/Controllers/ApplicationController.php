@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
 
@@ -40,11 +39,10 @@ class ApplicationController extends Controller
 
     public function saveApplication(Request $request)
     {
-       
+
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'path' => 'required',
-            'icon' =>   'required|image|mimes:jpeg,png,jpg|max:2048',
+            'applications' => 'required',
+            'device_id' => 'required'
 
         ]);
 
