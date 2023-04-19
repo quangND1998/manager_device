@@ -29,8 +29,8 @@ class DeviceController extends Controller
     use LoginTrait, FileUploadTrait;
     function __construct()
     {
-        $this->middleware('permission:user-manager|Pro|Demo|Lite', ['only' => ['index', 'setDefaultApp', 'lanchApp', 'saveName']]);
-        $this->middleware('permission:user-manager|Pro|Demo', ['only' => ['delete']]);
+        $this->middleware('permission:user-manager|Pro|Demo|Lite', ['only' => ['index', 'setDefaultApp', 'lanchApp']]);
+        $this->middleware('permission:user-manager|Pro|Demo', ['only' => ['saveName', 'update', 'delete']]);
     }
     public function index(Request $request)
     {
@@ -52,8 +52,9 @@ class DeviceController extends Controller
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
             })->orderBy($sortBy, $sort_Direction)->paginate(10)->appends(['page' => $request->page, 'name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sortDirection]);
+            $applications = Applicaion::groupby('packageName')->where('default', true)->get();
 
-            $applications = Applicaion::groupby('packageName')->where('default', 1)->get();
+            // $applications = Applicaion::where('default', 1)->groupby('packageName')->get();
         } else {
 
             $devices = Devices::with('applications', 'default_app', 'user', 'last_login')->where('user_id', $user->id)->where(function ($query) use ($request) {

@@ -14,7 +14,7 @@
         <input
           id="email"
           type="email"
-            class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full text-label"
+          class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full text-label"
           v-model="form.email"
           required
           autofocus
@@ -28,7 +28,7 @@
           <input
             id="password"
             :type="passwordFieldType"
-             class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full text-label"
+            class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full text-label"
             v-model="form.password"
             required
             autocomplete="current-password"
@@ -54,7 +54,7 @@
         </div>
       </div>
 
-      <div class="flex items-center justify-end mt-4">
+      <div class="flex items-center justify-between mt-4">
         <!-- <Link
           :href="route('register')"
           class="underline  text-sm mr-3 text-gray-600 hover:text-gray-900 text-left link ml"
@@ -63,8 +63,11 @@
           v-if="canResetPassword"
           :href="route('password.request')"
           class="underline text-sm text-gray-600 hover:text-gray-900"
-        >Forgot your password?</Link> -->
-
+        >Forgot your password?</Link>-->
+        <div class=" px-3 py-2 bg-primary rounded-lg text-sm flex">
+          <i class="fa fa-download mt-3" aria-hidden="true"></i>
+          <a href="https://bit.ly/Holostartup_Kioskmode" target="_blank" class="ml-3">Download App</a>
+        </div>
         <breeze-button
           class="ml-4"
           :class="{ 'opacity-25': form.processing } "
@@ -72,12 +75,9 @@
         >Log in</breeze-button>
       </div>
       <div class="col-md-12" style="padding-left:65px">
-        <!-- <a class="btn" :href="'/auth/facebook'">
-          <i class="fab fa-facebook fa-2x" aria-hidden="true"></i>
-        </a>-->
         <!-- <a class="btn" :href="'auth/google'">
           <i class="fab fa-google-plus-square fa-2x" aria-hidden="true"></i>
-        </a> -->
+        </a>-->
       </div>
     </form>
   </div>
@@ -156,15 +156,15 @@ export default {
   right: 20px;
   transition: auto;
 }
-.login-section{
-    min-width: 600px !important;
+.login-section {
+  min-width: 600px !important;
 }
 .text-label {
-    font-size: 2rem;
-    line-height: 3rem;
+  font-size: 2rem;
+  line-height: 3rem;
 }
-.text-sm{
-        font-size: 1.5rem;
-    line-height: 2.5rem;
+.text-sm {
+  font-size: 1.5rem;
+  line-height: 2.5rem;
 }
 </style>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AppLaucher\ApiController;
 use App\Http\Controllers\Api\AppLaucher\AppController;
+use App\Http\Controllers\Api\AppLaucher\AppWindowController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PermisssionController;
 use App\Http\Controllers\DeviceController;
@@ -67,7 +68,7 @@ Route::group([
         });
         Route::prefix('applications')->as('app.')->group(function () {
 
-            Route::post('', [AppController::class, 'applications'])->name('index');
+            Route::post('/get', [AppController::class, 'applications'])->name('index');
         });
 
 
@@ -85,6 +86,13 @@ Route::group([
 
             Route::post('default-app/{id}', [GroupController::class, 'setAppDefaultGroup'])->name('default-app');
             Route::post('runAppGoup/{id}', [GroupController::class, 'runAppGoup'])->name('runAppGoup');
+        });
+
+        Route::prefix('window-app')->as('window-app.')->group(function () {
+            Route::get('', [AppWindowController::class, 'index']);
+            Route::post('', [AppWindowController::class, 'store']);
+            Route::post('/update/{app}', [AppWindowController::class, 'update']);
+            Route::delete('/delete/{app}', [AppWindowController::class, 'delete']);
         });
     });
 

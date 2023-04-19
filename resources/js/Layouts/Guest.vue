@@ -4,9 +4,11 @@
       <img src="assets/img/banner.jpg" class=" img_login " alt="">
       <div class="pc_content" id="pc_content">
         <div class="  text-banner rounded-lg form_login" id="text_banner_pc">
-          <p class="p-8 " id="text_banner" >The Kiosk-mode HoloStartup locks the headset with an app of your choice, and when your headset booted up, it automatically launch that app.
-             You can also activate other apps on your headset remotely right on your desktop.
+          <p class="p-8 " id="text_banner" >Automatically run a VR app when your headset booted up.
           <br>HoloStartup works on Pico, Vive Focus, and Meta Quest headsets</br></p>
+          <!-- <br> </br>
+          <br> </br> -->
+      
         </div>
         <div class="w-full  mt-6 px-6 py-4 shadow-md overflow-hidden sm:rounded-lg login-section_pc form_login">
           <slot />
@@ -34,7 +36,7 @@ export default {
 <style>
 .login-section_pc{
 
-  width: 40% ;
+  width: 80%;
     font-size: 22px;
   background: rgba(255, 255, 255, 0.71);
 }
@@ -66,9 +68,9 @@ export default {
     align-items: center;
 }
 .text-banner{
-  width: 45%;
+  width: 80%;
     text-align: center;
-    margin-bottom: 5%;
+    margin-bottom: 8%;
 }
 .text-banner p{
   font-size:18px;

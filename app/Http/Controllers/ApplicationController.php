@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
 
@@ -20,7 +21,7 @@ class ApplicationController extends Controller
 
     public function index(Request $request)
     {
-       
+
         $active = $request->input('default');
         if ($active) {
             $applications = Applicaion::with('device')->where(function ($query) use ($request) {
@@ -39,6 +40,17 @@ class ApplicationController extends Controller
 
     public function saveApplication(Request $request)
     {
+       
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'path' => 'required',
+            'icon' =>   'required|image|mimes:jpeg,png,jpg|max:2048',
+
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
         $applications = $request->applications;
         $device_id = $request->device_id;
 
@@ -90,6 +102,4 @@ class ApplicationController extends Controller
         file_put_contents(public_path() . $destinationpath . $imageName, base64_decode($path));
         return $destinationpath . $imageName;
     }
-
-    
 }
