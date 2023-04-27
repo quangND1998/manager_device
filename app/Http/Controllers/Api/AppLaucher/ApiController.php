@@ -89,11 +89,12 @@ class ApiController extends Controller
     public function setDefaultApp(setAppDefaultRequest $request)
     {
         $devices = Devices::whereIn('id', $request->ids)->get();
-        $application = Applicaion::where('packageName', $request->link_app)->first();
-        foreach ($devices as $device) {
+        $application_share = Applicaion::where('packageName', $request->link_app)->first();
 
+        foreach ($devices as $device) {
+            $application = Applicaion::where('packageName', $request->link_app)->where('device_id', $device->id)->first();
             if ($device->hasApp($request->link_app)) {
-                $device->app_default_id = $application->id;
+                $device->app_default_id = $application ? $application->id :  $application_share->id;
                 $device->save();
                 broadcast(new DefaultAppEvent($device, $request->link_app));
             }
@@ -117,7 +118,7 @@ class ApiController extends Controller
     {
 
         $devices = Devices::whereIn('id', $request->ids)->get();
-    
+
         foreach ($devices as $device) {
             if ($device->hasApp($request->link_app)) {
                 broadcast(new LaunchAppEvent($device, $request->link_app));

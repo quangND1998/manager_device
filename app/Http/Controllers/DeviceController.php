@@ -227,11 +227,12 @@ class DeviceController extends Controller
             return back()->with('warning', "You must choose in checkbox !!!.");
         }
         $devices = Devices::whereIn('id', $ids)->get();
-        $application = Applicaion::where('packageName', $request->link_app)->first();
+        $application_share = Applicaion::where('packageName', $request->link_app)->first();
         foreach ($devices as $device) {
 
+            $application = Applicaion::where('packageName', $request->link_app)->where('device_id', $device->id)->first();
             if ($device->hasApp($request->link_app)) {
-                $device->app_default_id = $application->id;
+                $device->app_default_id = $application ? $application->id :  $application_share->id;
                 $device->save();
                 broadcast(new DefaultAppEvent($device, $request->link_app));
             }
@@ -254,9 +255,10 @@ class DeviceController extends Controller
                 return response()->json('Errors', Response::HTTP_BAD_REQUEST);
             }
             $device = Devices::where('device_id', $device_id)->first();
-            $application = Applicaion::where('packageName', $request->link_app)->first();
+            $application_share = Applicaion::where('packageName', $request->link_app)->first();
             if ($device && $device->hasApp($request->link_app)) {
-                $device->app_default_id = $application->id;
+                $application = Applicaion::where('packageName', $request->link_app)->where('device_id', $device->id)->first();
+                $device->app_default_id = $application ? $application->id :  $application_share->id;
                 $device->save();
             }
             return response()->json('Successfully', Response::HTTP_OK);
