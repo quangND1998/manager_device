@@ -89,6 +89,8 @@ class ApiController extends Controller
     public function setDefaultApp(setAppDefaultRequest $request)
     {
         $devices = Devices::whereIn('id', $request->ids)->get();
+
+
         $application_share = Applicaion::where('packageName', $request->link_app)->first();
 
         foreach ($devices as $device) {
@@ -99,7 +101,7 @@ class ApiController extends Controller
                 broadcast(new DefaultAppEvent($device, $request->link_app));
             }
         }
-        return new DevicesResource($device->load('applications', 'default_app', 'user', 'last_login'));
+        return DevicesResource::collection($devices->load('applications', 'default_app', 'user', 'last_login'));
     }
 
     public function disableDefaultApp($id)
