@@ -15,9 +15,12 @@ class AppWindowResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'name' => $request->name,
-            'path' => $request->path,
-            'icon' => $request->icon,
+            'id' =>  $this->id,
+            'name' => $this->name,
+            'path' => $this->path,
+            'icon' =>  $request->getSchemeAndHttpHost().$this->icon,
+            'version' => $this->version,
+        
 
         ];
     }

@@ -60,6 +60,17 @@
                 ></textarea>
                 <div class="text-red-500" v-if="errors.path">{{ errors.path }}</div>
               </div>
+              <div class="form-group" :class="errors.version ? 'is-valid' : ''">
+                <label for="recipient-name" class="col-form-label">version:</label>
+                <input
+                  type="text"
+                  class="form-control text-xl"
+                  :class="errors.version ? 'is-valid' : ''"
+                  v-model="form.version"
+                  id="recipient-name"
+                />
+                <div class="text-red-500" v-if="errors.version">{{ errors.version }}</div>
+              </div>
               <div class="form-group" :class="errors.path ? 'is-valid' : ''">
                 <label for="recipient-name" class="col-form-label">
                   Upload
@@ -117,7 +128,7 @@
             <th scope="col" class="py-3 px-6 text-xl uppercase">name</th>
             <th scope="col" class="py-3 px-6 text-xl uppercase">Path</th>
             <th scope="col" class="py-3 px-6 text-xl uppercase">Icon</th>
-
+            <th scope="col" class="py-3 px-6 text-xl uppercase">Version</th>
             <th scope="col" class="py-3 px-6 text-xl uppercase">
               <span class="sr-only">Edit</span>
             </th>
@@ -153,7 +164,10 @@
             >
               <img :src="app.icon" width="50px" />
             </th>
-
+            <th
+              apk="row"
+              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >{{ app.version }}</th>
             <td class="py-4 px-6 text-right">
               <button
                 @click="edit(app)"
@@ -205,6 +219,7 @@ export default {
         id: null,
         name: null,
         path: null,
+        version:null,
         icon: null
       })
     };
@@ -248,6 +263,7 @@ export default {
       this.editMode = true;
       this.form.id = data.id;
       this.form.name = data.name;
+      this.form.version = data.version;
       this.form.path = data.path;
     },
     reset() {
@@ -255,7 +271,8 @@ export default {
         id: null,
         name: null,
         path: null,
-        icon: null
+        icon: null,
+        version:null,
       });
     },
     Delete(id) {

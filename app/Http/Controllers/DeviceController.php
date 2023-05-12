@@ -23,6 +23,7 @@ use App\Http\Controllers\Traits\FileUploadTrait;
 use App\Http\Resources\ApkResource;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\File;
 
 class DeviceController extends Controller
 {
@@ -185,6 +186,7 @@ class DeviceController extends Controller
 
         foreach ($devices as $device) {
             if ($device->hasApp($request->link_app)) {
+                File::append(public_path('/logs/history.txt'), $device);
                 broadcast(new LaunchAppEvent($device, $request->link_app));
             }
         }

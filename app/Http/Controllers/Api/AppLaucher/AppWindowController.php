@@ -17,6 +17,7 @@ class AppWindowController extends Controller
     public function index()
     {
         $window_apps = AppWindow::where('user_id', Auth::user()->id)->get();
+    
         return AppWindowResource::collection($window_apps);
     }
 
@@ -28,6 +29,7 @@ class AppWindowController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'path' => 'required',
+            'version' => 'required',
             'icon' =>   'required|image|mimes:jpeg,png,jpg|max:2048',
 
         ]);
@@ -38,7 +40,7 @@ class AppWindowController extends Controller
 
 
 
-        $middlepath = 'window/';
+        $middlepath = '/window/';
         $path = public_path($middlepath);
         if (!Storage::exists($path)) {
 
@@ -48,6 +50,7 @@ class AppWindowController extends Controller
         $app = AppWindow::create([
             'name' => $request->name,
             'path' => $request->path,
+            'version' => $request->version,
             'icon' => $this->image($request->file('icon'), $middlepath),
             'user_id' => Auth::user()->id
         ]);
@@ -61,6 +64,7 @@ class AppWindowController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'path' => 'required',
+            'version' => 'required',
             'icon' =>   'nullable|image|mimes:jpeg,png,jpg|max:2048',
 
         ]);
@@ -69,7 +73,7 @@ class AppWindowController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $middlepath = 'window/';
+        $middlepath = '/window/';
         $path = public_path($middlepath);
         if (!Storage::exists($path)) {
 
@@ -79,6 +83,7 @@ class AppWindowController extends Controller
         $app->update([
             'name' => $request->name,
             'path' => $request->path,
+            'version' => $request->version,
             'icon' => $request->file('icon') ? $this->update_image($request->file('icon'), time(), $middlepath, $app->icon) : $app->icon,
         ]);
         return new AppWindowResource($app);

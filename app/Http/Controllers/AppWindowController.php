@@ -21,16 +21,18 @@ class AppWindowController extends Controller
 
     public function store(Request $request)
     {
-
+     
         $this->validate($request, [
             'name' => 'required',
             'path' => 'required',
+            'version'=> 'required',
             'icon' =>   'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
+        
 
-
-        $middlepath = 'window/';
+        $middlepath = '/window/';
         $path = public_path($middlepath);
+      
         if (!Storage::exists($path)) {
 
             Storage::makeDirectory($path, 0777, true, true);
@@ -39,6 +41,7 @@ class AppWindowController extends Controller
         AppWindow::create([
             'name' => $request->name,
             'path' => $request->path,
+            'version' => $request->version,
             'icon' => $this->image($request->file('icon'), $middlepath),
             'user_id' => Auth::user()->id
         ]);
@@ -51,11 +54,12 @@ class AppWindowController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'path' => 'required',
+            'version' => 'required',
             'icon' =>   'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
 
-        $middlepath = 'window/';
+        $middlepath = '/window/';
         $path = public_path($middlepath);
         if (!Storage::exists($path)) {
 
@@ -65,6 +69,7 @@ class AppWindowController extends Controller
         $app->update([
             'name' => $request->name,
             'path' => $request->path,
+            'version' => $request->version,
             'icon' => $request->file('icon') ? $this->update_image($request->file('icon'), time(), $middlepath, $app->icon) : $app->icon,
         ]);
         return back()->with('success', 'update successfully');

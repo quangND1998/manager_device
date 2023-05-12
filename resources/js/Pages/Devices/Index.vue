@@ -349,7 +349,7 @@
                   ></i>
                 </div>
                 <img
-                  class="w-15 h-15 rounded-full"
+                  class=" rounded-full" width="50px"
                   :src="device.default_app.icon"
                   alt="Rounded avatar"
                 />
