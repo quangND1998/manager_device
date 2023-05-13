@@ -27,6 +27,15 @@
         </li>
 
     </li>
+      <li tag="li" class="pageli"  >
+      <li :class="[$page.component === 'Window/Index' ? 'active' : '']" v-if="hasAnyPermission(['user-manager'])">
+          <Link :href="route('window-app.index')">
+              <i class="fa fa-windows" aria-hidden="true"></i> WinodwApp
+          </Link>
+        </li>
+
+    </li>
+
     <li tag="li" class="pageli" >
       <li :class="[$page.component === 'Wifi/Index' ? 'active' : '']"  v-if="hasAnyPermission(['user-manager'])">
           <Link :href="route('wifi.index')">

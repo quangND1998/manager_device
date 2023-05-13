@@ -41,12 +41,13 @@ trait FileUploadTrait
 
   
     //update image ground
-    public function image($file, $destinationpath)
+    public function image($file, $middlepath)
     {
+        $destinationpath = public_path() . "/" . $middlepath;
         $user_id = Auth::user()->id;
         $name = time() . $user_id . "_" . Str::slug($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
-        $file->move(public_path().$destinationpath, $name);
-        $path = $destinationpath . $name;
+        $file->move($destinationpath, $name);
+        $path = $middlepath . $name;
 
 
         return $path;
