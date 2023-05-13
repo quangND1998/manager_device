@@ -1,30 +1,4 @@
-import './bootstrap';
-// import jQuery from 'jQuery'
-import Vue from 'vue'
-import { createInertiaApp } from '@inertiajs/inertia-vue'
-// import { InertiaProgress } from '@inertiajs/progress'
-import VueCompositionAPI from '@vue/composition-api'
-import moment from 'moment';
-// InertiaProgress.init({})
-Vue.use(VueCompositionAPI)
-createInertiaApp({
-    resolve: name =>
-        import (`./Pages/${name}`),
-    setup({ el, App, props, plugin }) {
-        Vue.use(plugin)
-
-        new Vue({
-            render: h => h(App, props),
-        }).$mount(el)
-    },
-})
-Vue.mixin({
-    methods: {
-        route: window.route,
-    }
-})
-
-Vue.mixin({
+module.exports = {
     methods: {
         hasAnyPermission: function(permissions) {
 
@@ -75,27 +49,5 @@ Vue.mixin({
 
             return `${(bytes / 1024 ** i).toFixed(1)} ${sizes[i]}`;
         },
-
     },
-})
-
-// router.on('navigate', (event) => {
-//     console.log(`Navigated to ${event.detail.page.url}`)
-// })
-Vue.mixin(
-    require('./base'))
-Vue.mixin({
-    methods: {
-        route: window.route,
-    }
-})
-window.Bus = new Vue();
-// InertiaProgress.init({
-//     delay: 150,
-//     color: '#1E377F',
-//     includeCSS: true,
-//     showSpinner: true,
-// });
-Vue.config.devtools = true;
-Vue.config.productionTip = true
-    // window.jQuery = jQuery
+}
