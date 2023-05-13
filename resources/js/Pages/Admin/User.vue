@@ -359,6 +359,7 @@ export default {
         phone: null,
         email: null,
         roles: null,
+        password:null,
         time_limit:null,
         number_device:null
       })
@@ -446,6 +447,7 @@ export default {
       this.form.email = data.email;
       this.form.time_limit = data.time_limit;
       this.form.number_device = data.number_device;
+     this.form.password = data.password;
             //trả về một biến array chưa id của permission
       // this.form = Object.assign({}, data);
       this.form.roles = this.multipleSelect(data.roles);

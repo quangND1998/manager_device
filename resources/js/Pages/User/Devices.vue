@@ -98,7 +98,7 @@
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white ">
                         <div class=" relative w-fit block m-auto" v-if="device.default_app">
 
-                            <img class="w-15 h-15 rounded-full " :src="device.default_app.icon" alt="Rounded avatar">
+                            <img class=" rounded-full "  width="50px" :src="device.default_app.icon" alt="Rounded avatar">
                         </div>
                         <div class="text-center pt-2" v-if="device.default_app"><strong class="justify-center ">{{
                             device.default_app.appName
