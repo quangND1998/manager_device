@@ -93,6 +93,7 @@ Route::group([
 
         Route::prefix('window-app')->as('window-app.')->group(function () {
             Route::get('', [AppWindowController::class, 'index']);
+            Route::get('{id}/show', [AppWindowController::class, 'show']);
             Route::post('', [AppWindowController::class, 'store']);
             Route::post('/update/{app}', [AppWindowController::class, 'update']);
             Route::delete('/delete/{app}', [AppWindowController::class, 'delete']);

@@ -21,6 +21,19 @@ class AppWindowController extends Controller
         return AppWindowResource::collection($window_apps);
     }
 
+    public function show($id)
+    {
+        $window_apps = AppWindow::find($id);
+        if($window_apps){
+            return  new AppWindowResource($window_apps);
+        }
+        else{
+            return response()->json('Not found', 404);
+        }
+    
+       
+    }
+
 
     public function store(Request $request)
     {
