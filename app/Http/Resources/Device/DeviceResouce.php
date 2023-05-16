@@ -14,14 +14,22 @@ class DeviceResouce extends JsonResource
      */
     public function toArray($request)
     {
-        return
+        $application = $this->application($request, $this);
+        return  
         [
             'id' => $this->id,
             'device_id' => $this->device_id,
             'name' => $this->name,
             'brand' => $this->brand,
             'battery' => $this->battery,
+            'application_version' =>  $application ? $application->version : null,
             'is_install' =>  $this->hasApp($request->packageName) ? true:false,
         ];
     }
+
+    public function application($request, $device){
+        return $device->applications()->where('packageName',$request->packageName)->first();
+    }
+
+
 }
