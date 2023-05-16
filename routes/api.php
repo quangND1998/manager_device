@@ -54,7 +54,8 @@ Route::group([
 
         Route::prefix('devices')->as('devices.')->group(function () {
             Route::get('', [ApiController::class, 'devices'])->name('devices');
-
+            Route::get('/{id}/show', [ApiController::class, 'showDevice'])->name('show');
+            
             Route::put('{id}/edit-name', [ApiController::class, 'saveName'])->name('saveName');
 
             Route::delete('{id}/delete', [ApiController::class, 'delete'])->name('delete');

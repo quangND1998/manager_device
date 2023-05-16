@@ -161,4 +161,13 @@ class ApiController extends Controller
         }
         return response()->json('Run command sucessfully', 200);
     }
+
+    public function showDevice($id)
+    {
+        $device = Devices::with('applications')->find($id);
+        if (!$device) {
+            return response()->json('Not found Device', 404);
+        }
+        return new DevicesResource($device->load('applications', 'default_app', 'user', 'last_login'));
+    }
 }
