@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Repositories\ApplicationRepository;
 use App\Http\Requests\RequestApplication;
 use App\Http\Resources\ApplicationResource;
+use App\Http\Resources\Device\DeviceResouce;
 
 class AppController extends Controller
 {
@@ -33,4 +34,19 @@ class AppController extends Controller
 
         return ApplicationResource::collection($this->application->applicationsByDeivces($request->devices));
     }
+
+
+    public function devices(Request $request){
+        if($request->packageName){
+            return DeviceResouce::collection($this->application->devices());
+        }
+        else{
+            return response()->json('Not found :packageName', 404);
+        }
+       
+    }
+
+
+
+
 }
