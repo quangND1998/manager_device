@@ -35,6 +35,8 @@ Route::group([
     Route::middleware('jwt.refresh')->get('/token/refresh', [AuthController::class, 'refresh']);
 
     Route::group(['middleware' => 'jwt.verify'], function () {
+
+        Route::get('dashboard', [ApiController::class, 'dashboard']);
         Route::post('logout', [AuthController::class, 'logout']);
         Route::get('getDevice/{id}', [DeviceController::class, 'getDevice']);
         Route::post('device', [DeviceController::class, 'store']);

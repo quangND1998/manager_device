@@ -170,4 +170,15 @@ class ApiController extends Controller
         }
         return new DevicesResource($device->load('applications', 'default_app', 'user', 'last_login'));
     }
+
+    public function dashboard(){
+        $user= User::with('devices')->withCount('app_windows')->withCount('devices')->withCount('groups')->find(Auth::user()->id);
+        $response  = [
+            "app_windows_count" => $user->app_windows_count,
+            "devices_count"=> $user->devices_count,
+            "groups_count"=> $user->groups_count,
+
+        ];
+        return response()->json($response, Response::HTTP_OK);
+    }
 }
