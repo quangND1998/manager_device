@@ -21,6 +21,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\Traits\LoginTrait;
 use App\Http\Controllers\Traits\FileUploadTrait;
 use App\Http\Resources\ApkResource;
+use App\Http\Resources\ApplicationResource;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
@@ -28,10 +29,12 @@ use Illuminate\Support\Facades\File;
 class DeviceController extends Controller
 {
     use LoginTrait, FileUploadTrait;
+
     function __construct()
     {
         $this->middleware('permission:user-manager|Pro|Demo|Lite', ['only' => ['index', 'setDefaultApp', 'lanchApp']]);
         $this->middleware('permission:user-manager|Pro|Demo', ['only' => ['saveName', 'update', 'delete']]);
+     
     }
     public function index(Request $request)
     {
@@ -76,6 +79,8 @@ class DeviceController extends Controller
         // return $firstItem;
         return Inertia::render('Devices/Index', compact('devices', 'applications', 'wifis', 'apk_files', 'sortBy', 'count', 'firstItem', 'lastItem', 'sort_Direction'));
     }
+
+
 
     public function saveName(Request $request,  $id)
     {

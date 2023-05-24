@@ -107,11 +107,13 @@ Route::middleware(['auth'])->group(
 
             Route::post('checkDevice', [DeviceController::class, 'checkDevice'])->name('checkDevice');
             Route::post('checkActiveDevice', [DeviceController::class, 'checkActiveDevice'])->name('checkActiveDevice');
+            
         });
 
         Route::prefix('applications')->as('application.')->group(function () {
             Route::get('', [ApplicationController::class, 'index'])->name('index');
             Route::post('changeDefault', [ApplicationController::class, 'changeDefault'])->name('default');
+            Route::post('get', [ApplicationController::class, 'applications']);
         });
 
         Route::prefix('wifis')->as('wifi.')->group(function () {

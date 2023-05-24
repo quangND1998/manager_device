@@ -21,6 +21,19 @@ class AppWindowController extends Controller
         return AppWindowResource::collection($window_apps);
     }
 
+    public function show($id)
+    {
+        $window_apps = AppWindow::find($id);
+        if($window_apps){
+            return  new AppWindowResource($window_apps);
+        }
+        else{
+            return response()->json('Not found', 404);
+        }
+    
+       
+    }
+
 
     public function store(Request $request)
     {
@@ -30,6 +43,7 @@ class AppWindowController extends Controller
             'name' => 'required',
             'path' => 'required',
             'version' => 'required',
+            'packageName'=> 'required',
             'icon' =>   'required|image|mimes:jpeg,png,jpg|max:2048',
 
         ]);
@@ -51,6 +65,7 @@ class AppWindowController extends Controller
             'name' => $request->name,
             'path' => $request->path,
             'version' => $request->version,
+            'packageName'=> $request->packageName,
             'icon' => $this->image($request->file('icon'), $middlepath),
             'user_id' => Auth::user()->id
         ]);
@@ -65,6 +80,7 @@ class AppWindowController extends Controller
             'name' => 'required',
             'path' => 'required',
             'version' => 'required',
+            'packageName'=> 'required',
             'icon' =>   'nullable|image|mimes:jpeg,png,jpg|max:2048',
 
         ]);
@@ -84,6 +100,7 @@ class AppWindowController extends Controller
             'name' => $request->name,
             'path' => $request->path,
             'version' => $request->version,
+            'packageName'=> $request->packageName,
             'icon' => $request->file('icon') ? $this->update_image($request->file('icon'), time(), $middlepath, $app->icon) : $app->icon,
         ]);
         return new AppWindowResource($app);

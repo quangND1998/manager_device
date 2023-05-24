@@ -35,6 +35,8 @@ Route::group([
     Route::middleware('jwt.refresh')->get('/token/refresh', [AuthController::class, 'refresh']);
 
     Route::group(['middleware' => 'jwt.verify'], function () {
+
+        Route::get('dashboard', [ApiController::class, 'dashboard']);
         Route::post('logout', [AuthController::class, 'logout']);
         Route::get('getDevice/{id}', [DeviceController::class, 'getDevice']);
         Route::post('device', [DeviceController::class, 'store']);
@@ -54,7 +56,8 @@ Route::group([
 
         Route::prefix('devices')->as('devices.')->group(function () {
             Route::get('', [ApiController::class, 'devices'])->name('devices');
-
+            Route::get('/{id}/show', [ApiController::class, 'showDevice'])->name('show');
+            
             Route::put('{id}/edit-name', [ApiController::class, 'saveName'])->name('saveName');
 
             Route::delete('{id}/delete', [ApiController::class, 'delete'])->name('delete');
@@ -71,7 +74,10 @@ Route::group([
             Route::post('/get', [AppController::class, 'applications'])->name('index');
         });
 
+        Route::prefix('application')->as('app.')->group(function () {
 
+            Route::post('/devices', [AppController::class, 'devices'])->name('devices');
+        });
         Route::prefix('group')->as('api-group.')->group(function () {
             Route::get('', [GroupController::class, 'getGroups']);
             Route::get('{id}', [GroupController::class, 'groupById']);
@@ -90,6 +96,7 @@ Route::group([
 
         Route::prefix('window-app')->as('window-app.')->group(function () {
             Route::get('', [AppWindowController::class, 'index']);
+            Route::get('{id}/show', [AppWindowController::class, 'show']);
             Route::post('', [AppWindowController::class, 'store']);
             Route::post('/update/{app}', [AppWindowController::class, 'update']);
             Route::delete('/delete/{app}', [AppWindowController::class, 'delete']);

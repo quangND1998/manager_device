@@ -60,6 +60,18 @@
                 ></textarea>
                 <div class="text-red-500" v-if="errors.path">{{ errors.path }}</div>
               </div>
+              <div class="form-group" :class="errors.packageName ? 'is-valid' : ''">
+                <label for="recipient-name" class="col-form-label">Package Name:</label>
+                <input
+                  type="text"
+                  class="form-control text-xl"
+                  :class="errors.packageName ? 'is-valid' : ''"
+                  v-model="form.packageName"
+                  id="recipient-name"
+                  placeholder="com.holomia.holomia"
+                />
+                <div class="text-red-500" v-if="errors.packageName">{{ errors.packageName }}</div>
+              </div>
               <div class="form-group" :class="errors.version ? 'is-valid' : ''">
                 <label for="recipient-name" class="col-form-label">version:</label>
                 <input
@@ -128,6 +140,7 @@
             <th scope="col" class="py-3 px-6 text-xl uppercase">name</th>
             <th scope="col" class="py-3 px-6 text-xl uppercase">Path</th>
             <th scope="col" class="py-3 px-6 text-xl uppercase">Icon</th>
+            <th scope="col" class="py-3 px-6 text-xl uppercase">PackageName</th>
             <th scope="col" class="py-3 px-6 text-xl uppercase">Version</th>
             <th scope="col" class="py-3 px-6 text-xl uppercase">
               <span class="sr-only">Edit</span>
@@ -164,6 +177,10 @@
             >
               <img :src="app.icon" width="50px" />
             </th>
+            <th
+              apk="row"
+              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >{{ app.packageName }}</th>
             <th
               apk="row"
               class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -220,7 +237,8 @@ export default {
         name: null,
         path: null,
         version:null,
-        icon: null
+        icon: null,
+        packageName:null
       })
     };
   },
@@ -263,6 +281,7 @@ export default {
       this.editMode = true;
       this.form.id = data.id;
       this.form.name = data.name;
+      this.form.packageName = data.packageName;
       this.form.version = data.version;
       this.form.path = data.path;
     },
@@ -273,6 +292,7 @@ export default {
         path: null,
         icon: null,
         version:null,
+        packageName:null
       });
     },
     Delete(id) {

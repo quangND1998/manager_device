@@ -468,7 +468,9 @@ export default {
           return found.applications;
         }
 
-        return this.applications;
+        return this.applications.filter(app => {
+            return this.selected.includes(app.device_id)
+        });
       }
       return [];
     },

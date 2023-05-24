@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Applicaion;
+use App\Models\Devices;
 use Illuminate\Support\Facades\Auth;
 
 class ApplicationRepository extends BaseRepository
@@ -34,5 +35,11 @@ class ApplicationRepository extends BaseRepository
         return  Applicaion::groupby('packageName')->get();
     }
 
+
+    public function devices(){
+        $user = Auth::user();
+        $devices= Devices::with('applications')->where('user_id', $user->id)->get();
+        return $devices;
+    }
 
 }
