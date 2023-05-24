@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RequestApplication;
 use App\Models\Applicaion;
 use App\Models\Devices;
 use Illuminate\Http\Request;
@@ -11,13 +12,17 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
-
+use App\Repositories\ApplicationRepository;
 class ApplicationController extends Controller
 {
-    function __construct()
+    protected $application;
+    function __construct(ApplicationRepository $ApplicationRepository)
     {
         $this->middleware('permission:user-manager', ['only' => ['changeDefault']]);
+        $this->application = $ApplicationRepository;
     }
+
+ 
 
     public function index(Request $request)
     {
@@ -37,7 +42,9 @@ class ApplicationController extends Controller
         return Inertia::render('Application/Index', compact('applications', 'active'));
     }
 
-
+    public function applications(RequestApplication $request){
+        return $this->application->applicationsByDeivces($request->devices);
+    }
     public function saveApplication(Request $request)
     {
 
