@@ -425,6 +425,7 @@ import WifiModel from "@/Pages/Devices/Modal/WifiModel";
 import RunApkModal from "@/Pages/Devices/Modal/RunApkModal";
 import InstallApk from "@/Pages/Devices/Modal/InstallApk";
 import UninstallApk from "@/Pages/Devices/Modal/UninstallApk";
+import _ from 'lodash';
 export default {
   layout: Layout,
   components: {
@@ -467,9 +468,12 @@ export default {
           );
           return found.applications;
         }
-        return this.applications.filter(app => {
+        
+        let array= this.applications.filter(app => {
             return this.selected.includes(app.device_id)
         });
+        return _.uniqBy(array, 'packageName')
+    
       }
       return [];
     },
@@ -499,7 +503,6 @@ export default {
   },
   mounted() {
     this.listenActiveDevice();
-   
   },
 
   props: {
@@ -516,7 +519,6 @@ export default {
   },
 
   methods: {
-    
     search() {
       this.$inertia.get(
         this.route("device.index"),
