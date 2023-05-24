@@ -467,7 +467,6 @@ export default {
           );
           return found.applications;
         }
-
         return this.applications.filter(app => {
             return this.selected.includes(app.device_id)
         });
@@ -500,6 +499,7 @@ export default {
   },
   mounted() {
     this.listenActiveDevice();
+   
   },
 
   props: {
@@ -516,6 +516,7 @@ export default {
   },
 
   methods: {
+    
     search() {
       this.$inertia.get(
         this.route("device.index"),
