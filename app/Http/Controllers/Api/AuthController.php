@@ -23,7 +23,7 @@ class AuthController extends Controller
 
         ]);
         if ($validator->fails()) {
-            return response()->json($validator->errors(), Response::HTTP_BAD_REQUEST);
+            return response()->json($validator->errors(), 422);
         }
         $credentials = $request->only('email', 'password');
         if (!($token = JWTAuth::attempt($credentials))) {
