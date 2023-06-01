@@ -44,6 +44,14 @@ class AuthController extends Controller
         return response()->json($response, Response::HTTP_OK);
     }
 
+    public function user(Request $request){
+        $token= request()->bearerToken();
+    
+        $user = JWTAuth::toUser($token);
+
+        return new UserApiResource($user);
+    }
+
     public function refresh()
     {
         return response(JWTAuth::getToken(), Response::HTTP_OK);
