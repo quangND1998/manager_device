@@ -24,8 +24,8 @@ class ApplicationResource extends JsonResource
             'version' => $this->version,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'default' => $this->default
-
+            'default' => $this->default,
+            'device_id' => $this->device_id
         ];
     }
 }
