@@ -142,6 +142,7 @@
             <th scope="col" class="py-3 px-6 text-xl uppercase">Icon</th>
             <th scope="col" class="py-3 px-6 text-xl uppercase">PackageName</th>
             <th scope="col" class="py-3 px-6 text-xl uppercase">Version</th>
+            <th scope="col" class="py-3 px-6 text-xl uppercase"  v-if="hasAnyPermission(['user-manager'])">User</th>
             <th scope="col" class="py-3 px-6 text-xl uppercase">
               <span class="sr-only">Edit</span>
             </th>
@@ -185,6 +186,16 @@
               apk="row"
               class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
             >{{ app.version }}</th>
+            <th
+              scope="row"
+              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              v-if="hasAnyPermission(['user-manager'])"
+            >
+              <Link v-if="app.user" :href="route('user.detail.devices', app.user.id)">
+                {{ app.user ?
+                app.user.name : null }}
+              </Link>
+            </th>
             <td class="py-4 px-6 text-right">
               <button
                 @click="edit(app)"
