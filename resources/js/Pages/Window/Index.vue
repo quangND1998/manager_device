@@ -149,7 +149,7 @@
         </thead>
         <tbody>
           <tr
-            v-for="(app, index) in window_apps"
+            v-for="(app, index) in window_apps.data"
             :key="index"
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
           >
@@ -206,6 +206,7 @@
         </tbody>
       </table>
     </div>
+    <pagination :links="window_apps.links" />
   </section>
 </template>
 
@@ -224,7 +225,7 @@ export default {
     Alert
   },
   props: {
-    window_apps: Array,
+    window_apps: Object,
     errors: Object
   },
   data() {
