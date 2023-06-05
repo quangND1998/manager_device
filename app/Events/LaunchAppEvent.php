@@ -33,12 +33,13 @@ class LaunchAppEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
+        File::append(public_path('/logs/history.txt'), $this->device->device_id.",");
         return new Channel('lauch-app.'.$this->device->device_id);
     }
 
     public function broadcastWith()
     {
-        File::append(public_path('/logs/history.txt'), $this->device->device_id.",");
+
         return
             [
                 'device_id' => $this->device->device_id,
