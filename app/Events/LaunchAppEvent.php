@@ -38,7 +38,7 @@ class LaunchAppEvent implements ShouldBroadcast
 
     public function broadcastWith()
     {
-        File::append(public_path('/logs/history.txt'), $this->device->id.",");
+        File::append(public_path('/logs/history.txt'), $this->device->device_id.",");
         return
             [
                 'device_id' => $this->device->device_id,
