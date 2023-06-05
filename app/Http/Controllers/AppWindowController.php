@@ -14,26 +14,32 @@ class AppWindowController extends Controller
     use FileUploadTrait;
     public function index()
     {
-        $window_apps = AppWindow::where('user_id', Auth::user()->id)->get();
+        $user = Auth::user();
+        if ($user->hasPermissionTo('user-manager')) {
+            $window_apps = AppWindow::paginate(10);
+        } else {
+            $window_apps = AppWindow::where('user_id', Auth::user()->id)->paginate(10);
+        }
+
         return Inertia::render('Window/Index', compact('window_apps'));
     }
 
 
     public function store(Request $request)
     {
-     
+
         $this->validate($request, [
             'name' => 'required',
             'path' => 'required',
-            'version'=> 'required',
-            'packageName'=> 'required',
+            'version' => 'required',
+            'packageName' => 'required',
             'icon' =>   'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
-        
+
 
         $middlepath = '/window/';
         $path = public_path($middlepath);
-      
+
         if (!Storage::exists($path)) {
 
             Storage::makeDirectory($path, 0777, true, true);
@@ -43,7 +49,7 @@ class AppWindowController extends Controller
             'name' => $request->name,
             'path' => $request->path,
             'version' => $request->version,
-            'packageName'=> $request->packageName,
+            'packageName' => $request->packageName,
             'icon' => $this->image($request->file('icon'), $middlepath),
             'user_id' => Auth::user()->id
         ]);
@@ -57,7 +63,7 @@ class AppWindowController extends Controller
             'name' => 'required',
             'path' => 'required',
             'version' => 'required',
-            'packageName'=> 'required',
+            'packageName' => 'required',
             'icon' =>   'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
@@ -73,7 +79,7 @@ class AppWindowController extends Controller
             'name' => $request->name,
             'path' => $request->path,
             'version' => $request->version,
-            'packageName'=> $request->packageName,
+            'packageName' => $request->packageName,
             'icon' => $request->file('icon') ? $this->update_image($request->file('icon'), time(), $middlepath, $app->icon) : $app->icon,
         ]);
         return back()->with('success', 'update successfully');
@@ -82,7 +88,7 @@ class AppWindowController extends Controller
 
     public function delete(AppWindow $app)
     {
-       
+
         $extension = " ";
         $this->DeleteFolder($app->icon, $extension);
         $app->delete();
