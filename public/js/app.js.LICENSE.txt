@@ -1,14 +1,3 @@
-/* NProgress, (c) 2013, 2014 Rico Sta. Cruz - http://ricostacruz.com/nprogress
- * @license MIT */
-
-/*!
- * Pusher JavaScript Library v7.5.0
- * https://pusher.com/
- *
- * Copyright 2020, Pusher
- * Released under the MIT licence.
- */
-
 /*!
  * The buffer module from node.js, for the browser.
  *
