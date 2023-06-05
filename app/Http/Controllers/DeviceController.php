@@ -32,7 +32,7 @@ class DeviceController extends Controller
 
     function __construct()
     {
-        $this->middleware('permission:user-manager|Pro|Demo|Lite', ['only' => ['index', 'setDefaultApp', 'lanchApp']]);
+        $this->middleware('permission:user-manager|Pro|Demo|Lite', ['only' => ['index', 'setDefaultApp', 'launchApp']]);
         $this->middleware('permission:user-manager|Pro|Demo', ['only' => ['saveName', 'update', 'delete']]);
      
     }
@@ -175,7 +175,7 @@ class DeviceController extends Controller
 
         return response()->json('Create successfully', Response::HTTP_OK);
     }
-    public function lanchApp(Request $request)
+    public function launchApp(Request $request)
     {
 
         $this->validate($request, [

@@ -116,7 +116,7 @@ class ApiController extends Controller
 
 
 
-    public function lanchApp(setAppDefaultRequest $request)
+    public function launchApp(setAppDefaultRequest $request)
     {
 
         $devices = Devices::whereIn('id', $request->ids)->get();

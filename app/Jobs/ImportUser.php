@@ -52,23 +52,23 @@ class ImportUser implements ShouldQueue
             $user->save();  
         }
 
-        // if($this->user['role']['name_role'] =='Pro' || $this->user['role']['name_role'] =='Pro2' || $this->user['role']['name_role'] =='Manager' ||  $this->user['role']['name_role'] =='Sub Admin' ){
-        //     $user->assignRole('Pro');
+        if($this->user['role']['name_role'] =='Pro' || $this->user['role']['name_role'] =='Pro2' || $this->user['role']['name_role'] =='Manager' ||  $this->user['role']['name_role'] =='Sub Admin' ){
+            $role= Role::where('name', 'Pro')->first();
+            $user->roles()->sync($role);
+        }
+        else if($this->user['role']['name_role'] =='Admin'){
+            $role= Role::where('name', 'administrator')->first();
+            $user->roles()->sync($role);
+        }
+        else if($this->user['role']['name_role'] =='Demo'){
+            $user->assignRole('Demo');
 
-        // }
-        // else if($this->user['role']['name_role'] =='Admin'){
-        //     $user->assignRole('administrator');
-
-        // }
-        // else if($this->user['role']['name_role'] =='Demo'){
-        //     $user->assignRole('Demo');
-
-        // } else{
+        } else{
             if(count($user->roles) ==0){
                 $role= Role::where('name', 'Lite')->first();
                 $user->roles()->sync($role);
             }
         
-        // }
+        }
     }
 }
