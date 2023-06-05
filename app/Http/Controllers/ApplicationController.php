@@ -60,7 +60,7 @@ class ApplicationController extends Controller
         $applications = $request->applications;
         $device_id = $request->device_id;
 
-        $device_id = Devices::where('device_id', $request->device_id)->first();
+        $device_id = Devices::with('applications')->where('device_id', $request->device_id)->first();
         foreach ($applications as $app) {
             $check_app = Applicaion::where('device_id', $device_id['id'])->where('packageName',  $app['packageName'])->first();
             if ($check_app) {

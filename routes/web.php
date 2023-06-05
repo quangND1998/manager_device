@@ -100,7 +100,7 @@ Route::middleware(['auth'])->group(
             Route::get('', [DeviceController::class, 'index'])->name('index');
             Route::put('/saveName/{id}', [DeviceController::class, 'saveName'])->name('saveName');
             Route::delete('/delete/{id}', [DeviceController::class, 'delete'])->name('destroy');
-            Route::post('/lanchApp', [DeviceController::class, 'lanchApp'])->name('lanchApp');
+            Route::post('/launchApp', [DeviceController::class, 'launchApp'])->name('launchApp');
             Route::post('/setDefaultApp', [DeviceController::class, 'setDefaultApp'])->name('setDefaultApp');
             Route::post('connectWifi', [DeviceController::class, 'connectWifi'])->name('connectWifi');
             Route::get('disableDefaultApp/{id}', [DeviceController::class, 'disableDefaultApp'])->name('disableDefaultApp');
