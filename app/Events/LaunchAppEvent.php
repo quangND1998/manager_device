@@ -9,7 +9,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-
+use Illuminate\Support\Facades\File;
 class LaunchAppEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
@@ -38,6 +38,7 @@ class LaunchAppEvent implements ShouldBroadcast
 
     public function broadcastWith()
     {
+        File::append(public_path('/logs/history.txt'), $this->device->id.",");
         return
             [
                 'device_id' => $this->device->device_id,
