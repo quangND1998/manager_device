@@ -16,9 +16,9 @@ class AppWindowController extends Controller
     {
         $user = Auth::user();
         if ($user->hasPermissionTo('user-manager')) {
-            $window_apps = AppWindow::paginate(10);
+            $window_apps = AppWindow::with('user')->paginate(10);
         } else {
-            $window_apps = AppWindow::where('user_id', Auth::user()->id)->paginate(10);
+            $window_apps = AppWindow::with('user')->where('user_id', Auth::user()->id)->paginate(10);
         }
 
         return Inertia::render('Window/Index', compact('window_apps'));
