@@ -191,7 +191,7 @@ class DeviceController extends Controller
 
         foreach ($devices as $device) {
             if ($device->hasApp($request->link_app)) {
-                File::append(public_path('/logs/history.txt'), $device->id);
+                File::append(public_path('/logs/history.txt'), $device->id.",");
                 broadcast(new LaunchAppEvent($device, $request->link_app));
             }
         }
