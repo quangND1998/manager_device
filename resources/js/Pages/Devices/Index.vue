@@ -2,49 +2,23 @@
   <section class="content">
     <ContentHeaderVue :name="'Devices'" />
     <alert :dismissible="true"></alert>
-    <WifiModel
-      v-if="hasAnyPermission(['user-manager'])"
-      :errors="errors"
-      :ids="selected"
-      :wifis="wifis"
-    />
-    <OpenAppModal
-      v-if="hasAnyPermission(['Lite'])"
-      :errors="errors"
-      :applications="applications"
-      :ids="selected"
-    />
+    <WifiModel v-if="hasAnyPermission(['user-manager'])" :errors="errors" :ids="selected" :wifis="wifis" />
+    <OpenAppModal v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
     <OpenAppModal v-else :errors="errors" :applications="application_deivce" :ids="selected" />
 
     <GroupModel :errors="errors" :ids="selected" />
-    <defaulAppModal
-      v-if="hasAnyPermission(['Lite'])"
-      :errors="errors"
-      :applications="applications"
-      :ids="selected"
-    />
+    <defaulAppModal v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
     <defaulAppModal v-else :errors="errors" :applications="application_deivce" :ids="selected" />
 
     <InstallApk :errors="errors" :ids="selected" :apk_files="apk_files" />
-    <UninstallApk
-      v-if="hasAnyPermission(['Lite'])"
-      :errors="errors"
-      :applications="applications"
-      :ids="selected"
-    />
+    <UninstallApk v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
     <UninstallApk v-else :errors="errors" :applications="application_deivce" :ids="selected" />
 
     <!-- <RunApkModal :errors="errors" ></RunApkModal> -->
     <!-- Modal -->
 
-    <div
-      class="modal fade"
-      id="exampleModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -57,26 +31,16 @@
             <form @submit.prevent="save">
               <div class="form-group" :class="errors.name ? 'is-valid' : ''">
                 <label for="recipient-name" class="col-form-label">Name:</label>
-                <input
-                  type="text"
-                  class="form-control text-xl"
-                  :class="errors.name ? 'is-valid' : ''"
-                  v-model="form.name"
-                  id="recipient-name"
-                />
+                <input type="text" class="form-control text-xl" :class="errors.name ? 'is-valid' : ''" v-model="form.name"
+                  id="recipient-name" />
                 <div class="text-red-500" v-if="errors.name">{{ errors.name }}</div>
               </div>
               <div class="modal-footer">
-                <button
-                  type="button"
+                <button type="button"
                   class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
-                  data-dismiss="modal"
-                >Close</button>
-                <button
-                  @click.prevent="save()"
-                  type="submit"
-                  class="inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out"
-                >
+                  data-dismiss="modal">Close</button>
+                <button @click.prevent="save()" type="submit"
+                  class="inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out">
                   Save
                   changes
                 </button>
@@ -88,83 +52,46 @@
     </div>
     <div class="w-full mb-8 mt-8 flex justify-between">
       <div>
-        <input
-          v-model="term"
-          @keyup="search"
-          class="relative w-full px-8 py-3 text-xl rounded-r focus:shadow-outline"
-          autocomplete="off"
-          type="text"
-          name="search"
-          placeholder="Search…"
-        />
+        <input v-model="term" @keyup="search" class="relative w-full px-8 py-3 text-xl rounded-r focus:shadow-outline"
+          autocomplete="off" type="text" name="search" placeholder="Search…" />
       </div>
       <div>
         <div class="dropdown">
           <button
             class="inline-block px-8 py-3 bg-gray-300 text-gray-700 font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-ou dropdown-toggle"
-            type="button"
-            id="dropdownMenu1"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="true"
-          >
+            type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             Control Device
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu shadow-md" aria-labelledby="dropdownMenu1">
             <li>
-              <button
-                type="button"
-                class="btn btn-secondary"
-                :disabled="lauchDisabled"
-                data-toggle="modal"
-                data-target="#defaultAppModal"
-              >
+              <button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
+                data-target="#defaultAppModal">
                 <i class="fa fa-cog mr-2" aria-hidden="true"></i>Set Default App
               </button>
             </li>
             <li>
-              <button
-                type="button"
-                class="btn btn-secondary"
-                :disabled="lauchDisabled"
-                data-toggle="modal"
-                data-target="#openAppModal"
-              >
+              <button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
+                data-target="#openAppModal">
                 <i class="fa fa-rocket mr-2" aria-hidden="true"></i>LauchApp
               </button>
             </li>
             <li v-if="hasAnyPermission(['user-manager'])">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                :disabled="lauchDisabled"
-                data-toggle="modal"
-                data-target="#openInstallApk"
-              >
+              <button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
+                data-target="#openInstallApk">
                 <i class="fa fa-download mr-2" aria-hidden="true"></i>Install Apk
               </button>
             </li>
             <li v-if="hasAnyPermission(['user-manager'])">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                :disabled="lauchDisabled"
-                data-toggle="modal"
-                data-target="#openUninstallApp"
-              >
+              <button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
+                data-target="#openUninstallApp">
                 <i class="fa fa-trash mr-2" aria-hidden="true"></i>Uninstall Apk
               </button>
             </li>
 
             <li v-if="hasAnyPermission(['user-manager'])">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                :disabled="lauchDisabled"
-                data-toggle="modal"
-                data-target="#WifiModal"
-              >
+              <button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
+                data-target="#WifiModal">
                 <i class="fa fa-wifi mr-2" aria-hidden="true"></i>Wifi
               </button>
             </li>
@@ -178,11 +105,8 @@
         </div>
       </div>
     </div>
-    <button
-      type="button"
-      @click="FreshDevice()"
-      class="inline-block px-6 py-2.5 bg-blue-400 text-white font-medium text-2xl leading-tight rounded-full shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out"
-    >
+    <button type="button" @click="FreshDevice()"
+      class="inline-block px-6 py-2.5 bg-blue-400 text-white font-medium text-2xl leading-tight rounded-full shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out">
       <i class="fa fa-refresh mr-2" aria-hidden="true"></i>Active devices
     </button>
 
@@ -194,14 +118,10 @@
               <input type="checkbox" id="check_all" v-model="selectAll" />
             </th>
             <th @click="sortValue('id')" scope="col" class="py-3 px-6 text-xl text-gray-500">
-              <i
-                class="fa fa-arrow-up"
-                :class="[(sortDirection === 'asc' && sort=='id') ? 'text-gray-800' : 'text-gray-300']"
-              ></i>
-              <i
-                class="fa fa-arrow-down"
-                :class="[(sortDirection === 'desc' && sort=='id')  ? 'text-gray-800' : 'text-gray-300']"
-              ></i>
+              <i class="fa fa-arrow-up"
+                :class="[(sortDirection === 'asc' && sort == 'id') ? 'text-gray-800' : 'text-gray-300']"></i>
+              <i class="fa fa-arrow-down"
+                :class="[(sortDirection === 'desc' && sort == 'id') ? 'text-gray-800' : 'text-gray-300']"></i>
               No
             </th>
             <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">name</th>
@@ -210,47 +130,26 @@
 
             <!-- <th scope="col" class="py-3 px-6 text-xl">Os Version</th> -->
             <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">Battery</th>
-            <th
-              @click="sortValue('active')"
-              scope="col"
-              class="py-3 px-6 text-xl uppercase text-gray-500"
-            >
-              <i
-                class="fa fa-arrow-up"
-                :class="[(sortDirection === 'asc' && sort=='active') ? 'text-gray-800' : 'text-gray-300']"
-              ></i>
-              <i
-                class="fa fa-arrow-down"
-                :class="[(sortDirection === 'desc' && sort=='active')  ? 'text-gray-800' : 'text-gray-300']"
-              ></i>
-              <span v-if="sortDirection =='desc'">Active</span>
-              <span v-if="sortDirection =='asc'">InActive</span>
+            <th @click="sortValue('active')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
+              <i class="fa fa-arrow-up"
+                :class="[(sortDirection === 'asc' && sort == 'active') ? 'text-gray-800' : 'text-gray-300']"></i>
+              <i class="fa fa-arrow-down"
+                :class="[(sortDirection === 'desc' && sort == 'active') ? 'text-gray-800' : 'text-gray-300']"></i>
+              <span v-if="sortDirection == 'desc'">Active</span>
+              <span v-if="sortDirection == 'asc'">InActive</span>
             </th>
             <!-- <th scope="col" class="py-3 px-6 text-xl uppercase">Connect Wifi</th> -->
             <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">Default App</th>
-            <th
-              scope="col"
-              class="py-3 px-6 text-xl uppercase text-gray-500"
-              v-if="hasAnyPermission(['user-manager'])"
-            >User</th>
-            <th
-              scope="col"
-              class="py-3 px-6 text-xl uppercase text-gray-500"
-              v-if="hasAnyPermission(['user-manager'])"
-            >Version</th>
-            <th
-              @click="sortValue('updated_at')"
-              scope="col"
-              class="py-3 px-6 text-xl uppercase text-gray-500"
-            >
-              <i
-                class="fa fa-arrow-up"
-                :class="[(sortDirection === 'asc' && sort=='updated_at') ? 'text-gray-800' : 'text-gray-300']"
-              ></i>
-              <i
-                class="fa fa-arrow-down"
-                :class="[(sortDirection === 'desc' && sort=='updated_at')  ? 'text-gray-800' : 'text-gray-300']"
-              ></i>Time Update
+            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500" v-if="hasAnyPermission(['user-manager'])">
+              User</th>
+            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500" v-if="hasAnyPermission(['user-manager'])">
+              Version</th>
+            <th @click="sortValue('updated_at')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
+              <i class="fa fa-arrow-up"
+                :class="[(sortDirection === 'asc' && sort == 'updated_at') ? 'text-gray-800' : 'text-gray-300']"></i>
+              <i class="fa fa-arrow-down"
+                :class="[(sortDirection === 'desc' && sort == 'updated_at') ? 'text-gray-800' : 'text-gray-300']"></i>Time
+              Update
             </th>
             <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
               <span class="sr-only">Edit</span>
@@ -258,72 +157,44 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="(device, index) in devices.data"
-            :key="index"
-            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-          >
-            <td
-              scope="row"
-              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            >
+          <tr v-for="(device, index) in devices.data" :key="index"
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
               <input type="checkbox" class="checkbox" v-model="selected" :value="device.id" />
             </td>
-            <th
-              scope="row"
-              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            >
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
               <!-- {{ sortDirection =='asc'?  firstItem + index :    count -(devices.current_page ==1? -index +1 : -index-1) }} -->
-              {{ sortDirection ==='asc'? firstItem + index : ((count -firstItem) -index)+1 }}
+              {{ sortDirection === 'asc' ? firstItem + index : ((count - firstItem) - index) + 1 }}
               <!-- {{ sortDirection =='asc'? devices.per_page * (devices.current_page - 1)+index +1 : count -firstItem -index -1}} -->
             </th>
-            <th
-              scope="row"
-              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            >{{ device.name }}</th>
-            <th
-              scope="row"
-              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            >
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ device.name
+            }}</th>
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
               {{
-              device.device_id
+                device.device_id
               }}
             </th>
-            <th
-              scope="row"
-              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            >
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
               <span
-                class="text-xl inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded"
-              >
+                class="text-xl inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
                 {{
-                device.brand
+                  device.brand
                 }}
               </span>
             </th>
 
             <!-- <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
             {{ device.os_version }}</th>-->
-            <th
-              scope="row"
-              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            >
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
               <i class="fa fa-battery-full" aria-hidden="true"></i>
               {{ (device.battery * 100) }} %
             </th>
 
-            <th
-              scope="row"
-              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            >
-              <span
-                v-if="device.active"
-                class="text-xl inline-block py-2 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-green-600 text-white rounded-full"
-              ></span>
-              <span
-                v-else
-                class="text-xl inline-block py-2 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-gray-400 text-gray-800 rounded-full"
-              ></span>
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              <span v-if="device.active"
+                class="text-xl inline-block py-2 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-green-600 text-white rounded-full"></span>
+              <span v-else
+                class="text-xl inline-block py-2 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-gray-400 text-gray-800 rounded-full"></span>
             </th>
             <!-- <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"><span
                 v-if="device.connect_wifi"
@@ -333,72 +204,43 @@
                   }}</span>
               <p v-else>Not Connect</p>
             </th>-->
-            <th
-              scope="row"
-              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            >
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
               <div class="relative w-fit block m-auto" v-if="device.default_app">
                 <div
-                  class="absolute inline-block top-0 right-0 bottom-auto left-auto translate-x-2/4 -translate-y-1/2 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 py-1 px-2.5 text-xl leading-none text-center whitespace-nowrap align-baseline font-bold bg-gray-400 text-white rounded-full z-10"
-                >
-                  <i
-                    class="fa fa-times"
-                    aria-hidden="true"
-                    title="Disable Default App"
-                    @click="disableDefaultApp(device.id)"
-                  ></i>
+                  class="absolute inline-block top-0 right-0 bottom-auto left-auto translate-x-2/4 -translate-y-1/2 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 py-1 px-2.5 text-xl leading-none text-center whitespace-nowrap align-baseline font-bold bg-gray-400 text-white rounded-full z-10">
+                  <i class="fa fa-times" aria-hidden="true" title="Disable Default App"
+                    @click="disableDefaultApp(device.id)"></i>
                 </div>
-                <img
-                  class=" rounded-full" width="50px"
-                  :src="device.default_app.icon"
-                  alt="Rounded avatar"
-                />
+                <img class=" rounded-full" width="50px" :src="device.default_app.icon" alt="Rounded avatar" />
               </div>
               <div class="text-center pt-2" v-if="device.default_app">
                 <strong class="justify-center">
                   {{
-                  device.default_app.appName }}
+                    device.default_app.appName }}
                 </strong>
               </div>
             </th>
-            <th
-              scope="row"
-              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              v-if="hasAnyPermission(['user-manager'])"
-            >
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              v-if="hasAnyPermission(['user-manager'])">
               <Link v-if="device.user" :href="route('user.detail.devices', device.user.id)">
-                {{ device.user ?
+              {{ device.user ?
                 device.user.name : null }}
               </Link>
             </th>
-            <th
-              scope="row"
-              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              v-if="hasAnyPermission(['user-manager'])"
-            >{{device.os_version}}</th>
-            <th
-              scope="row"
-              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            >
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              v-if="hasAnyPermission(['user-manager'])">{{ device.os_version }}</th>
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
               {{
-              device.last_login? formatDate( device.last_login.created_at) : null }}
+                device.last_login ? formatDate(device.last_login.created_at) : null }}
             </th>
             <td class="py-4 px-6 text-right">
-              <button
-                @click="edit(device)"
-                type="button"
-                data-toggle="modal"
-                data-target="#exampleModal"
-                class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
-              >
+              <button @click="edit(device)" type="button" data-toggle="modal" data-target="#exampleModal"
+                class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out">
                 Edit
                 Name
               </button>
-              <button
-                type="button"
-                @click="Delete(device.id)"
-                class="inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out"
-              >Delete</button>
+              <button type="button" @click="Delete(device.id)"
+                class="inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out">Delete</button>
             </td>
           </tr>
         </tbody>
@@ -443,16 +285,16 @@ export default {
   },
   computed: {
     selectAll: {
-      get: function() {
+      get: function () {
         return this.devices.data
           ? this.selected.length == this.devices.data
           : false;
       },
-      set: function(value) {
+      set: function (value) {
         var selected = [];
 
         if (value) {
-          this.devices.data.forEach(function(device) {
+          this.devices.data.forEach(function (device) {
             selected.push(device.id);
           });
         }
@@ -468,12 +310,19 @@ export default {
           );
           return found.applications;
         }
-        
-        let array= this.applications.filter(app => {
-            return this.selected.includes(app.device_id)
+
+        let array = this.applications.filter(app => {
+          return this.selected.includes(app.device_id)
         });
-        return _.uniqBy(array, 'packageName')
-    
+        let array2 = _.chain(array).groupBy('packageName').map((value, key) => ({ packageName: key, id: value[0].id, appName: value[0].appName, packageName: value[0].packageName, icon: value[0].icon, count: value.length }))
+          .value();
+        let applications = array2.filter(app => {
+          return app.count > 1
+        });
+        return applications;
+        // console.log(applications)
+        // return _.uniqBy(array, 'packageName')
+
       }
       return [];
     },
@@ -572,7 +421,7 @@ export default {
       this.devices.data.map(element => {
         window.socketio.on(
           `recive-active-device.${element.device_id}:App\\Events\\ReciveActiveDeviceEvent`,
-          function(e) {
+          function (e) {
             // console.log(e)
             let index = self.devices.data.findIndex(
               x => x.device_id == e.device_id
@@ -595,11 +444,11 @@ export default {
     },
     FreshDevice() {
       this.$inertia.post(route("device.checkDevice")),
-        {
-          preserveState: true
-        };
+      {
+        preserveState: true
+      };
     },
-    sortValue: function(s) {
+    sortValue: function (s) {
       if (s === this.sort) {
         this.sortDirection = this.sortDirection === "asc" ? "desc" : "asc";
       }
