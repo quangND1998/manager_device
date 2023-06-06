@@ -26,7 +26,7 @@ class ApplicationRepository extends BaseRepository
      */
     public function applicationsByDeivces($devices)
     {
-        return Applicaion::groupby('packageName')->whereIn('device_id', $devices)->get();
+        return Applicaion::whereIn('device_id', $devices)->get();
     }
 
 
