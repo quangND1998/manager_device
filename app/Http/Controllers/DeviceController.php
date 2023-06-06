@@ -245,7 +245,7 @@ class DeviceController extends Controller
             }
         }
 
-        return back()->with('success', 'Lauch successfully');
+        return back()->with('success', 'Launch successfully');
     }
 
     public function default_app(Request $request)

@@ -126,7 +126,7 @@ class ApiController extends Controller
                 broadcast(new LaunchAppEvent($device, $request->link_app));
             }
         }
-        return response()->json('Lauch successfully', 200);
+        return response()->json('Launch successfully', 200);
     }
 
 
