@@ -316,8 +316,8 @@ export default {
         });
         let array2 = _.chain(array).groupBy('packageName').map((value, key) => ({ packageName: key, id: value[0].id, appName: value[0].appName, packageName: value[0].packageName, icon: value[0].icon, count: value.length }))
           .value();
-        let applications = array2.filter(app => {
-          return app.count > 1
+          let applications = array2.filter(app => {
+          return app.count == this.selected.length
         });
         return applications;
         // console.log(applications)
