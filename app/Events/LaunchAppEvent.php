@@ -10,7 +10,8 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\File;
-class LaunchAppEvent implements ShouldBroadcast
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
+class LaunchAppEvent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public $device;
@@ -33,7 +34,10 @@ class LaunchAppEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/api-laucher
         return new Channel('lauch-app.'.$this->device->device_id);
     }
 
@@ -52,5 +56,9 @@ class LaunchAppEvent implements ShouldBroadcast
         File::append(public_path('/logs/history.txt'), $this->device->device_id.",");
         return true;
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/api-laucher
 
 }
