@@ -11,7 +11,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\File;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
-class LaunchAppEvent implements ShouldBroadcastNow
+class LaunchAppEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public $device;
@@ -34,6 +34,7 @@ class LaunchAppEvent implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
+
         return new Channel('lauch-app.'.$this->device->device_id);
     }
 
