@@ -44,29 +44,19 @@ class AppWindowController extends Controller
             'path' => 'required',
             'version' => 'required',
             'packageName'=> 'required',
-            'icon' =>   'required|image|mimes:jpeg,png,jpg|max:2048',
+            'icon' =>   'required',
 
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
-
-
-
-        $middlepath = '/window/';
-        $path = public_path($middlepath);
-        if (!Storage::exists($path)) {
-
-            Storage::makeDirectory($path, 0777, true, true);
-        }
-
         $app = AppWindow::create([
             'name' => $request->name,
             'path' => $request->path,
             'version' => $request->version,
             'packageName'=> $request->packageName,
-            'icon' => $this->image($request->file('icon'), $middlepath),
+            'icon' => $this->convertBase64toImage($request->icon),
             'user_id' => Auth::user()->id
         ]);
         return new AppWindowResource($app);
@@ -81,7 +71,7 @@ class AppWindowController extends Controller
             'path' => 'required',
             'version' => 'required',
             'packageName'=> 'required',
-            'icon' =>   'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'icon' =>   'nullable',
 
         ]);
 
@@ -89,19 +79,12 @@ class AppWindowController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $middlepath = '/window/';
-        $path = public_path($middlepath);
-        if (!Storage::exists($path)) {
-
-            Storage::makeDirectory($path, 0777, true, true);
-        }
-
         $app->update([
             'name' => $request->name,
             'path' => $request->path,
             'version' => $request->version,
             'packageName'=> $request->packageName,
-            'icon' => $request->file('icon') ? $this->update_image($request->file('icon'), time(), $middlepath, $app->icon) : $app->icon,
+            'icon' => $this->convertBase64toImage($request->icon, $app->icon),
         ]);
         return new AppWindowResource($app);
     }

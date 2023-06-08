@@ -391,4 +391,18 @@ trait FileUploadTrait
         }
     }
 
+    public function convertBase64toImage($path, $attribute)
+    {
+
+        $imageName = time() . Str::random(10) . '.' . 'png';
+        $destinationpath = '/window/';
+        if (!file_exists(public_path() . $destinationpath)) {
+            mkdir(public_path() . $destinationpath, 0777, true);
+        }
+        file_put_contents(public_path() . $destinationpath . $imageName, base64_decode($path));
+        unlink($attribute);
+        return $destinationpath . $imageName;
+    }
+
+
 }
