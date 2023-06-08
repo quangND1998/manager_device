@@ -30,7 +30,7 @@
       <li tag="li" class="pageli"  >
       <li :class="[$page.component === 'Window/Index' ? 'active' : '']" >
           <Link :href="route('window-app.index')">
-              <i class="fa fa-windows" aria-hidden="true"></i> WinodwApp
+              <i class="fa fa-windows" aria-hidden="true"></i> WindowApp
           </Link>
         </li>
 
