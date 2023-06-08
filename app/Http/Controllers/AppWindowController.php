@@ -33,7 +33,7 @@ class AppWindowController extends Controller
             'path' => 'required',
             'version' => 'required',
             'packageName' => 'required',
-            'icon' =>   'required|image|mimes:jpeg,png,jpg|max:2048',
+            // 'icon' =>   'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
 
