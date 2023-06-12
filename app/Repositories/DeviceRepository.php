@@ -36,11 +36,11 @@ class DeviceRepository extends BaseRepository
     }
 
 
-    public function devicesNoGroup()
+    public function get()
     {
         $user = Auth::user();
         return !$user->hasPermissionTo('user-manager') ?
-            $this->model()->with('applications', 'default_app', 'user', 'last_login')->doesntHave('groups')->where('user_id', $user->id)->get()
-            :  $this->model()->with('applications')->doesntHave('groups')->get();
+            $this->model()->with('applications', 'default_app', 'user', 'last_login')->where('user_id', $user->id)->get()
+            :  $this->model()->with('applications')->get();
     }
 }
