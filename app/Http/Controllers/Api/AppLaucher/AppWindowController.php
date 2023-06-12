@@ -84,7 +84,7 @@ class AppWindowController extends Controller
             'path' => $request->path,
             'version' => $request->version,
             'packageName'=> $request->packageName,
-            'icon' => $this->convertBase64toImage($request->icon, $app->icon),
+            'icon' => $request->icon ? $this->convertBase64toImage($request->icon, $app->icon): $app->icon,
         ]);
         return new AppWindowResource($app);
     }
