@@ -56,7 +56,7 @@ class AppWindowController extends Controller
             'path' => $request->path,
             'version' => $request->version,
             'packageName'=> $request->packageName,
-            'icon' => $this->convertBase64toImage($request->icon, null),
+            'icon' => $this->convertBase64toImage($request->icon),
             'user_id' => Auth::user()->id
         ]);
         return new AppWindowResource($app);
