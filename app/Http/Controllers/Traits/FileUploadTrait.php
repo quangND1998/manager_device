@@ -393,7 +393,6 @@ trait FileUploadTrait
 
     public function convertBase64toImage($path, $attribute=null)
     {
-
         $imageName = time() . Str::random(10) . '.' . 'png';
         $destinationpath = '/window/';
         if (!file_exists(public_path() . $destinationpath)) {
