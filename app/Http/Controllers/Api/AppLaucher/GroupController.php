@@ -78,12 +78,12 @@ class GroupController extends Controller
         if (!$group) {
             return response()->json('Not found group', 404);
         } else {
-            $devices =   $this->device->get();
-            $applications = $this->application->applicationsByDeivces($devices);
+            // $devices =   $this->device->get();
+            // $applications = $this->application->applicationsByDeivces($devices);
             $response  = [
                 'group' => $group,
-                'devices' => DevicesResource::collection($devices),
-                'applications' => ApplicationResource::collection($applications)
+                // 'devices' => DevicesResource::collection($devices),
+                // 'applications' => ApplicationResource::collection($applications)
             ];
             return response()->json($response, 200);
         }
