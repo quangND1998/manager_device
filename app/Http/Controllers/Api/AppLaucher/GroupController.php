@@ -50,8 +50,8 @@ class GroupController extends Controller
     public function getGroups()
     {
         $groups = $this->group->groups();
-        $devices =   $this->device->devicesNoGroup();
-        $applications = $this->application->applicationsByDeivces($devices);
+       // $devices =   $this->device->get();
+        // $applications = $this->application->applicationsByDeivces($devices);
         // $groups = Cache::remember('groups', 15, function () {
         //     return
         //         $this->group->groups();
@@ -67,29 +67,23 @@ class GroupController extends Controller
 
         $response  = [
             'groups' => $groups,
-            'devices' => DevicesResource::collection($devices),
-            'applications' => ApplicationResource::collection($applications)
+            //'devices' => DevicesResource::collection($devices)
         ];
         return response()->json($response, 200);
     }
 
     public function groupById($id)
     {
-
         $group = $this->group->show($id);
-
         if (!$group) {
             return response()->json('Not found group', 404);
         } else {
-            $nogroup_devices =   $this->device->devicesNoGroup();
-
-            $applications = $this->application->applicationsByDeivces($nogroup_devices);
-
-            $devices = Arr::collapse([$nogroup_devices, $group->devices ?? []]);
+            // $devices =   $this->device->get();
+            // $applications = $this->application->applicationsByDeivces($devices);
             $response  = [
                 'group' => $group,
-                'devices' => DevicesResource::collection($devices),
-                'applications' => ApplicationResource::collection($applications)
+                // 'devices' => DevicesResource::collection($devices),
+                // 'applications' => ApplicationResource::collection($applications)
             ];
             return response()->json($response, 200);
         }

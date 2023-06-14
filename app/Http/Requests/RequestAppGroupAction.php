@@ -26,7 +26,7 @@ class RequestAppGroupAction extends FormRequest
     public function rules()
     {
         return [
-            //
+            'link_app'=> 'required'
         ];
     }
     public function failedValidation(Validator $validator)
