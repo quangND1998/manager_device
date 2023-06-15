@@ -117,7 +117,7 @@ class GroupController extends Controller
         ]);
         $group->devices()->sync($devices);
 
-        return response()->json($group->load(['devices.applications']), 200);
+        return response()->json($group->load(['devices.default_app']), 200);
     }
 
     public function ownerDevice(RequestApplication $request, $id)
@@ -129,7 +129,7 @@ class GroupController extends Controller
         $devices = Devices::find($request->devices);
 
         $group->devices()->sync($devices);
-        return response()->json($group->load(['devices.applications']), 200);
+        return response()->json($group->load(['devices.default_app']), 200);
     }
     public function deleteOwnerDevice(RemoveOwnerDeviceRequest $request, $id)
     {
@@ -139,7 +139,7 @@ class GroupController extends Controller
         }
         $device = Devices::findOrFail($id);
         $group->devices()->detach($device);
-        return response()->json($group->load(['devices.applications']), 200);
+        return response()->json($group->load(['devices.default_app']), 200);
     }
 
 
