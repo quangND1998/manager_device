@@ -50,7 +50,7 @@ class GroupController extends Controller
     public function getGroups()
     {
         $groups = $this->group->groups();
-       // $devices =   $this->device->get();
+       $devices =   $this->device->get();
         // $applications = $this->application->applicationsByDeivces($devices);
         // $groups = Cache::remember('groups', 15, function () {
         //     return
@@ -67,7 +67,7 @@ class GroupController extends Controller
 
         $response  = [
             'groups' => $groups,
-            //'devices' => DevicesResource::collection($devices)
+            'devices' => DevicesResource::collection($devices)
         ];
         return response()->json($response, 200);
     }
@@ -117,7 +117,7 @@ class GroupController extends Controller
         ]);
         $group->devices()->sync($devices);
 
-        return response()->json($group->load(['devices.applications']), 200);
+        return response()->json($group->load(['devices.default_app']), 200);
     }
 
     public function ownerDevice(RequestApplication $request, $id)
@@ -129,7 +129,7 @@ class GroupController extends Controller
         $devices = Devices::find($request->devices);
 
         $group->devices()->sync($devices);
-        return response()->json($group->load(['devices.applications']), 200);
+        return response()->json($group->load(['devices.default_app']), 200);
     }
     public function deleteOwnerDevice(RemoveOwnerDeviceRequest $request, $id)
     {
@@ -139,7 +139,7 @@ class GroupController extends Controller
         }
         $device = Devices::findOrFail($id);
         $group->devices()->detach($device);
-        return response()->json($group->load(['devices.applications']), 200);
+        return response()->json($group->load(['devices.default_app']), 200);
     }
 
 
@@ -179,6 +179,6 @@ class GroupController extends Controller
                 broadcast(new DefaultAppEvent($device, $request->link_app));
             }
         }
-        return response()->json('Comand run succesfully', 200);
+        return response()->json( $group->load('devices.default_app'), 200);
     }
 }
