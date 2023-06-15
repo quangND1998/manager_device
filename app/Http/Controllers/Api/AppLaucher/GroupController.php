@@ -179,6 +179,6 @@ class GroupController extends Controller
                 broadcast(new DefaultAppEvent($device, $request->link_app));
             }
         }
-        return response()->json('Comand run succesfully', 200);
+        return response()->json( $group->load('devices.default_app'), 200);
     }
 }
