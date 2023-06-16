@@ -50,6 +50,7 @@ class AppWindowController extends Controller
             'name' => $request->name,
             'path' => $request->path,
             'version' => $request->version,
+            'description' => $request->description,
             'packageName' => $request->packageName,
             'icon' => $this->image($request->file('icon'), $middlepath),
             'user_id' => Auth::user()->id,
@@ -81,6 +82,7 @@ class AppWindowController extends Controller
             'name' => $request->name,
             'path' => $request->path,
             'version' => $request->version,
+            'description' => $request->description,
             'packageName' => $request->packageName,
             'icon' => $request->file('icon') ? $this->update_image($request->file('icon'), time(), $middlepath, $app->icon) : $app->icon,
         ]);

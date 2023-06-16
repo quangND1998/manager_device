@@ -98,6 +98,7 @@ class AppWindowController extends Controller
             'name' => $request->name,
             'path' => $request->path,
             'version' => $request->version,
+            'description' => $request->description,
             'packageName'=> $request->packageName,
             'icon' => $request->icon ? $this->convertBase64toImage($request->icon, $app->icon): $app->icon,
             'thumb' => $request->file('thumb') ? $this->update_image($request->file('thumb'), time(), $middlepath, $app->thumb) : $app->thumb,
