@@ -403,7 +403,7 @@ trait FileUploadTrait
             $data =  explode(',', $path);
             file_put_contents(public_path() . $destinationpath . $imageName, base64_decode($data[1]));
             if ($attribute && file_exists(public_path() . $attribute)) {
-                    unlink($attribute);
+                unlink(public_path() . $attribute);
             }
 
             return $destinationpath . $imageName;
