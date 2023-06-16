@@ -66,7 +66,7 @@ class AppWindowController extends Controller
             'packageName'=> $request->packageName,
             'icon' => $this->convertBase64toImage($request->icon),
             'user_id' => Auth::user()->id,
-            'thumb' => $this->image($request->file('thumb'), $middlepath),
+            'thumb' => $request->file('thumb')?$this->image($request->file('thumb'), $middlepath):null,
         ]);
         return new AppWindowResource($app);
     }
