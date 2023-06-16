@@ -67,7 +67,7 @@ class AppWindowController extends Controller
             'packageName'=> $request->packageName,
             'icon' => $this->convertBase64toImage($request->icon),
             'user_id' => Auth::user()->id,
-            'thumb' => $request->file('thumb')?$this->image($request->file('thumb'), $middlepath):null,
+            'thumb' => $request->file('thumb') ? $this->image($request->file('thumb'), $middlepath):null,
         ]);
         
         return new AppWindowResource($app);
@@ -114,7 +114,9 @@ class AppWindowController extends Controller
 
         $extension = " ";
         $this->DeleteFolder($app->icon, $extension);
-        $this->DeleteFolder($app->thumb, $extension);
+        if($app->thumb){
+            $this->DeleteFolder($app->thumb, $extension);
+        }
         $app->delete();
         return new AppWindowResource($app);
     }
