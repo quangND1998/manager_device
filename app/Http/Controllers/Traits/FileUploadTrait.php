@@ -19,7 +19,7 @@ trait FileUploadTrait
 {
 
 
-  
+
     public function uploadFile($name, $image, $url_folder)
     {
         $current = Carbon::now()->format('YmdHs');
@@ -34,12 +34,12 @@ trait FileUploadTrait
     }
 
 
-    
-
-   
 
 
-  
+
+
+
+
     //update image ground
     public function image($file, $middlepath)
     {
@@ -130,9 +130,9 @@ trait FileUploadTrait
     }
 
 
-  
 
-    
+
+
 
     public function update_image_360($file, $destinationpath, $attribute)
     {
@@ -187,18 +187,16 @@ trait FileUploadTrait
     }
     public function DeleteFolder($attribute, $extension)
     {
-        if($attribute){
-            if (file_exists((public_path().$attribute))) {
-        
-                if (is_dir(public_path().$attribute)) {
-                    File::deleteDirectory(public_path().$attribute); //xoa dc file nay
+        if ($attribute) {
+            if (file_exists((public_path() . $attribute))) {
+
+                if (is_dir(public_path() . $attribute)) {
+                    File::deleteDirectory(public_path() . $attribute); //xoa dc file nay
                 } else {
-                    unlink(public_path().$attribute);
+                    unlink(public_path() . $attribute);
                 }
-            
+            }
         }
-        }
-    
     }
     public function createFolder($public, $name)
     {
@@ -269,7 +267,7 @@ trait FileUploadTrait
             $data[] = $name;
         }
     }
- 
+
     public function getAllImage($public, $name)
     {
         $dir = new DirectoryIterator($public . $name);
@@ -312,7 +310,7 @@ trait FileUploadTrait
         return $path;
     }
 
-  
+
     public function outImgToXYZ($i, $j, $faceIdx, $faceSize)
     {
         $a = 2.0 * (float) $i / $faceSize;
@@ -347,8 +345,8 @@ trait FileUploadTrait
         if ($x < $min) return $min;
         return $x;
     }
-  
-  
+
+
     public function createPath($booth)
     {
         $public  =  'VirtualExpo/booths/';
@@ -394,28 +392,21 @@ trait FileUploadTrait
         }
     }
 
-    public function convertBase64toImage($path, $attribute=null)
+    public function convertBase64toImage($path, $attribute = null)
     {
-        if($path){
+        if ($path) {
             $imageName = time() . Str::random(10) . '.' . 'png';
             $destinationpath = '/window/';
             if (!file_exists(public_path() . $destinationpath)) {
                 mkdir(public_path() . $destinationpath, 0777, true);
             }
-            $data =  explode( ',', $path );
+            $data =  explode(',', $path);
             file_put_contents(public_path() . $destinationpath . $imageName, base64_decode($data[1]));
-            if($attribute){
-                unlink($attribute);
+            if ($attribute && !file_exists(public_path() . $attribute)) {
+                    unlink($attribute);
             }
+
             return $destinationpath . $imageName;
         }
-    
-       
-       
     }
-
-   
-
-
-
 }
