@@ -68,6 +68,7 @@ class AppWindowController extends Controller
             'user_id' => Auth::user()->id,
             'thumb' => $request->file('thumb')?$this->image($request->file('thumb'), $middlepath):null,
         ]);
+        
         return new AppWindowResource($app);
     }
 
