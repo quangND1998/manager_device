@@ -65,7 +65,7 @@ class AppWindowController extends Controller
             'version' => $request->version,
             'description' => $request->description,
             'packageName'=> $request->packageName,
-            'size'=> $request->size,
+            'size'=> $request->icon?  $request->size : null,
             'icon' => $this->convertBase64toImage($request->icon),
             'user_id' => Auth::user()->id,
             'thumb' => $request->file('thumb') ? $this->image($request->file('thumb'), $middlepath):null,
@@ -103,7 +103,7 @@ class AppWindowController extends Controller
             'version' => $request->version,
             'description' => $request->description,
             'packageName'=> $request->packageName,
-            'size'=> $request->size,
+            'size'=>  $request->icon?  $request->size : $app->size,
             'icon' => $request->icon ? $this->convertBase64toImage($request->icon, $app->icon): $app->icon,
             'thumb' => $request->file('thumb') ? $this->update_image($request->file('thumb'), time(), $middlepath, $app->thumb) : $app->thumb,
         ]);
