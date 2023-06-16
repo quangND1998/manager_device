@@ -198,7 +198,7 @@ trait FileUploadTrait
             
         }
         }
-       
+    
     }
     public function createFolder($public, $name)
     {
