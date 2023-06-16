@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use App\Http\Controllers\Traits\FileUploadTrait;
+use Illuminate\Support\Facades\File;
 
 class AppWindowController extends Controller
 {
@@ -40,12 +41,10 @@ class AppWindowController extends Controller
 
         $middlepath = '/window/';
         $path = public_path($middlepath);
+        if (!File::exists($path)) {
 
-        if (!Storage::exists($path)) {
-
-            Storage::makeDirectory($path, 0777, true, true);
+            File::makeDirectory($path, 0777, true);
         }
-
         AppWindow::create([
             'name' => $request->name,
             'path' => $request->path,
@@ -73,9 +72,9 @@ class AppWindowController extends Controller
 
         $middlepath = '/window/';
         $path = public_path($middlepath);
-        if (!Storage::exists($path)) {
+        if (!File::exists($path)) {
 
-            Storage::makeDirectory($path, 0777, true, true);
+            File::makeDirectory($path, 0777, true);
         }
 
         $app->update([

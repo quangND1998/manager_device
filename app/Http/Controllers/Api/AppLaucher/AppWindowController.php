@@ -8,6 +8,7 @@ use App\Http\Controllers\Traits\FileUploadTrait;
 use App\Http\Resources\AppWindowResource;
 use App\Models\AppWindow;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -54,9 +55,9 @@ class AppWindowController extends Controller
         $middlepath = '/window/';
         $path = public_path($middlepath);
 
-        if (!Storage::exists($path)) {
+        if (!File::exists($path)) {
 
-            Storage::makeDirectory($path, 0777, true, true);
+            File::makeDirectory($path, 0777, true);
         }
         $app = AppWindow::create([
             'name' => $request->name,
@@ -90,9 +91,9 @@ class AppWindowController extends Controller
         }
         $middlepath = '/window/';
         $path = public_path($middlepath);
-        if (!Storage::exists($path)) {
+        if (!File::exists($path)) {
 
-            Storage::makeDirectory($path, 0777, true, true);
+            File::makeDirectory($path, 0777, true);
         }
 
         $app->update([
