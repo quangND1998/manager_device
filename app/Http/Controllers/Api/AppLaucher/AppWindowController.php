@@ -45,19 +45,28 @@ class AppWindowController extends Controller
             'version' => 'required',
             'packageName'=> 'required',
             'icon' =>   'required',
-
+            'thumb' =>   'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
+        $middlepath = '/window/';
+        $path = public_path($middlepath);
+
+        if (!Storage::exists($path)) {
+
+            Storage::makeDirectory($path, 0777, true, true);
+        }
         $app = AppWindow::create([
             'name' => $request->name,
             'path' => $request->path,
             'version' => $request->version,
+            'description' => $request->description,
             'packageName'=> $request->packageName,
             'icon' => $this->convertBase64toImage($request->icon),
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
+            'thumb' => $this->image($request->file('thumb'), $middlepath),
         ]);
         return new AppWindowResource($app);
     }
@@ -72,11 +81,17 @@ class AppWindowController extends Controller
             'version' => 'required',
             'packageName'=> 'required',
             'icon' =>   'nullable',
-
+            'thumb' =>   'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
+        }
+        $middlepath = '/window/';
+        $path = public_path($middlepath);
+        if (!Storage::exists($path)) {
+
+            Storage::makeDirectory($path, 0777, true, true);
         }
 
         $app->update([
@@ -85,6 +100,7 @@ class AppWindowController extends Controller
             'version' => $request->version,
             'packageName'=> $request->packageName,
             'icon' => $request->icon ? $this->convertBase64toImage($request->icon, $app->icon): $app->icon,
+            'thumb' => $request->file('thumb') ? $this->update_image($request->file('thumb'), time(), $middlepath, $app->thumb) : $app->thumb,
         ]);
         return new AppWindowResource($app);
     }
@@ -95,6 +111,7 @@ class AppWindowController extends Controller
 
         $extension = " ";
         $this->DeleteFolder($app->icon, $extension);
+        $this->DeleteFolder($app->thumb, $extension);
         $app->delete();
         return new AppWindowResource($app);
     }

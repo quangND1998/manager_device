@@ -34,6 +34,7 @@ class AppWindowController extends Controller
             'version' => 'required',
             'packageName' => 'required',
             'icon' =>   'required|image|mimes:jpeg,png,jpg|max:2048',
+            'thumb' =>   'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
 
@@ -51,7 +52,8 @@ class AppWindowController extends Controller
             'version' => $request->version,
             'packageName' => $request->packageName,
             'icon' => $this->image($request->file('icon'), $middlepath),
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
+            // 'thumb' => $this->image($request->file('thumb'), $middlepath),
         ]);
         return back()->with('success', 'create successfully');
     }
