@@ -114,9 +114,7 @@ class AppWindowController extends Controller
 
         $extension = " ";
         $this->DeleteFolder($app->icon, $extension);
-        if($app->thumb){
-            $this->DeleteFolder($app->thumb, $extension);
-        }
+        $this->DeleteFolder($app->thumb, $extension);
         $app->delete();
         return new AppWindowResource($app);
     }
