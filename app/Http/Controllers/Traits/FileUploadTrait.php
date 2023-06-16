@@ -187,7 +187,8 @@ trait FileUploadTrait
     }
     public function DeleteFolder($attribute, $extension)
     {
-        if (file_exists((public_path().$attribute))) {
+        if($attribute){
+            if (file_exists((public_path().$attribute))) {
         
                 if (is_dir(public_path().$attribute)) {
                     File::deleteDirectory(public_path().$attribute); //xoa dc file nay
@@ -196,6 +197,8 @@ trait FileUploadTrait
                 }
             
         }
+        }
+    
     }
     public function createFolder($public, $name)
     {
