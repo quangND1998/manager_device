@@ -36,9 +36,9 @@ class DeviceRepository extends BaseRepository
     }
 
 
-    public function get($relations=[])
+    public function get(array $relations=[])
     {
-        // 'applications', 'default_app', 'user', 'last_login'
+        // $relations=['applications', 'default_app', 'user', 'last_login']
         $user = Auth::user();
         return !$user->hasPermissionTo('user-manager') ?
             $this->model()->with($relations)->where('user_id', $user->id)->get()
