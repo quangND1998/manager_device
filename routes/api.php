@@ -81,7 +81,7 @@ Route::group([
         });
         Route::prefix('group')->as('api-group.')->group(function () {
          
-            Route::get('devices', [GroupController::class, 'devices']);
+            Route::get('devices', [GroupController::class, 'devices'])->name('devices');
             Route::get('', [GroupController::class, 'getGroups']);
             Route::get('{id}', [GroupController::class, 'groupById']);
 
