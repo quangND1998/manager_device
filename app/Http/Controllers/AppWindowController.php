@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use App\Http\Controllers\Traits\FileUploadTrait;
+use Illuminate\Support\Facades\File;
 
 class AppWindowController extends Controller
 {
@@ -34,24 +35,25 @@ class AppWindowController extends Controller
             'version' => 'required',
             'packageName' => 'required',
             'icon' =>   'required|image|mimes:jpeg,png,jpg|max:2048',
+            'thumb' =>   'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
 
         $middlepath = '/window/';
         $path = public_path($middlepath);
+        if (!File::exists($path)) {
 
-        if (!Storage::exists($path)) {
-
-            Storage::makeDirectory($path, 0777, true, true);
+            File::makeDirectory($path, 0777, true);
         }
-
         AppWindow::create([
             'name' => $request->name,
             'path' => $request->path,
             'version' => $request->version,
+            'description' => $request->description,
             'packageName' => $request->packageName,
             'icon' => $this->image($request->file('icon'), $middlepath),
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
+            // 'thumb' => $this->image($request->file('thumb'), $middlepath),
         ]);
         return back()->with('success', 'create successfully');
     }
@@ -70,15 +72,16 @@ class AppWindowController extends Controller
 
         $middlepath = '/window/';
         $path = public_path($middlepath);
-        if (!Storage::exists($path)) {
+        if (!File::exists($path)) {
 
-            Storage::makeDirectory($path, 0777, true, true);
+            File::makeDirectory($path, 0777, true);
         }
 
         $app->update([
             'name' => $request->name,
             'path' => $request->path,
             'version' => $request->version,
+            'description' => $request->description,
             'packageName' => $request->packageName,
             'icon' => $request->file('icon') ? $this->update_image($request->file('icon'), time(), $middlepath, $app->icon) : $app->icon,
         ]);

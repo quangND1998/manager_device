@@ -19,8 +19,12 @@ class AppWindowResource extends JsonResource
             'name' => $this->name,
             'path' => $this->path,
             'packageName'=> $this->packageName,
+            'description' => $this->description,
             'icon' =>  $request->getSchemeAndHttpHost().$this->icon,
+            'thumb' => $this->thumb?  $request->getSchemeAndHttpHost().$this->thumb:null,
             'version' => $this->version,
+            'size' => $this->size,
+            'created_at' => $this->created_at,
         
 
         ];
