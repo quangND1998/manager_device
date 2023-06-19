@@ -50,7 +50,7 @@ class GroupController extends Controller
     public function getGroups()
     {
         $groups = $this->group->groups();
-    //    $devices =   $this->device->get();
+        $devices = $this->device->get();
         // $applications = $this->application->applicationsByDeivces($devices);
         // $groups = Cache::remember('groups', 15, function () {
         //     return
@@ -67,7 +67,7 @@ class GroupController extends Controller
 
         $response  = [
             'groups' => $groups,
-            // 'devices' => DevicesResource::collection($devices)
+            'devices' =>   $devices 
         ];
         return response()->json($response, 200);
     }
