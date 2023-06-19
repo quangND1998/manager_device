@@ -74,8 +74,9 @@ class GroupController extends Controller
 
 
     public function devices(){
-        $devices =   $this->device->get();
-        return  DevicesResource::collection($devices);
+        $devices = $this->device->get();
+        return response()->json($devices, 200);
+
     }
     public function groupById($id)
     {
