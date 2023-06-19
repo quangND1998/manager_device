@@ -80,6 +80,8 @@ Route::group([
             Route::post('/devices', [AppController::class, 'devices'])->name('devices');
         });
         Route::prefix('group')->as('api-group.')->group(function () {
+         
+            Route::get('devices', [GroupController::class, 'devices']);
             Route::get('', [GroupController::class, 'getGroups']);
             Route::get('{id}', [GroupController::class, 'groupById']);
 
