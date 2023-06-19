@@ -178,9 +178,9 @@ class ApiController extends Controller
         
         $user= User::with('devices')->withCount('app_windows')->withCount('devices')->withCount('groups')->find(Auth::user()->id);
         $response  = [
-            "app_windows_count" => !$user->hasPermissionTo('user-manager') ? AppWindow::count(): $user->app_windows_count,
-            "devices_count"=>!$user->hasPermissionTo('user-manager') ? Devices::count():$user->devices_count,
-            "groups_count"=>!$user->hasPermissionTo('user-manager') ? Groups::count() :$user->groups_count,
+            "app_windows_count" => $user->hasPermissionTo('user-manager') ? AppWindow::count(): $user->app_windows_count,
+            "devices_count"=>$user->hasPermissionTo('user-manager') ? Devices::count():$user->devices_count,
+            "groups_count"=>$user->hasPermissionTo('user-manager') ? Groups::count() :$user->groups_count,
 
         ];
         return response()->json($response, Response::HTTP_OK);
