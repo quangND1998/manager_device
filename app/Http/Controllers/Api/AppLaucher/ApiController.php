@@ -75,9 +75,17 @@ class ApiController extends Controller
 
     public function delete($id)
     {
+        
         $device = Devices::with('applications')->find($id);
+        $user = Auth::user();
+  
         if (!$device) {
             return response()->json('Not found Device', 404);
+        }
+        if(!$user->hasPermissionTo('user-manager')){
+            if($user->id !== $device->user_id){
+                    return response()->json("You dont have permission", 403);
+            }
         }
         foreach ($device->applications as $app) {
             $extension = " ";
