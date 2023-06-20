@@ -84,7 +84,7 @@ Route::group([
             Route::get('devices', [GroupController::class, 'devices'])->name('devices');
             Route::get('', [GroupController::class, 'getGroups']);
             Route::get('{id}', [GroupController::class, 'groupById']);
-
+            Route::post('{id}', [GroupController::class, 'groupByIdwithApp']);
             Route::post('', [GroupController::class, 'store'])->name('store');
             Route::put('/update/{id}', [GroupController::class, 'update'])->name('update');
 
