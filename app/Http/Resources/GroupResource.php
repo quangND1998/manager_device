@@ -18,7 +18,7 @@ class GroupResource extends JsonResource
         return
         [
             'id' => $this->id,
-            'name' => $this->device_id,
+            'name' => $this->name,
             'user_id' => $this->user_id,
             'devices' => DeviceResouce::collection($this->devices)
           

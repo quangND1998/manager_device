@@ -143,7 +143,7 @@ class GroupController extends Controller
         ]);
         $group->devices()->sync($devices);
 
-        return response()->json($group->load(['devices.default_app']), 200);
+        return response()->json(new GroupResource($group->load(['devices.default_app'])), 200);
     }
 
     public function ownerDevice(RequestApplication $request, $id)
