@@ -23,6 +23,7 @@ class DeviceResouce extends JsonResource
             'brand' => $this->brand,
             'battery' => $this->battery,
             'active' => $this->active,
+            'default_app' => $this->default_app,
             'application_version' =>  $application ? $application->version : null,
             'is_install' =>  $this->hasApp($request->packageName) ? true:false,
         ];
