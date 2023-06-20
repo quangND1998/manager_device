@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\AppLaucher;
 
 use App\Events\DefaultAppEvent;
 use App\Events\LaunchAppEvent;
+use App\Events\SendDeviceActiveEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GroupRequest;
 use App\Http\Requests\LauchAppRequest;
@@ -81,7 +82,9 @@ class GroupController extends Controller
             if (!$group) {
                 return response()->json('Not found group', 404);
             } else {
-                
+                foreach($group->devices as $device){
+                    broadcast(new SendDeviceActiveEvent($device));
+                }
                 $response  = [
                     'group' => new GroupResource($group),
                 ];
