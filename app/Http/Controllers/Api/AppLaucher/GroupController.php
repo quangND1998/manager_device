@@ -13,6 +13,7 @@ use App\Http\Requests\RequestApplication;
 use App\Http\Requests\UpdateGroupRequest;
 use App\Http\Resources\ApplicationResource;
 use App\Http\Resources\DevicesResource;
+use App\Http\Resources\GroupResource;
 use App\Models\Applicaion;
 use App\Models\Devices;
 use App\Models\Groups;
@@ -72,11 +73,30 @@ class GroupController extends Controller
         return response()->json($response, 200);
     }
 
+    public function groupByIdwithApp(Request $request, $id)
+    {
 
-    public function devices(){
+        if ($request->packageName) {
+            $group = $this->group->withApplication($id);
+            if (!$group) {
+                return response()->json('Not found group', 404);
+            } else {
+                
+                $response  = [
+                    'group' => new GroupResource($group),
+                ];
+                return response()->json($response, 200);
+            }
+        } else {
+            return response()->json('Not found :packageName', 404);
+        }
+    }
+
+
+    public function devices()
+    {
         $devices = $this->device->get();
         return response()->json($devices, 200);
-
     }
     public function groupById($id)
     {
@@ -123,7 +143,7 @@ class GroupController extends Controller
         ]);
         $group->devices()->sync($devices);
 
-        return response()->json($group->load(['devices.default_app']), 200);
+        return response()->json(new GroupResource($group->load(['devices.default_app'])), 200);
     }
 
     public function ownerDevice(RequestApplication $request, $id)
@@ -185,6 +205,6 @@ class GroupController extends Controller
                 broadcast(new DefaultAppEvent($device, $request->link_app));
             }
         }
-        return response()->json( $group->load('devices.default_app'), 200);
+        return response()->json($group->load('devices.default_app'), 200);
     }
 }
