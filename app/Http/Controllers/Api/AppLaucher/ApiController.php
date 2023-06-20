@@ -82,7 +82,7 @@ class ApiController extends Controller
         if (!$device) {
             return response()->json('Not found Device', 404);
         }
-        dd(!$user->hasPermissionTo('user-manager'));
+     
         if(!$user->hasPermissionTo('user-manager')){
             if($user->id !== $device->user_id){
                     return response()->json("You dont have permission", 403);
