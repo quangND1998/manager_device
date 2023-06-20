@@ -178,9 +178,10 @@ class ApiController extends Controller
     {
         $device = Devices::with('applications')->find($id);
         if (!$device) {
-            broadcast(new SendDeviceActiveEvent($device));
+          
             return response()->json('Not found Device', 404);
         }
+        broadcast(new SendDeviceActiveEvent($device));
         return new DevicesResource($device->load('applications', 'default_app', 'user', 'last_login'));
     }
 
