@@ -26,9 +26,10 @@ use Faker\DefaultGenerator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Response;
 use Illuminate\Validation\Rule;
-
+use App\Http\Controllers\Traits\FileUploadTrait;
 class ApiController extends Controller
 {
+    use FileUploadTrait;
     protected $deivce;
     public function __construct(DeviceRepository $deviceRepository)
     {
