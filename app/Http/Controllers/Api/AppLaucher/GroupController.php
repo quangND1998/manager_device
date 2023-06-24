@@ -168,8 +168,27 @@ class GroupController extends Controller
         }
         $device = Devices::findOrFail($id);
         $group->devices()->detach($device);
-        return response()->json($group->load(['devices.default_app']), 200);
+        if($request->packageName){
+        
+            return response()->json(new GroupResource($group), 200);
+        }
+        else{
+            return response()->json($group->load(['devices.default_app']), 200);
+        }
+       
     }
+
+    // public function deleteOwnerDeviceGame(RemoveOwnerDeviceRequest $request, $id)
+    // {
+    //     $group = Groups::find($request->group_id);
+    //     if (!$group) {
+    //         return response()->json('Not found group', 404);
+    //     }
+    //     $device = Devices::findOrFail($id);
+    //     $group->devices()->detach($device);
+    //     return response()->json(new GroupResource($group), 200);
+    // }
+
 
 
 
