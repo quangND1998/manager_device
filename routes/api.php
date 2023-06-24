@@ -36,8 +36,8 @@ Route::group([
 
     Route::group(['middleware' => 'jwt.verify'], function () {
         Route::get('language/{language}', function ($language) {
-            Session()->put('locale', $language);
-        
+            // Session()->put('locale', $language);
+            app()->setLocale($language);
             return response()->json('Successfully', 200);
         });
         Route::get('dashboard', [ApiController::class, 'dashboard']);
