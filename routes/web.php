@@ -40,6 +40,11 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('language/{language}', function ($language) {
+    Session()->put('locale', $language);
+
+    return redirect()->back();
+})->name('language');
 // Route::get('/topup', function () {
 //     return Inertia::render('topup');
 // })->middleware(['auth'])->name('topup');
