@@ -5,7 +5,13 @@
     <!-- Left side column. contains the logo and sidebar -->
     <SiderBar />
     <div class="content-wrapper">
-      <slot />
+      <transition   name="custom-classes-transition"
+                enter-active-class="animated pulse"
+              >
+                      
+                      <slot />
+      </transition>
+     
     </div>
     <dash-footer></dash-footer>
   </div>

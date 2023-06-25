@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locales' => ['vi' => 'VietNam', 'en' => 'English','zh-CN'=>'Chinese'],
+    'locales' => ['vi' => 'VietNam', 'en' => 'English','cn'=>'Chinese'],
 
     /*
     |--------------------------------------------------------------------------
