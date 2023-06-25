@@ -6,7 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Response;
 use Illuminate\Http\Exceptions\HttpResponseException;
-
 class GroupRequest extends FormRequest
 {
     /**

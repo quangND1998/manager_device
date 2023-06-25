@@ -324,6 +324,92 @@
 <svg  v-else-if="name === 'expried'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
   <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
 </svg>
+<svg v-else-if="name === 'en'" enable-background="new 0 0 512 512" version="1.1" viewBox="0 0 512 512"
+    xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="256" cy="256" r="256" fill="#F0F0F0" />
+    <g fill="#0052B4">
+      <path d="m52.92 100.14c-20.109 26.163-35.272 56.318-44.101 89.077h133.18l-89.077-89.077z" />
+      <path d="m503.18 189.22c-8.829-32.758-23.993-62.913-44.101-89.076l-89.075 89.076h133.18z" />
+      <path d="m8.819 322.78c8.83 32.758 23.993 62.913 44.101 89.075l89.074-89.075h-133.18z" />
+      <path d="m411.86 52.921c-26.163-20.109-56.317-35.272-89.076-44.102v133.18l89.076-89.075z" />
+      <path d="m100.14 459.08c26.163 20.109 56.318 35.272 89.076 44.102v-133.18l-89.076 89.074z" />
+      <path d="M189.217,8.819c-32.758,8.83-62.913,23.993-89.075,44.101l89.075,89.075V8.819z" />
+      <path d="m322.78 503.18c32.758-8.83 62.913-23.993 89.075-44.101l-89.075-89.075v133.18z" />
+      <path d="m370 322.78l89.075 89.076c20.108-26.162 35.272-56.318 44.101-89.076h-133.18z" />
+    </g>
+    <g fill="#D80027">
+      <path
+        d="m509.83 222.61h-220.44v-220.44c-10.931-1.423-22.075-2.167-33.392-2.167-11.319 0-22.461 0.744-33.391 2.167v220.44h-220.44c-1.423 10.931-2.167 22.075-2.167 33.392 0 11.319 0.744 22.461 2.167 33.391h220.44v220.44c10.931 1.423 22.073 2.167 33.392 2.167 11.317 0 22.461-0.743 33.391-2.167v-220.44h220.44c1.423-10.931 2.167-22.073 2.167-33.392 0-11.317-0.744-22.461-2.167-33.391z" />
+      <path d="m322.78 322.78l114.24 114.24c5.254-5.252 10.266-10.743 15.048-16.435l-97.802-97.802h-31.482v1e-3z" />
+      <path d="m189.22 322.78h-2e-3l-114.24 114.24c5.252 5.254 10.743 10.266 16.435 15.048l97.802-97.804v-31.479z" />
+      <path d="m189.22 189.22v-2e-3l-114.24-114.24c-5.254 5.252-10.266 10.743-15.048 16.435l97.803 97.803h31.481z" />
+      <path d="m322.78 189.22l114.24-114.24c-5.252-5.254-10.743-10.266-16.435-15.047l-97.802 97.803v31.482z" />
+    </g>
+  </svg>
+  <svg v-else-if="name === 'cn'" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256"
+    height="256" viewBox="0 0 256 256" xml:space="preserve">
+
+    <defs>
+    </defs>
+    <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;"
+      transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+      <circle cx="45" cy="45" r="45"
+        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(222,41,16); fill-rule: nonzero; opacity: 1;"
+        transform="  matrix(1 0 0 1 0 0) " />
+      <polygon
+        points="25.78,27.66 22.93,18.9 20.09,27.66 10.85,27.66 18.32,33.09 15.47,41.87 22.93,36.44 30.4,41.87 27.55,33.09 35.02,27.66 "
+        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,222,0); fill-rule: nonzero; opacity: 1;"
+        transform="  matrix(1 0 0 1 0 0) " />
+      <polygon
+        points="43.5,20.39 45.09,23.03 45.36,19.96 48.36,19.27 45.53,18.07 45.8,15 43.78,17.32 40.95,16.12 42.53,18.76 40.51,21.07 "
+        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,222,0); fill-rule: nonzero; opacity: 1;"
+        transform="  matrix(1 0 0 1 0 0) " />
+      <polygon
+        points="51.81,31.5 53.25,28.77 56.29,29.3 54.14,27.09 55.58,24.38 52.82,25.73 50.67,23.52 51.11,26.57 48.35,27.92 51.38,28.45 "
+        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,222,0); fill-rule: nonzero; opacity: 1;"
+        transform="  matrix(1 0 0 1 0 0) " />
+      <polygon
+      points="54.1,40.5 56.52,38.6 53.45,38.71 52.39,35.82 51.54,38.78 48.48,38.89 51.02,40.6 50.17,43.56 52.6,41.67 55.15,43.39 "
+      style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,222,0); fill-rule: nonzero; opacity: 1;"
+      transform="  matrix(1 0 0 1 0 0) " />
+    <polygon
+      points="45.43,47.63 45.57,44.56 43.65,46.96 40.77,45.88 42.46,48.44 40.54,50.85 43.51,50.03 45.2,52.61 45.34,49.53 48.31,48.72 "
+      style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,222,0); fill-rule: nonzero; opacity: 1;"
+      transform="  matrix(1 0 0 1 0 0) " />
+  </g>
+</svg>
+<svg v-else-if="name === 'cn'" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256"
+    height="256" viewBox="0 0 256 256" xml:space="preserve">
+
+    <defs>
+    </defs>
+    <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;"
+      transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+      <circle cx="45" cy="45" r="45"
+        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(222,41,16); fill-rule: nonzero; opacity: 1;"
+        transform="  matrix(1 0 0 1 0 0) " />
+      <polygon
+        points="25.78,27.66 22.93,18.9 20.09,27.66 10.85,27.66 18.32,33.09 15.47,41.87 22.93,36.44 30.4,41.87 27.55,33.09 35.02,27.66 "
+        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,222,0); fill-rule: nonzero; opacity: 1;"
+        transform="  matrix(1 0 0 1 0 0) " />
+      <polygon
+        points="43.5,20.39 45.09,23.03 45.36,19.96 48.36,19.27 45.53,18.07 45.8,15 43.78,17.32 40.95,16.12 42.53,18.76 40.51,21.07 "
+        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,222,0); fill-rule: nonzero; opacity: 1;"
+        transform="  matrix(1 0 0 1 0 0) " />
+      <polygon
+        points="51.81,31.5 53.25,28.77 56.29,29.3 54.14,27.09 55.58,24.38 52.82,25.73 50.67,23.52 51.11,26.57 48.35,27.92 51.38,28.45 "
+        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,222,0); fill-rule: nonzero; opacity: 1;"
+        transform="  matrix(1 0 0 1 0 0) " />
+      <polygon
+      points="54.1,40.5 56.52,38.6 53.45,38.71 52.39,35.82 51.54,38.78 48.48,38.89 51.02,40.6 50.17,43.56 52.6,41.67 55.15,43.39 "
+      style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,222,0); fill-rule: nonzero; opacity: 1;"
+      transform="  matrix(1 0 0 1 0 0) " />
+    <polygon
+      points="45.43,47.63 45.57,44.56 43.65,46.96 40.77,45.88 42.46,48.44 40.54,50.85 43.51,50.03 45.2,52.61 45.34,49.53 48.31,48.72 "
+      style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,222,0); fill-rule: nonzero; opacity: 1;"
+      transform="  matrix(1 0 0 1 0 0) " />
+  </g>
+</svg>
 
 
 

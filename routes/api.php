@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApplicationController;
 
 use App\Http\Controllers\Api\AppLaucher\GroupController;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -27,7 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group([
+Route::group(['middleware' => 'languages_api',
     'prefix' => 'v1'
 ], function () {
     Route::post('login', [AuthController::class, 'login']);
@@ -35,7 +34,11 @@ Route::group([
     Route::middleware('jwt.refresh')->get('/token/refresh', [AuthController::class, 'refresh']);
 
     Route::group(['middleware' => 'jwt.verify'], function () {
-
+        Route::get('language/{language}', function ($language) {
+            // Session()->put('locale', $language);
+            app()->setLocale($language);
+            return response()->json('Successfully', 200);
+        });
         Route::get('dashboard', [ApiController::class, 'dashboard']);
         Route::post('logout', [AuthController::class, 'logout']);
         Route::get('getDevice/{id}', [DeviceController::class, 'getDevice']);
