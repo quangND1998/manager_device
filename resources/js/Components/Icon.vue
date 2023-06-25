@@ -346,7 +346,7 @@
       <path d="m322.78 189.22l114.24-114.24c-5.252-5.254-10.743-10.266-16.435-15.047l-97.802 97.803v31.482z" />
     </g>
   </svg>
-  <svg v-else-if="name === 'zh-CN'" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256"
+  <svg v-else-if="name === '=cn'" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256"
     height="256" viewBox="0 0 256 256" xml:space="preserve">
 
     <defs>
