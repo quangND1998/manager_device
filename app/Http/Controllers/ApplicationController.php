@@ -13,8 +13,10 @@ use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
 use App\Repositories\ApplicationRepository;
+use App\Http\Controllers\Traits\FileUploadTrait;
 class ApplicationController extends Controller
 {
+    use FileUploadTrait;
     protected $application;
     function __construct(ApplicationRepository $ApplicationRepository)
     {
@@ -61,7 +63,7 @@ class ApplicationController extends Controller
         $device_id = $request->device_id;
 
         $device= Devices::with('applications')->where('device_id', $request->device_id)->first();
-        if(count($request->$applications) >0){
+        if(count($request->$applications) >0 && $device){
             foreach ($device->applications as $app) {
                 $extension = " ";
                 $this->DeleteFolder($app->icon, $extension);
