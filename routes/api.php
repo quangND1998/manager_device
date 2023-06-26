@@ -3,6 +3,9 @@
 use App\Http\Controllers\Admin\PermisionsController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PermisssionController;
+use App\Http\Controllers\Api\RoomController;
+use App\Http\Controllers\Api\EventController;
+use App\Http\Controllers\Api\GameController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\WifiController;
@@ -47,6 +50,20 @@ Route::group([
         Route::get('permission/{id}',[PermisssionController::class,'get']);
         Route::put('permission/{id}/update',[PermisssionController::class,'update']);
         Route::delete('permission/delete/{id}',[PermisssionController::class,'delete']);
+        // room
+        Route::get('room',[RoomController::class,'index']);
+        Route::post('room/store',[RoomController::class,'store']);
+        Route::post('room/update/{id}',[RoomController::class,'update']);
+        Route::delete('room/delete/{id}',[RoomController::class,'delete']);
+
+        // event
+        Route::get('events',[EventController::class,'index']);
+        Route::post('event/store',[EventController::class,'store']);
+        Route::post('event/update/{id}',[EventController::class,'update']);
+        Route::delete('event/delete/{id}',[EventController::class,'delete']);
+
+        // game
+        Route::get('game',[GameController::class,'index']);
     });
 
 

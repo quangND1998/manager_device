@@ -52,6 +52,7 @@
         "tw-elements": "^1.0.0-alpha13",
         "vite": "^3.0.3",
         "vue": "^2.6.14",
+        "vue-swal": "^1.0.0",
         "vuedraggable": "^2.24.3",
         "webpack-node-externals": "^3.0.0"
     }
