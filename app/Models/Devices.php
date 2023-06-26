@@ -64,6 +64,27 @@ class Devices extends Model
     }
 
 
+    public function scopeOrderByFillter($query, array $filters)
+    {   
+       
+        if(count($filters)> 0){
+            $sortBy = $filters['sortBy'] ? $filters['sortBy'] : 'id';
+            $sort_Direction = $filters['sortDirection'] ?  $filters['sortDirection'] : 'asc';
+            if (array_key_exists('updated_at', $filters)) {
+                $query->whereHas('last_login', function($q) use($sortBy, $sort_Direction){
+                         $q->orderBy($sortBy,$sort_Direction);
+                    });
+            } else {
+    
+                $query->orderBy($sortBy,$sort_Direction);
+            }
+        }
+        else{
+            $query->get();
+        }
+      
+    }
+
 
     
 
