@@ -67,6 +67,7 @@ class ApplicationController extends Controller
             foreach ($device->applications as $app) {
                 $extension = " ";
                 $this->DeleteFolder($app->icon, $extension);
+                $app->delete();
             }
         }
         foreach ($applications as $app) {
@@ -90,14 +91,14 @@ class ApplicationController extends Controller
             }
         }
         
-        $update_device = Device::with('applications')->find($device['id']);
-        if($update_device){
-            foreach ($update_device->applications as $app) {
-                if (file_exists((public_path() . $app->icon))==false) {
-                        $app->delete();
-                }
-            }
-        }
+        // $update_device = Device::with('applications')->find($device['id']);
+        // if($update_device){
+        //     foreach ($update_device->applications as $app) {
+        //         if (file_exists((public_path() . $app->icon))==false) {
+                      
+        //         }
+        //     }
+        // }
      
         
         return response()->json('Create successfully', Response::HTTP_OK);
