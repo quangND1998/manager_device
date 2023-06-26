@@ -43,7 +43,7 @@ class AuthController extends Controller
         }
         $user = Auth::user();
         $response  = [
-            'msg' => 'You are logged in!',
+            'msg' => __('auth.login_success'),
             'token' => $token,
             'user_name' => $user->name,
             'user' => new UserApiResource($user)
@@ -70,6 +70,7 @@ class AuthController extends Controller
         $token= request()->bearerToken();
         try {
             JWTAuth::invalidate($token);
+            return response()->json($response, Response::HTTP_OK);
             return response()->json('You have successfully logged out.', Response::HTTP_OK);
         } catch (JWTException $e) {
             return response()->json('Failed to logout, please try again.', Response::HTTP_BAD_REQUEST);
