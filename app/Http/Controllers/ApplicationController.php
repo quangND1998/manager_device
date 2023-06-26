@@ -63,7 +63,7 @@ class ApplicationController extends Controller
         $device_id = $request->device_id;
 
         $device= Devices::with('applications')->where('device_id', $request->device_id)->first();
-        if(count($request->$applications) >0 && $device){
+        if($device){
             foreach ($device->applications as $app) {
                 $extension = " ";
                 $this->DeleteFolder($app->icon, $extension);
