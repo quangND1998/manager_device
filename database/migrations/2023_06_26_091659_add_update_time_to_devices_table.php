@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddChangetypeTimeUpdateToDevicesTable extends Migration
+class AddUpdateTimeToDevicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddChangetypeTimeUpdateToDevicesTable extends Migration
     public function up()
     {
         Schema::table('devices', function (Blueprint $table) {
-            $table->datetime('time_update')->nullable()->change();
+            $table->timestampTz('update_time', $precision = 0);
         });
     }
 

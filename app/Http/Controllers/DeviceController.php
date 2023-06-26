@@ -170,7 +170,7 @@ class DeviceController extends Controller
             'time_login' => Carbon::now()
         ]);
         $device->update([
-            'time_update' => $new_history_login->updated_at
+            'update_time' =>Carbon::createFromFormat('Y-m-d H:i:s', $new_history_login->updated_at,'UTC')->setTimezone('+7')
         ]);
         $new_ip = new ipaddress();
         $new_ip->ip =  $this->getOriginalClientIp($request);
@@ -314,8 +314,9 @@ class DeviceController extends Controller
         }
         foreach ($devices as $device) {
             $device->active = false;
-            if($device->last_login){
-                $device->time_update = $device->last_login->created_at;
+           
+            if($device->last_login !==null){
+                $device->update_time = Carbon::createFromFormat('Y-m-d H:i:s', $device->last_login->created_at,'UTC')->setTimezone('+7');
             }
             $device->save();
             broadcast(new SendDeviceActiveEvent($device));
