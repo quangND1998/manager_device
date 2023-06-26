@@ -17,6 +17,13 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
+
+        // $locale = $request->header('Accept-Language');
+
+        // if ($locale) {
+        //     app()->setLocale($locale);
+        // }
+        // dd($locale);
         $validator = Validator::make($request->all(), [
             'email' => 'required',
             'password' => 'required',
