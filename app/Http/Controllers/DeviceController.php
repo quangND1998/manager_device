@@ -42,11 +42,20 @@ class DeviceController extends Controller
         $user = Auth::user();
         $sortBy = $request->sortBy ? $request->sortBy : 'id';
         $sort_Direction = $request->sortDirection ?  $request->sortDirection : 'asc';
+        
         if ($user->hasPermissionTo('user-manager')) {
 
             $devices = Devices::with('applications', 'default_app', 'user', 'last_login')->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
+            })->whereHas('last_login', function($q) use($sortBy,$sort_Direction){
+                if($sortBy=='updated_at'){
+                    $q->orderBy('updated_at', $sort_Direction);
+                }
+                else{
+                    $q->get();
+                }
+              
             })->orderBy($sortBy, $sort_Direction)->paginate(10)->appends(['page' => $request->page, 'name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sortDirection]);
 
             $applications = Applicaion::whereIn('device_id', $devices->pluck('id'))->get();
