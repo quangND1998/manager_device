@@ -37,8 +37,8 @@ class AuthController extends Controller
 
             return response()->json([
                 'status' => 'error',
-                'error' => 'Invalid username, password, security token',
-                'msg' => 'Invalid username, password, security token'
+                'error' =>__('auth.failed'),
+                'msg' => __('auth.failed')
             ], Response::HTTP_BAD_REQUEST);
         }
         $user = Auth::user();
