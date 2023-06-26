@@ -14,7 +14,7 @@ class AddUpdateTimeToDevicesTable extends Migration
     public function up()
     {
         Schema::table('devices', function (Blueprint $table) {
-            $table->timestampTz('update_time', $precision = 0);
+            $table->timestampTz('update_time');
         });
     }
 

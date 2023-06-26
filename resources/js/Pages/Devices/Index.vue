@@ -231,7 +231,7 @@
               v-if="hasAnyPermission(['user-manager'])">{{ device.os_version }}</th>
             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
               {{
-                device.update_time ? formatDate(device.update_time) : null }}
+                device.update_time && formatDate(device.update_time) !=='Invalid date' ? formatDate(device.update_time) : null }}
             </th>
             <td class="py-4 px-6 text-right">
               <button @click="edit(device)" type="button" data-toggle="modal" data-target="#exampleModal"

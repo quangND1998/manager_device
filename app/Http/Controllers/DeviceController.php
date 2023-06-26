@@ -315,9 +315,9 @@ class DeviceController extends Controller
         foreach ($devices as $device) {
             $device->active = false;
            
-            if($device->last_login !==null){
-                $device->update_time = Carbon::createFromFormat('Y-m-d H:i:s', $device->last_login->created_at,'UTC')->setTimezone('+7');
-            }
+            // if($device->last_login !==null){
+            //     $device->update_time = Carbon::createFromFormat('Y-m-d H:i:s', $device->last_login->created_at,'UTC')->setTimezone('+7');
+            // }
             $device->save();
             broadcast(new SendDeviceActiveEvent($device));
         }
