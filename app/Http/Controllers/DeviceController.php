@@ -48,7 +48,7 @@ class DeviceController extends Controller
             $devices = Devices::with('applications', 'default_app', 'user', 'last_login')->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
-            })->OrderByFillter($request->only('sortBy', 'sortDirection'))->paginate(10)->appends(['page' => $request->page, 'name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sortDirection]);
+            })->orderBy($sortBy, $sort_Direction)->paginate(10)->appends(['page' => $request->page, 'name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sortDirection]);
 
            
             $applications = Applicaion::whereIn('device_id', $devices->pluck('id'))->get();
