@@ -90,8 +90,8 @@ class ApplicationController extends Controller
             }
         }
         if($device){
-            $device = $device->load('applications');
-            foreach ($device->applications as $app) {
+            $update_device = Device::with('applications')->find($device->id);
+            foreach ($update_device->applications as $app) {
                 if (!file_exists((public_path() . $app->icon))) {
                         $app->delete();
                 }
