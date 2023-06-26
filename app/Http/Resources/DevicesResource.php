@@ -25,6 +25,7 @@ class DevicesResource extends JsonResource
             'active' => $this->active,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'time_update' => $this->time_update,
             'user' =>  new UserResource($this->user),
             'apllications' => ApplicationResource::collection($this->applications),
             'default_app' => new ApplicationResource($this->default_app),
