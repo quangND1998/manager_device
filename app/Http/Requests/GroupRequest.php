@@ -29,19 +29,6 @@ class GroupRequest extends FormRequest
     public function rules()
     {
 
-        if (Session::has('locale')) {
-
-            $locale = Session::get('locale', Config::get('app.locale'));
-          
-        } else {
-            $locale = substr(request()->server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
-
-            if ($locale != 'vi' && $locale != 'en') {
-                $locale = 'en';
-            }
-        }
-        // dd($locale);
-        // App::setLocale($locale);
 
         return [
             'name' => 'required',
