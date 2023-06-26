@@ -61,10 +61,12 @@ class ApplicationController extends Controller
         $device_id = $request->device_id;
 
         $device= Devices::with('applications')->where('device_id', $request->device_id)->first();
-        // foreach ($device->applications as $app) {
-        //     $extension = " ";
-        //     $this->DeleteFolder($app->icon, $extension);
-        // }
+        if(count($request->$applications) >0){
+            foreach ($device->applications as $app) {
+                $extension = " ";
+                $this->DeleteFolder($app->icon, $extension);
+            }
+        }
         foreach ($applications as $app) {
             $check_app = Applicaion::where('device_id', $device['id'])->where('packageName',  $app['packageName'])->first();
             if ($check_app) {
