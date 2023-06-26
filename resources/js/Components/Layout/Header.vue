@@ -19,7 +19,7 @@
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav flex felx-wrap">
-          <Language />
+          <!-- <Language /> -->
           <!-- <UserMenu></UserMenu> -->
         </ul>
       </div>

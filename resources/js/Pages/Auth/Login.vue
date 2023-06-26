@@ -10,7 +10,7 @@
       </div>
       <h1 class="text-center">Login</h1>
       <div>
-        <breeze-label class="text-label" for="email" value="Email" />
+        <breeze-label class="text-label" for="email" value="Account" />
         <input
           id="email"
           type="email"
@@ -18,6 +18,7 @@
           v-model="form.email"
           required
           autofocus
+          placeholder="Email"
           autocomplete="username"
         />
       </div>
@@ -31,6 +32,7 @@
             class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full text-label"
             v-model="form.password"
             required
+            placeholder="Password"
             autocomplete="current-password"
           />
           <span class="span-hidden">
