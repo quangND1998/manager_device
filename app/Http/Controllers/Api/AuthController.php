@@ -37,7 +37,7 @@ class AuthController extends Controller
 
             return response()->json([
                 'status' => 'error',
-                'error' =>__('auth.failed'),
+                'error' => __('auth.failed'),
                 'msg' => __('auth.failed')
             ], Response::HTTP_BAD_REQUEST);
         }
