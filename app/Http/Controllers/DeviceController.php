@@ -169,6 +169,9 @@ class DeviceController extends Controller
             'device_id' => $device->id,
             'time_login' => Carbon::now()
         ]);
+        $device->update([
+            'time_update' => $new_history_login->updated_at
+        ]);
         $new_ip = new ipaddress();
         $new_ip->ip =  $this->getOriginalClientIp($request);
         $new_ip->history_id = $new_history_login->id;
@@ -311,7 +314,12 @@ class DeviceController extends Controller
         }
         foreach ($devices as $device) {
             $device->active = false;
+            $device->update([
+                'time_update' => $device->last_login->updated_at
+            ]);
             $device->save();
+
+          
             broadcast(new SendDeviceActiveEvent($device));
         }
         return redirect()->route('device.index');
