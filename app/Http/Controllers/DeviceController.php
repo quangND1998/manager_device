@@ -42,6 +42,7 @@ class DeviceController extends Controller
         $user = Auth::user();
         $sortBy = $request->sortBy ? $request->sortBy : 'id';
         $sort_Direction = $request->sortDirection ?  $request->sortDirection : 'asc';
+        
         if ($user->hasPermissionTo('user-manager')) {
 
             $devices = Devices::with('applications', 'default_app', 'user', 'last_login')->where(function ($query) use ($request) {
@@ -49,6 +50,7 @@ class DeviceController extends Controller
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
             })->orderBy($sortBy, $sort_Direction)->paginate(10)->appends(['page' => $request->page, 'name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sortDirection]);
 
+           
             $applications = Applicaion::whereIn('device_id', $devices->pluck('id'))->get();
         } elseif ($user->hasPermissionTo('Lite')) {
 
@@ -166,6 +168,9 @@ class DeviceController extends Controller
         $new_history_login = HistoryDevice::create([
             'device_id' => $device->id,
             'time_login' => Carbon::now()
+        ]);
+        $device->update([
+            'time_update' => $new_history_login->updated_at
         ]);
         $new_ip = new ipaddress();
         $new_ip->ip =  $this->getOriginalClientIp($request);
@@ -309,7 +314,14 @@ class DeviceController extends Controller
         }
         foreach ($devices as $device) {
             $device->active = false;
+            if($device->last_login){
+                $device->time_update = $device->last_login->updated_at;
+
+            }
+
             $device->save();
+
+          
             broadcast(new SendDeviceActiveEvent($device));
         }
         return redirect()->route('device.index');

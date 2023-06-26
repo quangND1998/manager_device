@@ -9,7 +9,7 @@ class Devices extends Model
 {
     use HasFactory;
     protected $table = 'devices';
-    protected $fillable = ['id','app_default_id', 'device_id',  'name', 'brand', 'os_version', 'battery', 'connect_wifi', 'created_at','active', 'state', 'user_id',  'updated_at'];
+    protected $fillable = ['id','app_default_id', 'device_id',  'name', 'brand', 'os_version', 'battery', 'connect_wifi', 'created_at','active', 'state', 'user_id',  'updated_at', 'time_update'];
     protected $casts = [
         'active' => 'boolean'
     ];
@@ -63,6 +63,28 @@ class Devices extends Model
         return $this->hasOne(HistoryDevice::class,'device_id')->latest();
     }
 
+
+    public function scopeOrderByFillter($query, array $filters)
+    {   
+        
+        if(count($filters)> 0){
+            $sortBy = $filters['sortBy'] ? $filters['sortBy'] : 'id';
+            $sort_Direction = $filters['sortDirection'] ?  $filters['sortDirection'] : 'asc';
+            if ($filters['sortBy']=='updated_at') {
+               
+                $query->whereHas('last_login', function($q) use($sortBy, $sort_Direction){
+                         $q->orderBy($sortBy,$sort_Direction);
+                    });
+            } else {
+                
+                $query->orderBy($sortBy,$sort_Direction);
+            }
+        }
+        else{
+            $query->get();
+        }
+      
+    }
 
 
     
