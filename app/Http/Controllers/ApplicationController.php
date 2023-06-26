@@ -89,12 +89,12 @@ class ApplicationController extends Controller
                 ]);
             }
         }
-        $device->load('applications')
-        foreach ($device->applications as $app) {
-            if (!file_exists((public_path() . $app->icon))) {
-                 $app->delete();
-            }
-        }
+        // $device->load('applications')
+        // foreach ($device->applications as $app) {
+        //     if (!file_exists((public_path() . $app->icon))) {
+        //          $app->delete();
+        //     }
+        // }
         return response()->json('Create successfully', Response::HTTP_OK);
     }
     public function changeDefault(Request $request)
