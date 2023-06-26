@@ -314,9 +314,11 @@ class DeviceController extends Controller
         }
         foreach ($devices as $device) {
             $device->active = false;
-            $device->update([
-                'time_update' => $device->last_login->updated_at
-            ]);
+            if($device->last_login)
+                $device->time_update = $device->last_login->updated_at;
+
+            }
+
             $device->save();
 
           
