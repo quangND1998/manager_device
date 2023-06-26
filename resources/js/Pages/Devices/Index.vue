@@ -144,11 +144,11 @@
               User</th>
             <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500" v-if="hasAnyPermission(['user-manager'])">
               Version</th>
-            <th @click="sortValue('time_update')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
+            <th @click="sortValue('update_time')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
               <i class="fa fa-arrow-up"
-                :class="[(sortDirection === 'asc' && sort == 'time_update') ? 'text-gray-800' : 'text-gray-300']"></i>
+                :class="[(sortDirection === 'asc' && sort == 'update_time') ? 'text-gray-800' : 'text-gray-300']"></i>
               <i class="fa fa-arrow-down"
-                :class="[(sortDirection === 'desc' && sort == 'time_update') ? 'text-gray-800' : 'text-gray-300']"></i>Time
+                :class="[(sortDirection === 'desc' && sort == 'update_time') ? 'text-gray-800' : 'text-gray-300']"></i>Time
               Update
             </th>
             <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
@@ -231,7 +231,7 @@
               v-if="hasAnyPermission(['user-manager'])">{{ device.os_version }}</th>
             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
               {{
-                device.time_update ? formatDate(device.time_update) : null }}
+                device.update_time ? formatDate(device.update_time) : null }}
             </th>
             <td class="py-4 px-6 text-right">
               <button @click="edit(device)" type="button" data-toggle="modal" data-target="#exampleModal"
