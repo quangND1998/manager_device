@@ -67,6 +67,7 @@ class ApplicationController extends Controller
             foreach ($device->applications as $app) {
                 $extension = " ";
                 $this->DeleteFolder($app->icon, $extension);
+                $app->delete();
             }
         }
         foreach ($applications as $app) {
