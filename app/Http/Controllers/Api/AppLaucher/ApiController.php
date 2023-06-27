@@ -27,6 +27,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Response;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Traits\FileUploadTrait;
+use App\Http\Resources\LocationResource;
+
 class ApiController extends Controller
 {
     use FileUploadTrait;
@@ -75,17 +77,17 @@ class ApiController extends Controller
 
     public function delete($id)
     {
-        
+
         $device = Devices::with('applications')->find($id);
         $user = Auth::user();
-  
+
         if (!$device) {
             return response()->json('Not found Device', 404);
         }
-     
-        if(!$user->hasPermissionTo('user-manager')){
-            if($user->id !== $device->user_id){
-                    return response()->json("You dont have permission", 403);
+
+        if (!$user->hasPermissionTo('user-manager')) {
+            if ($user->id !== $device->user_id) {
+                return response()->json("You dont have permission", 403);
             }
         }
         foreach ($device->applications as $app) {
@@ -178,21 +180,24 @@ class ApiController extends Controller
     {
         $device = Devices::with('applications')->find($id);
         if (!$device) {
-          
+
             return response()->json('Not found Device', 404);
         }
         broadcast(new SendDeviceActiveEvent($device));
         return new DevicesResource($device->load('applications', 'default_app', 'user', 'last_login'));
     }
 
-    public function dashboard(){   
+    public function dashboard()
+    {
         // return !$user->hasPermissionTo('user-manager') ?
-        
-        $user= User::with('devices')->withCount('app_windows')->withCount('devices')->withCount('groups')->find(Auth::user()->id);
+
+        $user = User::with('devices.last_login.ipaddress')->withCount('app_windows')->withCount('devices')->withCount('groups')->find(Auth::user()->id);
+       
         $response  = [
-            "app_windows_count" => $user->hasPermissionTo('user-manager') ? AppWindow::count(): $user->app_windows_count,
-            "devices_count"=>$user->hasPermissionTo('user-manager') ? Devices::count():$user->devices_count,
-            "groups_count"=>$user->hasPermissionTo('user-manager') ? Groups::count() :$user->groups_count,
+            "app_windows_count" => $user->hasPermissionTo('user-manager') ? AppWindow::count() : $user->app_windows_count,
+            "devices_count" => $user->hasPermissionTo('user-manager') ? Devices::count() : $user->devices_count,
+            "groups_count" => $user->hasPermissionTo('user-manager') ? Groups::count() : $user->groups_count,
+            "device_locations" => $user->hasPermissionTo('user-manager')? LocationResource::collection(Devices::with('last_login.ipaddress')->get()): LocationResource::collection($user->devices)
 
         ];
         return response()->json($response, Response::HTTP_OK);
