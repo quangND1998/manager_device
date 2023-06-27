@@ -18,7 +18,7 @@ class LastLoginResource extends JsonResource
         [
             'id' => $this->id,
             'device_id' => $this->device_id,
-            'ipaddress' => new IpadressResource($this->ipadrress)
+            'ipaddress' => new IpadressResource($this->ipaddress)
         ];
     }
 }
