@@ -19,6 +19,8 @@ class IpadressResource extends JsonResource
             'id' => $this->id,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
+            'country_name'=> $this->country_name,
+            'region_name' => $this->region_name
 
         ];
     }
