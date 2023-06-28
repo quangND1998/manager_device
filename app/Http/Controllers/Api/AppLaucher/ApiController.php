@@ -199,7 +199,7 @@ class ApiController extends Controller
             "app_windows_count" => $user->hasPermissionTo('user-manager') ? AppWindow::count() : $user->app_windows_count,
             "devices_count" => $user->hasPermissionTo('user-manager') ? Devices::count() : $user->devices_count,
             "groups_count" => $user->hasPermissionTo('user-manager') ? Groups::count() : $user->groups_count,
-            "device_locations" => $user->hasPermissionTo('user-manager')? LocationResource::collection(Devices::with('last_login.ipaddress')->get()): LocationResource::collection($user->devices)
+            // "device_locations" => $user->hasPermissionTo('user-manager')? LocationResource::collection(Devices::with('last_login.ipaddress')->get()): LocationResource::collection($user->devices)
 
         ];
         return response()->json($response, Response::HTTP_OK);
