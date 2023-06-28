@@ -72,6 +72,10 @@ Route::group(['middleware' => 'languages_api',
             Route::post('launchApp', [ApiController::class, 'launchApp'])->name('launchApp');
             Route::post('checkDevice', [ApiController::class, 'checkDevice'])->name('checkDevice');
             Route::post('checkActiveDevice', [ApiController::class, 'checkActiveDevice'])->name('checkActiveDevice');
+
+            Route::get('send-update-device/{id}',[ApiController::class,'sendUpdateDevice'])->name('sendUpdateDevice');
+            Route::put('update-app-device/{id}',[ApiController::class,'updateAppDevice'])->name('updateAppDevice');
+            Route::get('find-device/{id}',[ApiController::class,'findDevice'])->name('findDevice');
         });
         Route::prefix('applications')->as('app.')->group(function () {
 

@@ -19,6 +19,8 @@ redis.psubscribe('apk-install.*', function(err, count) {});
 redis.psubscribe('apk-uninstall.*', function(err, count) {});
 redis.psubscribe('recive-active-device.*', function(err, count) {});
 redis.psubscribe('check-active-device.*', function(err, count) {});
+redis.psubscribe('send-update-application-device.*', function(err, count) {});
+redis.psubscribe('recive-update-application-device.*', function(err, count) {});
 redis.on('message', function(channel, message) {
     message = JSON.parse(message);
 
