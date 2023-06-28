@@ -53,5 +53,11 @@ Broadcast::channel('check-active-device.{id}', function ($user,$id) {
     return true;
 });
 
+Broadcast::channel('send-update-application-device.{id}', function ($user,$id) {
+    return true;
+});
+Broadcast::channel('recive-update-application-device.{id}', function ($user,$id) {
+    return true;
+});
 
 
