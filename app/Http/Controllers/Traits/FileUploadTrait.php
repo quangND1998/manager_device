@@ -409,4 +409,40 @@ trait FileUploadTrait
             return $destinationpath . $imageName;
         }
     }
+
+    public function Base64toImage($path, $attribute = null)
+    {
+        if ($path) {
+            $imageName = time() . Str::random(10) . '.' . 'png';
+            $destinationpath = '/window/';
+            if (!file_exists(public_path() . $destinationpath)) {
+                mkdir(public_path() . $destinationpath, 0777, true);
+            }
+            $data =  explode(',', $path);
+            file_put_contents(public_path() . $destinationpath . $imageName, base64_decode($data[0]));
+            if ($attribute && file_exists(public_path() . $attribute)) {
+                unlink(public_path() . $attribute);
+            }
+
+            return $destinationpath . $imageName;
+        }
+    }
+    function check_base64_image($base64) {
+        $img = imagecreatefromstring(base64_decode($base64));
+        if (!$img) {
+            return false;
+        }
+    
+        imagepng($img, 'tmp.png');
+        $info = getimagesize('tmp.png');
+    
+        unlink('tmp.png');
+    
+        if ($info[0] > 0 && $info[1] > 0 && $info['mime']) {
+            return true;
+        }
+    
+        return false;
+    }
+  
 }

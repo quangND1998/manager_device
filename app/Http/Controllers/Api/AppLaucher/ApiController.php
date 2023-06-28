@@ -217,6 +217,8 @@ class ApiController extends Controller
 
     public function updateAppDevice(Request $request, $id){
 
+     
+  
         $validator = Validator::make($request->all(), [
             'applications' => 'required',
         ]);
@@ -227,44 +229,44 @@ class ApiController extends Controller
         $device = Devices::with('applications')->where('device_id', $id)->first();
         if ($device) {
             $applications = $request->applications;
-            // if($device){
-            //     foreach ($device->applications as $app) {
-            //         $extension = " ";
-            //         $this->DeleteFolder($app->icon, $extension);
-            //     }
-            // }
-            // foreach ($applications as $app) {
-            //     $check_app = Applicaion::where('device_id', $device->id)->where('packageName',  $app['packageName'])->first();
-            //     if ($check_app) {
-            //         $check_app->update([
-            //             'appName' => $app['appName'],
-            //             'icon' => $this->convertBase64toImage($app['icon']),
-            //             'packageName' => $app['packageName'],
-            //             'version' => $app['versionName'],
-            //             'device_id' =>  $device->id
-            //         ]);
-            //     } else {
-            //         Applicaion::create([
-            //             'appName' => $app['appName'],
-            //             'icon' => $this->convertBase64toImage($app['icon']),
-            //             'packageName' => $app['packageName'],
-            //             'version' => $app['versionName'],
-            //             'device_id' =>  $device->id
-            //         ]);
-            //     }
-            // }
+            if($device){
+                foreach ($device->applications as $app) {
+                    $extension = " ";
+                    $this->DeleteFolder($app->icon, $extension);
+                }
+            }
+            foreach ($applications as $app) {
+                $check_app = Applicaion::where('device_id', $device->id)->where('packageName',  $app['packageName'])->first();
+                if ($check_app) {
+                    $check_app->update([
+                        'appName' => $app['appName'],
+                        'icon' => $this->Base64toImage($app['icon']),
+                        'packageName' => $app['packageName'],
+                        'version' => $app['versionName'],
+                        'device_id' =>  $device->id
+                    ]);
+                } else {
+                    Applicaion::create([
+                        'appName' => $app['appName'],
+                        'icon' => $this->Base64toImage($app['icon']),
+                        'packageName' => $app['packageName'],
+                        'version' => $app['versionName'],
+                        'device_id' =>  $device->id
+                    ]);
+                }
+            }
           
-            // if($device){
-            //     $update_device = Devices::with('applications')->find( $device->id);
-            //     if($update_device){
-            //         foreach ($update_device->applications as $app) {
-            //             if (file_exists((public_path() . $app->icon))==false) {
-            //                  $app->delete();
-            //             }
-            //         }
-            //     }
-            // }
-            // broadcast(new ReciveUpdateApplicationEvent($device));
+            if($device){
+                $update_device = Devices::with('applications')->find( $device->id);
+                if($update_device){
+                    foreach ($update_device->applications as $app) {
+                        if (file_exists((public_path() . $app->icon))==false) {
+                             $app->delete();
+                        }
+                    }
+                }
+            }
+            broadcast(new ReciveUpdateApplicationEvent($device));
             return response()->json($applications, Response::HTTP_OK);
         } else {
             return response()->json('Device Not Fond', Response::HTTP_BAD_REQUEST);
