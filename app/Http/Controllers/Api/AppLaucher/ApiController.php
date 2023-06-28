@@ -217,8 +217,6 @@ class ApiController extends Controller
 
     public function updateAppDevice(Request $request, $id){
 
-     
-  
         $validator = Validator::make($request->all(), [
             'applications' => 'required',
         ]);
@@ -257,7 +255,7 @@ class ApiController extends Controller
             }
           
             if($device){
-                $update_device = Devices::with('applications')->find( $device->id);
+                $update_device = Devices::with('applications')->find($device->id);
                 if($update_device){
                     foreach ($update_device->applications as $app) {
                         if (file_exists((public_path() . $app->icon))==false) {
@@ -267,7 +265,7 @@ class ApiController extends Controller
                 }
             }
             broadcast(new ReciveUpdateApplicationEvent($device));
-            return response()->json($applications, Response::HTTP_OK);
+            return response()->json(Response::HTTP_OK);
         } else {
             return response()->json('Device Not Fond', Response::HTTP_BAD_REQUEST);
         }
