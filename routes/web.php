@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ApkFileController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\ApplicationDefaultController;
 use App\Http\Controllers\AppWindowController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\GroupController;
@@ -120,6 +121,14 @@ Route::middleware(['auth'])->group(
             Route::post('changeDefault', [ApplicationController::class, 'changeDefault'])->name('default');
             Route::post('get', [ApplicationController::class, 'applications']);
         });
+
+        Route::prefix('default-application')->as('default-application.')->group(function () {
+            Route::get('', [ApplicationDefaultController::class, 'index'])->name('index');
+            Route::post('', [ApplicationDefaultController::class, 'store'])->name('store');
+            Route::put('update/{app}', [ApplicationDefaultController::class, 'update'])->name('update');;
+            Route::delete('delete/{app}', [ApplicationDefaultController::class, 'delete'])->name('delete');
+        });
+
 
         Route::prefix('wifis')->as('wifi.')->group(function () {
             Route::get('', [WifiController::class, 'index'])->name('index');

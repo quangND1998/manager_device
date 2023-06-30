@@ -5,6 +5,7 @@ import { createInertiaApp } from '@inertiajs/inertia-vue'
 // import { InertiaProgress } from '@inertiajs/progress'
 import VueCompositionAPI from '@vue/composition-api'
 import moment from 'moment';
+import VueSwal from 'vue-swal';
 // InertiaProgress.init({})
 Vue.use(VueCompositionAPI)
 createInertiaApp({
@@ -89,6 +90,7 @@ Vue.mixin({
         route: window.route,
     }
 })
+Vue.use(VueSwal)
 window.Bus = new Vue();
 // InertiaProgress.init({
 //     delay: 150,

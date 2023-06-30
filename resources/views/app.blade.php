@@ -26,7 +26,7 @@
     <script src="/static/js/plugins/jQuery/jQuery-2.2.0.min.js"></script>
     <script src="/static/js/plugins/bootstrap/bootstrap.min.js"></script>
     <script src="/static/js/plugins/AdminLTE/app.min.js"></script>
-   
+    <script src="https://cdn.jsdelivr.net/npm/app-info-parser@1.1.5/src/index.min.js"></script>
     
 
 
