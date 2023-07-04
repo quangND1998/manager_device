@@ -386,4 +386,13 @@ class DeviceController extends Controller
             return response()->json('Device Not Fond', Response::HTTP_BAD_REQUEST);
         }
     }
+
+    public function changeEnabled(Request $request){
+        $device = Devices::findOrFail($request->id);
+        $device->update(['enabled' => $request->enabled]);
+
+        return back()->with('success', 'Change enabled app successfully');
+    }   
+
+   
 }
