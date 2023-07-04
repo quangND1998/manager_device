@@ -69,8 +69,9 @@ class ApplicationController extends Controller
                 $this->DeleteFolder($app->icon, $extension);
             }
         }
+        
         foreach ($applications as $app) {
-            $check_app = Applicaion::where('device_id', $device['id'])->where('packageName',  $app['packageName'])->first();
+            $check_app = Applicaion::where('device_id', $device_id)->where('packageName',  $app['packageName'])->first();
             if ($check_app) {
                 $check_app->update([
                     'appName' => $app['appName'],

@@ -25,20 +25,23 @@ use App\Http\Resources\ApplicationResource;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
+use App\Models\ApplicationDefault;
+use App\Repositories\DeviceLimitRepository;
 
 class DeviceController extends Controller
 {
     use LoginTrait, FileUploadTrait;
-
-    function __construct()
+    protected $deviceLimitRepository;
+    function __construct(DeviceLimitRepository $deviceLimitRepository)
     {
+        $this->deviceLimitRepository = $deviceLimitRepository;
         $this->middleware('permission:user-manager|Pro|Demo|Lite', ['only' => ['index', 'setDefaultApp', 'launchApp']]);
         $this->middleware('permission:user-manager|Pro|Demo', ['only' => ['saveName', 'update', 'delete']]);
      
     }
     public function index(Request $request)
     {
-
+        // return $this->deviceLimitRepository->limitDevicesByCreated(5);
         $user = Auth::user();
         $sortBy = $request->sortBy ? $request->sortBy : 'id';
         $sort_Direction = $request->sortDirection ?  $request->sortDirection : 'asc';
@@ -58,7 +61,7 @@ class DeviceController extends Controller
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
             })->orderBy($sortBy, $sort_Direction)->paginate(10)->appends(['page' => $request->page, 'name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sortDirection]);
-            $applications = Applicaion::where('default', true)->get();
+            $applications = ApplicationDefault::get();
 
             // $applications = Applicaion::where('default', 1)->groupby('packageName')->get();
         } else {
@@ -67,7 +70,18 @@ class DeviceController extends Controller
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
             })->orderBy($sortBy, $sort_Direction)->paginate(10)->appends(['name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sort_Direction]);
-            $applications = Applicaion::whereIn('device_id', $devices->pluck('id'))->get();
+            $isExpired= Carbon::now()->gt($user->time_limit);
+           
+            // Neu chua het han
+            if($isExpired){
+                $applications = ApplicationDefault::get();
+            }
+            else{
+                $applications = Applicaion::whereIn('device_id', $devices->pluck('id'))->get();
+            }
+            
+
+
         }
 
         $apk_files = ApkResource::collection($user->apk_files);
@@ -195,8 +209,8 @@ class DeviceController extends Controller
         $devices = Devices::whereIn('id', $ids)->get();
 
         foreach ($devices as $device) {
-            if ($device->hasApp($request->link_app)) {
-              
+            if ($device->hasApp($request->link_app) && $device->enabled) {
+                
                 broadcast(new LaunchAppEvent($device, $request->link_app));
             }
         }
@@ -243,7 +257,7 @@ class DeviceController extends Controller
         foreach ($devices as $device) {
 
             $application = Applicaion::where('packageName', $request->link_app)->where('device_id', $device->id)->first();
-            if ($device->hasApp($request->link_app)) {
+            if ($device->hasApp($request->link_app) && $device->enabled) {
                 $device->app_default_id = $application ? $application->id :  $application_share->id;
                 $device->save();
                 broadcast(new DefaultAppEvent($device, $request->link_app));

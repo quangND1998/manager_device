@@ -77,6 +77,7 @@ Vue.mixin({
             return `${(bytes / 1024 ** i).toFixed(1)} ${sizes[i]}`;
         },
 
+
     },
 })
 

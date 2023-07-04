@@ -4,14 +4,20 @@
     <alert :dismissible="true"></alert>
     <WifiModel v-if="hasAnyPermission(['user-manager'])" :errors="errors" :ids="selected" :wifis="wifis" />
     <OpenAppModal v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
+    <OpenAppModal v-else-if="!hasAnyPermission(['Lite']) && $page.props.auth.user.isExpired" :errors="errors"
+      :applications="applications" :ids="selected" />
     <OpenAppModal v-else :errors="errors" :applications="application_deivce" :ids="selected" />
 
     <GroupModel :errors="errors" :ids="selected" />
     <defaulAppModal v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
+    <defaulAppModal v-else-if="!hasAnyPermission(['Lite']) && $page.props.auth.user.isExpired" :errors="errors"
+      :applications="applications" :ids="selected" />
     <defaulAppModal v-else :errors="errors" :applications="application_deivce" :ids="selected" />
 
     <InstallApk :errors="errors" :ids="selected" :apk_files="apk_files" />
     <UninstallApk v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
+    <UninstallApk v-else-if="!hasAnyPermission(['Lite']) && $page.props.auth.user.isExpired" :errors="errors"
+      :applications="applications" :ids="selected" />
     <UninstallApk v-else :errors="errors" :applications="application_deivce" :ids="selected" />
 
     <!-- <RunApkModal :errors="errors" ></RunApkModal> -->
@@ -138,12 +144,15 @@
               <span v-if="sortDirection == 'desc'">Active</span>
               <span v-if="sortDirection == 'asc'">InActive</span>
             </th>
+            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500" v-if="hasAnyPermission(['user-manager'])">
+              Enabled</th>
             <!-- <th scope="col" class="py-3 px-6 text-xl uppercase">Connect Wifi</th> -->
             <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">Default App</th>
             <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500" v-if="hasAnyPermission(['user-manager'])">
               User</th>
             <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500" v-if="hasAnyPermission(['user-manager'])">
               Version</th>
+
             <th @click="sortValue('update_time')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
               <i class="fa fa-arrow-up"
                 :class="[(sortDirection === 'asc' && sort == 'update_time') ? 'text-gray-800' : 'text-gray-300']"></i>
@@ -196,6 +205,17 @@
               <span v-else
                 class="text-xl inline-block py-2 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-gray-400 text-gray-800 rounded-full"></span>
             </th>
+            <th v-if="hasAnyPermission(['user-manager'])" scope="row"
+              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" :checked="device.enabled" class="sr-only peer">
+                <div
+                  class="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                </div>
+                <span class="ml-3 text-xl font-medium text-gray-900 dark:text-gray-300">{{ device.enabled ?
+                  'Enabled' : 'Disabled' }}</span>
+              </label>
+            </th>
             <!-- <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"><span
                 v-if="device.connect_wifi"
                 class="text-xl inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-gray-600 text-white rounded"><i
@@ -231,7 +251,8 @@
               v-if="hasAnyPermission(['user-manager'])">{{ device.os_version }}</th>
             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
               {{
-                device.update_time && formatDate(device.update_time) !=='Invalid date' ? formatDate(device.update_time) : null }}
+                device.update_time && formatDate(device.update_time) !== 'Invalid date' ? formatDate(device.update_time) :
+                null }}
             </th>
             <td class="py-4 px-6 text-right">
               <button @click="edit(device)" type="button" data-toggle="modal" data-target="#exampleModal"
@@ -294,8 +315,12 @@ export default {
         var selected = [];
 
         if (value) {
+          console.log(value)
           this.devices.data.forEach(function (device) {
+
             selected.push(device.id);
+
+
           });
         }
 
@@ -309,6 +334,13 @@ export default {
             element => element.id == this.selected[0]
           );
           return found.applications;
+          // if( found.enabled){
+          //   return found.applications;
+          // }
+          // else{
+          //   return this.applications;
+          // }
+
         }
 
         let array = this.applications.filter(app => {
@@ -316,7 +348,7 @@ export default {
         });
         let array2 = _.chain(array).groupBy('packageName').map((value, key) => ({ packageName: key, id: value[0].id, appName: value[0].appName, packageName: value[0].packageName, icon: value[0].icon, count: value.length }))
           .value();
-          let applications = array2.filter(app => {
+        let applications = array2.filter(app => {
           return app.count == this.selected.length
         });
         return applications;
@@ -493,5 +525,4 @@ export default {
   border-bottom-width: 0;
   margin-top: 1px;
   cursor: pointer;
-}
-</style>
+}</style>

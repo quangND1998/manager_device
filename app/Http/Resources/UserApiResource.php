@@ -25,7 +25,7 @@ class UserApiResource extends JsonResource
                 'roles' => $this->hasAnyRole(['administrator', 'Pro', 'Demo']),
                 'can' => $request->user() ? $request->user()->getPermissionArray() : [],
                 'time_limit' => $this->time_limit,
-                'isExpired' => strtotime($this->time_limit)- strtotime(Carbon::now()) >0 ? false: true,
+                'isExpired' => Carbon::now()->gt($this->time_limit) ? true: false,
                 'numberDeviceExpried' =>$this->number_device -count($this->devices)
 
             ];
