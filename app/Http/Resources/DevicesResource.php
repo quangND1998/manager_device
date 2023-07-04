@@ -29,8 +29,8 @@ class DevicesResource extends JsonResource
             'user' =>  new UserResource($this->user),
             'apllications' => ApplicationResource::collection($this->applications),
             'default_app' => new ApplicationResource($this->default_app),
-            'last_login' => $this->last_login
-
+            'last_login' => $this->last_login,
+            'enabled' => $this->enabled,
         ];
     }
 }
