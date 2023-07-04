@@ -65,26 +65,14 @@ class Devices extends Model
     }
 
 
-    public function scopeOrderByFillter($query, array $filters)
-    {   
-        
-        if(count($filters)> 0){
-            $sortBy = $filters['sortBy'] ? $filters['sortBy'] : 'id';
-            $sort_Direction = $filters['sortDirection'] ?  $filters['sortDirection'] : 'asc';
-            if ($filters['sortBy']=='updated_at') {
-               
-                $query->whereHas('last_login', function($q) use($sortBy, $sort_Direction){
-                         $q->orderBy($sortBy,$sort_Direction);
-                    });
-            } else {
-                
-                $query->orderBy($sortBy,$sort_Direction);
-            }
-        }
-        else{
+    public function scopeEnabled($query, array $filters)
+    {
+        // dd($filters);
+        if (array_key_exists('enabled', $filters)) {
+            $query->where('enabled',  $filters['enabled']);
+        } else {
             $query->get();
         }
-      
     }
 
 

@@ -45,13 +45,13 @@ class DeviceController extends Controller
         $user = Auth::user();
         $sortBy = $request->sortBy ? $request->sortBy : 'id';
         $sort_Direction = $request->sortDirection ?  $request->sortDirection : 'asc';
-        
+        $enabled = $request->enabled;
         if ($user->hasPermissionTo('user-manager')) {
 
             $devices = Devices::with('applications', 'default_app', 'user', 'last_login')->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
-            })->orderBy($sortBy, $sort_Direction)->paginate(10)->appends(['page' => $request->page, 'name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sortDirection]);
+            })->enabled($request->only('enabled'))->orderBy($sortBy, $sort_Direction)->paginate(10)->appends(['page' => $request->page, 'name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sortDirection]);
 
            
             $applications = Applicaion::whereIn('device_id', $devices->pluck('id'))->get();
@@ -60,7 +60,7 @@ class DeviceController extends Controller
             $devices = Devices::with('default_app', 'applications', 'user', 'last_login')->where('user_id', $user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
-            })->orderBy($sortBy, $sort_Direction)->paginate(10)->appends(['page' => $request->page, 'name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sortDirection]);
+            })->enabled($request->only('enabled'))->orderBy($sortBy, $sort_Direction)->paginate(10)->appends(['page' => $request->page, 'name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sortDirection]);
             $applications = ApplicationDefault::get();
 
             // $applications = Applicaion::where('default', 1)->groupby('packageName')->get();
@@ -69,7 +69,7 @@ class DeviceController extends Controller
             $devices = Devices::with('applications', 'default_app', 'user', 'last_login')->where('user_id', $user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
-            })->orderBy($sortBy, $sort_Direction)->paginate(10)->appends(['name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sort_Direction]);
+            })->enabled($request->only('enabled'))->orderBy($sortBy, $sort_Direction)->paginate(10)->appends(['name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sort_Direction]);
             $isExpired= Carbon::now()->gt($user->time_limit);
            
             // Neu chua het han
@@ -93,7 +93,7 @@ class DeviceController extends Controller
         // dd($lastItem);
 
         // return $firstItem;
-        return Inertia::render('Devices/Index', compact('devices', 'applications', 'wifis', 'apk_files', 'sortBy', 'count', 'firstItem', 'lastItem', 'sort_Direction'));
+        return Inertia::render('Devices/Index', compact('devices','enabled', 'applications', 'wifis', 'apk_files', 'sortBy', 'count', 'firstItem', 'lastItem', 'sort_Direction'));
     }
 
 
@@ -209,7 +209,7 @@ class DeviceController extends Controller
         $devices = Devices::whereIn('id', $ids)->get();
 
         foreach ($devices as $device) {
-            if ($device->hasApp($request->link_app) && $device->enabled) {
+            if ($device->hasApp($request->link_app))  {
                 
                 broadcast(new LaunchAppEvent($device, $request->link_app));
             }
@@ -257,7 +257,7 @@ class DeviceController extends Controller
         foreach ($devices as $device) {
 
             $application = Applicaion::where('packageName', $request->link_app)->where('device_id', $device->id)->first();
-            if ($device->hasApp($request->link_app) && $device->enabled) {
+            if ($device->hasApp($request->link_app))  {
                 $device->app_default_id = $application ? $application->id :  $application_share->id;
                 $device->save();
                 broadcast(new DefaultAppEvent($device, $request->link_app));

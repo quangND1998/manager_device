@@ -111,10 +111,26 @@
         </div>
       </div>
     </div>
-    <button type="button" @click="FreshDevice()"
+   
+
+    <div class="flex justify-between mt-5">
+      <button type="button" @click="FreshDevice()"
       class="inline-block px-6 py-2.5 bg-blue-400 text-white font-medium text-2xl leading-tight rounded-full shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out">
       <i class="fa fa-refresh mr-2" aria-hidden="true"></i>Active devices
     </button>
+      <div class="flex">
+    
+          <select
+            v-model="filter"
+            @change="Filter"
+            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg  block w-full px-8 py-3 text-xl "
+          >
+            <option :value="null" >Status</option>
+            <option :value="1">Enabled</option>
+            <option :value="0">Disabled</option>
+          </select>
+      </div>
+    </div>
 
     <div class="overflow-x-auto relative shadow-md sm:rounded-lg mt-5">
       <table class="w-full text-xl text-left text-gray-500 dark:text-gray-400">
@@ -169,7 +185,9 @@
           <tr v-for="(device, index) in devices.data" :key="index"
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
             <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              <input type="checkbox" class="checkbox" v-model="selected" :value="device.id" />
+              <input type="checkbox" class="checkbox" v-model="selected" :value="device.id" v-if="device.enabled"/>
+              <input type="checkbox" class="checkbox" v-model="selected" :value="device.id" v-else-if="device.enabled && enabled==1"/>
+              <input type="checkbox" class="checkbox" v-model="selected" :value="device.id" v-else-if="device.enabled==false && enabled ==0"/>
             </td>
             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
               <!-- {{ sortDirection =='asc'?  firstItem + index :    count -(devices.current_page ==1? -index +1 : -index-1) }} -->
@@ -370,6 +388,7 @@ export default {
   },
   data() {
     return {
+      filter:this.enabled,
       sort: this.sortBy,
       sortDirection: this.sort_Direction,
       term: null,
@@ -396,7 +415,8 @@ export default {
     count: Number,
     sort_Direction: String,
     firstItem: Number,
-    lastItem: Number
+    lastItem: Number,
+    enabled:String
   },
 
   methods: {
@@ -408,6 +428,25 @@ export default {
           preserveState: true
         }
       );
+    },
+    Filter(event) {
+      if (event.target.value == "") {
+        this.$inertia.get(
+          this.route(`device.index`),
+          {},
+          {
+            preserveScroll: true
+          }
+        );
+      } else {
+        this.filter = event.target.value;
+        let query = {
+          enabled: event.target.value
+        };
+        this.$inertia.get(this.route(`device.index`), query, {
+          preserveScroll: true
+        });
+      }
     },
     save() {
       if (this.editMode) {
