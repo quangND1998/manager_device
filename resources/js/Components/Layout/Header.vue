@@ -3,7 +3,7 @@
     <span class="logo-mini">
       <a href="/">
         <img
-          src="/static/img/copilot-logo-white.svg"
+          src="/static/img/logoxanh.svg"
           alt="Logo"
           class="img-responsive center-block logo"
         />

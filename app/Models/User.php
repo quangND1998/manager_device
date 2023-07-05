@@ -103,7 +103,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Groups::class,'user_id');
     }
 
-    public function history_mails(){
+    public function history_mail(){
         return $this->hasOne(HistoryMail::class, 'user_id');
     }
 
