@@ -67,8 +67,9 @@ class Devices extends Model
 
     public function scopeEnabled($query, array $filters)
     {
-        // dd($filters);
-        if (array_key_exists('enabled', $filters)) {
+     
+
+        if (array_key_exists('enabled', $filters) && ($filters['enabled'] =='0' || $filters['enabled'] =='1' )) {
             $query->where('enabled',  $filters['enabled']);
         } else {
             $query->get();

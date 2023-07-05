@@ -44,10 +44,10 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user() ?  new UserResource($request->user()) :  $request->user(),
                 // 'roles'=>  Auth::user()->roles,
                 'can' => $request->user() ? $request->user()->getPermissionArray() : [],
-                'roles' => $request->user() ? $request->user()->getRolesArray() : [],
+                // 'roles' => $request->user() ? $request->user()->getRolesArray() : [],
                 // 'owner' => $request->user() ? User::find($request->user()['created_byId']) : null
             ],
-            // 'default_applications' =>  ApplicationDefault::get(),
+            'default_applications' =>  ApplicationDefault::get(),
             'flash' => function () use ($request) {
                 return [
                     'success' => $request->session()->get('success'),

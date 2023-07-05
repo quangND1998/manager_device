@@ -1,23 +1,27 @@
 <template>
   <section class="content">
+  
     <ContentHeaderVue :name="'Devices'" />
     <alert :dismissible="true"></alert>
     <WifiModel v-if="hasAnyPermission(['user-manager'])" :errors="errors" :ids="selected" :wifis="wifis" />
     <OpenAppModal v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
     <OpenAppModal v-else-if="!hasAnyPermission(['Lite']) && $page.props.auth.user.isExpired" :errors="errors"
       :applications="applications" :ids="selected" />
+    <OpenAppModal v-else-if="!hasAnyPermission(['Lite']) && enabled=='0'" :errors="errors" :applications="default_applications" :ids="selected" />
     <OpenAppModal v-else :errors="errors" :applications="application_deivce" :ids="selected" />
 
     <GroupModel :errors="errors" :ids="selected" />
     <defaulAppModal v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
     <defaulAppModal v-else-if="!hasAnyPermission(['Lite']) && $page.props.auth.user.isExpired" :errors="errors"
       :applications="applications" :ids="selected" />
+    <defaulAppModal v-else-if="!hasAnyPermission(['Lite']) && enabled=='0'" :errors="errors" :applications="default_applications" :ids="selected" />
     <defaulAppModal v-else :errors="errors" :applications="application_deivce" :ids="selected" />
 
     <InstallApk :errors="errors" :ids="selected" :apk_files="apk_files" />
     <UninstallApk v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
     <UninstallApk v-else-if="!hasAnyPermission(['Lite']) && $page.props.auth.user.isExpired" :errors="errors"
       :applications="applications" :ids="selected" />
+      <UninstallApk v-else-if="!hasAnyPermission(['Lite']) && enabled=='0'" :errors="errors" :applications="applications" :ids="selected" />
     <UninstallApk v-else :errors="errors" :applications="application_deivce" :ids="selected" />
 
     <!-- <RunApkModal :errors="errors" ></RunApkModal> -->
@@ -182,8 +186,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(device, index) in devices.data" :key="index"
-            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <tr v-for="(device, index) in devices.data" :key="index" 
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 " :class="device.enabled ==false && enabled !=='0' ? 'opacity-30':''">
             <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
               <input type="checkbox" class="checkbox" v-model="selected" :value="device.id" v-if="device.enabled"/>
               <input type="checkbox" class="checkbox" v-model="selected" :value="device.id" v-else-if="device.enabled && enabled==1"/>
@@ -273,12 +277,12 @@
                 null }}
             </th>
             <td class="py-4 px-6 text-right">
-              <button @click="edit(device)" type="button" data-toggle="modal" data-target="#exampleModal"
+              <button @click="edit(device)" type="button" data-toggle="modal" data-target="#exampleModal" :disabled="device.enabled ==false"
                 class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out">
                 Edit
                 Name
               </button>
-              <button type="button" @click="Delete(device.id)"
+              <button type="button" @click="Delete(device.id)" :disabled="device.enabled ==false "
                 class="inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out">Delete</button>
             </td>
           </tr>
@@ -334,11 +338,17 @@ export default {
 
         if (value) {
           console.log(value)
+          const  _this = this;
           this.devices.data.forEach(function (device) {
-
-            selected.push(device.id);
-
-
+            if(device.enabled && _this.enabled){
+              selected.push(device.id);
+            }
+            else if(device.enabled ==false && _this.enabled =='0'){
+              selected.push(device.id);
+            }
+            else if(device.enabled && _this.enabled ==null){
+              selected.push(device.id);
+            }
           });
         }
 
@@ -416,14 +426,15 @@ export default {
     sort_Direction: String,
     firstItem: Number,
     lastItem: Number,
-    enabled:String
+    enabled:String,
+    default_applications: Array
   },
 
   methods: {
     search() {
       this.$inertia.get(
         this.route("device.index"),
-        { term: this.term },
+        { term: this.term,  enabled: this.enabled },
         {
           preserveState: true
         }
