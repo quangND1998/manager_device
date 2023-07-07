@@ -160,7 +160,8 @@ export default {
             if (this.device) {
                 var device_socket = this.device
                 this.sockets.subscribe(`recive-active-device.${this.device.device_id}:App\\Events\\ReciveActiveDeviceEvent`, (data) => {
-                         this.$store.commit("stores/listenSocket", data);
+                    this.device.active =true;
+                    this.device.battery= data.battery
                     this.sockets.unsubscribe(`recive-active-device.${device_socket.device_id}:App\\Events\\ReciveActiveDeviceEvent`);
                 });
             }
@@ -185,12 +186,13 @@ export default {
           
         },
         getDevice(device_id){
-            axios
-            .get(`/devices/find-device/${device_id}`)
-            .then(response => {
-                console.log(response)
-            })
-            .catch(error => {});
+           
+            this.$inertia.get(
+                this.route("device.find-device", device_id),
+                {
+                preserveState: true
+                }
+      );
         }
     },
     destroyed() {
