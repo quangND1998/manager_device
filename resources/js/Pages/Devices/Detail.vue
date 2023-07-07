@@ -200,10 +200,8 @@ export default {
         getDevice(device_id){
            
             this.$inertia.get(
-                this.route("device.find-device", device_id),
-                {
-                preserveState: true
-                }
+                this.route("device.find-device", device_id)
+       
       );
         }
     },
