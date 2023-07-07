@@ -70,7 +70,7 @@ class AuthController extends Controller
         $token= request()->bearerToken();
         try {
             JWTAuth::invalidate($token);
-            return response()->json($response, Response::HTTP_OK);
+           
             return response()->json('You have successfully logged out.', Response::HTTP_OK);
         } catch (JWTException $e) {
             return response()->json('Failed to logout, please try again.', Response::HTTP_BAD_REQUEST);
