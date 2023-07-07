@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Payment\OnePayController;
 use Inertia\Inertia;
 use App\Http\Controllers\Payment\BillManager;
+use App\Http\Controllers\Api\AppLaucher\ApiController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -104,6 +105,9 @@ Route::middleware(['auth'])->group(
 
         Route::prefix('devices')->as('device.')->group(function () {
             Route::get('', [DeviceController::class, 'index'])->name('index');
+            Route::get('/{id}/detail', [DeviceController::class, 'deivceDetail'])->name('detail');
+            Route::get('/find-device/{id}', [DeviceController::class, 'findDevice'])->name('find-device');
+          
             Route::put('/saveName/{id}', [DeviceController::class, 'saveName'])->name('saveName');
             Route::delete('/delete/{id}', [DeviceController::class, 'delete'])->name('destroy');
             Route::post('/launchApp', [DeviceController::class, 'launchApp'])->name('launchApp');
@@ -114,6 +118,9 @@ Route::middleware(['auth'])->group(
             Route::post('checkDevice', [DeviceController::class, 'checkDevice'])->name('checkDevice');
             Route::post('checkActiveDevice', [DeviceController::class, 'checkActiveDevice'])->name('checkActiveDevice');
             Route::post('changeEnabled', [DeviceController::class, 'changeEnabled'])->name('enabled');
+            
+
+            Route::get('/send-update-device/{id}', [ApiController::class, 'sendUpdateDevice'])->name('sendUpdateDevice');
         });
 
         Route::prefix('applications')->as('application.')->group(function () {

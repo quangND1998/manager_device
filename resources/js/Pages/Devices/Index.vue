@@ -198,8 +198,9 @@
               {{ sortDirection === 'asc' ? firstItem + index : ((count - firstItem) - index) + 1 }}
               <!-- {{ sortDirection =='asc'? devices.per_page * (devices.current_page - 1)+index +1 : count -firstItem -index -1}} -->
             </th>
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ device.name
-            }}</th>
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              <Link :href="route('device.detail', device.id)">{{ device.name
+            }}</Link></th>
             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
               {{
                 device.device_id

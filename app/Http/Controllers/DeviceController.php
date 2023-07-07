@@ -28,6 +28,8 @@ use Illuminate\Support\Facades\File;
 use App\Models\ApplicationDefault;
 use App\Repositories\DeviceLimitRepository;
 
+use App\Http\Resources\DevicesResource;
+use App\Events\SendUpdateApplicationEvent;
 class DeviceController extends Controller
 {
     use LoginTrait, FileUploadTrait;
@@ -165,7 +167,8 @@ class DeviceController extends Controller
                 'os_version' => $request->os_version,
                 'battery' => $request->battery,
                 'connect_wifi' => $request->connect_wifi,
-                'user_id' => Auth::user()->id
+                'user_id' => Auth::user()->id,
+                'active' => true
             ]);
         } else {
             $device = Devices::create([
@@ -175,7 +178,8 @@ class DeviceController extends Controller
                 'os_version' => $request->os_version,
                 'battery' => $request->battery,
                 'connect_wifi' => $request->connect_wifi,
-                'user_id' => Auth::user()->id
+                'user_id' => Auth::user()->id,
+                'active' => true
             ]);
         }
 
@@ -395,4 +399,29 @@ class DeviceController extends Controller
     }   
 
    
+    public function deivceDetail($id){
+        $device = Devices::with('applications')->find($id);
+        if (!$device) {
+
+            return response()->json('Not found Device', 404);
+        }
+        $device->active = false;
+        $device->save();
+        broadcast(new SendDeviceActiveEvent($device));
+        return Inertia::render('Devices/Detail', compact('device'));
+    }
+    
+
+    public function findDevice($id){
+        $device = Devices::with('applications', 'default_app', 'user', 'last_login')->where('device_id', $id)->first();
+        if ($device) {
+            $device->active = true;
+            $device->save();
+            return redirect()->route('device.detail', ['id' => $device->id]);
+        } else {
+            return abort(404);
+        }
+    }
+
+  
 }
