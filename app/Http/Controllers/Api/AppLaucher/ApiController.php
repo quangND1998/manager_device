@@ -185,6 +185,8 @@ class ApiController extends Controller
 
             return response()->json('Not found Device', 404);
         }
+        $device->active = false;
+        $device->save();
         broadcast(new SendDeviceActiveEvent($device));
         return new DevicesResource($device->load('applications', 'default_app', 'user', 'last_login'));
     }
@@ -274,6 +276,8 @@ class ApiController extends Controller
     public function findDevice($id){
         $device = Devices::with('applications', 'default_app', 'user', 'last_login')->where('device_id', $id)->first();
         if ($device) {
+            $device->active = true;
+            $device->save();
             return new DevicesResource($device);
         } else {
             return response()->json('Device Not Fond', Response::HTTP_BAD_REQUEST);
