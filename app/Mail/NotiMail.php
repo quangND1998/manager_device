@@ -30,6 +30,6 @@ class NotiMail extends Mailable
     {
         $data = $this->data;
   
-        return $this->subject($data['title'])->view('mail.mail_noti',compact('data'))->from("hello@holomia.com","Holomia");
+        return $this->subject($data['title'])->view('mail.mail_noti',compact('data'))->from("quang10031998@gmail.com","Holomia");
     }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Console\Commands;
 
+use App\Mail\NotiMail;
 use App\Models\HistoryMail;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
 
 class NotiExpireTimeLimit extends Command
 {
@@ -40,12 +42,14 @@ class NotiExpireTimeLimit extends Command
      */
     public function handle()
     {
+
         $time_now = Carbon::now();
         $limit_20 = Carbon::now()->addDays(10);
-        $users = User::with('history_mail')->where('time_limit','<=',$limit_20)->where('time_limit','>=',$time_now)->where('active_mail',1)->get();
-        foreach($users as $user){
+        $users = User::with('history_mail')->where('time_limit', '<=', $limit_20)->where('time_limit', '>=', $time_now)->where('active_mail', 1)->get();
+        foreach ($users as $user) {
 
-            if($user->history_mail == null){
+            if ($user->history_mail == null) {
+                $this->sendMail($user);
                 $history_noti_mail = new HistoryMail();
                 $history_noti_mail->time_send = 1;
                 $history_noti_mail->user_id = $user->id;
@@ -59,5 +63,17 @@ class NotiExpireTimeLimit extends Command
             //     }
             // }
         }
+    }
+
+    public function sendMail($user)
+    {
+        $data = array('name' => $user->name, 'email' => $user->email, 'btn' => 'Log in and pick a plan', 'content' => '
+        Your HoloStartUp license is ending soon. <br><br>
+        If you wish to continue using MissionX, 
+        you will need to select a plan now to avoid any interruption. 
+        <br><br>
+        We hope to continue with you on this journey. If you have any feedback, we would be happy to listen.
+                ', 'title' => '[HoloStartUp] Your HoloStartUp license is ending soon.');
+        Mail::to($user->email)->send(new NotiMail($data));
     }
 }

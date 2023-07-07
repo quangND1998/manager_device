@@ -80,7 +80,7 @@ class DeviceController extends Controller
                 $applications = Applicaion::whereIn('device_id', $devices->pluck('id'))->get();
             }
             
-
+           
 
         }
 
