@@ -15,7 +15,7 @@
             <div class="mx-3 text-left" v-if="device">
                 <div class="flex">
                     <h2 class="text-4xl font-semibold">{{ device.name }} </h2>
-                        <i class="fa fa-repeat mt-2 ml-4 text-blue-500 cursor-pointer" aria-hidden="true" 
+                        <i class="fa fa-repeat mt-2 ml-4 text-blue-500 cursor-pointer" aria-hidden="true" v-if="device.active"
                        title="Update Device" @click="updateApplication(device.id)"></i>
                 </div>
 
