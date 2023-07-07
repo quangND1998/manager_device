@@ -25,7 +25,7 @@ use App\Http\Resources\ApplicationResource;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
-
+use App\Http\Resources\DevicesResource;
 class DeviceController extends Controller
 {
     use LoginTrait, FileUploadTrait;
@@ -370,6 +370,29 @@ class DeviceController extends Controller
             broadcast(new ReciveActiveDeviceEvent($device));
 
             return response()->json(Response::HTTP_OK);
+        } else {
+            return response()->json('Device Not Fond', Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    public function deivceDetail($id){
+        $device = Devices::with('applications')->find($id);
+        if (!$device) {
+
+            return response()->json('Not found Device', 404);
+        }
+        $device->active = false;
+        $device->save();
+        broadcast(new SendDeviceActiveEvent($device));
+        return Inertia::render('Devices/Detail', compact('device'));
+    }
+
+    public function findDevice($id){
+        $device = Devices::with('applications', 'default_app', 'user', 'last_login')->where('device_id', $id)->first();
+        if ($device) {
+            $device->active = true;
+            $device->save();
+            return new DevicesResource($device);
         } else {
             return response()->json('Device Not Fond', Response::HTTP_BAD_REQUEST);
         }
