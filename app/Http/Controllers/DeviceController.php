@@ -26,6 +26,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use App\Http\Resources\DevicesResource;
+use App\Events\SendUpdateApplicationEvent;
 class DeviceController extends Controller
 {
     use LoginTrait, FileUploadTrait;
@@ -386,6 +387,7 @@ class DeviceController extends Controller
         broadcast(new SendDeviceActiveEvent($device));
         return Inertia::render('Devices/Detail', compact('device'));
     }
+    
 
     public function findDevice($id){
         $device = Devices::with('applications', 'default_app', 'user', 'last_login')->where('device_id', $id)->first();
@@ -397,4 +399,6 @@ class DeviceController extends Controller
             return abort(404);
         }
     }
+
+  
 }
