@@ -160,6 +160,7 @@ export default {
             if (this.device) {
                 var device_socket = this.device
                 this.sockets.subscribe(`recive-active-device.${this.device.device_id}:App\\Events\\ReciveActiveDeviceEvent`, (data) => {
+                    console.log('listenActiveDevice', data)
                     this.device.active =true;
                     this.device.battery= data.battery
                     this.sockets.unsubscribe(`recive-active-device.${device_socket.device_id}:App\\Events\\ReciveActiveDeviceEvent`);
@@ -169,7 +170,7 @@ export default {
         listenUpdateAppDevice() {
             var self = this;
             if (this.device) {
-                var device = this.device_show
+                var device = this.device
                 this.sockets.subscribe(`recive-update-application-device.${this.device.device_id}:App\\Events\\ReciveUpdateApplicationEvent`, (data) => {
                 
                     if (data.device_id == device.device_id) {
