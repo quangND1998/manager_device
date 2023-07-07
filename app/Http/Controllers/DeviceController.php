@@ -392,9 +392,9 @@ class DeviceController extends Controller
         if ($device) {
             $device->active = true;
             $device->save();
-            return new DevicesResource($device);
+            return redirect()->route('device.detail', ['id' => $device->id]);
         } else {
-            return response()->json('Device Not Fond', Response::HTTP_BAD_REQUEST);
+            return abort(404);
         }
     }
 }
