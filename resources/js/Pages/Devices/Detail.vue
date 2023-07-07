@@ -15,9 +15,8 @@
             <div class="mx-3 text-left" v-if="device">
                 <div class="flex">
                     <h2 class="text-4xl font-semibold">{{ device.name }} </h2>
-                    <font-awesome-icon :icon="['fas', 'rotate']" :spin="isSpin" size="lg" v-if="device.active"
-                        v-b-tooltip.hover :title="$t('device.update_device')" @click="updateApplication(device.id)"
-                        class="mt-2 ml-4 text-blue-500 cursor-pointer" />
+                        <i class="fa fa-repeat mt-2 ml-4 text-blue-500 cursor-pointer" aria-hidden="true" 
+                       title="Update Device" @click="updateApplication(device.id)"></i>
                 </div>
 
 
@@ -185,6 +184,17 @@ export default {
                 })
             }
           
+        },
+
+        updateApplication(id) {
+            axios
+                .get(`/devices/send-update-device/${id}`)
+                .then(response => {
+                    if (response.status == 200) {
+                    console.log('updateApplication',response.data.device_id);
+                }
+                })
+                .catch(error => {}); 
         },
         getDevice(device_id){
            
