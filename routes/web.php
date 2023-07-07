@@ -103,6 +103,8 @@ Route::middleware(['auth'])->group(
 
         Route::prefix('devices')->as('device.')->group(function () {
             Route::get('', [DeviceController::class, 'index'])->name('index');
+            Route::get('/{id}/detail', [DeviceController::class, 'deivceDetail'])->name('detail');
+            Route::get('/find-device/{id}', [DeviceController::class, 'findDevice'])->name('find-device');
             Route::put('/saveName/{id}', [DeviceController::class, 'saveName'])->name('saveName');
             Route::delete('/delete/{id}', [DeviceController::class, 'delete'])->name('destroy');
             Route::post('/launchApp', [DeviceController::class, 'launchApp'])->name('launchApp');
