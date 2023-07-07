@@ -151,7 +151,8 @@ class DeviceController extends Controller
                 'os_version' => $request->os_version,
                 'battery' => $request->battery,
                 'connect_wifi' => $request->connect_wifi,
-                'user_id' => Auth::user()->id
+                'user_id' => Auth::user()->id,
+                'active' => true
             ]);
         } else {
             $device = Devices::create([
@@ -161,7 +162,8 @@ class DeviceController extends Controller
                 'os_version' => $request->os_version,
                 'battery' => $request->battery,
                 'connect_wifi' => $request->connect_wifi,
-                'user_id' => Auth::user()->id
+                'user_id' => Auth::user()->id,
+                'active' => true
             ]);
         }
 
