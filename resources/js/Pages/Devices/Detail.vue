@@ -138,7 +138,7 @@ export default {
     },
     mounted() {
         this.listenActiveDevice();
-        this.listenUpdateAppDevice();
+        // this.listenUpdateAppDevice();
     },
     computed: {
 
