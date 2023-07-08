@@ -394,7 +394,7 @@ class DeviceController extends Controller
         if ($device) {
             $device->active = true;
             $device->save();
-            return redirect()->route('device.detail', ['id' => $device->id]);
+            return new DevicesResource($device);
         } else {
             return abort(404);
         }

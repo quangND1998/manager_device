@@ -201,11 +201,14 @@ export default {
                 .catch(error => { });
         },
         getDevice(device_id) {
-
-            this.$inertia.get(
-                this.route("device.find-device", device_id)
-
-            );
+            axios
+                .get(`/devices/find-device/${device_id}`)
+                .then(response => {
+                    if (response.status == 200) {
+                        this.device= response.data
+                    }
+                })
+                .catch(error => { });
         }
     },
     destroyed() {
