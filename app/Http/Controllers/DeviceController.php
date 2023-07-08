@@ -394,7 +394,7 @@ class DeviceController extends Controller
         if ($device) {
             $device->active = true;
             $device->save();
-            return new DevicesResource($device);
+            return response()->json($device->load('applications', 'default_app', 'user', 'last_login'), 200);
         } else {
             return abort(404);
         }
