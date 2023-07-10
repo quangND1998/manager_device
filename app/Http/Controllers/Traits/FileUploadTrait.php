@@ -14,7 +14,7 @@ use Illuminate\Support\Str;
 use App\Models\Project\text_pano;
 use Illuminate\Support\Collection;
 use Closure;
-
+use Intervention\Image\Facades\Image;
 trait FileUploadTrait
 {
 
@@ -443,6 +443,44 @@ trait FileUploadTrait
         }
     
         return false;
+    }
+
+    public function uploadImageResize($image, $width, $height)
+    {
+        $image_resize = Image::make($image->getRealPath());
+
+        $image_width =    $image_resize->width();
+        $image_height =  $image_resize->height();
+        $filename = time() . '-' . $image->getClientOriginalName();
+
+        if ($image_width > $width && $image_height > $height) {
+            Image::make($image)->resize($width, $height)->save(public_path('avatar') . '/' . $filename);
+        } else {
+            Image::make($image)->save(public_path('avatar') . '/' . $filename);
+        }
+
+        return '/avatar/' . $filename;
+    }
+
+    public function updateImageResize($image, $width, $height, $attribute)
+    {
+        $filename = time() . '-' . $image->getClientOriginalName();
+        $image_resize = Image::make($image->getRealPath());
+        $image_width =    $image_resize->width();
+        $image_height =  $image_resize->height();
+        if ($image_width > $width && $image_height > $height) {
+            Image::make($image)->resize($width, $height)->save(public_path('avatar') . '/' . $filename);
+        } else {
+            Image::make($image)->save(public_path('avatar') . '/' . $filename);
+        }
+        if ($attribute == null || file_exists($attribute) == false) {
+            $path = '/avatar/' . $filename;
+        } else {
+            unlink($attribute);
+            $path = '/avatar/' . $filename;
+        }
+
+        return $path;
     }
   
 }

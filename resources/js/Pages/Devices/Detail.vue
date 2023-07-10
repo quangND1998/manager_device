@@ -15,8 +15,8 @@
             <div class="mx-3 text-left" v-if="device">
                 <div class="flex">
                     <h2 class="text-4xl font-semibold">{{ device.name }} </h2>
-                        <i class="fa fa-repeat mt-2 ml-4 text-blue-500 cursor-pointer" aria-hidden="true" v-if="device.active"
-                       title="Update Device" @click="updateApplication(device.id)"></i>
+                    <i class="fa fa-repeat mt-2 ml-4 text-blue-500 cursor-pointer" aria-hidden="true" v-if="device.active"
+                        title="Update Device" @click="updateApplication(device.id)"></i>
                 </div>
 
 
@@ -136,9 +136,9 @@ export default {
             search: ''
         }
     },
-    mounted(){
+    mounted() {
         this.listenActiveDevice();
-        this.listenUpdateAppDevice();
+        // this.listenUpdateAppDevice();
     },
     computed: {
 
@@ -153,7 +153,7 @@ export default {
                 : this.device.applications;
         },
     },
-    methods:{
+    methods: {
         listenActiveDevice() {
             var self = this;
 
@@ -161,8 +161,8 @@ export default {
                 var device_socket = this.device
                 this.sockets.subscribe(`recive-active-device.${this.device.device_id}:App\\Events\\ReciveActiveDeviceEvent`, (data) => {
                     console.log('listenActiveDevice', data)
-                    this.device.active =true;
-                    this.device.battery= data.battery
+                    this.device.active = true;
+                    this.device.battery = data.battery
                     this.sockets.unsubscribe(`recive-active-device.${device_socket.device_id}:App\\Events\\ReciveActiveDeviceEvent`);
                 });
             }
@@ -172,19 +172,19 @@ export default {
             if (this.device) {
                 var device = this.device
                 this.sockets.subscribe(`recive-update-application-device.${this.device.device_id}:App\\Events\\ReciveUpdateApplicationEvent`, (data) => {
-                
+
                     if (data.device_id == device.device_id) {
                         console.log(data)
                         this.getDevice(data.device_id)
                         // this.$store.dispatch('stores/listenUpdateApp', device.device_id)
                         this.sockets.unsubscribe(`recive-update-application-device.${this.device.device_id}:App\\Events\\ReciveUpdateApplicationEvent`)
-              
+
                     }
-                
-             
+
+
                 })
             }
-          
+
         },
 
         updateApplication(id) {
@@ -192,28 +192,34 @@ export default {
                 .get(`/devices/send-update-device/${id}`)
                 .then(response => {
                     if (response.status == 200) {
-                    console.log('updateApplication',response.data.device_id);
-                }
+                        setTimeout(() => {
+                            this.getDevice(response.data.device_id)
+                           
+                        }, 3000);
+                    }
                 })
-                .catch(error => {}); 
+                .catch(error => { });
         },
-        getDevice(device_id){
-           
-            this.$inertia.get(
-                this.route("device.find-device", device_id)
-       
-      );
+        getDevice(device_id) {
+            axios
+                .get(`/devices/find-device/${device_id}`)
+                .then(response => {
+                    if (response.status == 200) {
+                        this.device= response.data
+                    }
+                })
+                .catch(error => { });
         }
     },
     destroyed() {
-      
-      this.sockets.unsubscribe(`recive-active-device.${this.device.device_id}:App\\Events\\ReciveActiveDeviceEvent`)
-       this.sockets.unsubscribe(`recive-update-application-device.${this.device.device_id}:App\\Events\\ReciveUpdateApplicationEvent`)
-   },
-   beforeDestroy(){
-       // this.$store.commit('stores/resetDeviceDetail')
-       this.sockets.unsubscribe(`recive-update-application-device.${this.device.device_id}:App\\Events\\ReciveUpdateApplicationEvent`)
-   }
+
+        this.sockets.unsubscribe(`recive-active-device.${this.device.device_id}:App\\Events\\ReciveActiveDeviceEvent`)
+        this.sockets.unsubscribe(`recive-update-application-device.${this.device.device_id}:App\\Events\\ReciveUpdateApplicationEvent`)
+    },
+    beforeDestroy() {
+        // this.$store.commit('stores/resetDeviceDetail')
+        this.sockets.unsubscribe(`recive-update-application-device.${this.device.device_id}:App\\Events\\ReciveUpdateApplicationEvent`)
+    }
 }
 </script>
 

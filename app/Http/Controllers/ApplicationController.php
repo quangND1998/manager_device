@@ -14,6 +14,11 @@ use Inertia\Inertia;
 use Illuminate\Support\Str;
 use App\Repositories\ApplicationRepository;
 use App\Http\Controllers\Traits\FileUploadTrait;
+use App\Models\User;
+use App\Repositories\DeviceLimitRepository;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+
 class ApplicationController extends Controller
 {
     use FileUploadTrait;
@@ -28,6 +33,8 @@ class ApplicationController extends Controller
 
     public function index(Request $request)
     {
+        // $time_now = Carbon::now();
+        // return   $users = User::with('history_mail')->whereNotNull('time_limit')->where('time_limit','<=',$time_now)->where('active_mail',1)->get();
       
         $active = $request->input('default');
         if ($active) {
@@ -113,8 +120,10 @@ class ApplicationController extends Controller
 
         return back()->with('success', 'Set default app successfully');
     }
-    public function convert()
+    public function convert(DeviceLimitRepository $deviceLimitRepository)
     {
+        $user= User::find(2);
+        return $deviceLimitRepository->updateDevice($user);
         $app = Applicaion::find(4);
         return $this->convertBase64toImage($app->icon);
     }

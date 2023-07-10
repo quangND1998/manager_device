@@ -12,17 +12,47 @@ class DeviceLimitRepository extends BaseRepository
         return new Devices();
     }
 
-    public function limitDevicesByCreated($limit){
-        $user = Auth::user();
+    public function limitDevicesByCreated($limit, $user){
+
         return   $this->model()->where('user_id',$user->id)->orderBy('created_at','asc')->take($limit)->get();
     }
 
-    public function changeEnabledDevice($devices){
-        foreach($devices as $device){
+    public function skipDevicesByCreated($limit,$user){
+        $count = count($user->devices);
+        $take =$count - $limit;
+        return $this->model()->where('user_id',$user->id)->orderBy('created_at','asc')->skip($limit)->take( $take)->get();
+    }
+
+    public function enabledDevice($device){
+
              $device->update([
-                'enabled'=> false
+                'enabled'=> true
              ]);
+        
+    }
+    public function disableDevice($device){
+
+        $device->update([
+           'enabled'=> false
+        ]);
+   
+    }
+
+    public function updateDevice($user){
+        $limit_devices = $this->limitDevicesByCreated($user->number_device,$user);
+
+        $skip_devices = $this->skipDevicesByCreated($user->number_device,$user);
+        if(count($limit_devices) >0){
+            foreach($limit_devices as $device){
+                $this->enabledDevice($device);
+            }
         }
+        if(count( $skip_devices) >0){
+            foreach($skip_devices as $device){
+                $this->disableDevice($device);
+            }
+        }
+
     }
 
 }

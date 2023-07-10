@@ -26,7 +26,7 @@ class AddEnableToDevicesTable extends Migration
     public function down()
     {
         Schema::table('devices', function (Blueprint $table) {
-            //
+            $table->dropColumn('enabled');
         });
     }
 }

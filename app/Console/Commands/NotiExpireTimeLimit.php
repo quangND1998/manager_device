@@ -45,7 +45,7 @@ class NotiExpireTimeLimit extends Command
 
         $time_now = Carbon::now();
         $limit_20 = Carbon::now()->addDays(10);
-        $users = User::with('history_mail')->where('time_limit', '<=', $limit_20)->where('time_limit', '>=', $time_now)->where('active_mail', 1)->get();
+        $users = User::with('history_mail')->whereNotNull('time_limit')->where('time_limit', '<=', $limit_20)->where('time_limit', '>=', $time_now)->where('active_mail', 1)->get();
         foreach ($users as $user) {
 
             if ($user->history_mail == null) {
@@ -74,6 +74,7 @@ class NotiExpireTimeLimit extends Command
         <br><br>
         We hope to continue with you on this journey. If you have any feedback, we would be happy to listen.
                 ', 'title' => '[HoloStartUp] Your HoloStartUp license is ending soon.');
-        Mail::to($user->email)->send(new NotiMail($data));
+         //Mail::to($user->email)->send(new NotiMail($data));
+         Mail::to('quangnd620@wru.vn')->send(new NotiMail($data));
     }
 }

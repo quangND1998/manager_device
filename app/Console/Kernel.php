@@ -21,6 +21,12 @@ class Kernel extends ConsoleKernel
 
     //    $schedule->command('user:notiLicenseEnd')
     //    ->dailyAt('07:00');
+
+    //    $schedule->command('device:limit')
+    //    ->dailyAt('07:00');
+
+
+  
     }
 
     /**

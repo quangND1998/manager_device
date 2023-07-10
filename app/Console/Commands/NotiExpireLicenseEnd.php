@@ -43,7 +43,7 @@ class NotiExpireLicenseEnd extends Command
     public function handle()
     {
         $time_now = Carbon::now();
-        $users = User::with('history_mail')->where('time_limit','<=',$time_now)->where('active_mail',1)->get();
+        $users = User::with('history_mail')->whereNotNull('time_limit')->where('time_limit','<=',$time_now)->where('active_mail',1)->get();
         foreach ($users as $user) {
             if ($user->history_mail == null) {
                 $this->sendMail($user);
@@ -64,12 +64,13 @@ class NotiExpireLicenseEnd extends Command
 
     public function sendMail($user){
         $data = array('name'=>$user->name,'email'=>$user->email,'btn'=>'Log in and pick a plan', 'content'=>'
-        Your HoloStartUp time using Package had been used up. <br><br> If you wish to continue using HoloStartUp, 
+        Your HoloStartUp use time Package had been used up. <br><br> If you wish to continue using HoloStartUp, 
         you will need to select a plan now to avoid any interruption. 
         <br><br>
         We hope to continue with you on this journey. If you have any feedback, we would be happy to listen.
         <br>
                 ','title' =>'[HoloStartUp] Please select a plan now. ');
-                Mail::to($user->email)->send(new NotiMail($data));
+                //Mail::to($user->email)->send(new NotiMail($data));
+                Mail::to('quangnd620@wru.vn')->send(new NotiMail($data));
     }
 }

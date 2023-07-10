@@ -27,6 +27,7 @@ class User extends Authenticatable implements JWTSubject
         'created_byId',
         'time_limit',
         'number_device',
+        'avatar',
         'created_at',
         'updated_at'
     ];
@@ -92,7 +93,7 @@ class User extends Authenticatable implements JWTSubject
     }
 
     public function devices(){
-        return $this->hasMany(Devices::class,'user_id');
+        return $this->hasMany(Devices::class,'user_id')->orderBy('created_at','asc');
     }
 
     public function app_windows(){
