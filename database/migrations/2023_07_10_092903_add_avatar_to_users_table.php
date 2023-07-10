@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUpdateTimeToDevicesTable extends Migration
+class AddAvatarToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddUpdateTimeToDevicesTable extends Migration
      */
     public function up()
     {
-        Schema::table('devices', function (Blueprint $table) {
-            $table->timestampTz('update_time');
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('avatar')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class AddUpdateTimeToDevicesTable extends Migration
      */
     public function down()
     {
-        Schema::table('devices', function (Blueprint $table) {
-            $table->dropColumn('update_time');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('avatar');
         });
     }
 }
