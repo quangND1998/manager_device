@@ -13,8 +13,10 @@ use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\Http\Controllers\Traits\FileUploadTrait;
 class AuthController extends Controller
 {
+    use FileUploadTrait;
     public function login(Request $request)
     {
 
@@ -70,7 +72,7 @@ class AuthController extends Controller
         $token= request()->bearerToken();
         try {
             JWTAuth::invalidate($token);
-           
+  
             return response()->json('You have successfully logged out.', Response::HTTP_OK);
         } catch (JWTException $e) {
             return response()->json('Failed to logout, please try again.', Response::HTTP_BAD_REQUEST);
@@ -175,6 +177,29 @@ class AuthController extends Controller
         $user->save();
         return response()->json('Update successfully', Response::HTTP_OK);
     }
+
+    public function storeAvatar(Request $request){
+        $validator = Validator::make($request->all(), [
+            'avatar' => 'nullable|mimes:jpg,png,jpeg|max:2048',
+
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+        $token= request()->bearerToken();
+    
+        $user = JWTAuth::toUser($token);
+        if($user->avatar){
+            $user->avatar=  $request->file('avatar') ? $this->updateImageResize($request->file('avatar'), 64, 64, $user->avatar) : $user->avatar;
+        }else{
+            $user->avatar=  $request->file('avatar') ? $this->uploadImageResize($request->file('avatar'), 64, 64):null;
+        }
+        $user->save();
+        return new UserApiResource($user);
+        
+    }
+    
     
     
 

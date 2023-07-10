@@ -45,6 +45,7 @@ Route::group(['middleware' => 'languages_api',
         Route::post('device', [DeviceController::class, 'store']);
         Route::post('default-app', [DeviceController::class, 'default_app']);
         Route::post('getUser', [AuthController::class, 'getUserByToken']);
+        Route::post('storeAvatar', [AuthController::class, 'storeAvatar']);
         Route::get('user', [AuthController::class, 'user']);
         
         Route::get('getActiveDevice/{id}', [DeviceController::class, 'getActiveDevice']);

@@ -26,7 +26,7 @@ class AddPackageNameToAppWindowsTable extends Migration
     public function down()
     {
         Schema::table('app_windows', function (Blueprint $table) {
-            //
+            $table->dropColumn('packageName');
         });
     }
 }

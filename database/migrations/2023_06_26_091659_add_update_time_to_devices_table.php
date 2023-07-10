@@ -26,7 +26,7 @@ class AddUpdateTimeToDevicesTable extends Migration
     public function down()
     {
         Schema::table('devices', function (Blueprint $table) {
-            //
+            $table->dropColumn('update_time');
         });
     }
 }
