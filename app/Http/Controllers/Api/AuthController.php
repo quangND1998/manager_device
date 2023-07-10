@@ -183,7 +183,6 @@ class AuthController extends Controller
             'avatar' => 'nullable|mimes:jpg,png,jpeg|max:2048',
 
         ]);
-
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
