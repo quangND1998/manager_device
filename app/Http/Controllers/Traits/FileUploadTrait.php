@@ -464,6 +464,7 @@ trait FileUploadTrait
 
     public function updateImageResize($image, $width, $height, $attribute)
     {
+       
         $filename = time() . '-' . $image->getClientOriginalName();
         $image_resize = Image::make($image->getRealPath());
         $image_width =    $image_resize->width();
@@ -473,10 +474,10 @@ trait FileUploadTrait
         } else {
             Image::make($image)->save(public_path('avatar') . '/' . $filename);
         }
-        if ($attribute == null || file_exists($attribute) == false) {
+        if ($attribute == null || file_exists((public_path() . $attribute)) == false) {
             $path = '/avatar/' . $filename;
-        } else {
-            unlink($attribute);
+        } else if($attribute  && file_exists((public_path() . $attribute))){
+            unlink(public_path() .$attribute);
             $path = '/avatar/' . $filename;
         }
 
