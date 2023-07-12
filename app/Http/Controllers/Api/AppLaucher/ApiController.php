@@ -30,6 +30,8 @@ use Illuminate\Http\Response;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Traits\FileUploadTrait;
 use App\Http\Resources\LocationResource;
+use App\Events\LaunchAppWithTime;
+use App\Http\Requests\RequestLaunchAppTime;
 
 class ApiController extends Controller
 {
@@ -282,6 +284,18 @@ class ApiController extends Controller
         } else {
             return response()->json('Device Not Fond', Response::HTTP_BAD_REQUEST);
         }
+    }
+
+    public function launchAppTime(RequestLaunchAppTime $request){
+        $devices = Devices::whereIn('id', $request->ids)->get();
+
+        foreach ($devices as $device) {
+            if ($device->hasApp($request->link_app)) {
+                broadcast(new LaunchAppWithTime($device, $request->link_app, $request->time));
+            }
+        }
+        return response()->json('Launch successfully', 200);
+
     }
 
     
