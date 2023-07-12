@@ -46,7 +46,7 @@ class LaunchAppWithTime implements ShouldBroadcastNow
             [
                 'device_id' => $this->device->device_id,
                 'app' => $this->app,
-                'app' => $this->time,
+                'time' => $this->time,
             ];
     }
 
