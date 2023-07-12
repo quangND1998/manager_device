@@ -116,7 +116,8 @@ Route::middleware(['auth'])->group(
 
             Route::post('checkDevice', [DeviceController::class, 'checkDevice'])->name('checkDevice');
             Route::post('checkActiveDevice', [DeviceController::class, 'checkActiveDevice'])->name('checkActiveDevice');
-        
+    
+
             Route::get('/send-update-device/{id}', [ApiController::class, 'sendUpdateDevice'])->name('sendUpdateDevice');
         });
 
