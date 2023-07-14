@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\File;
 use App\Http\Resources\DevicesResource;
 use App\Events\SendUpdateApplicationEvent;
 use App\Jobs\ReciveActiveDeviceJob;
-
+use App\Jobs\SendDeviceActiveJob;
 class DeviceController extends Controller
 {
     use LoginTrait, FileUploadTrait;
@@ -324,7 +324,8 @@ class DeviceController extends Controller
             //     $device->update_time = Carbon::createFromFormat('Y-m-d H:i:s', $device->last_login->created_at,'UTC')->setTimezone('+7');
             // }
             $device->save();
-            broadcast(new SendDeviceActiveEvent($device));
+            //broadcast(new SendDeviceActiveEvent($device));
+            SendDeviceActiveJob::dispatch($device)->onConnection('sync');
         }
         return redirect()->route('device.index');
     }
@@ -340,7 +341,8 @@ class DeviceController extends Controller
         foreach ($user->devices as $device) {
             $device->active = false;
             $device->save();
-            broadcast(new SendDeviceActiveEvent($device));
+            //broadcast(new SendDeviceActiveEvent($device));
+            SendDeviceActiveJob::dispatch($device)->onConnection('sync');
         }
 
         return back();
@@ -350,7 +352,8 @@ class DeviceController extends Controller
         $device = Devices::where('device_id', $id)->first();
 
         if ($device) {
-            broadcast(new ReciveActiveDeviceEvent($device));
+            ReciveActiveDeviceJob::dispatch($device)->onConnection('sync');
+           // broadcast(new ReciveActiveDeviceEvent($device));
             $device->active = true;
             $device->save();
 
@@ -388,7 +391,9 @@ class DeviceController extends Controller
         }
         $device->active = false;
         $device->save();
-        broadcast(new SendDeviceActiveEvent($device));
+
+        SendDeviceActiveJob::dispatch($device)->onConnection('sync');
+       // broadcast(new SendDeviceActiveEvent($device));
         return Inertia::render('Devices/Detail', compact('device'));
     }
     
