@@ -296,7 +296,7 @@ class ApiController extends Controller
                 broadcast(new LaunchAppEvent($device, $request->link_app));
 
                 // $job =(new LaunchAppTimeLimit($device, $request->link_app))->delay(Carbon::now()->addMinutes($request->time));
-                LaunchAppTimeLimit::dispatchAfterResponse($device, $request->link_app)->delay(Carbon::now()->addMinutes($request->time));
+                LaunchAppTimeLimit::dispatch($device, $request->link_app)->delay(Carbon::now()->addMinutes($request->time));
             }
         }
         return response()->json('Launch successfully', 200);
