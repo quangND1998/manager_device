@@ -33,7 +33,9 @@ use App\Http\Resources\LocationResource;
 use App\Events\LaunchAppWithTime;
 use App\Http\Requests\RequestLaunchAppTime;
 use App\Jobs\LaunchAppTimeLimit;
+use App\Jobs\ReciveUpdateApplicationJob;
 use App\Jobs\SendDeviceActiveJob;
+use App\Jobs\SendUpdateApplicationJob;
 
 class ApiController extends Controller
 {
@@ -216,7 +218,8 @@ class ApiController extends Controller
         $device = Devices::with('applications')->find($id);
         
         if ($device) {
-            broadcast(new SendUpdateApplicationEvent($device));
+            //broadcast(new SendUpdateApplicationEvent($device));
+            SendUpdateApplicationJob::dispatch($device)->onConnection('sync');
             return response()->json($device,Response::HTTP_OK);
         } else {
             return response()->json('Device Not Fond', Response::HTTP_BAD_REQUEST);
@@ -272,7 +275,8 @@ class ApiController extends Controller
                     }
                 }
             }
-            broadcast(new ReciveUpdateApplicationEvent($device));
+            //broadcast(new ReciveUpdateApplicationEvent($device));
+            ReciveUpdateApplicationJob::dispatch($device)->onConnection('sync');
             return response()->json(Response::HTTP_OK);
         } else {
             return response()->json('Device Not Fond', Response::HTTP_BAD_REQUEST);
