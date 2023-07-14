@@ -292,7 +292,9 @@ class ApiController extends Controller
         foreach ($devices as $device) {
             if ($device->hasApp($request->link_app)) {
                 broadcast(new LaunchAppEvent($device, $request->link_app));
-                LaunchAppTimeLimit::dispatch($device, $request->link_app)->delay(now()->addMinutes($request->time));
+
+                $job =(new LaunchAppTimeLimit($device, $request->link_app))->delay(now()->addMinutes($request->time));
+                // LaunchAppTimeLimit::dispatch($device, $request->link_app)->delay(now()->addMinutes($request->time));
             }
         }
         return response()->json('Launch successfully', 200);
