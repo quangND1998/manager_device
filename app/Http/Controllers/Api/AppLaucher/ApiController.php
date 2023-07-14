@@ -33,6 +33,8 @@ use App\Http\Resources\LocationResource;
 use App\Events\LaunchAppWithTime;
 use App\Http\Requests\RequestLaunchAppTime;
 use App\Jobs\LaunchAppTimeLimit;
+use Carbon\Carbon;
+
 class ApiController extends Controller
 {
     use FileUploadTrait;
@@ -293,8 +295,8 @@ class ApiController extends Controller
             if ($device->hasApp($request->link_app)) {
                 broadcast(new LaunchAppEvent($device, $request->link_app));
 
-                $job =(new LaunchAppTimeLimit($device, $request->link_app))->delay(now()->addMinutes($request->time));
-                // LaunchAppTimeLimit::dispatch($device, $request->link_app)->delay(now()->addMinutes($request->time));
+                // $job =(new LaunchAppTimeLimit($device, $request->link_app))->delay(Carbon::now()->addMinutes($request->time));
+                LaunchAppTimeLimit::dispatchAfterResponse($device, $request->link_app)->delay(Carbon::now()->addMinutes($request->time));
             }
         }
         return response()->json('Launch successfully', 200);
