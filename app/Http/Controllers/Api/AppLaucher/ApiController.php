@@ -304,7 +304,7 @@ class ApiController extends Controller
             if ($device->hasApp($request->link_app)) {
                 LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
                 // broadcast(new LaunchAppEvent($device, $request->link_app));
-                LaunchAppTimeLimit::dispatch($device,$request->link_app)->delay(now()->addSeconds($request->time));
+                LaunchAppTimeLimit::dispatch($device,$request->link_app)->delay(now()->addMinutes($request->time));
                 //dispatch(new LaunchAppTimeLimit($device,$request->link_app))->delay(now()->addSecond($request->time))->onConnection('redis');
             }
         }
