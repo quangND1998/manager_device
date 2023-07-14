@@ -34,7 +34,6 @@ use App\Jobs\ReciveActiveDeviceJob;
 use App\Jobs\SendDeviceActiveJob;
 use App\Jobs\LaunchAppJob;
 use App\Jobs\SetDefaultAppJob;
-
 class DeviceController extends Controller
 {
     use LoginTrait, FileUploadTrait;

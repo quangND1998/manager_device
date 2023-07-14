@@ -27,7 +27,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use App\Jobs\LaunchAppJob;
-
+use App\Jobs\SetDefaultAppJob;
 class GroupController extends Controller
 {
     protected $application, $device, $group;
@@ -228,7 +228,8 @@ class GroupController extends Controller
             if ($device->hasApp($request->link_app))  {
                 $device->app_default_id = $application->id;
                 $device->save();
-                broadcast(new DefaultAppEvent($device, $request->link_app));
+                // broadcast(new DefaultAppEvent($device, $request->link_app));
+                SetDefaultAppJob::dispatch($device, $request->link_app)->onConnection('sync');
             }
         }
         return response()->json($group->load('devices.default_app'), 200);
