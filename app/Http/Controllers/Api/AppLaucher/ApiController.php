@@ -33,6 +33,8 @@ use App\Http\Resources\LocationResource;
 use App\Events\LaunchAppWithTime;
 use App\Http\Requests\RequestLaunchAppTime;
 use App\Jobs\LaunchAppTimeLimit;
+use App\Jobs\SendDeviceActiveJob;
+
 class ApiController extends Controller
 {
     use FileUploadTrait;
@@ -189,7 +191,9 @@ class ApiController extends Controller
         }
         $device->active = false;
         $device->save();
-        broadcast(new SendDeviceActiveEvent($device));
+       
+        SendDeviceActiveJob::dispatch($device)->onConnection('sync');
+        //broadcast(new SendDeviceActiveEvent($device));
         return new DevicesResource($device->load('applications', 'default_app', 'user', 'last_login'));
     }
 
