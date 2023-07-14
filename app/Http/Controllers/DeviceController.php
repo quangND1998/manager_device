@@ -27,6 +27,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use App\Http\Resources\DevicesResource;
 use App\Events\SendUpdateApplicationEvent;
+use App\Jobs\ReciveActiveDeviceJob;
+
 class DeviceController extends Controller
 {
     use LoginTrait, FileUploadTrait;
@@ -368,7 +370,9 @@ class DeviceController extends Controller
             $device->active = true;
             $device->battery = $request->battery;
             $device->save();
-            broadcast(new ReciveActiveDeviceEvent($device));
+            ReciveActiveDeviceJob::dispatch($device)->onConnection('sync');
+            //ReciveAc::dispatch($device)->onConnection('sync');
+            //broadcast(new ReciveActiveDeviceEvent($device));
 
             return response()->json(Response::HTTP_OK);
         } else {
