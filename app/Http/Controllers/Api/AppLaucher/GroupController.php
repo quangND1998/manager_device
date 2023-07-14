@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Api\AppLaucher;
 
 use App\Events\DefaultAppEvent;
 use App\Events\LaunchAppEvent;
+use App\Events\LaunchAppWithTime;
 use App\Events\SendDeviceActiveEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GroupRequest;
 use App\Http\Requests\LauchAppRequest;
 use App\Http\Requests\RemoveOwnerDeviceRequest;
 use App\Http\Requests\RequestAppGroupAction;
+use App\Http\Requests\RequestAppGroupWithTime;
 use App\Http\Requests\RequestApplication;
 use App\Http\Requests\UpdateGroupRequest;
 use App\Http\Resources\ApplicationResource;
@@ -27,6 +29,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use App\Jobs\LaunchAppJob;
+use App\Jobs\LaunchAppTimeLimit;
 use App\Jobs\SetDefaultAppJob;
 class GroupController extends Controller
 {
@@ -218,6 +221,25 @@ class GroupController extends Controller
         }
         return response()->json('Comand run succesfully', 200);
     }
+
+    public function runAppGroupWithTime(RequestAppGroupWithTime $request, $id)
+    {
+        
+        $group = Groups::with('devices')->find($id);
+        if (!$group) {
+            return response()->json('Not found group', 404);
+        }
+        foreach ($group->devices as $device) {
+            if ($device->hasApp($request->link_app)) {
+                //broadcast(new LaunchAppEvent($device, $request->link_app));
+                LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
+                LaunchAppTimeLimit::dispatch($device,$request->link_app)->delay(now()->addMinutes($request->time));
+            }
+        }
+        return response()->json('Comand run succesfully', 200);
+    }
+
+
 
     public function setAppDefaultGroup(RequestAppGroupAction $request, $id)
     {
