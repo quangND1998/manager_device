@@ -36,7 +36,7 @@ use App\Jobs\LaunchAppTimeLimit;
 use App\Jobs\ReciveUpdateApplicationJob;
 use App\Jobs\SendDeviceActiveJob;
 use App\Jobs\SendUpdateApplicationJob;
-
+use App\Jobs\LaunchAppJob;
 class ApiController extends Controller
 {
     use FileUploadTrait;
@@ -145,7 +145,8 @@ class ApiController extends Controller
 
         foreach ($devices as $device) {
             if ($device->hasApp($request->link_app)) {
-                broadcast(new LaunchAppEvent($device, $request->link_app));
+                LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
+               //broadcast(new LaunchAppEvent($device, $request->link_app));
             }
         }
         return response()->json('Launch successfully', 200);
@@ -166,7 +167,8 @@ class ApiController extends Controller
         foreach ($devices as $device) {
             $device->active = false;
             $device->save();
-            broadcast(new SendDeviceActiveEvent($device));
+            SendDeviceActiveJob::dispatch($device)->onConnection('sync');
+            //broadcast(new SendDeviceActiveEvent($device));
         }
         return response()->json('Run command sucessfully', 200);
     }
@@ -179,7 +181,8 @@ class ApiController extends Controller
         foreach ($user->devices as $device) {
             $device->active = false;
             $device->save();
-            broadcast(new SendDeviceActiveEvent($device));
+            SendDeviceActiveJob::dispatch($device)->onConnection('sync');
+            // broadcast(new SendDeviceActiveEvent($device));
         }
         return response()->json('Run command sucessfully', 200);
     }
@@ -299,7 +302,8 @@ class ApiController extends Controller
 
         foreach ($devices as $device) {
             if ($device->hasApp($request->link_app)) {
-                broadcast(new LaunchAppEvent($device, $request->link_app));
+                LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
+                // broadcast(new LaunchAppEvent($device, $request->link_app));
                 LaunchAppTimeLimit::dispatch($device,$request->link_app)->delay(now()->addSeconds($request->time));
                 //dispatch(new LaunchAppTimeLimit($device,$request->link_app))->delay(now()->addSecond($request->time))->onConnection('redis');
             }

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Illuminate\Support\Arr;
+use App\Jobs\LaunchAppJob;
 class GroupController extends Controller
 {
 
@@ -143,7 +144,8 @@ class GroupController extends Controller
         $group = Groups::with('devices')->findOrFail($id);
         foreach ($group->devices as $device) {
             if ($device->hasApp($request->link_app)) {
-                broadcast(new LaunchAppEvent($device, $request->link_app));
+               // broadcast(new LaunchAppEvent($device, $request->link_app));
+               LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
             }
         }
         return back()->with('success', 'Lauch successfully');
