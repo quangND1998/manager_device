@@ -29,6 +29,7 @@ use App\Http\Resources\DevicesResource;
 use App\Events\SendUpdateApplicationEvent;
 use App\Jobs\ReciveActiveDeviceJob;
 use App\Jobs\SendDeviceActiveJob;
+use App\Jobs\LaunchAppJob;
 class DeviceController extends Controller
 {
     use LoginTrait, FileUploadTrait;
@@ -201,8 +202,8 @@ class DeviceController extends Controller
 
         foreach ($devices as $device) {
             if ($device->hasApp($request->link_app)) {
-                
-                broadcast(new LaunchAppEvent($device, $request->link_app));
+                LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
+                //broadcast(new LaunchAppEvent($device, $request->link_app));
             }
         }
 
