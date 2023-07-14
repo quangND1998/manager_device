@@ -30,6 +30,11 @@ use App\Repositories\DeviceLimitRepository;
 
 use App\Http\Resources\DevicesResource;
 use App\Events\SendUpdateApplicationEvent;
+use App\Jobs\ReciveActiveDeviceJob;
+use App\Jobs\SendDeviceActiveJob;
+use App\Jobs\LaunchAppJob;
+use App\Jobs\SetDefaultAppJob;
+
 class DeviceController extends Controller
 {
     use LoginTrait, FileUploadTrait;
@@ -213,9 +218,9 @@ class DeviceController extends Controller
         $devices = Devices::whereIn('id', $ids)->get();
 
         foreach ($devices as $device) {
-            if ($device->hasApp($request->link_app))  {
-                
-                broadcast(new LaunchAppEvent($device, $request->link_app));
+            if ($device->hasApp($request->link_app)) {
+                LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
+                //broadcast(new LaunchAppEvent($device, $request->link_app));
             }
         }
 
@@ -264,7 +269,8 @@ class DeviceController extends Controller
             if ($device->hasApp($request->link_app))  {
                 $device->app_default_id = $application ? $application->id :  $application_share->id;
                 $device->save();
-                broadcast(new DefaultAppEvent($device, $request->link_app));
+                SetDefaultAppJob::dispatch($device, $request->link_app)->onConnection('sync');
+                //broadcast(new DefaultAppEvent($device, $request->link_app));
             }
         }
 
@@ -337,7 +343,8 @@ class DeviceController extends Controller
             //     $device->update_time = Carbon::createFromFormat('Y-m-d H:i:s', $device->last_login->created_at,'UTC')->setTimezone('+7');
             // }
             $device->save();
-            broadcast(new SendDeviceActiveEvent($device));
+            //broadcast(new SendDeviceActiveEvent($device));
+            SendDeviceActiveJob::dispatch($device)->onConnection('sync');
         }
         return redirect()->route('device.index');
     }
@@ -353,7 +360,8 @@ class DeviceController extends Controller
         foreach ($user->devices as $device) {
             $device->active = false;
             $device->save();
-            broadcast(new SendDeviceActiveEvent($device));
+            //broadcast(new SendDeviceActiveEvent($device));
+            SendDeviceActiveJob::dispatch($device)->onConnection('sync');
         }
 
         return back();
@@ -363,7 +371,8 @@ class DeviceController extends Controller
         $device = Devices::where('device_id', $id)->first();
 
         if ($device) {
-            broadcast(new ReciveActiveDeviceEvent($device));
+            ReciveActiveDeviceJob::dispatch($device)->onConnection('sync');
+           // broadcast(new ReciveActiveDeviceEvent($device));
             $device->active = true;
             $device->save();
 
@@ -383,7 +392,9 @@ class DeviceController extends Controller
             $device->active = true;
             $device->battery = $request->battery;
             $device->save();
-            broadcast(new ReciveActiveDeviceEvent($device));
+            ReciveActiveDeviceJob::dispatch($device)->onConnection('sync');
+            //ReciveAc::dispatch($device)->onConnection('sync');
+            //broadcast(new ReciveActiveDeviceEvent($device));
 
             return response()->json(Response::HTTP_OK);
         } else {
@@ -407,7 +418,9 @@ class DeviceController extends Controller
         }
         $device->active = false;
         $device->save();
-        broadcast(new SendDeviceActiveEvent($device));
+
+        SendDeviceActiveJob::dispatch($device)->onConnection('sync');
+       // broadcast(new SendDeviceActiveEvent($device));
         return Inertia::render('Devices/Detail', compact('device'));
     }
     

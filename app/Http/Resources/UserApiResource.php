@@ -28,7 +28,6 @@ class UserApiResource extends JsonResource
                 'number_device'=> $this->number_device,
                 'isExpired' => Carbon::now()->gt($this->time_limit) ? true: false,
                 'numberDeviceExpried' =>$this->number_device -count($this->devices)
-
             ];
     }
 }

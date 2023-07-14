@@ -15,6 +15,7 @@ use App\Http\Requests\UpdateGroupRequest;
 use App\Http\Resources\ApplicationResource;
 use App\Http\Resources\DevicesResource;
 use App\Http\Resources\GroupResource;
+use App\Jobs\SendDeviceActiveJob;
 use App\Models\Applicaion;
 use App\Models\Devices;
 use App\Models\Groups;
@@ -25,6 +26,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use App\Jobs\LaunchAppJob;
 
 class GroupController extends Controller
 {
@@ -83,7 +85,8 @@ class GroupController extends Controller
                 return response()->json('Not found group', 404);
             } else {
                 foreach($group->devices as $device){
-                    broadcast(new SendDeviceActiveEvent($device));
+                    SendDeviceActiveJob::dispatch($device)->onConnection('sync'); 
+                   // broadcast(new SendDeviceActiveEvent($device));
                 }
                 $response  = [
                     'group' => new GroupResource($group),
@@ -208,8 +211,9 @@ class GroupController extends Controller
 
         $group = Groups::with('devices')->findOrFail($id);
         foreach ($group->devices as $device) {
-            if ($device->hasApp($request->link_app))  {
-                broadcast(new LaunchAppEvent($device, $request->link_app));
+            if ($device->hasApp($request->link_app)) {
+                //broadcast(new LaunchAppEvent($device, $request->link_app));
+                LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
             }
         }
         return response()->json('Comand run succesfully', 200);

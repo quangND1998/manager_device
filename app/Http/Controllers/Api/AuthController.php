@@ -72,7 +72,7 @@ class AuthController extends Controller
         $token= request()->bearerToken();
         try {
             JWTAuth::invalidate($token);
-           
+  
             return response()->json('You have successfully logged out.', Response::HTTP_OK);
         } catch (JWTException $e) {
             return response()->json('Failed to logout, please try again.', Response::HTTP_BAD_REQUEST);
@@ -177,14 +177,12 @@ class AuthController extends Controller
         $user->save();
         return response()->json('Update successfully', Response::HTTP_OK);
     }
-    
 
     public function storeAvatar(Request $request){
         $validator = Validator::make($request->all(), [
             'avatar' => 'nullable|mimes:jpg,png,jpeg|max:2048',
 
         ]);
-
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
@@ -200,6 +198,9 @@ class AuthController extends Controller
         return new UserApiResource($user);
         
     }
+    
+    
+
     
 
 

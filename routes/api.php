@@ -52,7 +52,7 @@ Route::group(['middleware' => 'languages_api',
 
         Route::put('active-device/{id}', [DeviceController::class, 'activeDevice']);
 
-
+      
         Route::get('permissions', [PermisssionController::class, 'index']);
         Route::post('permission', [PermisssionController::class, 'store']);
         Route::get('permission/{id}', [PermisssionController::class, 'get']);
@@ -62,16 +62,14 @@ Route::group(['middleware' => 'languages_api',
         Route::prefix('devices')->as('devices.')->group(function () {
             Route::get('', [ApiController::class, 'devices'])->name('devices');
             Route::get('/{id}/show', [ApiController::class, 'showDevice'])->name('show');
-            
             Route::put('{id}/edit-name', [ApiController::class, 'saveName'])->name('saveName');
-
+            Route::post('/launchAppTime', [ApiController::class, 'launchAppTime'])->name('launchAppTime');
             Route::delete('{id}/delete', [ApiController::class, 'delete'])->name('delete');
             Route::post('/setDefaultApp', [ApiController::class, 'setDefaultApp'])->name('setDefaultApp');
             Route::post('checkDevice', [ApiController::class, 'checkDevice'])->name('checkDevice');
             Route::post('checkActiveDevice', [ApiController::class, 'checkActiveDevice'])->name('checkActiveDevice');
             Route::get('{id}/disableDefaultApp', [ApiController::class, 'disableDefaultApp'])->name('disableDefaultApp');
             Route::post('launchApp', [ApiController::class, 'launchApp'])->name('launchApp');
-            Route::post('checkDevice', [ApiController::class, 'checkDevice'])->name('checkDevice');
             Route::post('checkActiveDevice', [ApiController::class, 'checkActiveDevice'])->name('checkActiveDevice');
 
             Route::get('send-update-device/{id}',[ApiController::class,'sendUpdateDevice'])->name('sendUpdateDevice');

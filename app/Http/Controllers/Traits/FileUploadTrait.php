@@ -15,6 +15,7 @@ use App\Models\Project\text_pano;
 use Illuminate\Support\Collection;
 use Closure;
 use Intervention\Image\Facades\Image;
+
 trait FileUploadTrait
 {
 
