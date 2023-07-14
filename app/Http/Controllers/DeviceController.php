@@ -199,7 +199,7 @@ class DeviceController extends Controller
 
         foreach ($devices as $device) {
             if ($device->hasApp($request->link_app)) {
-              
+                
                 broadcast(new LaunchAppEvent($device, $request->link_app));
             }
         }

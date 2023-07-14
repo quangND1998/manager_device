@@ -32,7 +32,7 @@ use App\Http\Controllers\Traits\FileUploadTrait;
 use App\Http\Resources\LocationResource;
 use App\Events\LaunchAppWithTime;
 use App\Http\Requests\RequestLaunchAppTime;
-
+use App\Jobs\LaunchAppTimeLimit;
 class ApiController extends Controller
 {
     use FileUploadTrait;
@@ -291,7 +291,9 @@ class ApiController extends Controller
 
         foreach ($devices as $device) {
             if ($device->hasApp($request->link_app)) {
-                broadcast(new LaunchAppWithTime($device, $request->link_app, $request->time));
+                broadcast(new LaunchAppEvent($device, $request->link_app));
+                LaunchAppTimeLimit::dispatch($device,$request->link_app)->delay(now()->addSeconds($request->time));
+                //dispatch(new LaunchAppTimeLimit($device,$request->link_app))->delay(now()->addSecond($request->time))->onConnection('redis');
             }
         }
         return response()->json('Launch successfully', 200);
