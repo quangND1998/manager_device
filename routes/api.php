@@ -70,7 +70,6 @@ Route::group(['middleware' => 'languages_api',
             Route::post('checkActiveDevice', [ApiController::class, 'checkActiveDevice'])->name('checkActiveDevice');
             Route::get('{id}/disableDefaultApp', [ApiController::class, 'disableDefaultApp'])->name('disableDefaultApp');
             Route::post('launchApp', [ApiController::class, 'launchApp'])->name('launchApp');
-            Route::post('checkDevice', [ApiController::class, 'checkDevice'])->name('checkDevice');
             Route::post('checkActiveDevice', [ApiController::class, 'checkActiveDevice'])->name('checkActiveDevice');
 
             Route::get('send-update-device/{id}',[ApiController::class,'sendUpdateDevice'])->name('sendUpdateDevice');
