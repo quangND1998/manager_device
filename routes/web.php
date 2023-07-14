@@ -100,6 +100,9 @@ Route::middleware(['auth'])->group(
 
             Route::post('default-app/{id}', [GroupController::class, 'setAppDefaultGroup'])->name('default-app');
             Route::post('runAppGoup/{id}', [GroupController::class, 'runAppGoup'])->name('runAppGoup');
+        
+
+            
         });
 
         Route::prefix('devices')->as('device.')->group(function () {
