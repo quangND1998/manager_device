@@ -37,6 +37,8 @@ use App\Jobs\ReciveUpdateApplicationJob;
 use App\Jobs\SendDeviceActiveJob;
 use App\Jobs\SendUpdateApplicationJob;
 use App\Jobs\LaunchAppJob;
+use App\Jobs\SetDefaultAppJob;
+
 class ApiController extends Controller
 {
     use FileUploadTrait;
@@ -120,7 +122,8 @@ class ApiController extends Controller
             if ($device->hasApp($request->link_app)) {
                 $device->app_default_id = $application ? $application->id :  $application_share->id;
                 $device->save();
-                broadcast(new DefaultAppEvent($device, $request->link_app));
+                //broadcast(new DefaultAppEvent($device, $request->link_app));
+                SetDefaultAppJob::dispatch($device, $request->link_app)->onConnection('sync');
             }
         }
         return DevicesResource::collection($devices->load('applications', 'default_app', 'user', 'last_login'));

@@ -30,6 +30,7 @@ use App\Events\SendUpdateApplicationEvent;
 use App\Jobs\ReciveActiveDeviceJob;
 use App\Jobs\SendDeviceActiveJob;
 use App\Jobs\LaunchAppJob;
+use App\Jobs\SetDefaultAppJob;
 class DeviceController extends Controller
 {
     use LoginTrait, FileUploadTrait;
@@ -252,7 +253,8 @@ class DeviceController extends Controller
             if ($device->hasApp($request->link_app)) {
                 $device->app_default_id = $application ? $application->id :  $application_share->id;
                 $device->save();
-                broadcast(new DefaultAppEvent($device, $request->link_app));
+                SetDefaultAppJob::dispatch($device, $request->link_app)->onConnection('sync');
+                //broadcast(new DefaultAppEvent($device, $request->link_app));
             }
         }
 
