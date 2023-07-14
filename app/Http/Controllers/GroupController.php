@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Illuminate\Support\Arr;
 use App\Jobs\LaunchAppJob;
+use App\Jobs\SetDefaultAppJob;
 class GroupController extends Controller
 {
 
@@ -162,7 +163,8 @@ class GroupController extends Controller
             if ($device->hasApp($request->link_app)) {
                 $device->app_default_id = $application->id;
                 $device->save();
-                broadcast(new DefaultAppEvent($device, $request->link_app));
+                //broadcast(new DefaultAppEvent($device, $request->link_app));
+                SetDefaultAppJob::dispatch($device, $request->link_app)->onConnection('sync');
             }
         }
         return back()->with('success', 'Lauch successfully');
