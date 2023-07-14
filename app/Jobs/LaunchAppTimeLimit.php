@@ -32,6 +32,6 @@ class LaunchAppTimeLimit implements ShouldQueue
      */
     public function handle()
     {
-        broadcast( new LaunchAppEvent($this->device, $this->app));
+        broadcast(new LaunchAppEvent($this->device, $this->app));
     }
 }
