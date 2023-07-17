@@ -31,6 +31,8 @@ use Illuminate\Support\Facades\Cache;
 use App\Jobs\LaunchAppJob;
 use App\Jobs\LaunchAppTimeLimit;
 use App\Jobs\SetDefaultAppJob;
+use Carbon\Carbon;
+
 class GroupController extends Controller
 {
     protected $application, $device, $group;
@@ -239,6 +241,8 @@ class GroupController extends Controller
                 LaunchAppTimeLimit::dispatch($device,$request->link_app)->delay(now()->addMinutes($request->time));
             }
         }
+        $group->time = Carbon::now()->addMinutes($request->time);
+        $group->save();
         return response()->json('Comand run succesfully', 200);
     }
 
