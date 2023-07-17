@@ -224,7 +224,7 @@ class GroupController extends Controller
                 LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
             }
         }
-        return response()->json('Comand run succesfully', 200);
+        return response()->json($group->load(['devices.applications']), 200);
     }
 
     public function runAppGroupWithTime(RequestAppGroupWithTime $request, $id)
@@ -243,7 +243,7 @@ class GroupController extends Controller
         }
         $group->time = Carbon::now()->addMinutes($request->time);
         $group->save();
-        return response()->json('Comand run succesfully', 200);
+        return response()->json($group->load(['devices.applications']), 200);
     }
 
 
