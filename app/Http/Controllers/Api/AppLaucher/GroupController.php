@@ -212,7 +212,10 @@ class GroupController extends Controller
     public function runAppGoup(RequestAppGroupAction $request, $id)
     {
 
-        $group = Groups::with('devices')->findOrFail($id);
+        $group = Groups::with('devices')->find($id);
+        if (!$group) {
+            return response()->json('Not found group', 404);
+        }
         foreach ($group->devices as $device) {
             if ($device->hasApp($request->link_app)) {
                 //broadcast(new LaunchAppEvent($device, $request->link_app));
