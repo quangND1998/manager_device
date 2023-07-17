@@ -53,6 +53,7 @@ class HandleInertiaRequests extends Middleware
 
                 ];
             },
+            'time' => $request->session()->get('time'),
             'cart' => $request->session()->get('cart'),
         ]);
     }

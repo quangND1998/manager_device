@@ -100,7 +100,7 @@ Route::middleware(['auth'])->group(
 
             Route::post('default-app/{id}', [GroupController::class, 'setAppDefaultGroup'])->name('default-app');
             Route::post('runAppGoup/{id}', [GroupController::class, 'runAppGoup'])->name('runAppGoup');
-        
+            Route::post('runAppGroupWithTime/{id}', [GroupController::class, 'runAppGroupWithTime'])->name('runAppGroupWithTime');
 
             
         });
@@ -119,9 +119,10 @@ Route::middleware(['auth'])->group(
 
             Route::post('checkDevice', [DeviceController::class, 'checkDevice'])->name('checkDevice');
             Route::post('checkActiveDevice', [DeviceController::class, 'checkActiveDevice'])->name('checkActiveDevice');
-    
 
             Route::get('/send-update-device/{id}', [ApiController::class, 'sendUpdateDevice'])->name('sendUpdateDevice');
+
+            Route::post('/launch-app-time', [DeviceController::class ,'launchAppTime'])->name('launch-app-time');
         });
 
         Route::prefix('applications')->as('application.')->group(function () {

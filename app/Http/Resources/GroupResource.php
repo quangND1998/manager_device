@@ -20,8 +20,8 @@ class GroupResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'user_id' => $this->user_id,
-            'devices' => DeviceResouce::collection($this->devices)
-          
+            'devices' => DeviceResouce::collection($this->devices),
+            'time' => $this->time
 
         ];
     }
