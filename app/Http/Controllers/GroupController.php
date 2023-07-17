@@ -188,7 +188,7 @@ class GroupController extends Controller
         foreach ($group->devices as $device) {
             if ($device->hasApp($request->link_app)) {
                 LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
-                LaunchAppTimeLimit::dispatch($device,$request->link_app)->delay(now()->addMinutes($request->time));
+                LaunchAppTimeLimit::dispatch($device,$request->link_app, $request->time)->delay(now()->addMinutes($request->time));
             }
         }
         $group->time = Carbon::now()->addMinutes($request->time);
