@@ -426,7 +426,8 @@ class DeviceController extends Controller
             if ($device->hasApp($request->link_app)) {
                 LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
                 LaunchAppTimeLimit::dispatch($device,$request->link_app, $request->time)->delay(now()->addMinutes($request->time));
-             
+                $device->time = Carbon::now()->addMinutes($request->time);
+                $device->save();
             }
         }
         return back()->with(['success'=>'Launch app successfully', 'time'=> $request->time]);
