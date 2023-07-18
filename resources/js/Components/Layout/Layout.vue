@@ -49,10 +49,10 @@ export default {
     listenNotificationGroup(){
         this.sockets.subscribe(`time-play-notification.${this.$page.props.auth.user.id}:App\\Events\\TimeEndGroupNotification`, (data) => {
               console.log(data)
-              this.$toast.warning(`Group ${data.group_name} game finished`, {
+              this.$toast.warning(`Group ${data.group_name} Timer Ends`, {
                   // override the global option
                   position: 'bottom-right',
-                  queue:true,
+                 
                   duration: 60000,
                   dismissible:true
               })
