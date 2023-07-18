@@ -31,6 +31,7 @@ use Illuminate\Support\Facades\Cache;
 use App\Jobs\LaunchAppJob;
 use App\Jobs\LaunchAppTimeLimit;
 use App\Jobs\SetDefaultAppJob;
+use App\Jobs\TimeEndGroupProcessing;
 use Carbon\Carbon;
 
 class GroupController extends Controller
@@ -234,6 +235,7 @@ class GroupController extends Controller
         if (!$group) {
             return response()->json('Not found group', 404);
         }
+    
         foreach ($group->devices as $device) {
             if ($device->hasApp($request->link_app)) {
                 //broadcast(new LaunchAppEvent($device, $request->link_app));
@@ -243,6 +245,8 @@ class GroupController extends Controller
         }
         $group->time = Carbon::now()->addMinutes($request->time);
         $group->save();
+        $user = Auth::user();
+        TimeEndGroupProcessing::dispatch($user, $group)->delay(now()->addMinutes($request->time -1)->addSeconds(30));
         return response()->json($group->load(['devices.applications']), 200);
     }
 
