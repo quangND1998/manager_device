@@ -6,7 +6,12 @@ import { createInertiaApp } from '@inertiajs/inertia-vue'
 
 import moment from 'moment';
 // InertiaProgress.init({})
+import VueToast from 'vue-toast-notification';
+// Import one of the available themes
+//import 'vue-toast-notification/dist/theme-default.css';
+import 'vue-toast-notification/dist/theme-bootstrap.css';
 
+Vue.use(VueToast);
 createInertiaApp({
     resolve: name =>
         import (`./Pages/${name}`),

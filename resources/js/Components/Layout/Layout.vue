@@ -41,6 +41,23 @@ export default {
         hide_logo: config.hideLogoOnMobile
       }
     };
+  },
+  mounted(){
+    this.listenNotificationGroup()
+  },
+  methods:{
+    listenNotificationGroup(){
+        this.sockets.subscribe(`time-play-notification.${this.$page.props.auth.user.id}:App\\Events\\TimeEndGroupNotification`, (data) => {
+              console.log(data)
+              this.$toast.warning(`Group ${data.group_name} game finished`, {
+                  // override the global option
+                  position: 'bottom-right',
+                  queue:true,
+                  duration: 60000,
+                  dismissible:true
+              })
+          }); 
+        }
   }
 };
 </script>
