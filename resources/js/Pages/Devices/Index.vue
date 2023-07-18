@@ -1,6 +1,6 @@
 <template>
   <section class="content">
-  
+ 
     <ContentHeaderVue :name="'Devices'" />
     <alert :dismissible="true"></alert>
     <WifiModel v-if="hasAnyPermission(['user-manager'])" :errors="errors" :ids="selected" :wifis="wifis" />
@@ -24,9 +24,13 @@
       <UninstallApk v-else-if="!hasAnyPermission(['Lite']) && enabled=='0'" :errors="errors" :applications="applications" :ids="selected" />
     <UninstallApk v-else :errors="errors" :applications="application_deivce" :ids="selected" />
 
+    <LaunchAppWithTime  v-if="hasAnyPermission(['Lite'])  && enabled=='0'"  :errors="errors" :applications="applications" :ids="selected" @updateTime="updateTimeRemaning"/>
+    <LaunchAppWithTime v-else :errors="errors" :applications="application_deivce" :ids="selected" @updateTime="updateTimeRemaning" />
     <!-- <RunApkModal :errors="errors" ></RunApkModal> -->
     <!-- Modal -->
-
+    <vue-countdown v-if="time" :time="time*60*1000" :transform="transformSlotProps" v-slot="{  minutes, seconds }">
+      Time Remaining： {{ minutes }} minutes, {{ seconds }} seconds.
+    </vue-countdown>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -68,7 +72,7 @@
       <div>
         <div class="dropdown">
           <button
-            class="inline-block px-8 py-3 bg-gray-300 text-gray-700 font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-ou dropdown-toggle"
+            class="inline-block px-10 py-3 bg-gray-300 text-gray-700 font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-ou dropdown-toggle"
             type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             Control Device
             <span class="caret"></span>
@@ -83,7 +87,13 @@
             <li>
               <button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
                 data-target="#openAppModal">
-                <i class="fa fa-rocket mr-2" aria-hidden="true"></i>LauchApp
+                <i class="fa fa-rocket mr-2" aria-hidden="true"></i>Launch App
+              </button>
+            </li>
+            <li>
+              <button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
+                data-target="#openAppTime">
+                <i class="fa fa-rocket mr-2" aria-hidden="true"></i>Launch App With Time
               </button>
             </li>
             <li v-if="hasAnyPermission(['user-manager'])">
@@ -311,6 +321,8 @@ import WifiModel from "@/Pages/Devices/Modal/WifiModel";
 import RunApkModal from "@/Pages/Devices/Modal/RunApkModal";
 import InstallApk from "@/Pages/Devices/Modal/InstallApk";
 import UninstallApk from "@/Pages/Devices/Modal/UninstallApk";
+import LaunchAppWithTime from "@/Pages/Devices/Modal/LaunchAppWithTime";
+import VueCountdown from '@chenfengyuan/vue-countdown';
 import _ from 'lodash';
 export default {
   layout: Layout,
@@ -325,7 +337,9 @@ export default {
     WifiModel,
     RunApkModal,
     InstallApk,
-    UninstallApk
+    UninstallApk,
+    LaunchAppWithTime,
+    VueCountdown
   },
   computed: {
     selectAll: {
@@ -400,6 +414,7 @@ export default {
   data() {
     return {
       filter:this.enabled,
+      time:null,
       sort: this.sortBy,
       sortDirection: this.sort_Direction,
       term: null,
@@ -566,6 +581,18 @@ export default {
     },
     serialNumber(key) {
       return (this.devices.current_page - 1) * this.devices.per_page + 1 + key;
+    },
+    transformSlotProps(props) {
+      const formattedProps = {};
+
+      Object.entries(props).forEach(([key, value]) => {
+        formattedProps[key] = value < 10 ? `0${value}` : String(value);
+      });
+
+      return formattedProps;
+    },
+    updateTimeRemaning(time){
+      this.time= time
     }
   }
 };

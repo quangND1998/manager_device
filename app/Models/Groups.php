@@ -9,8 +9,11 @@ class Groups extends Model
 {
     use HasFactory;
     protected $table = 'groups';
-    protected $fillable = ['id', 'code','name', 'created_at', 'user_id', 'updated_at'];
-
+    protected $fillable = ['id', 'code','name','time', 'created_at', 'user_id', 'updated_at'];
+    public function getTimeAttribute($value)
+    {
+        return strtotime($value);
+    }
     public function devices()
     {
         return $this->belongsToMany(Devices::class, 'group_device', 'group_id', 'device_id');

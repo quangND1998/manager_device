@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Api\AppLaucher;
 
 use App\Events\DefaultAppEvent;
 use App\Events\LaunchAppEvent;
+use App\Events\LaunchAppWithTime;
 use App\Events\SendDeviceActiveEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GroupRequest;
 use App\Http\Requests\LauchAppRequest;
 use App\Http\Requests\RemoveOwnerDeviceRequest;
 use App\Http\Requests\RequestAppGroupAction;
+use App\Http\Requests\RequestAppGroupWithTime;
 use App\Http\Requests\RequestApplication;
 use App\Http\Requests\UpdateGroupRequest;
 use App\Http\Resources\ApplicationResource;
@@ -27,7 +29,11 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use App\Jobs\LaunchAppJob;
+use App\Jobs\LaunchAppTimeLimit;
 use App\Jobs\SetDefaultAppJob;
+use App\Jobs\TimeEndGroupProcessing;
+use Carbon\Carbon;
+
 class GroupController extends Controller
 {
     protected $application, $device, $group;
@@ -209,15 +215,41 @@ class GroupController extends Controller
     public function runAppGoup(RequestAppGroupAction $request, $id)
     {
 
-        $group = Groups::with('devices')->findOrFail($id);
+        $group = Groups::with('devices')->find($id);
+        if (!$group) {
+            return response()->json('Not found group', 404);
+        }
         foreach ($group->devices as $device) {
             if ($device->hasApp($request->link_app)) {
                 //broadcast(new LaunchAppEvent($device, $request->link_app));
                 LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
             }
         }
-        return response()->json('Comand run succesfully', 200);
+        return response()->json($group->load(['devices.applications']), 200);
     }
+
+    public function runAppGroupWithTime(RequestAppGroupWithTime $request, $id)
+    {
+        
+        $group = Groups::with('devices')->find($id);
+        if (!$group) {
+            return response()->json('Not found group', 404);
+        }
+        $user = Auth::user();
+        TimeEndGroupProcessing::dispatch($user, $group);
+        foreach ($group->devices as $device) {
+            if ($device->hasApp($request->link_app)) {
+                //broadcast(new LaunchAppEvent($device, $request->link_app));
+                LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
+                LaunchAppTimeLimit::dispatch($device,$request->link_app, $request->time)->delay(now()->addMinutes($request->time));
+            }
+        }
+        $group->time = Carbon::now()->addMinutes($request->time);
+        $group->save();
+        return response()->json($group->load(['devices.applications']), 200);
+    }
+
+
 
     public function setAppDefaultGroup(RequestAppGroupAction $request, $id)
     {

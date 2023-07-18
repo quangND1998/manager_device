@@ -61,6 +61,7 @@ Route::group(['middleware' => 'languages_api',
 
         Route::prefix('devices')->as('devices.')->group(function () {
             Route::get('', [ApiController::class, 'devices'])->name('devices');
+            Route::get('all', [ApiController::class, 'allDevice'])->name('all');
             Route::get('/{id}/show', [ApiController::class, 'showDevice'])->name('show');
             Route::put('{id}/edit-name', [ApiController::class, 'saveName'])->name('saveName');
             Route::post('/launchAppTime', [ApiController::class, 'launchAppTime'])->name('launchAppTime');
@@ -90,7 +91,7 @@ Route::group(['middleware' => 'languages_api',
             Route::get('devices', [GroupController::class, 'devices'])->name('devices');
             Route::get('', [GroupController::class, 'getGroups']);
             Route::get('{id}', [GroupController::class, 'groupById']);
-            Route::post('{id}', [GroupController::class, 'groupByIdwithApp']);
+            Route::post('{id}', [GroupController::class, 'groupByIdwithApp'])->name('groupByIdwithApp');;
             Route::post('', [GroupController::class, 'store'])->name('store');
             Route::put('/update/{id}', [GroupController::class, 'update'])->name('update');
 
@@ -101,6 +102,8 @@ Route::group(['middleware' => 'languages_api',
 
             Route::post('default-app/{id}', [GroupController::class, 'setAppDefaultGroup'])->name('default-app');
             Route::post('runAppGoup/{id}', [GroupController::class, 'runAppGoup'])->name('runAppGoup');
+            Route::post('runAppGroupWithTime/{id}', [GroupController::class, 'runAppGroupWithTime'])->name('runAppGroupWithTime');
+            
         });
 
         Route::prefix('window-app')->as('window-app.')->group(function () {

@@ -2,10 +2,9 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Resources\Device\DeviceResouce;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GroupResource extends JsonResource
+class DeviceApiResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,10 +17,9 @@ class GroupResource extends JsonResource
         return
         [
             'id' => $this->id,
+            'device_id' => $this->device_id,
             'name' => $this->name,
-            'user_id' => $this->user_id,
-            'devices' => DeviceResouce::collection($this->devices),
-            'time' => $this->time
+           
 
         ];
     }

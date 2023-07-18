@@ -32,12 +32,14 @@ use App\Http\Controllers\Traits\FileUploadTrait;
 use App\Http\Resources\LocationResource;
 use App\Events\LaunchAppWithTime;
 use App\Http\Requests\RequestLaunchAppTime;
+use App\Http\Resources\DeviceApiResource;
 use App\Jobs\LaunchAppTimeLimit;
 use App\Jobs\ReciveUpdateApplicationJob;
 use App\Jobs\SendDeviceActiveJob;
 use App\Jobs\SendUpdateApplicationJob;
 use App\Jobs\LaunchAppJob;
 use App\Jobs\SetDefaultAppJob;
+use Carbon\Carbon;
 
 class ApiController extends Controller
 {
@@ -49,6 +51,7 @@ class ApiController extends Controller
     }
     public function devices(Request $request)
     {
+       
         $sortBy = $request->sortBy ? $request->sortBy : 'id';
         $sort_Direction = $request->sortDirection ?  $request->sortDirection : 'asc';
         return DevicesResource::collection($this->deivce->getDeivces(
@@ -307,12 +310,18 @@ class ApiController extends Controller
             if ($device->hasApp($request->link_app)) {
                 LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
                 // broadcast(new LaunchAppEvent($device, $request->link_app));
-                LaunchAppTimeLimit::dispatch($device,$request->link_app)->delay(now()->addMinutes($request->time));
-                //dispatch(new LaunchAppTimeLimit($device,$request->link_app))->delay(now()->addSecond($request->time))->onConnection('redis');
+                LaunchAppTimeLimit::dispatch($device,$request->link_app, $request->time)->delay(now()->addMinutes($request->time));
+                // dispatch(new LaunchAppTimeLimit($device,$request->link_app))->delay(now()->addSecond($request->time))
             }
         }
         return response()->json('Launch successfully', 200);
 
+    }
+
+    public function allDevice(){
+        $devices =$this->deivce->allDevice();
+      
+        return DeviceApiResource::collection($devices);
     }
 
     

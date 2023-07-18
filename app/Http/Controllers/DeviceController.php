@@ -33,6 +33,7 @@ use App\Events\SendUpdateApplicationEvent;
 use App\Jobs\ReciveActiveDeviceJob;
 use App\Jobs\SendDeviceActiveJob;
 use App\Jobs\LaunchAppJob;
+use App\Jobs\LaunchAppTimeLimit;
 use App\Jobs\SetDefaultAppJob;
 class DeviceController extends Controller
 {
@@ -47,6 +48,7 @@ class DeviceController extends Controller
     }
     public function index(Request $request)
     {
+        //dd(Carbon::now()->addMinutes(14)->addSeconds(30));
         // return $this->deviceLimitRepository->limitDevicesByCreated(5);
         $user = Auth::user();
         $sortBy = $request->sortBy ? $request->sortBy : 'id';
@@ -433,6 +435,26 @@ class DeviceController extends Controller
         } else {
             return abort(404);
         }
+    }
+
+
+    public function launchAppTime(Request $request){
+     
+        $this->validate($request, [
+            'link_app' => 'required',
+            'ids' => 'required|array',
+            'time' => 'required|numeric|gt:0'
+        ]);
+        $devices = Devices::whereIn('id', $request->ids)->get();
+        foreach ($devices as $device) {
+            if ($device->hasApp($request->link_app)) {
+                LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
+                LaunchAppTimeLimit::dispatch($device,$request->link_app, $request->time)->delay(now()->addMinutes($request->time));
+             
+            }
+        }
+        return back()->with(['success'=>'Launch app successfully', 'time'=> $request->time]);
+
     }
 
   
