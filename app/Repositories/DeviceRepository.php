@@ -48,4 +48,10 @@ class DeviceRepository extends BaseRepository
     public function findDevice($id){
         return $this->model()->with('applications')->find($id);
     }
+
+    public function allDevice()
+    {
+        $user = Auth::user();
+        return !$user->hasPermissionTo('user-manager') ? $this->model()->where('user_id', $user->id)->get() :  $this->model()->get();
+    }
 }

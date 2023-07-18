@@ -61,6 +61,7 @@ Route::group(['middleware' => 'languages_api',
 
         Route::prefix('devices')->as('devices.')->group(function () {
             Route::get('', [ApiController::class, 'devices'])->name('devices');
+            Route::get('all', [ApiController::class, 'allDevice'])->name('all');
             Route::get('/{id}/show', [ApiController::class, 'showDevice'])->name('show');
             Route::put('{id}/edit-name', [ApiController::class, 'saveName'])->name('saveName');
             Route::post('/launchAppTime', [ApiController::class, 'launchAppTime'])->name('launchAppTime');
