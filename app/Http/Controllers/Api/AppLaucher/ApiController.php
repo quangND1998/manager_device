@@ -32,6 +32,7 @@ use App\Http\Controllers\Traits\FileUploadTrait;
 use App\Http\Resources\LocationResource;
 use App\Events\LaunchAppWithTime;
 use App\Http\Requests\RequestLaunchAppTime;
+use App\Http\Resources\DeviceApiResource;
 use App\Jobs\LaunchAppTimeLimit;
 use App\Jobs\ReciveUpdateApplicationJob;
 use App\Jobs\SendDeviceActiveJob;
@@ -313,6 +314,12 @@ class ApiController extends Controller
         }
         return response()->json('Launch successfully', 200);
 
+    }
+
+    public function allDevice(){
+        $devices =$this->deivce->allDevice();
+      
+        return DeviceApiResource::collection($devices);
     }
 
     

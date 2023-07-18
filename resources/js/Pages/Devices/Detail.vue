@@ -70,6 +70,11 @@
                                         <!-- <font-awesome-icon :icon="['fas', 'arrow-down']" /> -->
                                     </th>
                                     <th scope="col" class="px-6 py-4 text-xl">
+                                        App Icon
+                                        <!-- <font-awesome-icon :icon="['fas', 'arrow-down']" /> -->
+                                    </th>
+
+                                    <th scope="col" class="px-6 py-4 text-xl">
                                         Applications
                                         <!-- <font-awesome-icon :icon="['fas', 'arrow-down']" /> -->
                                     </th>
@@ -77,10 +82,7 @@
                                         Version
                                         <!-- <font-awesome-icon :icon="['fas', 'arrow-down']" /> -->
                                     </th>
-                                    <th scope="col" class="px-6 py-4 text-xl">
-                                        App Icon
-                                        <!-- <font-awesome-icon :icon="['fas', 'arrow-down']" /> -->
-                                    </th>
+                                  
                                     <th scope="col" class="px-6 py-4 text-xl">
                                         Status
                                         <!-- <font-awesome-icon :icon="['fas', 'arrow-down']" /> -->
@@ -90,6 +92,9 @@
                             <tbody>
                                 <tr class="border-t" v-for="(item, index) in filteredItemDevice" :key="index">
                                     <td class="whitespace-nowrap px-6 py-4">{{ index + 1 }}</td>
+                                    <td class="whitespace-nowrap px-6 py-4 flex">
+                                        <img :src="item.icon" class="w-12 h-12" alt="" />
+                                    </td>
                                     <td
                                         class="whitespace-nowrap px-6 py-4 text-base text-black font-semibold name_device_col">
                                         {{ item.appName }}
@@ -98,9 +103,7 @@
                                     <td class="whitespace-nowrap px-6 py-4">
                                         {{ item.version }}
                                     </td>
-                                    <td class="whitespace-nowrap px-6 py-4 flex">
-                                        <img :src="item.icon" class="w-12 h-12" alt="" />
-                                    </td>
+                                 
                                     <td class="whitespace-nowrap px-6 py-4">
                                         <i class="fa fa-circle ml-2 icon_on mr-1" size="xs"
                                             style="color: #23cd26; width: 8px" aria-hidden="true"></i>
