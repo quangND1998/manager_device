@@ -87,7 +87,7 @@
                                                 <div class="flex-1 pl-1 mr-16">
                                                     <div class="font-medium">{{ group.name }}</div>
                                                    
-                                                    <vue-countdown v-if="group.time  && timestamp!=null && (group.time-timestamp) >0" :time="( group.time -timestamp )*1000" :transform="transformSlotProps" v-slot="{  minutes, seconds }">
+                                                    <vue-countdown v-if="group.time  && timestamp !=null && (group.time-timestamp) >0" :time="( group.time -timestamp )*1000" :transform="transformSlotProps" v-slot="{  minutes, seconds }">
                                                     Time Remaining： {{ minutes }}: {{ seconds }}
                                                     </vue-countdown>
                                                 </div>
