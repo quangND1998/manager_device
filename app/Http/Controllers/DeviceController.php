@@ -44,7 +44,7 @@ class DeviceController extends Controller
     }
     public function index(Request $request)
     {
-
+        // dd(Carbon::now()->addMinutes(0)->addSeconds(30));
         $user = Auth::user();
         $sortBy = $request->sortBy ? $request->sortBy : 'id';
         $sort_Direction = $request->sortDirection ?  $request->sortDirection : 'asc';
