@@ -258,7 +258,7 @@ class ApiController extends Controller
                 if ($check_app) {
                     $check_app->update([
                         'appName' => $app['appName'],
-                        'icon' => $this->Base64toImage($app['icon']),
+                        'icon' => $this->Base64toImage($app['icon'],$check_app->icon),
                         'packageName' => $app['packageName'],
                         'version' => $app['versionName'],
                         'device_id' =>  $device->id
