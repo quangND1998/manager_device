@@ -60,9 +60,9 @@ export default {
     listenNotificationDevice() {
       console.log(this.user.id)
       if (this.user) {
-        this.sockets.subscribe(`time-end-device.${this.user.id}:App\\Events\\TimeEndDeviceNotification`, (data) => {
+        this.sockets.subscribe(`time-end-device.${this.$page.props.auth.user.id}:App\\Events\\TimeEndDeviceNotification`, (data) => {
           console.log(data)
-          this.$toast.warning(`Group ${data.group_name} Timer Ends`, {
+          this.$toast.warning(`Device ${data.device_name} Timer Ends`, {
             // override the global option
             position: 'bottom-right',
 

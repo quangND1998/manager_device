@@ -42,8 +42,8 @@ class TimeEndDeviceNotification implements ShouldBroadcast
         return
             [
                 'device' => $this->device->id,
-                'deivce_name' => $this->device->name,
-                'deivce_id' => $this->device->deivce_id
+                'device_name' => $this->device->name,
+                'device_id' => $this->device->deivce_id
             ];
     }
 }
