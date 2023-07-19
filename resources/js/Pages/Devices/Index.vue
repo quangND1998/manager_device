@@ -1,6 +1,6 @@
 <template>
   <section class="content">
- 
+
     <ContentHeaderVue :name="'Devices'" />
     <alert :dismissible="true"></alert>
     <WifiModel v-if="hasAnyPermission(['user-manager'])" :errors="errors" :ids="selected" :wifis="wifis" />
@@ -15,11 +15,13 @@
     <UninstallApk v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
     <UninstallApk v-else :errors="errors" :applications="application_deivce" :ids="selected" />
 
-    <LaunchAppWithTime  v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" @updateTime="updateTimeRemaning"/>
-    <LaunchAppWithTime v-else :errors="errors" :applications="application_deivce" :ids="selected" @updateTime="updateTimeRemaning" />
+    <LaunchAppWithTime v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected"
+      @updateTime="updateTimeRemaning" />
+    <LaunchAppWithTime v-else :errors="errors" :applications="application_deivce" :ids="selected"
+      @updateTime="updateTimeRemaning" />
     <!-- <RunApkModal :errors="errors" ></RunApkModal> -->
     <!-- Modal -->
-  
+
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -178,14 +180,25 @@
             </th>
             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
               <Link :href="route('device.detail', device.id)">{{ device.name
-            }}</Link></th>
+              }}</Link>
+            </th>
             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              {{
-                device.device_id
-              }}
-              <vue-countdown v-if="device.time  && timestamp !=null && (device.time-timestamp) >0" :time="( device.time -timestamp )*1000" :transform="transformSlotProps" v-slot="{  minutes, seconds }">
-                                                    Time Remaining： {{ minutes }}: {{ seconds }}
-                                                    </vue-countdown>
+              <div class="block">
+                <p>
+                  {{
+                    device.device_id
+                  }}
+                </p>
+                <p class="font-semibold text-yellow-600">
+                  <vue-countdown v-if="device.time && timestamp != null && (device.time - timestamp) > 0"
+                    :time="(device.time - timestamp) * 1000" :transform="transformSlotProps"
+                    v-slot="{ minutes, seconds }">
+                    Time Remaining： {{ minutes }}: {{ seconds }}
+                  </vue-countdown>
+                </p>
+              </div>
+
+
             </th>
             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
               <span
@@ -244,7 +257,8 @@
               v-if="hasAnyPermission(['user-manager'])">{{ device.os_version }}</th>
             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
               {{
-                device.update_time && formatDate(device.update_time) !=='Invalid date' ? formatDate(device.update_time) : null }}
+                device.update_time && formatDate(device.update_time) !== 'Invalid date' ? formatDate(device.update_time) :
+                null }}
             </th>
             <td class="py-4 px-6 text-right">
               <button @click="edit(device)" type="button" data-toggle="modal" data-target="#exampleModal"
@@ -332,7 +346,7 @@ export default {
         });
         let array2 = _.chain(array).groupBy('packageName').map((value, key) => ({ packageName: key, id: value[0].id, appName: value[0].appName, packageName: value[0].packageName, icon: value[0].icon, count: value.length }))
           .value();
-          let applications = array2.filter(app => {
+        let applications = array2.filter(app => {
           return app.count == this.selected.length
         });
         return applications;
@@ -354,9 +368,9 @@ export default {
   },
   data() {
     return {
-      time:null,
+      time: null,
       sort: this.sortBy,
-      timestamp:'',
+      timestamp: '',
       sortDirection: this.sort_Direction,
       term: null,
       editMode: true,
@@ -370,9 +384,10 @@ export default {
   },
   mounted() {
     this.listenActiveDevice();
+    this.listenNotification();
   },
   created() {
-        setInterval(this.getNow, 1000);
+    setInterval(this.getNow, 1000);
   },
   props: {
     devices: Object,
@@ -388,9 +403,9 @@ export default {
   },
 
   methods: {
-    getNow: function() {
-            const today = new Date();
-            this.timestamp = parseInt(today.getTime()/1000);
+    getNow: function () {
+      const today = new Date();
+      this.timestamp = parseInt(today.getTime() / 1000);
     },
     search() {
       this.$inertia.get(
@@ -466,6 +481,32 @@ export default {
         );
       });
     },
+
+    listenNotification() {
+      var self = this;
+      this.devices.data.map(element => {
+        this.sockets.subscribe(
+          `time-end-device.${element.device_id}:App\\Events\\TimeEndDeviceNotification`,
+          function (e) {
+            // console.log(e)
+            let index = self.devices.data.findIndex(
+              x => x.device_id == e.device_id
+            );
+            console.log(index);
+            if (index !== -1) {
+              this.$toast.warning(`Device ${data.device_name} Timer Ends`, {
+                    // override the global option
+                    position: 'bottom-right',
+                  
+                    duration: 60000,
+                    dismissible:true
+                })
+            }
+           
+          }
+        );
+      });
+    },
     FreshDevice() {
       this.$inertia.post(route("device.checkDevice")),
       {
@@ -502,8 +543,8 @@ export default {
 
       return formattedProps;
     },
-    updateTimeRemaning(time){
-      this.time= time
+    updateTimeRemaning(time) {
+      this.time = time
     }
   }
 };
@@ -529,5 +570,4 @@ export default {
   border-bottom-width: 0;
   margin-top: 1px;
   cursor: pointer;
-}
-</style>
+}</style>
