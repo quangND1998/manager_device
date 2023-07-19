@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ApkFileController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\ApplicationDefaultController;
 use App\Http\Controllers\AppWindowController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\GroupController;
@@ -119,17 +120,24 @@ Route::middleware(['auth'])->group(
 
             Route::post('checkDevice', [DeviceController::class, 'checkDevice'])->name('checkDevice');
             Route::post('checkActiveDevice', [DeviceController::class, 'checkActiveDevice'])->name('checkActiveDevice');
-
+            Route::post('changeEnabled', [DeviceController::class, 'changeEnabled'])->name('enabled');
             Route::get('/send-update-device/{id}', [ApiController::class, 'sendUpdateDevice'])->name('sendUpdateDevice');
-
             Route::post('/launch-app-time', [DeviceController::class ,'launchAppTime'])->name('launch-app-time');
         });
 
         Route::prefix('applications')->as('application.')->group(function () {
             Route::get('', [ApplicationController::class, 'index'])->name('index');
-            Route::post('changeDefault', [ApplicationController::class, 'changeDefault'])->name('default');
+         
             Route::post('get', [ApplicationController::class, 'applications']);
         });
+
+        Route::prefix('default-application')->as('default-application.')->group(function () {
+            Route::get('', [ApplicationDefaultController::class, 'index'])->name('index');
+            Route::post('', [ApplicationDefaultController::class, 'store'])->name('store');
+            Route::put('update/{app}', [ApplicationDefaultController::class, 'update'])->name('update');;
+            Route::delete('delete/{app}', [ApplicationDefaultController::class, 'delete'])->name('delete');
+        });
+
 
         Route::prefix('wifis')->as('wifi.')->group(function () {
             Route::get('', [WifiController::class, 'index'])->name('index');

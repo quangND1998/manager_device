@@ -52,6 +52,7 @@ class ApiController extends Controller
     }
     public function devices(Request $request)
     {
+       
         $sortBy = $request->sortBy ? $request->sortBy : 'id';
         $sort_Direction = $request->sortDirection ?  $request->sortDirection : 'asc';
         return DevicesResource::collection($this->deivce->getDeivces(
@@ -122,7 +123,7 @@ class ApiController extends Controller
 
         foreach ($devices as $device) {
             $application = Applicaion::where('packageName', $request->link_app)->where('device_id', $device->id)->first();
-            if ($device->hasApp($request->link_app)) {
+            if ($device->hasApp($request->link_app))  {
                 $device->app_default_id = $application ? $application->id :  $application_share->id;
                 $device->save();
                 //broadcast(new DefaultAppEvent($device, $request->link_app));

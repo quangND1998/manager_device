@@ -258,7 +258,7 @@ class GroupController extends Controller
         $group = Groups::with('devices')->findOrFail($id);
         $application = Applicaion::where('packageName', $request->link_app)->first();
         foreach ($group->devices as $device) {
-            if ($device->hasApp($request->link_app)) {
+            if ($device->hasApp($request->link_app))  {
                 $device->app_default_id = $application->id;
                 $device->save();
                 // broadcast(new DefaultAppEvent($device, $request->link_app));

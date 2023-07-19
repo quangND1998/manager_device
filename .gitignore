@@ -2,6 +2,7 @@
 /public/hot
 /public/storage
 /public/app_icon
+/public/window
 /public/apk
 /storage/*.key
 /vendor

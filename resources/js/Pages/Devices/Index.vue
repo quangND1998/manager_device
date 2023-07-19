@@ -5,20 +5,27 @@
     <alert :dismissible="true"></alert>
     <WifiModel v-if="hasAnyPermission(['user-manager'])" :errors="errors" :ids="selected" :wifis="wifis" />
     <OpenAppModal v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
+    <OpenAppModal v-else-if="!hasAnyPermission(['Lite']) && $page.props.auth.user.isExpired" :errors="errors"
+      :applications="applications" :ids="selected" />
+    <OpenAppModal v-else-if="!hasAnyPermission(['Lite']) && enabled=='0'" :errors="errors" :applications="default_applications" :ids="selected" />
     <OpenAppModal v-else :errors="errors" :applications="application_deivce" :ids="selected" />
 
     <GroupModel :errors="errors" :ids="selected" />
     <defaulAppModal v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
+    <defaulAppModal v-else-if="!hasAnyPermission(['Lite']) && $page.props.auth.user.isExpired" :errors="errors"
+      :applications="applications" :ids="selected" />
+    <defaulAppModal v-else-if="!hasAnyPermission(['Lite']) && enabled=='0'" :errors="errors" :applications="default_applications" :ids="selected" />
     <defaulAppModal v-else :errors="errors" :applications="application_deivce" :ids="selected" />
 
     <InstallApk :errors="errors" :ids="selected" :apk_files="apk_files" />
     <UninstallApk v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
+    <UninstallApk v-else-if="!hasAnyPermission(['Lite']) && $page.props.auth.user.isExpired" :errors="errors"
+      :applications="applications" :ids="selected" />
+      <UninstallApk v-else-if="!hasAnyPermission(['Lite']) && enabled=='0'" :errors="errors" :applications="applications" :ids="selected" />
     <UninstallApk v-else :errors="errors" :applications="application_deivce" :ids="selected" />
 
-    <LaunchAppWithTime v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected"
-      @updateTime="updateTimeRemaning" />
-    <LaunchAppWithTime v-else :errors="errors" :applications="application_deivce" :ids="selected"
-      @updateTime="updateTimeRemaning" />
+    <LaunchAppWithTime  v-if="hasAnyPermission(['Lite'])  && enabled=='0'"  :errors="errors" :applications="applications" :ids="selected" @updateTime="updateTimeRemaning"/>
+    <LaunchAppWithTime v-else :errors="errors" :applications="application_deivce" :ids="selected" @updateTime="updateTimeRemaning" />
     <!-- <RunApkModal :errors="errors" ></RunApkModal> -->
     <!-- Modal -->
 
@@ -116,10 +123,26 @@
         </div>
       </div>
     </div>
-    <button type="button" @click="FreshDevice()"
+   
+
+    <div class="flex justify-between mt-5">
+      <button type="button" @click="FreshDevice()"
       class="inline-block px-6 py-2.5 bg-blue-400 text-white font-medium text-2xl leading-tight rounded-full shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out">
       <i class="fa fa-refresh mr-2" aria-hidden="true"></i>Active devices
     </button>
+      <div class="flex">
+    
+          <select
+            v-model="filter"
+            @change="Filter"
+            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg  block w-full px-8 py-3 text-xl "
+          >
+            <option :value="null" >Status</option>
+            <option :value="1">Enabled</option>
+            <option :value="0">Disabled</option>
+          </select>
+      </div>
+    </div>
 
     <div class="overflow-x-auto relative shadow-md sm:rounded-lg mt-5">
       <table class="w-full text-xl text-left text-gray-500 dark:text-gray-400">
@@ -149,12 +172,15 @@
               <span v-if="sortDirection == 'desc'">Active</span>
               <span v-if="sortDirection == 'asc'">InActive</span>
             </th>
+            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500" v-if="hasAnyPermission(['user-manager'])">
+              Enabled</th>
             <!-- <th scope="col" class="py-3 px-6 text-xl uppercase">Connect Wifi</th> -->
             <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">Default App</th>
             <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500" v-if="hasAnyPermission(['user-manager'])">
               User</th>
             <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500" v-if="hasAnyPermission(['user-manager'])">
               Version</th>
+
             <th @click="sortValue('update_time')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
               <i class="fa fa-arrow-up"
                 :class="[(sortDirection === 'asc' && sort == 'update_time') ? 'text-gray-800' : 'text-gray-300']"></i>
@@ -168,10 +194,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(device, index) in devices.data" :key="index"
-            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <tr v-for="(device, index) in devices.data" :key="index" 
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 " :class="device.enabled ==false && enabled !=='0' ? 'opacity-30':''">
             <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              <input type="checkbox" class="checkbox" v-model="selected" :value="device.id" />
+              <input type="checkbox" class="checkbox" v-model="selected" :value="device.id" v-if="device.enabled"/>
+              <input type="checkbox" class="checkbox" v-model="selected" :value="device.id" v-else-if="device.enabled && enabled==1"/>
+              <input type="checkbox" class="checkbox" v-model="selected" :value="device.id" v-else-if="device.enabled==false && enabled ==0"/>
             </td>
             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
               <!-- {{ sortDirection =='asc'?  firstItem + index :    count -(devices.current_page ==1? -index +1 : -index-1) }} -->
@@ -222,6 +250,17 @@
               <span v-else
                 class="text-xl inline-block py-2 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-gray-400 text-gray-800 rounded-full"></span>
             </th>
+            <th v-if="hasAnyPermission(['user-manager'])" scope="row"
+              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" :checked="device.enabled"    @change="onChangeEnabled(device, $event)" class="sr-only peer">
+                <div
+                  class="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                </div>
+                <span class="ml-3 text-xl font-medium text-gray-900 dark:text-gray-300">{{ device.enabled ?
+                  'Enabled' : 'Disabled' }}</span>
+              </label>
+            </th>
             <!-- <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"><span
                 v-if="device.connect_wifi"
                 class="text-xl inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-gray-600 text-white rounded"><i
@@ -261,12 +300,12 @@
                 null }}
             </th>
             <td class="py-4 px-6 text-right">
-              <button @click="edit(device)" type="button" data-toggle="modal" data-target="#exampleModal"
+              <button @click="edit(device)" type="button" data-toggle="modal" data-target="#exampleModal" :disabled="device.enabled ==false"
                 class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out">
                 Edit
                 Name
               </button>
-              <button type="button" @click="Delete(device.id)"
+              <button type="button" @click="Delete(device.id)" :disabled="device.enabled ==false "
                 class="inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out">Delete</button>
             </td>
           </tr>
@@ -324,8 +363,18 @@ export default {
         var selected = [];
 
         if (value) {
+          console.log(value)
+          const  _this = this;
           this.devices.data.forEach(function (device) {
-            selected.push(device.id);
+            if(device.enabled && _this.enabled){
+              selected.push(device.id);
+            }
+            else if(device.enabled ==false && _this.enabled =='0'){
+              selected.push(device.id);
+            }
+            else if(device.enabled && _this.enabled ==null){
+              selected.push(device.id);
+            }
           });
         }
 
@@ -339,6 +388,13 @@ export default {
             element => element.id == this.selected[0]
           );
           return found.applications;
+          // if( found.enabled){
+          //   return found.applications;
+          // }
+          // else{
+          //   return this.applications;
+          // }
+
         }
 
         let array = this.applications.filter(app => {
@@ -368,7 +424,12 @@ export default {
   },
   data() {
     return {
+<<<<<<< HEAD
       time: null,
+=======
+      filter:this.enabled,
+      time:null,
+>>>>>>> origin/limit-device
       sort: this.sortBy,
       timestamp: '',
       sortDirection: this.sort_Direction,
@@ -399,7 +460,9 @@ export default {
     count: Number,
     sort_Direction: String,
     firstItem: Number,
-    lastItem: Number
+    lastItem: Number,
+    enabled:String,
+    default_applications: Array
   },
 
   methods: {
@@ -410,11 +473,30 @@ export default {
     search() {
       this.$inertia.get(
         this.route("device.index"),
-        { term: this.term },
+        { term: this.term,  enabled: this.enabled },
         {
           preserveState: true
         }
       );
+    },
+    Filter(event) {
+      if (event.target.value == "") {
+        this.$inertia.get(
+          this.route(`device.index`),
+          {},
+          {
+            preserveScroll: true
+          }
+        );
+      } else {
+        this.filter = event.target.value;
+        let query = {
+          enabled: event.target.value
+        };
+        this.$inertia.get(this.route(`device.index`), query, {
+          preserveScroll: true
+        });
+      }
     },
     save() {
       if (this.editMode) {
@@ -431,6 +513,21 @@ export default {
           }
         });
       }
+    },
+    onChangeEnabled(data, event) {
+      if (event.target.checked) {
+        this.form.enabled = 1;
+      } else {
+        this.form.enabled = 0;
+      }
+      let query = {
+        id: data.id,
+        enabled: event.target.checked
+      };
+      this.$inertia.post(route("device.enabled"), query, {
+        preserveState: false
+        // only: ["image360s", "errors", 'flash'],
+      });
     },
     contextMenu(item, event) {
       Bus.$emit("contextMenuPemission", item, event);

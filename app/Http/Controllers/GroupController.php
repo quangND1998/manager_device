@@ -181,7 +181,7 @@ class GroupController extends Controller
             'link_app' => 'required',
             'time' => 'required|numeric|gt:0'
         ]);
-       
+        $user = Auth::user();
         $group = Groups::with('devices')->find($id);
         if (!$group) {
             return response()->json('Not found group', 404);

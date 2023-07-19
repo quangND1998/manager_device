@@ -27,6 +27,14 @@
         </li>
 
     </li>
+    <li tag="li" class="pageli"  >
+      <li :class="[$page.component === 'ApplicationDefault/Index' ? 'active' : '']" v-if="hasAnyPermission(['user-manager'])">
+          <Link :href="route('default-application.index')">
+            <i class="fa fa-th" aria-hidden="true"></i>Default Applications 
+          </Link>
+        </li>
+
+    </li>
       <li tag="li" class="pageli"  >
       <li :class="[$page.component === 'Window/Index' ? 'active' : '']" >
           <Link :href="route('window-app.index')">
