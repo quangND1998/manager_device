@@ -1446,10 +1446,10 @@
   "resolved" "https://registry.npmjs.org/@vue/shared/-/shared-3.1.5.tgz"
   "version" "3.1.5"
 
-"@vueform/multiselect@^2.4.2":
-  "integrity" "sha512-5VVk4Mwn4cva+MbBjAXaEunmGWLAp98PcI4okaT95qYCfBckn2N/9ws18O0OStVe8WskFFUj/kF0goH/Xc2aTw=="
-  "resolved" "https://registry.npmjs.org/@vueform/multiselect/-/multiselect-2.4.2.tgz"
-  "version" "2.4.2"
+"@vueform/multiselect@^2.6.2":
+  "integrity" "sha512-4BFvXyzyi0Pqi/lsYdGwONsQy+ypiVzuQbmoDUlttTxuoujFtf9AdeHi1ZhfIorXG9BiysK1HcQSfYB6USgwfQ=="
+  "resolved" "https://registry.npmjs.org/@vueform/multiselect/-/multiselect-2.6.2.tgz"
+  "version" "2.6.2"
 
 "@webassemblyjs/ast@1.11.1":
   "integrity" "sha512-ukBh14qFLjxTQNTXocdyksN5QdM28S1CxHt2rdskFyL+xFV7VremuBLVbmCePj+URalXBENx/9Lm7lnhihtCSw=="
@@ -7433,7 +7433,12 @@
   "resolved" "https://registry.npmjs.org/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz"
   "version" "1.9.1"
 
-"vue@^2.6.0", "vue@^2.7.14":
+"vue-toast-notification@^1.0.1":
+  "integrity" "sha512-qaBDz6jjaRxTXqimb0+NUtfj1Yjz2nd/tSpDePkw04mIyi57dcx1oGTnyqEZpvM6KeXoeYte/Qo9363QdKVQow=="
+  "resolved" "https://registry.npmjs.org/vue-toast-notification/-/vue-toast-notification-1.0.1.tgz"
+  "version" "1.0.1"
+
+"vue@^2.6.0", "vue@^2.7.0", "vue@^2.7.14":
   "integrity" "sha512-b2qkFyOM0kwqWFuQmgd4o+uHGU7T+2z3T+WQp8UBjADfEv2n4FEMffzBmCKNP0IGzOEEfYjvtcC62xaSKeQDrQ=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-2.7.14.tgz"
   "version" "2.7.14"
