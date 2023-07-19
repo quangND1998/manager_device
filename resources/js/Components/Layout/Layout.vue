@@ -5,13 +5,11 @@
     <!-- Left side column. contains the logo and sidebar -->
     <SiderBar />
     <div class="content-wrapper">
-      <transition   name="custom-classes-transition"
-                enter-active-class="animated pulse"
-              >
-                      
-                      <slot />
+      <transition name="custom-classes-transition" enter-active-class="animated pulse">
+
+        <slot />
       </transition>
-     
+
     </div>
     <dash-footer></dash-footer>
   </div>
@@ -33,7 +31,7 @@ export default {
     SiderBar,
     UserMenu
   },
-  data: function() {
+  data: function () {
     return {
       // section: 'Dash',
       classes: {
@@ -42,22 +40,39 @@ export default {
       }
     };
   },
-  mounted(){
+  mounted() {
     this.listenNotificationGroup()
+    this.listenNotificationDevice()
   },
-  methods:{
-    listenNotificationGroup(){
-        this.sockets.subscribe(`time-play-notification.${this.$page.props.auth.user.id}:App\\Events\\TimeEndGroupNotification`, (data) => {
-              console.log(data)
-              this.$toast.warning(`Group ${data.group_name} Timer Ends`, {
-                  // override the global option
-                  position: 'bottom-right',
-                 
-                  duration: 60000,
-                  dismissible:true
-              })
-          }); 
-        }
+  methods: {
+    listenNotificationGroup() {
+      this.sockets.subscribe(`time-play-notification.${this.$page.props.auth.user.id}:App\\Events\\TimeEndGroupNotification`, (data) => {
+        console.log(data)
+        this.$toast.warning(`Group ${data.group_name} Timer Ends`, {
+          // override the global option
+          position: 'bottom-right',
+
+          duration: 60000,
+          dismissible: true
+        })
+      });
+    },
+    listenNotificationDevice() {
+      console.log(this.user.id)
+      if (this.user) {
+        this.sockets.subscribe(`time-end-device.${this.user.id}:App\\Events\\TimeEndDeviceNotification`, (data) => {
+          console.log(data)
+          this.$toast.warning(`Group ${data.group_name} Timer Ends`, {
+            // override the global option
+            position: 'bottom-right',
+
+            duration: 60000,
+            dismissible: true
+          })
+        });
+      }
+
+    }
   }
 };
 </script>
@@ -67,9 +82,11 @@ export default {
   position: fixed;
   width: 100%;
 }
+
 .wrapper.fixed_layout .content-wrapper {
   padding-top: 50px;
 }
+
 .wrapper.fixed_layout .main-sidebar {
   position: fixed;
   height: 100vh;
@@ -85,6 +102,7 @@ export default {
 .logo-lg {
   text-align: left;
 }
+
 .logo-mini img,
 .logo-lg img {
   padding: 0.4em !important;

@@ -32,6 +32,8 @@ use App\Jobs\SendDeviceActiveJob;
 use App\Jobs\LaunchAppJob;
 use App\Jobs\LaunchAppTimeLimit;
 use App\Jobs\SetDefaultAppJob;
+use App\Jobs\TimeEndDeviceProcessing;
+
 class DeviceController extends Controller
 {
     use LoginTrait, FileUploadTrait;
@@ -421,14 +423,18 @@ class DeviceController extends Controller
             'ids' => 'required|array',
             'time' => 'required|numeric|gt:0'
         ]);
+        $user = Auth::user();
         $devices = Devices::whereIn('id', $request->ids)->get();
         foreach ($devices as $device) {
             if ($device->hasApp($request->link_app)) {
                 LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
+                TimeEndDeviceProcessing::dispatch($device,$user)->delay(now()->addMinutes($request->time -1)->addSeconds(30));
                 LaunchAppTimeLimit::dispatch($device,$request->link_app, $request->time)->delay(now()->addMinutes($request->time));
-             
+                $device->time = Carbon::now()->addMinutes($request->time);
+                $device->save();
             }
         }
+      
         return back()->with(['success'=>'Launch app successfully', 'time'=> $request->time]);
 
     }

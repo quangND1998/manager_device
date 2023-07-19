@@ -70,6 +70,7 @@
                                     <option value="30">30 minutes</option>
                                     <option value="45">45 minutes</option>
                                     <option value="60">60 minutes</option>
+                                    <option value="90">90 minutes</option>
                                 </select>
                                 <div class="text-red-500" v-if="errors.time">{{ errors.time }}</div>
                             </div>

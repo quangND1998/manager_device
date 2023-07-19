@@ -39,6 +39,8 @@ use App\Jobs\SendDeviceActiveJob;
 use App\Jobs\SendUpdateApplicationJob;
 use App\Jobs\LaunchAppJob;
 use App\Jobs\SetDefaultAppJob;
+use App\Jobs\TimeEndDeviceProcessing;
+use Carbon\Carbon;
 
 class ApiController extends Controller
 {
@@ -303,12 +305,15 @@ class ApiController extends Controller
 
     public function launchAppTime(RequestLaunchAppTime $request){
         $devices = Devices::whereIn('id', $request->ids)->get();
-
+        $user= Auth::user();
         foreach ($devices as $device) {
             if ($device->hasApp($request->link_app)) {
                 LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
                 // broadcast(new LaunchAppEvent($device, $request->link_app));
+                TimeEndDeviceProcessing::dispatch($device,$user)->delay(now()->addMinutes($request->time -1)->addSeconds(30));
                 LaunchAppTimeLimit::dispatch($device,$request->link_app, $request->time)->delay(now()->addMinutes($request->time));
+                $device->time = Carbon::now()->addMinutes($request->time);
+                $device->save();
                 // dispatch(new LaunchAppTimeLimit($device,$request->link_app))->delay(now()->addSecond($request->time))
             }
         }
