@@ -384,7 +384,7 @@ export default {
   },
   mounted() {
     this.listenActiveDevice();
-    this.listenNotification();
+   
   },
   created() {
     setInterval(this.getNow, 1000);
@@ -482,31 +482,7 @@ export default {
       });
     },
 
-    listenNotification() {
-      var self = this;
-      this.devices.data.map(element => {
-        this.sockets.subscribe(
-          `time-end-device.${element.device_id}:App\\Events\\TimeEndDeviceNotification`,
-          function (e) {
-            // console.log(e)
-            let index = self.devices.data.findIndex(
-              x => x.device_id == e.device_id
-            );
-            console.log(index);
-            if (index !== -1) {
-              this.$toast.warning(`Device ${data.device_name} Timer Ends`, {
-                    // override the global option
-                    position: 'bottom-right',
-                  
-                    duration: 60000,
-                    dismissible:true
-                })
-            }
-           
-          }
-        );
-      });
-    },
+
     FreshDevice() {
       this.$inertia.post(route("device.checkDevice")),
       {
