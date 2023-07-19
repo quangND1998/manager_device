@@ -70,7 +70,7 @@ class ApplicationController extends Controller
             }
         }
         foreach ($applications as $app) {
-            $check_app = Applicaion::where('device_id', $device['id'])->where('packageName',  $app['packageName'])->first();
+            $check_app = Applicaion::where('device_id', $device->id)->where('packageName',  $app['packageName'])->first();
             if ($check_app) {
                 $check_app->update([
                     'appName' => $app['appName'],
@@ -90,7 +90,7 @@ class ApplicationController extends Controller
             }
         }
     
-        if($device){
+      
             $update_device = Devices::with('applications')->find($device->id);
             if($update_device){
                 foreach ($update_device->applications as $app) {
@@ -99,7 +99,7 @@ class ApplicationController extends Controller
                     }
                 }
             }
-        }
+        
         
         return response()->json('Create successfully', Response::HTTP_OK);
     }
