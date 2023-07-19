@@ -28,9 +28,7 @@
     <LaunchAppWithTime v-else :errors="errors" :applications="application_deivce" :ids="selected" @updateTime="updateTimeRemaning" />
     <!-- <RunApkModal :errors="errors" ></RunApkModal> -->
     <!-- Modal -->
-    <vue-countdown v-if="time" :time="time*60*1000" :transform="transformSlotProps" v-slot="{  minutes, seconds }">
-      Time Remaining： {{ minutes }} minutes, {{ seconds }} seconds.
-    </vue-countdown>
+  
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -215,6 +213,9 @@
               {{
                 device.device_id
               }}
+              <vue-countdown v-if="device.time  && timestamp !=null && (device.time-timestamp) >0" :time="( device.time -timestamp )*1000" :transform="transformSlotProps" v-slot="{  minutes, seconds }">
+                                                    Time Remaining： {{ minutes }}: {{ seconds }}
+                                                    </vue-countdown>
             </th>
             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
               <span
@@ -322,7 +323,7 @@ import RunApkModal from "@/Pages/Devices/Modal/RunApkModal";
 import InstallApk from "@/Pages/Devices/Modal/InstallApk";
 import UninstallApk from "@/Pages/Devices/Modal/UninstallApk";
 import LaunchAppWithTime from "@/Pages/Devices/Modal/LaunchAppWithTime";
-import VueCountdown from '@chenfengyuan/vue-countdown';
+
 import _ from 'lodash';
 export default {
   layout: Layout,
@@ -339,7 +340,6 @@ export default {
     InstallApk,
     UninstallApk,
     LaunchAppWithTime,
-    VueCountdown
   },
   computed: {
     selectAll: {
@@ -416,6 +416,7 @@ export default {
       filter:this.enabled,
       time:null,
       sort: this.sortBy,
+      timestamp:'',
       sortDirection: this.sort_Direction,
       term: null,
       editMode: true,
@@ -430,7 +431,9 @@ export default {
   mounted() {
     this.listenActiveDevice();
   },
-
+  created() {
+        setInterval(this.getNow, 1000);
+  },
   props: {
     devices: Object,
     errors: Object,
@@ -447,6 +450,10 @@ export default {
   },
 
   methods: {
+    getNow: function() {
+            const today = new Date();
+            this.timestamp = parseInt(today.getTime()/1000);
+    },
     search() {
       this.$inertia.get(
         this.route("device.index"),

@@ -45,6 +45,7 @@ class TimeEndGroupNotification  implements ShouldBroadcast
         return
             [
                 'group' => $this->group->id,
+                'group_name' => $this->group->name,
                 'user_id' => $this->user->id
             ];
     }

@@ -7,7 +7,14 @@ import { createInertiaApp } from '@inertiajs/inertia-vue'
 import moment from 'moment';
 import VueSwal from 'vue-swal';
 // InertiaProgress.init({})
+import VueToast from 'vue-toast-notification';
+// Import one of the available themes
+//import 'vue-toast-notification/dist/theme-default.css';
+import 'vue-toast-notification/dist/theme-bootstrap.css';
+import VueCountdown from '@chenfengyuan/vue-countdown';
 
+Vue.component('vue-countdown', VueCountdown);
+Vue.use(VueToast);
 createInertiaApp({
     resolve: name =>
         import (`./Pages/${name}`),

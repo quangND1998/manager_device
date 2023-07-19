@@ -63,3 +63,8 @@ Broadcast::channel('recive-update-application-device.{id}', function ($user,$id)
 Broadcast::channel('lauch-app-time.{id}', function ($user,$id) {
     return true;
 });
+
+
+Broadcast::channel('time-play-notification.{id}', function ($user,$id) {
+    return true;
+});

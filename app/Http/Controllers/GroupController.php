@@ -186,7 +186,7 @@ class GroupController extends Controller
         if (!$group) {
             return response()->json('Not found group', 404);
         }
-        TimeEndGroupProcessing::dispatch($user, $group);
+      
         foreach ($group->devices as $device) {
             if ($device->hasApp($request->link_app)) {
                 LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
@@ -195,6 +195,8 @@ class GroupController extends Controller
         }
         $group->time = Carbon::now()->addMinutes($request->time);
         $group->save();
+        $user = Auth::user();
+        TimeEndGroupProcessing::dispatch($user, $group)->delay(now()->addMinutes($request->time -1)->addSeconds(30));
         return back()->with('success', 'Launch group successfully');
     }
 }

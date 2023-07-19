@@ -64,6 +64,7 @@
         "vue-swal": "^1.0.0",
         "vue": "^2.7.14",
         "vue-socket.io": "^3.0.10",
+        "vue-toast-notification": "^1.0.1",
         "vuedraggable": "^2.24.3",
         "webpack-node-externals": "^3.0.0"
     }

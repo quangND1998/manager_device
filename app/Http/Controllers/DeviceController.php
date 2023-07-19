@@ -48,8 +48,7 @@ class DeviceController extends Controller
     }
     public function index(Request $request)
     {
-        //dd(Carbon::now()->addMinutes(14)->addSeconds(30));
-        // return $this->deviceLimitRepository->limitDevicesByCreated(5);
+        // dd(Carbon::now()->addMinutes(0)->addSeconds(30));
         $user = Auth::user();
         $sortBy = $request->sortBy ? $request->sortBy : 'id';
         $sort_Direction = $request->sortDirection ?  $request->sortDirection : 'asc';
@@ -450,7 +449,8 @@ class DeviceController extends Controller
             if ($device->hasApp($request->link_app)) {
                 LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
                 LaunchAppTimeLimit::dispatch($device,$request->link_app, $request->time)->delay(now()->addMinutes($request->time));
-             
+                $device->time = Carbon::now()->addMinutes($request->time);
+                $device->save();
             }
         }
         return back()->with(['success'=>'Launch app successfully', 'time'=> $request->time]);

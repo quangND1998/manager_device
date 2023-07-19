@@ -23,7 +23,6 @@ redis.psubscribe('send-update-application-device.*', function(err, count) {});
 redis.psubscribe('recive-update-application-device.*', function(err, count) {});
 redis.psubscribe('lauch-app-time.*', function(err, count) {});
 redis.psubscribe('time-play-notification.*', function(err, count) {});
-
 redis.on('message', function(channel, message) {
     message = JSON.parse(message);
 
