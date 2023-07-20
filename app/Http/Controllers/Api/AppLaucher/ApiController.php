@@ -49,6 +49,9 @@ class ApiController extends Controller
     public function __construct(DeviceRepository $deviceRepository)
     {
         $this->deivce = $deviceRepository;
+        $this->middleware('permission:user-manager|Pro|Demo|Lite', ['only' => ['devices', 'saveName', 'delete', 'saveName','disableDefaultApp', 'launchApp','checkDevice','checkActiveDevice','showDevice','sendUpdateDevice','launchAppTime']]);
+        $this->middleware('permission:user-manager', ['only' => ['allDevice','dashboard']]);
+     
     }
     public function devices(Request $request)
     {

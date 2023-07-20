@@ -13,6 +13,7 @@ use Illuminate\Auth\AuthenticationException;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Exception;
 class Handler extends ExceptionHandler
 {
     /**
@@ -52,8 +53,27 @@ class Handler extends ExceptionHandler
         //     return Inertia::render('Error', ['status' => $e->getStatusCode()]);
         // });
 
-        // $this->renderable(function (\Spatie\Permission\Exceptions\UnauthorizedException $e, $request) {
-        //   return Inertia::render('Error', ['status' => $e->getStatusCode()]);
-        // });
+        $this->renderable(function (\Spatie\Permission\Exceptions\UnauthorizedException $e, $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                                'responseMessage' => 'You do not have the required authorization.',
+                                'responseStatus'  => 403,
+                            ],403);
+            }
+        });
+      
+        
     }
+    // public function render($request, Throwable  $exception)
+    // {
+
+    //     if($exception instanceof \Spatie\Permission\Exceptions\UnauthorizedException ){
+    //         return response()->json([
+    //             'responseMessage' => 'You do not have the required authorization.',
+    //             'responseStatus'  => 403,
+    //         ],403);
+    //     }
+    //     return parent::render($request, $exception);
+    // }
+
 }
