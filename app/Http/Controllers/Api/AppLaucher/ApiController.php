@@ -212,7 +212,9 @@ class ApiController extends Controller
     {
         // return !$user->hasPermissionTo('user-manager') ?
 
-        $user = User::with(['devices.last_login.ipaddress', 'groups', 'app_windows'])->withCount('app_windows')->withCount('devices')->withCount('groups')->find(Auth::user()->id);
+        $user = User::with(['devices.last_login.ipaddress', 'app_windows','groups' =>function($q){
+            $q->withCount('devices');
+        }])->withCount('app_windows')->withCount('devices')->withCount('groups')->find(Auth::user()->id);
        
         $response  = [
             "app_windows_count" => $user->hasPermissionTo('user-manager') ? AppWindow::count() : $user->app_windows_count,
