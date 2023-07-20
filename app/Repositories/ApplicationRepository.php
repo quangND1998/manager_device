@@ -46,8 +46,8 @@ class ApplicationRepository extends BaseRepository
                 return  $this->model()->whereIn('device_id', $devices)->get();
             }
         }
-
     }
+
 
 
     public function applications()
