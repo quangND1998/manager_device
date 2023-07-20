@@ -18,7 +18,8 @@
 
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav flex felx-wrap">
+          <!-- <Language /> -->
           <!-- <UserMenu></UserMenu> -->
         </ul>
       </div>
@@ -28,10 +29,11 @@
 
 <script>
 import UserMenu from "@/Components/Layout/UserMenu";
-
+import Language from "@/Components/LanguageSelector"
 export default {
   components: {
-    UserMenu
+    UserMenu,
+    Language
   }
 };
 </script>

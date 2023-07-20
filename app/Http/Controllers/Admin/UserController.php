@@ -17,6 +17,7 @@ use Inertia\Inertia;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
+
 class UserController extends InertiaController
 {
 
@@ -80,7 +81,7 @@ class UserController extends InertiaController
         $roles = $request->input('roles') ? $request->input('roles') : [];
         $user->assignRole($roles);
         $user->created_byId = Auth::user()->id;
-        if($request->password){
+        if ($request->password) {
             $user->password = Hash::make($request->password);
         }
         $user->save();
@@ -102,12 +103,12 @@ class UserController extends InertiaController
                 'password' => 'nullable'
             ]
         );
-
+       
         $user->update($request->all());
         $roles = $request->input('roles') ? $request->input('roles') : [];
         $user->syncRoles($roles);
         $user->created_byId = Auth::user()->id;
-        if($request->password){
+        if ($request->password) {
             $user->password = Hash::make($request->password);
         }
         $user->save();
@@ -121,104 +122,105 @@ class UserController extends InertiaController
         return redirect()->back()->with('success', "Xóa tài khoản  thành công");
     }
 
-    public function importUser(Request $request){
- 
+    public function importUser(Request $request)
+    {
+
         $this->validate(
             $request,
             [
                 'check' => 'required',
-              
+
             ]
         );
-        if($request->check =='us'){
-            $response = Http::post(env('API_MISSIONX_US').'/api/v1/logindata', [
+        if ($request->check == 'us') {
+            $response = Http::post(env('API_MISSIONX_US') . '/api/v1/logindata', [
                 'email' => 'holomiadev@gmail.com',
                 'password' => 'HoLoMX@210904*#',
             ]);
-        
-            $data =$response->json();
-            foreach($data['users'] as $user){
-           
+
+            $data = $response->json();
+            foreach ($data['users'] as $user) {
+
                 dispatch(new ImportUser($user));
             }
         }
 
-        if($request->check =='china'){
-            $response = Http::post(env('API_MISSIONX_CN').'/api/v1/logindata', [
+        if ($request->check == 'china') {
+            $response = Http::post(env('API_MISSIONX_CN') . '/api/v1/logindata', [
                 'email' => 'holomiadev@gmail.com',
                 'password' => 'HoLoMX@210904*#',
             ]);
-            $data =$response->json();
-            foreach($data['users'] as $user){
-           
+            $data = $response->json();
+            foreach ($data['users'] as $user) {
+
                 dispatch(new ImportUser($user));
             }
         }
-       
+
         return redirect('/users')->with('success', 'Import user successfully');
     }
 
-    public function updateUsers(Request $request){
+    public function updateUsers(Request $request)
+    {
         $this->validate(
             $request,
             [
                 'check' => 'required',
-              
+
             ]
         );
-   
-        if($request->check =='us'){
-            $response = Http::post(env('API_MISSIONX_US').'/api/v1/logindata', [
+
+        if ($request->check == 'us') {
+            $response = Http::post(env('API_MISSIONX_US') . '/api/v1/logindata', [
                 'email' => 'holomiadev@gmail.com',
                 'password' => 'HoLoMX@210904*#',
             ]);
-        
-            $data =$response->json();
-            foreach($data['users'] as $user){
-           
+
+            $data = $response->json();
+            foreach ($data['users'] as $user) {
+
                 dispatch(new UpdateUser($user));
             }
         }
 
-        if($request->check =='china'){
-            $response = Http::post(env('API_MISSIONX_CN').'/api/v1/logindata', [
+        if ($request->check == 'china') {
+            $response = Http::post(env('API_MISSIONX_CN') . '/api/v1/logindata', [
                 'email' => 'holomiadev@gmail.com',
                 'password' => 'HoLoMX@210904*#',
             ]);
-            $data =$response->json();
-            foreach($data['users'] as $user){
-           
+            $data = $response->json();
+            foreach ($data['users'] as $user) {
+
                 dispatch(new UpdateUser($user));
             }
         }
-       
+
         return redirect('/users')->with('success', 'Import user successfully');
     }
 
 
-    public function detail($id){
+    public function detail($id)
+    {
         $user = User::with('roles')->findOrFail($id);
         return Inertia::render('User/Index', compact('user'));
     }
 
-    public function list_device($id, Request $request){
-       
+    public function list_device($id, Request $request)
+    {
+        $sortBy = $request->sortBy ? $request->sortBy : 'id';
+        $sortDirection = $request->sortDirection ?  $request->sortDirection : 'asc';
         $user = User::with('roles')->findOrFail($id);
-        $devices = Devices::with('user','default_app')->where('user_id',$id)->where(function ($query) use ($request) {
+        $devices = Devices::with('user', 'default_app', 'last_login')->where('user_id', $id)->where(function ($query) use ($request) {
             $query->where('name', 'LIKE', '%' . $request->term . '%');
-        })->paginate(15)->appends(['name' => $request->name]);
-        return Inertia::render('User/Devices',compact('user','devices'));
+        })->orderBy('active', 'desc')->orderBy($sortBy, $sortDirection)->paginate(15)->appends(['page' => $request->page, 'name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sortDirection]);
+        return Inertia::render('User/Devices', compact('user', 'devices'));
     }
 
-    public function history_login($id){
+    public function history_login($id)
+    {
         $user = User::with('roles', 'devices')->findOrFail($id);
         $devices = $user->devices->pluck('id');
         $histories = HistoryDevice::with(['ipaddress', 'device.user'])->whereIn('device_id', $devices)->orderBy('id', 'desc')->paginate(15);
-        return Inertia::render('User/History', compact('user','histories'));
-
+        return Inertia::render('User/History', compact('user', 'histories'));
     }
-
-    
-
-
 }

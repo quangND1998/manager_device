@@ -9,8 +9,10 @@ class Devices extends Model
 {
     use HasFactory;
     protected $table = 'devices';
-    protected $fillable = ['id',   'app_default_id', 'device_id',  'name', 'brand', 'os_version', 'battery', 'connect_wifi', 'created_at','active', 'state', 'user_id',  'updated_at'];
- 
+    protected $fillable = ['id','app_default_id', 'device_id',  'name', 'brand', 'os_version', 'battery', 'connect_wifi', 'created_at','active', 'state', 'user_id',  'updated_at', 'update_time'];
+    protected $casts = [
+        'active' => 'boolean'
+    ];
     public function groups()
     {
         return $this->belongsToMany(Groups::class, 'group_device', 'device_id', 'group_id')->withPivot('state');
@@ -55,6 +57,36 @@ class Devices extends Model
     public function history_devices(){
         return $this->hasMany(HistoryDevice::class,'device_id');
     }
+
+    public function last_login()
+    {
+        return $this->hasOne(HistoryDevice::class,'device_id')->latest();
+    }
+
+
+    public function scopeOrderByFillter($query, array $filters)
+    {   
+        
+        if(count($filters)> 0){
+            $sortBy = $filters['sortBy'] ? $filters['sortBy'] : 'id';
+            $sort_Direction = $filters['sortDirection'] ?  $filters['sortDirection'] : 'asc';
+            if ($filters['sortBy']=='updated_at') {
+               
+                $query->whereHas('last_login', function($q) use($sortBy, $sort_Direction){
+                         $q->orderBy($sortBy,$sort_Direction);
+                    });
+            } else {
+                
+                $query->orderBy($sortBy,$sort_Direction);
+            }
+        }
+        else{
+            $query->get();
+        }
+      
+    }
+
+
     
 
  

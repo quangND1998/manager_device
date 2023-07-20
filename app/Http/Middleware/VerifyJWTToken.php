@@ -30,10 +30,10 @@ class VerifyJWTToken
 
             if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
 
-                return response()->json(['status' => 'Token is Invalid']);
+                return response()->json(['status' => 'Token is Invalid'], Response::HTTP_UNAUTHORIZED);
             } else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
 
-                return response()->json(['status' => 'Token is Expired']);
+                return response()->json(['status' => 'Token is Expired'], Response::HTTP_UNAUTHORIZED);
             } else {
 
                 return response()->json(['status' => 'Authorization Token not found'],  Response::HTTP_BAD_REQUEST);

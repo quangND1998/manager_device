@@ -18,15 +18,13 @@ class GroupController extends Controller
     public function index(Request $request)
     {
 
-   
-        $groupId =  $request->input('group');
         $user= Auth::user();
         $groupId =  $request->input('group');
         if($user->hasPermissionTo('user-manager')){
             $groups = Groups::with('devices.applications')->get();
             
             $nogroup_devices = Devices::with('applications')->doesntHave('groups')->get();
-            $applications = Applicaion::groupby('packageName')->get();
+            $applications = Applicaion::groupby('packageName')->whereIn('device_id',$nogroup_devices->pluck('id'))->get();
         }
         else if($user->hasPermissionTo('Lite')){
            
@@ -37,7 +35,7 @@ class GroupController extends Controller
         else{
             $groups = Groups::with('devices.applications')->where('user_id',$user->id)->get();
             $nogroup_devices = Devices::with('applications')->doesntHave('groups')->where('user_id',$user->id)->get();
-            $applications = Applicaion::groupby('packageName')->get();
+            $applications = Applicaion::groupby('packageName')->whereIn('device_id',$nogroup_devices->pluck('id'))->get();
         }
 
         if (count($groups) > 0) {

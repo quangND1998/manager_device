@@ -2,13 +2,14 @@ import './bootstrap';
 // import jQuery from 'jQuery'
 import Vue from 'vue'
 import { createInertiaApp } from '@inertiajs/inertia-vue'
-import { InertiaProgress } from '@inertiajs/progress'
+// import { InertiaProgress } from '@inertiajs/progress'
 import VueCompositionAPI from '@vue/composition-api'
 import moment from 'moment';
-InertiaProgress.init({})
+// InertiaProgress.init({})
 Vue.use(VueCompositionAPI)
 createInertiaApp({
-    resolve: name => require(`./Pages/${name}`),
+    resolve: name =>
+        import (`./Pages/${name}`),
     setup({ el, App, props, plugin }) {
         Vue.use(plugin)
 
@@ -81,20 +82,20 @@ Vue.mixin({
 // router.on('navigate', (event) => {
 //     console.log(`Navigated to ${event.detail.page.url}`)
 // })
-Vue.mixin(require('./base'))
-const el = document.getElementById('app')
+Vue.mixin(
+    require('./base'))
 Vue.mixin({
     methods: {
         route: window.route,
     }
 })
 window.Bus = new Vue();
-InertiaProgress.init({
-    delay: 150,
-    color: '#1E377F',
-    includeCSS: true,
-    showSpinner: true,
-});
+// InertiaProgress.init({
+//     delay: 150,
+//     color: '#1E377F',
+//     includeCSS: true,
+//     showSpinner: true,
+// });
 Vue.config.devtools = true;
 Vue.config.productionTip = true
     // window.jQuery = jQuery

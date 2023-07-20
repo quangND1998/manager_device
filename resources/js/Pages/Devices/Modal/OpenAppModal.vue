@@ -133,7 +133,7 @@ export default {
         lauchApp() {
             console.log(this.form.ids)
          
-            this.form.post(route("device.lanchApp"), {
+            this.form.post(route("device.launchApp"), {
                 preserveState: true,
                 onError: errors => {
 

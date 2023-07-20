@@ -17,6 +17,13 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
+
+        // $locale = $request->header('Accept-Language');
+
+        // if ($locale) {
+        //     app()->setLocale($locale);
+        // }
+        // dd($locale);
         $validator = Validator::make($request->all(), [
             'email' => 'required',
             'password' => 'required',
@@ -30,18 +37,26 @@ class AuthController extends Controller
 
             return response()->json([
                 'status' => 'error',
-                'error' => 'Invalid username, password, security token',
-                'msg' => 'Invalid username, password, security token'
+                'error' => __('auth.failed'),
+                'msg' => __('auth.failed')
             ], Response::HTTP_BAD_REQUEST);
         }
         $user = Auth::user();
         $response  = [
-            'msg' => 'You are logged in!',
+            'msg' => __('auth.login_success'),
             'token' => $token,
             'user_name' => $user->name,
             'user' => new UserApiResource($user)
         ];
         return response()->json($response, Response::HTTP_OK);
+    }
+
+    public function user(Request $request){
+        $token= request()->bearerToken();
+    
+        $user = JWTAuth::toUser($token);
+
+        return new UserApiResource($user);
     }
 
     public function refresh()
@@ -51,10 +66,11 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        $request->validate(['token' => 'required']);
-
+        // $request->validate(['token' => 'required']);
+        $token= request()->bearerToken();
         try {
-            JWTAuth::invalidate($request->input('token'));
+            JWTAuth::invalidate($token);
+            return response()->json($response, Response::HTTP_OK);
             return response()->json('You have successfully logged out.', Response::HTTP_OK);
         } catch (JWTException $e) {
             return response()->json('Failed to logout, please try again.', Response::HTTP_BAD_REQUEST);
