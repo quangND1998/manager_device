@@ -48,18 +48,10 @@ export default {
     listenNotificationGroup() {
       this.sockets.subscribe(`time-play-notification.${this.$page.props.auth.user.id}:App\\Events\\TimeEndGroupNotification`, (data) => {
         console.log(data)
-        // this.$toast.warning(`Group ${data.group_name} Timer Ends`, {
-        //   // override the global option
-        //   position: 'bottom-right',
-
-        //   duration: 60000,
-        //   dismissible: true
-        // })
-
         this.$swal(`Group ${data.group_name} Timer Ends`, {
-          icon: "warning",
-          timer: 60000,
-        });
+            icon: "warning",
+            timer: 60000,
+          });
       });
     },
     listenNotificationDevice() {
@@ -67,7 +59,7 @@ export default {
       if (this.user) {
         this.sockets.subscribe(`time-end-device.${this.$page.props.auth.user.id}:App\\Events\\TimeEndDeviceNotification`, (data) => {
           console.log(data)
-          this.$swal(`Group ${data.group_name} Timer Ends`, {
+          this.$swal(`Device ${data.device_name} Timer Ends`, {
             icon: "warning",
             timer: 60000,
           });
