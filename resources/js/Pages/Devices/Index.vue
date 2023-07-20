@@ -424,12 +424,9 @@ export default {
   },
   data() {
     return {
-<<<<<<< HEAD
       time: null,
-=======
       filter:this.enabled,
       time:null,
->>>>>>> origin/limit-device
       sort: this.sortBy,
       timestamp: '',
       sortDirection: this.sort_Direction,
