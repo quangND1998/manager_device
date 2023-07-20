@@ -9,6 +9,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Illuminate\Auth\AuthenticationException;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
@@ -59,6 +60,23 @@ class Handler extends ExceptionHandler
                                 'responseMessage' => 'You do not have the required authorization.',
                                 'responseStatus'  => 403,
                             ],403);
+            }
+        });
+
+        $this->renderable(function (NotFoundHttpException $e, $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                                'responseMessage' => 'API Not Found.',
+                                'responseStatus'  => 404,
+                            ],404);
+            }
+        });
+        $this->renderable(function (MethodNotAllowedHttpException $e, $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                                'responseMessage' => 'Method not allowed.',
+                                'responseStatus'  => 405,
+                            ],405);
             }
         });
       
