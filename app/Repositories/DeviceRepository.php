@@ -29,10 +29,10 @@ class DeviceRepository extends BaseRepository
         return !$user->hasPermissionTo('user-manager') ? $this->model()->with($relations)->where('user_id', $user->id)->where(function ($query) use ($request) {
             $query->where('name', 'LIKE', '%' . $request->term . '%')
                 ->orWhere('device_id', 'LIKE', '%' . $request->term . '%');
-        })->orderBy($sortBy, $sort_Direction)->paginate(10)->appends($appends) :  $this->model()->with($relations)->where(function ($query) use ($request) {
+        })->enabled($request->only('enabled'))->orderBy($sortBy, $sort_Direction)->paginate(10)->appends($appends) :  $this->model()->with($relations)->where(function ($query) use ($request) {
             $query->where('name', 'LIKE', '%' . $request->term . '%')
                 ->orWhere('device_id', 'LIKE', '%' . $request->term . '%');
-        })->orderBy($sortBy, $sort_Direction)->paginate(10)->appends($appends);
+        })->enabled($request->only('enabled'))->orderBy($sortBy, $sort_Direction)->paginate(10)->appends($appends);
     }
 
 
