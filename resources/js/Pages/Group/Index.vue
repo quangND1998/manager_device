@@ -1,5 +1,6 @@
 <template>
     <section class="content">
+     
         <ContentHeaderVue :name="'Groups'" />
         <alert :dismissible="true"></alert>
         <OpenAppModal v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
@@ -12,6 +13,10 @@
 
         <DefaultGroupAppVue v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :current_group="current_group"  />
         <DefaultGroupAppVue v-else :errors="errors" :applications="applications" :current_group="current_group"  />
+
+
+        <LaunchAppTime v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :current_group="current_group"/>
+        <LaunchAppTime v-else :errors="errors" :applications="applications" :current_group="current_group" />
         <button type="button"
             class="inline-block px-8 py-4 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
             data-toggle="modal" data-target="#exampleModal" @click="clickModal()">Create Group</button>
@@ -81,6 +86,10 @@
                                                 </div>
                                                 <div class="flex-1 pl-1 mr-16">
                                                     <div class="font-medium">{{ group.name }}</div>
+                                                   
+                                                    <vue-countdown v-if="group.time  && timestamp !=null && (group.time-timestamp) >0" :time="( group.time -timestamp )*1000" :transform="transformSlotProps" v-slot="{  minutes, seconds }">
+                                                    Time Remaining： {{ minutes }}: {{ seconds }}
+                                                    </vue-countdown>
                                                 </div>
                                             </div>
                                             <div class="text-gray-600 text-xl flex">
@@ -121,6 +130,9 @@
                                                 <li><button type="button" class="btn btn-secondary" data-toggle="modal"
                                                     :disabled="disableLauchGroup"  data-target="#OpenGroupAppModal"><i class="fa fa-rocket mr-2"
                                                         aria-hidden="true"></i>Lauch App Group</button></li>
+                                                <li><button type="button" class="btn btn-secondary" data-toggle="modal"
+                                                    :disabled="disableLauchGroup"  data-target="#OpenGroupAppTimeModal"><i class="fa fa-rocket mr-2"
+                                                        aria-hidden="true"></i>Lauch App Group Time</button></li>
                                                 <li><button type="button" class="btn btn-secondary"
                                                         :disabled="disableLauchGroup" data-toggle="modal"
                                                         data-target="#DefaultGroupApp"><i class="fa fa-rocket mr-2"
@@ -241,6 +253,8 @@ import Multiselect from "@vueform/multiselect/dist/multiselect.vue2.js";
 import OpenAppModal from "@/Pages/Devices/Modal/OpenAppModal";
 import OpenGroupApp from "@/Pages/Group/Modal/OpenGroupApp";
 import DefaultGroupAppVue from "@/Pages/Group/Modal/DefaultGroupApp.vue";
+import LaunchAppTime from "@/Pages/Group/Modal/LaunchAppTime.vue";
+import VueCountdown from '@chenfengyuan/vue-countdown';
 export default {
     layout: Layout,
     mixins: [admin],
@@ -252,7 +266,9 @@ export default {
         Multiselect,
         OpenAppModal,
         OpenGroupApp,
-        DefaultGroupAppVue
+        DefaultGroupAppVue,
+        LaunchAppTime,
+        VueCountdown
     },
     props: {
         // group_id:Number,
@@ -271,12 +287,16 @@ export default {
         })
     
     },
+    created() {
+        setInterval(this.getNow, 1000);
+    },
     data() {
 
         return {
             editMode: false,
             selected: [],
             search: '',
+            timestamp:'',
             form: this.$inertia.form({
                 id: null,
                 name: null,
@@ -331,6 +351,10 @@ export default {
         }
     },
     methods: {
+        getNow: function() {
+            const today = new Date();
+            this.timestamp = parseInt(today.getTime()/1000);
+        },
         reset() {
             this.form = this.$inertia.form({
                 id: null,
@@ -404,6 +428,15 @@ export default {
         DeleteGroup(id) {
             if (!confirm("Are you sure want to remove?")) return;
             this.$inertia.delete(route("group.destroy", id));
+        },
+        transformSlotProps(props) {
+            const formattedProps = {};
+
+            Object.entries(props).forEach(([key, value]) => {
+                formattedProps[key] = value < 10 ? `0${value}` : String(value);
+            });
+
+            return formattedProps;
         },
 
     }

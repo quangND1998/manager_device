@@ -53,5 +53,22 @@ Broadcast::channel('check-active-device.{id}', function ($user,$id) {
     return true;
 });
 
+Broadcast::channel('send-update-application-device.{id}', function ($user,$id) {
+    return true;
+});
+Broadcast::channel('recive-update-application-device.{id}', function ($user,$id) {
+    return true;
+});
+
+Broadcast::channel('lauch-app-time.{id}', function ($user,$id) {
+    return true;
+});
 
 
+Broadcast::channel('time-play-notification.{id}', function ($user,$id) {
+    return true;
+});
+
+Broadcast::channel('time-end-device.{id}', function ($user,$id) {
+    return true;
+});

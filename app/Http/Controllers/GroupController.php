@@ -11,6 +11,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Illuminate\Support\Arr;
+use App\Jobs\LaunchAppJob;
+use App\Jobs\LaunchAppTimeLimit;
+use App\Jobs\SetDefaultAppJob;
+use App\Jobs\TimeEndGroupProcessing;
+use Carbon\Carbon;
+
 class GroupController extends Controller
 {
 
@@ -143,7 +149,8 @@ class GroupController extends Controller
         $group = Groups::with('devices')->findOrFail($id);
         foreach ($group->devices as $device) {
             if ($device->hasApp($request->link_app)) {
-                broadcast(new LaunchAppEvent($device, $request->link_app));
+               // broadcast(new LaunchAppEvent($device, $request->link_app));
+               LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
             }
         }
         return back()->with('success', 'Lauch successfully');
@@ -160,9 +167,36 @@ class GroupController extends Controller
             if ($device->hasApp($request->link_app)) {
                 $device->app_default_id = $application->id;
                 $device->save();
-                broadcast(new DefaultAppEvent($device, $request->link_app));
+                //broadcast(new DefaultAppEvent($device, $request->link_app));
+                SetDefaultAppJob::dispatch($device, $request->link_app)->onConnection('sync');
             }
         }
         return back()->with('success', 'Lauch successfully');
+    }
+
+
+    public function runAppGroupWithTime(Request $request, $id)
+    {
+        $this->validate($request, [
+            'link_app' => 'required',
+            'time' => 'required|numeric|gt:0'
+        ]);
+        $user = Auth::user();
+        $group = Groups::with('devices')->find($id);
+        if (!$group) {
+            return response()->json('Not found group', 404);
+        }
+      
+        foreach ($group->devices as $device) {
+            if ($device->hasApp($request->link_app)) {
+                LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
+                LaunchAppTimeLimit::dispatch($device,$request->link_app, $request->time)->delay(now()->addMinutes($request->time));
+            }
+        }
+        $group->time = Carbon::now()->addMinutes($request->time);
+        $group->save();
+        $user = Auth::user();
+        TimeEndGroupProcessing::dispatch($user, $group)->delay(now()->addMinutes($request->time -1)->addSeconds(30));
+        return back()->with('success', 'Launch group successfully');
     }
 }

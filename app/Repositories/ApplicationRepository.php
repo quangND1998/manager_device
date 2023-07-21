@@ -3,7 +3,9 @@
 namespace App\Repositories;
 
 use App\Models\Applicaion;
+use App\Models\ApplicationDefault;
 use App\Models\Devices;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class ApplicationRepository extends BaseRepository
@@ -25,14 +27,32 @@ class ApplicationRepository extends BaseRepository
      * @return boolean
      */
     public function applicationsByDeivces($devices)
-    {
-        return Applicaion::whereIn('device_id', $devices)->get();
+    { 
+        $user = Auth::user();
+        $isExpired= Carbon::now()->gt($user->time_limit);
+        if ($user->hasPermissionTo('user-manager')) {
+            return  $this->model()->whereIn('device_id', $devices)->get();
+        } elseif ($user->hasPermissionTo('Lite')) {
+            // Tai khoan Lite tra ve cac app mac dinh
+            return  ApplicationDefault::get();
+        }
+        else {
+            // Het time limit tra ve cac app mac dinh
+            if($isExpired){
+                return  ApplicationDefault::get();
+            }
+            else{
+                // Tra ve cac danh sach app cua cac device
+                return  $this->model()->whereIn('device_id', $devices)->get();
+            }
+        }
+
     }
 
 
     public function applications()
     {
-        return  Applicaion::groupby('packageName')->get();
+        return   $this->model()->groupby('packageName')->get();
     }
 
 

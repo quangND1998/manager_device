@@ -61,13 +61,21 @@ import io from 'socket.io-client'
 
 // })
 
-
+import Vue from 'vue';
+import VueSocketIO from 'vue-socket.io'
 var connectionOptions = {
     "force new connection": true,
     "reconnectionAttempts": "Infinity", //avoid having user reconnect manually in order to prevent dead clients after a server restart
     "timeout": 10000, //before connect_error and connect_timeout are emitted.
     "transports": ["websocket"]
 };
+
+
+Vue.use(new VueSocketIO({
+    debug: true,
+    connection: io(process.env.MIX_SOCKET_URL, connectionOptions), //options object is Optional
+
+}));
 // console.log(process.env.MIX_SOCKET_URL)
 // console.log(`${window.location.protocol}//${window.location.hostname}:3000`)
 window.socketio = io(process.env.MIX_SOCKET_URL, connectionOptions);

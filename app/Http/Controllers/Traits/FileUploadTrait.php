@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 use App\Models\Project\text_pano;
 use Illuminate\Support\Collection;
 use Closure;
+use Intervention\Image\Facades\Image;
 
 trait FileUploadTrait
 {
@@ -409,4 +410,79 @@ trait FileUploadTrait
             return $destinationpath . $imageName;
         }
     }
+
+    public function Base64toImage($path, $attribute = null)
+    {
+        if ($path) {
+            $imageName = time() . Str::random(10) . '.' . 'png';
+            $destinationpath = '/window/';
+            if (!file_exists(public_path() . $destinationpath)) {
+                mkdir(public_path() . $destinationpath, 0777, true);
+            }
+            $data =  explode(',', $path);
+            file_put_contents(public_path() . $destinationpath . $imageName, base64_decode($data[0]));
+            if ($attribute && file_exists(public_path() . $attribute)) {
+                unlink(public_path() . $attribute);
+            }
+
+            return $destinationpath . $imageName;
+        }
+    }
+    function check_base64_image($base64) {
+        $img = imagecreatefromstring(base64_decode($base64));
+        if (!$img) {
+            return false;
+        }
+    
+        imagepng($img, 'tmp.png');
+        $info = getimagesize('tmp.png');
+    
+        unlink('tmp.png');
+    
+        if ($info[0] > 0 && $info[1] > 0 && $info['mime']) {
+            return true;
+        }
+    
+        return false;
+    }
+
+    public function uploadImageResize($image, $width, $height)
+    {
+        $image_resize = Image::make($image->getRealPath());
+
+        $image_width =    $image_resize->width();
+        $image_height =  $image_resize->height();
+        $filename = time() . '-' . $image->getClientOriginalName();
+
+        if ($image_width > $width && $image_height > $height) {
+            Image::make($image)->resize($width, $height)->save(public_path('avatar') . '/' . $filename);
+        } else {
+            Image::make($image)->save(public_path('avatar') . '/' . $filename);
+        }
+
+        return '/avatar/' . $filename;
+    }
+
+    public function updateImageResize($image, $width, $height, $attribute)
+    {
+       
+        $filename = time() . '-' . $image->getClientOriginalName();
+        $image_resize = Image::make($image->getRealPath());
+        $image_width =    $image_resize->width();
+        $image_height =  $image_resize->height();
+        if ($image_width > $width && $image_height > $height) {
+            Image::make($image)->resize($width, $height)->save(public_path('avatar') . '/' . $filename);
+        } else {
+            Image::make($image)->save(public_path('avatar') . '/' . $filename);
+        }
+        if ($attribute == null || file_exists((public_path() . $attribute)) == false) {
+            $path = '/avatar/' . $filename;
+        } else if($attribute  && file_exists((public_path() . $attribute))){
+            unlink(public_path() .$attribute);
+            $path = '/avatar/' . $filename;
+        }
+
+        return $path;
+    }
+  
 }

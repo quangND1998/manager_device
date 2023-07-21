@@ -14,6 +14,11 @@ use Inertia\Inertia;
 use Illuminate\Support\Str;
 use App\Repositories\ApplicationRepository;
 use App\Http\Controllers\Traits\FileUploadTrait;
+use App\Models\User;
+use App\Repositories\DeviceLimitRepository;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+
 class ApplicationController extends Controller
 {
     use FileUploadTrait;
@@ -28,6 +33,8 @@ class ApplicationController extends Controller
 
     public function index(Request $request)
     {
+        // $time_now = Carbon::now();
+        // return   $users = User::with('history_mail')->whereNotNull('time_limit')->where('time_limit','<=',$time_now)->where('active_mail',1)->get();
       
         $active = $request->input('default');
         if ($active) {
@@ -69,12 +76,13 @@ class ApplicationController extends Controller
                 $this->DeleteFolder($app->icon, $extension);
             }
         }
+        
         foreach ($applications as $app) {
-            $check_app = Applicaion::where('device_id', $device['id'])->where('packageName',  $app['packageName'])->first();
+            $check_app = Applicaion::where('device_id', $device->id)->where('packageName',  $app['packageName'])->first();
             if ($check_app) {
                 $check_app->update([
                     'appName' => $app['appName'],
-                    'icon' => $this->convertBase64toImage($app['icon']),
+                    'icon' => $this->Base64toImage($app['icon'],$check_app->icon),
                     'packageName' => $app['packageName'],
                     'version' => $app['versionName'],
                     'device_id' => $device['id']
@@ -82,25 +90,24 @@ class ApplicationController extends Controller
             } else {
                 Applicaion::create([
                     'appName' => $app['appName'],
-                    'icon' => $this->convertBase64toImage($app['icon']),
+                    'icon' => $this->Base64toImage($app['icon']),
                     'packageName' => $app['packageName'],
                     'version' => $app['versionName'],
                     'device_id' => $device['id']
                 ]);
             }
         }
+    
       
-        if($device){
-            $update_device = Devices::with('applications')->find($device['id']);
+            $update_device = Devices::with('applications')->find($device->id);
             if($update_device){
                 foreach ($update_device->applications as $app) {
-             
                     if (file_exists((public_path() . $app->icon))==false) {
                          $app->delete();
                     }
                 }
             }
-        }
+        
         
         return response()->json('Create successfully', Response::HTTP_OK);
     }
@@ -112,8 +119,10 @@ class ApplicationController extends Controller
 
         return back()->with('success', 'Set default app successfully');
     }
-    public function convert()
+    public function convert(DeviceLimitRepository $deviceLimitRepository)
     {
+        $user= User::find(2);
+        return $deviceLimitRepository->updateDevice($user);
         $app = Applicaion::find(4);
         return $this->convertBase64toImage($app->icon);
     }
