@@ -75,6 +75,7 @@ Route::middleware(['auth'])->group(
 
             Route::post('import',  [UserController::class, 'importUser'])->name('import');
             Route::post('update-users',  [UserController::class, 'updateUsers'])->name('update-users');
+            Route::get('updateDemo', [UserController::class, 'updateDemo'])->name('update-demo');
         });
 
         Route::prefix('user')->as('user.')->group(function () {

@@ -6,6 +6,7 @@ use App\Errors\InertiaErrors;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\InertiaController;
 use App\Jobs\ImportUser;
+use App\Jobs\UpdateDemoUser;
 use App\Jobs\UpdateUser;
 use App\Models\Devices;
 use App\Models\HistoryDevice;
@@ -222,5 +223,17 @@ class UserController extends InertiaController
         $devices = $user->devices->pluck('id');
         $histories = HistoryDevice::with(['ipaddress', 'device.user'])->whereIn('device_id', $devices)->orderBy('id', 'desc')->paginate(15);
         return Inertia::render('User/History', compact('user', 'histories'));
+    }
+
+    public function updateDemo(){
+        $users = User::get();
+        $role = Role::where('name', 'Demo')->first();
+      
+        foreach($users as $user){
+            if(!$user->hasRole('administrator')){
+                UpdateDemoUser::dispatch($user, $role)->onConnection('sync');
+            }
+           
+        }
     }
 }

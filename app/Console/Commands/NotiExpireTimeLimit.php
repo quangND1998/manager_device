@@ -47,7 +47,7 @@ class NotiExpireTimeLimit extends Command
         $limit_20 = Carbon::now()->addDays(10);
         $users = User::with('history_mail')->whereNotNull('time_limit')->where('time_limit', '<=', $limit_20)->where('time_limit', '>=', $time_now)->where('active_mail', 1)->get();
         foreach ($users as $user) {
-
+         
             if ($user->history_mail == null) {
                 $this->sendMail($user);
                 $history_noti_mail = new HistoryMail();

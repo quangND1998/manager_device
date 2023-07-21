@@ -65,7 +65,7 @@ class ImportUser implements ShouldQueue
 
         } else{
             if(count($user->roles) ==0){
-                $role= Role::where('name', 'Lite')->first();
+                $role= Role::where('name', 'Demo')->first();
                 $user->roles()->sync($role);
             }
         

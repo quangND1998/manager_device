@@ -8,6 +8,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
+use Spatie\Permission\Contracts\Role;
 
 class NotiExpireLicenseEnd extends Command
 {
@@ -45,6 +46,9 @@ class NotiExpireLicenseEnd extends Command
         $time_now = Carbon::now();
         $users = User::with('history_mail')->whereNotNull('time_limit')->where('time_limit','<=',$time_now)->where('active_mail',1)->get();
         foreach ($users as $user) {
+            $role = Role::where('name', "Demo")->first();
+            $user->roles()->detach();
+            $user->roles()->attach($role->id);
             if ($user->history_mail == null) {
                 $this->sendMail($user);
                 $history_mail_noti = new HistoryMail();
