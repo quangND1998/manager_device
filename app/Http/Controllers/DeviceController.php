@@ -125,13 +125,27 @@ class DeviceController extends Controller
 
     public function delete($id)
     {
+        $user= Auth::user();
         $device = Devices::with('applications')->findOrFail($id);
-        foreach ($device->applications as $app) {
-            $extension = " ";
-            $this->DeleteFolder($app->icon, $extension);
+        // foreach ($device->applications as $app) {
+        //     $extension = " ";
+        //     $this->DeleteFolder($app->icon, $extension);
+        // }
+        // $device->applications()->delete();
+        // $device->delete();
+        if(!$user->hasPermissionTo('user-manager')){
+            $user_update= User::has('devices')->withCount('devices')->with('devices')->find($user->id);
+           
+            if( $user_update->devices_count > $user_update->number_device){
+                $this->deviceLimitRepository->updateDevice($user_update);
+            }
+            else{
+                foreach($user_update->devices as $device){
+                    $this->deviceLimitRepository->enabledDevice($device);
+                }
+            }
         }
-        $device->applications()->delete();
-        $device->delete();
+      
         return back()->with('success', 'Delete succsessfully');
     }
 

@@ -41,14 +41,15 @@ use App\Jobs\LaunchAppJob;
 use App\Jobs\SetDefaultAppJob;
 use App\Jobs\TimeEndDeviceProcessing;
 use Carbon\Carbon;
-
+use App\Repositories\DeviceLimitRepository;
 class ApiController extends Controller
 {
     use FileUploadTrait;
-    protected $deivce;
-    public function __construct(DeviceRepository $deviceRepository)
+    protected $deivce, $deviceLimitRepository;
+    public function __construct(DeviceRepository $deviceRepository,DeviceLimitRepository $deviceLimitRepository)
     {
         $this->deivce = $deviceRepository;
+        $this->deviceLimitRepository = $deviceLimitRepository;
         $this->middleware('permission:user-manager|Pro|Demo|Standard', ['only' => ['devices', 'saveName', 'delete','setDefaultApp','disableDefaultApp', 'launchApp','checkDevice','checkActiveDevice','showDevice','dashboard','sendUpdateDevice','launchAppTime','allDevice']]);
         // $this->middleware('permission:user-manager', ['only' => []]);
      
@@ -98,10 +99,11 @@ class ApiController extends Controller
         $device = Devices::with('applications')->find($id);
         $user = Auth::user();
 
+      
         if (!$device) {
             return response()->json('Not found Device', 404);
         }
-
+      
         if (!$user->hasPermissionTo('user-manager')) {
             if ($user->id !== $device->user_id) {
                 return response()->json("You dont have permission", 403);
@@ -113,6 +115,18 @@ class ApiController extends Controller
         }
         $device->applications()->delete();
         $device->delete();
+        // Update device
+        if(!$user->hasPermissionTo('user-manager')){
+            $user_update= User::has('devices')->withCount('devices')->with('devices')->find($device->user_id);
+            if( $user_update->devices_count > $user_update->number_device){
+                $this->deviceLimitRepository->updateDevice($user_update);
+            }
+            else{
+                foreach($user_update->devices as $device){
+                    $this->deviceLimitRepository->enabledDevice($device);
+                }
+            }
+        }
         return new DevicesResource($device->load('applications', 'default_app', 'user', 'last_login'));
     }
 
