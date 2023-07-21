@@ -18,7 +18,7 @@ class AppWindowController extends Controller
     public function __construct()
     {
        
-        $this->middleware('permission:user-manager|Pro|Demo|Lite', ['only' => ['index', 'show', 'store', 'update','delete']]);
+        $this->middleware('permission:user-manager|Pro|Demo|Lite|Standard', ['only' => ['index', 'show', 'store', 'update','delete']]);
         // $this->middleware('permission:user-manager', ['only' => []]);
      
     }
