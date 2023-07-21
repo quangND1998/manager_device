@@ -111,9 +111,10 @@ class GroupController extends Controller
         $devices = $this->device->get();
         return response()->json($devices, 200);
     }
-    public function groupById($id)
+    public function groupById(Request $request, $id)
     {
-        $group = $this->group->show($id);
+        $group = $this->group->show($request,$id);
+      
         if (!$group) {
             return response()->json('Not found group', 404);
         } else {
