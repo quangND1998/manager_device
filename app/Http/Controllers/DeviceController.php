@@ -333,7 +333,7 @@ class DeviceController extends Controller
 
         if ($user->hasPermissionTo('user-manager')) {
             $devices = Devices::get();
-        } elseif ($user->hasPermissionTo('Lite')) {
+        } elseif ($user->hasPermissionTo('Demo')) {
             $devices = Devices::where('user_id', $user->id)->get();
         } else {
             $devices = Devices::where('user_id', $user->id)->get();
