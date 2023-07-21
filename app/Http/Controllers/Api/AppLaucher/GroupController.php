@@ -46,7 +46,7 @@ class GroupController extends Controller
         $this->application = $ApplicationRepository;
         $this->device = $deviceRepository;
         $this->group = $groupRepository;
-        $this->middleware('permission:user-manager|Pro|Demo|Lite|Standard', ['only' => ['getGroups', 'groupByIdwithApp', 'groupById', 'store','update','ownerDevice','deleteOwnerDevice','delete','runAppGoup','runAppGroupWithTime','setAppDefaultGroup',]]);
+        $this->middleware('permission:user-manager|Pro|Demo|Standard', ['only' => ['getGroups', 'groupByIdwithApp', 'groupById', 'store','update','ownerDevice','deleteOwnerDevice','delete','runAppGoup','runAppGroupWithTime','setAppDefaultGroup']]);
     }
 
     /**
