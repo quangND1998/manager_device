@@ -5,15 +5,16 @@
     <alert :dismissible="true"></alert>
     <WifiModel v-if="hasAnyPermission(['user-manager'])" :errors="errors" :ids="selected" :wifis="wifis" />
 
-    <OpenAppModal v-if="hasAnyPermission(['Demo'])" :errors="errors" :applications="default_applications" :ids="selected" />
-    <OpenAppModal v-if="!hasAnyPermission(['Demo'])  && $page.props.auth.user.isExpired ==false  && enabled=='1' " :errors="errors" :applications="application_deivce" :ids="selected" />
-    <OpenAppModal v-if="!hasAnyPermission(['Demo'])  && $page.props.auth.user.isExpired ==false  && enabled=='0' " :errors="errors" :applications="application_deivce" :ids="selected" />
+    <OpenAppModal  v-if="hasAnyPermission(['user-manager'])" :errors="errors" :applications="application_deivce" :ids="selected" />
+    <OpenAppModal  v-else-if="hasAnyPermission(['Demo'])" :errors="errors" :applications="default_applications" :ids="selected" />
+    <OpenAppModal v-else-if="!hasAnyPermission(['Demo'])  && $page.props.auth.user.isExpired ==false  && enabled=='1' " :errors="errors" :applications="application_deivce" :ids="selected" />
+    <OpenAppModal  v-else-if="!hasAnyPermission(['Demo'])  && $page.props.auth.user.isExpired ==false  && enabled=='0' " :errors="errors" :applications="default_applications" :ids="selected" />
     <OpenAppModal v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired" :errors="errors"  :applications="default_applications" :ids="selected" />
     <OpenAppModal v-else :errors="errors" :applications="application_deivce" :ids="selected" />
 
     <GroupModel :errors="errors" :ids="selected" />
-    <defaulAppModal v-if="hasAnyPermission(['user-manager'])" :applications="application_deivce" :ids="selected" />
-    <defaulAppModal v-if="hasAnyPermission(['Demo'])" :errors="errors" :applications="default_applications" :ids="selected" />
+    <defaulAppModal  v-if="hasAnyPermission(['user-manager'])" :applications="application_deivce" :ids="selected" />
+    <defaulAppModal  v-else-if="hasAnyPermission(['Demo'])" :errors="errors" :applications="default_applications" :ids="selected" />
     <defaulAppModal v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired ==false && enabled=='1' " :errors="errors" :applications="application_deivce" :ids="selected" />
     <defaulAppModal v-else-if="!hasAnyPermission(['Demo'])  && $page.props.auth.user.isExpired ==false  && enabled=='0' " :errors="errors"  :applications="default_applications" :ids="selected" />
     <defaulAppModal v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired" :errors="errors" :applications="default_applications" :ids="selected" />
@@ -26,10 +27,11 @@
       <UninstallApk v-else-if="!hasAnyPermission(['Demo']) && enabled=='0'" :errors="errors" :applications="applications" :ids="selected" />
     <UninstallApk v-else :errors="errors" :applications="application_deivce" :ids="selected" />
 
-    <LaunchAppWithTime  v-if="hasAnyPermission(['Demo']) " :errors="errors" :applications="default_applications" :ids="selected" @updateTime="updateTimeRemaning"/>
-    <LaunchAppWithTime  v-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired ==false && enabled=='1'" :errors="errors" :applications="application_deivce" :ids="selected" @updateTime="updateTimeRemaning"/>
-    <LaunchAppWithTime  v-if="!hasAnyPermission(['Demo'])  && $page.props.auth.user.isExpired ==false && enabled=='0'" :errors="errors" :applications="default_applications" :ids="selected" @updateTime="updateTimeRemaning"/>
-    <LaunchAppWithTime  v-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired"  :errors="errors" :applications="default_applications" :ids="selected" @updateTime="updateTimeRemaning"/>
+    <LaunchAppWithTime  v-if="hasAnyPermission(['user-manager']) " :errors="errors" :applications="application_deivce" :ids="selected" @updateTime="updateTimeRemaning"/>
+    <LaunchAppWithTime  v-else-if="hasAnyPermission(['Demo']) " :errors="errors" :applications="default_applications" :ids="selected" @updateTime="updateTimeRemaning"/>
+    <LaunchAppWithTime  v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired ==false && enabled=='1'" :errors="errors" :applications="application_deivce" :ids="selected" @updateTime="updateTimeRemaning"/>
+    <LaunchAppWithTime  v-else-if="!hasAnyPermission(['Demo'])  && $page.props.auth.user.isExpired ==false && enabled=='0'" :errors="errors" :applications="default_applications" :ids="selected" @updateTime="updateTimeRemaning"/>
+    <LaunchAppWithTime v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired"  :errors="errors" :applications="default_applications" :ids="selected" @updateTime="updateTimeRemaning"/>
     <LaunchAppWithTime v-else :errors="errors" :applications="application_deivce" :ids="selected" @updateTime="updateTimeRemaning" />
     <!-- <RunApkModal :errors="errors" ></RunApkModal> -->
     <!-- Modal -->
