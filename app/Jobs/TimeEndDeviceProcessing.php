@@ -22,7 +22,7 @@ class TimeEndDeviceProcessing implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Devices $device,User $user)
+    public function __construct( $device, $user)
     {
         $this->device = $device;
         $this->user = $user;
@@ -35,6 +35,6 @@ class TimeEndDeviceProcessing implements ShouldQueue
      */
     public function handle()
     {
-        broadcast( new TimeEndDeviceNotification($this->device,$this->user));
+        broadcast(new TimeEndDeviceNotification($this->device , $this->user));
     }
 }

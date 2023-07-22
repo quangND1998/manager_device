@@ -333,10 +333,11 @@ class ApiController extends Controller
             if ($device->hasApp($request->link_app)) {
                 LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
                 // broadcast(new LaunchAppEvent($device, $request->link_app));
-                TimeEndDeviceProcessing::dispatch($device,$user)->delay(now()->addMinutes($request->time -1)->addSeconds(30));
+              
                 LaunchAppTimeLimit::dispatch($device,$request->link_app, $request->time)->delay(now()->addMinutes($request->time));
                 $device->time = Carbon::now()->addMinutes($request->time);
                 $device->save();
+                TimeEndDeviceProcessing::dispatch($device , $user)->delay(now()->addMinutes($request->time -1)->addSeconds(30));
                 // dispatch(new LaunchAppTimeLimit($device,$request->link_app))->delay(now()->addSecond($request->time))
             }
         }
