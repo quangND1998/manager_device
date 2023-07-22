@@ -3,8 +3,6 @@
 namespace App\Jobs;
 
 use App\Events\TimeEndDeviceNotification;
-use App\Models\Devices;
-use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
