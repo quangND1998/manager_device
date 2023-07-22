@@ -11,6 +11,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\File;
 
 class TimeEndDeviceNotification implements ShouldBroadcast
 {
@@ -42,7 +43,7 @@ class TimeEndDeviceNotification implements ShouldBroadcast
 
     public function broadcastWith()
     {
-        dd($this->user->id);
+  
         return
             [
                 'device' => $this->device->id,
@@ -50,5 +51,10 @@ class TimeEndDeviceNotification implements ShouldBroadcast
                 'device_id' => $this->device->deivce_id,
                 'user_id' => $this->user->id
             ];
+    }
+
+    public function broadcastWhen()
+    {
+        dd($this->user->id);
     }
 }
