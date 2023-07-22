@@ -3,6 +3,8 @@
 namespace App\Jobs;
 
 use App\Events\TimeEndDeviceNotification;
+use App\Models\Devices;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -20,7 +22,7 @@ class TimeEndDeviceProcessing implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($device, $user)
+    public function __construct(Devices $device,User $user)
     {
         $this->device = $device;
         $this->user = $user;

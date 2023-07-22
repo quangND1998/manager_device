@@ -2,6 +2,8 @@
 
 namespace App\Events;
 
+use App\Models\Devices;
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -20,7 +22,7 @@ class TimeEndDeviceNotification implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($device, $user)
+    public function __construct(Devices $device,User $user)
     {
         $this->device = $device;
         $this->user = $user;
