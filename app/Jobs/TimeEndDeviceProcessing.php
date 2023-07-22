@@ -34,7 +34,8 @@ class TimeEndDeviceProcessing implements ShouldQueue
      * @return void
      */
     public function handle()
-    {
+    {   
+        dd($this->user);
         broadcast(new TimeEndDeviceNotification($this->device , $this->user));
     }
 }

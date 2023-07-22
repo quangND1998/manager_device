@@ -332,7 +332,7 @@ class ApiController extends Controller
      
         foreach ($devices as $device) {
             if ($device->hasApp($request->link_app)) {
-                return $device;
+             
                 LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
                 // broadcast(new LaunchAppEvent($device, $request->link_app));
               
