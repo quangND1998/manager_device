@@ -119,11 +119,11 @@ class ApiController extends Controller
         if(!$user->hasPermissionTo('user-manager')){
             $user_update= User::has('devices')->withCount('devices')->with('devices')->find($device->user_id);
             if( $user_update->devices_count > $user_update->number_device){
-                $this->deviceLimitRepository->updateDevice($user_update);
+                $this->deviceLimitRepository->updateDeviceLimit($user_update);
             }
             else{
-                foreach($user_update->devices as $device){
-                    $this->deviceLimitRepository->enabledDevice($device);
+                foreach($user_update->devices as $item){
+                    $this->deviceLimitRepository->enabledDevice($item);
                 }
             }
         }
