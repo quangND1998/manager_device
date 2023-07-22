@@ -70,9 +70,9 @@ class DeviceController extends Controller
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
             })->enabled($request->only('enabled'))->orderBy($sortBy, $sort_Direction)->paginate(10)->appends(['page' => $request->page, 'name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sortDirection]);
-            $applications = ApplicationDefault::get();
+            // $applications = ApplicationDefault::get();
 
-            // $applications = Applicaion::where('default', 1)->groupby('packageName')->get();
+            $applications = Applicaion::whereIn('device_id', $devices->pluck('id'))->get();
         } else {
 
             $devices = Devices::with('applications', 'default_app', 'user', 'last_login')->where('user_id', $user->id)->where(function ($query) use ($request) {
@@ -83,7 +83,7 @@ class DeviceController extends Controller
            
             // Neu chua het han
             if($isExpired){
-                $applications = ApplicationDefault::get();
+                $applications = Applicaion::whereIn('device_id', $devices->pluck('id'))->get();
             }
             else{
                 $applications = Applicaion::whereIn('device_id', $devices->pluck('id'))->get();

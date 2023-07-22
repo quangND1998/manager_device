@@ -6,18 +6,18 @@
     <WifiModel v-if="hasAnyPermission(['user-manager'])" :errors="errors" :ids="selected" :wifis="wifis" />
 
     <OpenAppModal  v-if="hasAnyPermission(['user-manager'])" :errors="errors" :applications="application_deivce" :ids="selected" />
-    <OpenAppModal  v-else-if="hasAnyPermission(['Demo'])" :errors="errors" :applications="default_applications" :ids="selected" />
+    <OpenAppModal  v-else-if="hasAnyPermission(['Demo'])" :errors="errors" :applications="applications_default_filter" :ids="selected" />
     <OpenAppModal v-else-if="!hasAnyPermission(['Demo'])  && $page.props.auth.user.isExpired ==false  && enabled=='1' " :errors="errors" :applications="application_deivce" :ids="selected" />
-    <OpenAppModal  v-else-if="!hasAnyPermission(['Demo'])  && $page.props.auth.user.isExpired ==false  && enabled=='0' " :errors="errors" :applications="default_applications" :ids="selected" />
-    <OpenAppModal v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired" :errors="errors"  :applications="default_applications" :ids="selected" />
+    <OpenAppModal  v-else-if="!hasAnyPermission(['Demo'])  && $page.props.auth.user.isExpired ==false  && enabled=='0' " :errors="errors" :applications="applications_default_filter" :ids="selected" />
+    <OpenAppModal v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired" :errors="errors"  :applications="applications_default_filter" :ids="selected" />
     <OpenAppModal v-else :errors="errors" :applications="application_deivce" :ids="selected" />
 
     <GroupModel :errors="errors" :ids="selected" />
     <defaulAppModal  v-if="hasAnyPermission(['user-manager'])" :applications="application_deivce" :ids="selected" />
-    <defaulAppModal  v-else-if="hasAnyPermission(['Demo'])" :errors="errors" :applications="default_applications" :ids="selected" />
+    <defaulAppModal  v-else-if="hasAnyPermission(['Demo'])" :errors="errors" :applications="applications_default_filter" :ids="selected" />
     <defaulAppModal v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired ==false && enabled=='1' " :errors="errors" :applications="application_deivce" :ids="selected" />
-    <defaulAppModal v-else-if="!hasAnyPermission(['Demo'])  && $page.props.auth.user.isExpired ==false  && enabled=='0' " :errors="errors"  :applications="default_applications" :ids="selected" />
-    <defaulAppModal v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired" :errors="errors" :applications="default_applications" :ids="selected" />
+    <defaulAppModal v-else-if="!hasAnyPermission(['Demo'])  && $page.props.auth.user.isExpired ==false  && enabled=='0' " :errors="errors"  :applications="applications_default_filter" :ids="selected" />
+    <defaulAppModal v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired" :errors="errors" :applications="applications_default_filter" :ids="selected" />
     <defaulAppModal v-else :errors="errors" :applications="application_deivce" :ids="selected" />
 
     <InstallApk :errors="errors" :ids="selected" :apk_files="apk_files" />
@@ -28,10 +28,10 @@
     <UninstallApk v-else :errors="errors" :applications="application_deivce" :ids="selected" />
 
     <LaunchAppWithTime  v-if="hasAnyPermission(['user-manager']) " :errors="errors" :applications="application_deivce" :ids="selected" @updateTime="updateTimeRemaning"/>
-    <LaunchAppWithTime  v-else-if="hasAnyPermission(['Demo']) " :errors="errors" :applications="default_applications" :ids="selected" @updateTime="updateTimeRemaning"/>
+    <LaunchAppWithTime  v-else-if="hasAnyPermission(['Demo']) " :errors="errors" :applications="applications_default_filter" :ids="selected" @updateTime="updateTimeRemaning"/>
     <LaunchAppWithTime  v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired ==false && enabled=='1'" :errors="errors" :applications="application_deivce" :ids="selected" @updateTime="updateTimeRemaning"/>
-    <LaunchAppWithTime  v-else-if="!hasAnyPermission(['Demo'])  && $page.props.auth.user.isExpired ==false && enabled=='0'" :errors="errors" :applications="default_applications" :ids="selected" @updateTime="updateTimeRemaning"/>
-    <LaunchAppWithTime v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired"  :errors="errors" :applications="default_applications" :ids="selected" @updateTime="updateTimeRemaning"/>
+    <LaunchAppWithTime  v-else-if="!hasAnyPermission(['Demo'])  && $page.props.auth.user.isExpired ==false && enabled=='0'" :errors="errors" :applications="applications_default_filter" :ids="selected" @updateTime="updateTimeRemaning"/>
+    <LaunchAppWithTime v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired"  :errors="errors" :applications="applications_default_filter" :ids="selected" @updateTime="updateTimeRemaning"/>
     <LaunchAppWithTime v-else :errors="errors" :applications="application_deivce" :ids="selected" @updateTime="updateTimeRemaning" />
     <!-- <RunApkModal :errors="errors" ></RunApkModal> -->
     <!-- Modal -->
@@ -415,6 +415,26 @@ export default {
         return applications;
         // console.log(applications)
         // return _.uniqBy(array, 'packageName')
+
+      }
+      return [];
+    },
+    applications_default_filter() {
+      if (this.selected.length > 0) {
+        let applications =  _.map(this.default_applications, 'packageName')
+        let array=  this.application_deivce.filter(app=>{
+          console.log(app)
+           return applications.includes(app.packageName)
+        });
+        return array;
+
+        // let array2 = _.chain(array).groupBy('packageName').map((value, key) => ({ packageName: key, id: value[0].id, appName: value[0].appName, packageName: value[0].packageName, icon: value[0].icon, count: value.length }))
+        //   .value();
+        // let applications = array2.filter(app => {
+        //   return app.count == this.selected.length
+        // });
+        // return applications;
+
 
       }
       return [];
