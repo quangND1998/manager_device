@@ -127,12 +127,12 @@ class DeviceController extends Controller
     {
         $user= Auth::user();
         $device = Devices::with('applications')->findOrFail($id);
-        // foreach ($device->applications as $app) {
-        //     $extension = " ";
-        //     $this->DeleteFolder($app->icon, $extension);
-        // }
-        // $device->applications()->delete();
-        // $device->delete();
+        foreach ($device->applications as $app) {
+            $extension = " ";
+            $this->DeleteFolder($app->icon, $extension);
+        }
+        $device->applications()->delete();
+        $device->delete();
         if(!$user->hasPermissionTo('user-manager')){
             $user_update= User::has('devices')->withCount('devices')->with('devices')->find($user->id);
            
