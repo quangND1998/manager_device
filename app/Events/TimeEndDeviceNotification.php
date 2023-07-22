@@ -35,13 +35,14 @@ class TimeEndDeviceNotification implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        dd($this->user->id);
+   
         return new Channel('time-end-device.'.$this->user->id);
     }
 
 
     public function broadcastWith()
     {
+        dd($this->user->id);
         return
             [
                 'device' => $this->device->id,
