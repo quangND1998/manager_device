@@ -48,13 +48,10 @@ class TimeEndDeviceNotification implements ShouldBroadcast
             [
                 'device' => $this->device->id,
                 'device_name' => $this->device->name,
-                'device_id' => $this->device->deivce_id,
+                'device_id' => $this->device->device_id,
                 'user_id' => $this->user->id
             ];
     }
 
-    public function broadcastWhen()
-    {
-        dd($this->user->id);
-    }
+ 
 }
