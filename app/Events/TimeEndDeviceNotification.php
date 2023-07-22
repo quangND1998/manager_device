@@ -23,7 +23,7 @@ class TimeEndDeviceNotification implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct( $device, $user)
+    public function __construct($device, $user)
     {
         $this->device = $device;
         $this->user = $user;
