@@ -23,7 +23,7 @@ class TimeEndDeviceNotification implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($device, $user)
+    public function __construct( $device, $user)
     {
         $this->device = $device;
         $this->user = $user;
@@ -46,8 +46,9 @@ class TimeEndDeviceNotification implements ShouldBroadcast
   
         return
             [
-                'device' => $this->device
-                
+                'device' => $this->device->id,
+                'device_name' => $this->device->name,
+                'device_id' => $this->device->device_id,
             ];
     }
 
