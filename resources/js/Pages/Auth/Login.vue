@@ -68,7 +68,7 @@
         >Forgot your password?</Link>-->
         <div class=" px-3 py-2 bg-primary rounded-lg text-sm flex">
           <i class="fa fa-download mt-3" aria-hidden="true"></i>
-          <a href="https://bit.ly/Holostartup_Kioskmode" target="_blank" class="ml-3">Download App</a>
+          <a href="https://drive.google.com/drive/folders/19ecVbwSEm-jTUkOpBeHMSu_s_tfGs32M" target="_blank" class="ml-3">Download App</a>
         </div>
         <breeze-button
           class="ml-4"
