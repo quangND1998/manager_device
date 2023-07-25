@@ -9,7 +9,7 @@ class Devices extends Model
 {
     use HasFactory;
     protected $table = 'devices';
-    protected $fillable = ['id','app_default_id', 'device_id',  'name', 'brand', 'os_version', 'battery', 'connect_wifi', 'created_at','active','enabled', 'state', 'user_id','time',  'updated_at', 'update_time'];
+    protected $fillable = ['id','app_default_id', 'device_id',  'name', 'brand', 'os_version','serial', 'battery', 'connect_wifi', 'created_at','active','enabled', 'state', 'user_id','time',  'updated_at', 'update_time'];
     protected $casts = [
         'active' => 'boolean',
         'enabled' => 'boolean'
