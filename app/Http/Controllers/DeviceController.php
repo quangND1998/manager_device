@@ -170,7 +170,8 @@ class DeviceController extends Controller
                 'name' => 'required',
                 'brand' => 'required',
                 'os_version' => 'required',
-                'battery' => 'required'
+                'battery' => 'required',
+                
 
             ]);
         }
@@ -189,7 +190,8 @@ class DeviceController extends Controller
                 'battery' => $request->battery,
                 'connect_wifi' => $request->connect_wifi,
                 'user_id' => Auth::user()->id,
-                'active' => true
+                'active' => true,
+                'serial' => $request->serial
             ]);
         } else {
             $device = Devices::create([
@@ -200,7 +202,8 @@ class DeviceController extends Controller
                 'battery' => $request->battery,
                 'connect_wifi' => $request->connect_wifi,
                 'user_id' => Auth::user()->id,
-                'active' => true
+                'active' => true,
+                'serial' => $request->serial
             ]);
         }
 
