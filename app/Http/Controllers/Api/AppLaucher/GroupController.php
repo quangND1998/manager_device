@@ -77,7 +77,7 @@ class GroupController extends Controller
         // });
 
         $response  = [
-            'groups' => $groups,
+            'groups' =>GroupResource::collection($groups)
             // 'devices' =>   $devices 
         ];
         return response()->json($response, 200);
@@ -121,7 +121,7 @@ class GroupController extends Controller
             // $devices =   $this->device->get();
             // $applications = $this->application->applicationsByDeivces($devices);
             $response  = [
-                'group' => $group,
+                'group' => new GroupResource($group),
                 // 'devices' => DevicesResource::collection($devices),
                 // 'applications' => ApplicationResource::collection($applications)
             ];
