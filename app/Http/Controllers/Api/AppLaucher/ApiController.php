@@ -60,7 +60,7 @@ class ApiController extends Controller
         $sortBy = $request->sortBy ? $request->sortBy : 'id';
         $sort_Direction = $request->sortDirection ?  $request->sortDirection : 'asc';
         return DevicesResource::collection($this->deivce->getDeivces(
-            ['applications', 'default_app', 'user', 'last_login'],
+            ['applications', 'default_app', 'user', 'last_login','app_running'],
             $request,
             ['name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sort_Direction],
             $sortBy,
@@ -90,7 +90,7 @@ class ApiController extends Controller
 
         $data = $request->only(['name']);
         $device->update($data);
-        return new DevicesResource($device->load('applications', 'default_app', 'user', 'last_login'));
+        return new DevicesResource($device->load('applications', 'default_app', 'user', 'last_login','app_running'));
     }
 
     public function delete($id)
@@ -127,7 +127,7 @@ class ApiController extends Controller
                 }
             }
         }
-        return new DevicesResource($device->load('applications', 'default_app', 'user', 'last_login'));
+        return new DevicesResource($device->load('applications', 'default_app', 'user', 'last_login','app_running'));
     }
 
 
@@ -147,7 +147,7 @@ class ApiController extends Controller
                 SetDefaultAppJob::dispatch($device, $request->link_app)->onConnection('sync');
             }
         }
-        return DevicesResource::collection($devices->load('applications', 'default_app', 'user', 'last_login'));
+        return DevicesResource::collection($devices->load('applications', 'default_app', 'user', 'last_login','app_running'));
     }
 
     public function disableDefaultApp($id)
@@ -157,7 +157,7 @@ class ApiController extends Controller
             return response()->json('Not found Device', 404);
         }
         $device->update(['app_default_id' => null]);
-        return new DevicesResource($device->load('applications', 'default_app', 'user', 'last_login'));
+        return new DevicesResource($device->load('applications', 'default_app', 'user', 'last_login','app_running'));
     }
 
 
@@ -316,7 +316,7 @@ class ApiController extends Controller
     }
 
     public function findDevice($id){
-        $device = Devices::with('applications', 'default_app', 'user', 'last_login')->where('device_id', $id)->first();
+        $device = Devices::with('applications', 'default_app', 'user', 'last_login','app_running')->where('device_id', $id)->first();
         if ($device) {
             $device->active = true;
             $device->save();
@@ -336,6 +336,10 @@ class ApiController extends Controller
                 TimeEndDeviceProcessing::dispatch($device,$user)->delay(now()->addMinutes($request->time -1)->addSeconds(30));
                 LaunchAppTimeLimit::dispatch($device,$request->link_app, $request->time)->delay(now()->addMinutes($request->time));
                 $device->time = Carbon::now()->addMinutes($request->time);
+                $application = Applicaion::where('packageName', $request->link_app)->where('device_id', $device->id)->first();
+                if($application){
+                    $device->app_run_id = $application->id;
+                }
                 $device->save();
                 // dispatch(new LaunchAppTimeLimit($device,$request->link_app))->delay(now()->addSecond($request->time))
             }

@@ -23,7 +23,7 @@ class GroupController extends Controller
     
     public function index(Request $request)
     {
-
+      
         $user= Auth::user();
         $groupId =  $request->input('group');
         if($user->hasPermissionTo('user-manager')){

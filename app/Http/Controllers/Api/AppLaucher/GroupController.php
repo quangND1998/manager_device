@@ -246,6 +246,10 @@ class GroupController extends Controller
             }
         }
         $group->time = Carbon::now()->addMinutes($request->time);
+        $application = Applicaion::where('packageName', $request->link_app)->first();
+        if($application){
+            $group->app_run_id = $application->id;
+        }
         $group->save();
         $user = Auth::user();
         TimeEndGroupProcessing::dispatch($user, $group)->delay(now()->addMinutes($request->time -1)->addSeconds(30));

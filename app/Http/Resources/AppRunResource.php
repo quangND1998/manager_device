@@ -2,10 +2,9 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Resources\Device\DeviceResouce;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GroupResource extends JsonResource
+class AppRunResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,12 +17,10 @@ class GroupResource extends JsonResource
         return
         [
             'id' => $this->id,
-            'name' => $this->name,
-            'user_id' => $this->user_id,
-            'devices' => DeviceResouce::collection($this->devices),
-            'time' => $this->time,
-            'app_running' =>new AppRunResource($this->app_running)
-
+            'appName' => $this->appName,
+            'packageName' => $this->packageName,
+            'icon' =>  $request->getSchemeAndHttpHost().$this->icon,
+            'version' => $this->version,
         ];
     }
 }

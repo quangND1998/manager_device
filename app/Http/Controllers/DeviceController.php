@@ -470,7 +470,11 @@ class DeviceController extends Controller
                 LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
                 TimeEndDeviceProcessing::dispatch($device,$user)->delay(now()->addMinutes($request->time -1)->addSeconds(30));
                 LaunchAppTimeLimit::dispatch($device,$request->link_app, $request->time)->delay(now()->addMinutes($request->time));
+                $application = Applicaion::where('packageName', $request->link_app)->where('device_id', $device->id)->first();
                 $device->time = Carbon::now()->addMinutes($request->time);
+                if($application){
+                    $device->app_run_id = $application->id;
+                }
                 $device->save();
             }
         }

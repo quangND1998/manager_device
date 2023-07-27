@@ -32,6 +32,7 @@ class DevicesResource extends JsonResource
             'default_app' => new ApplicationResource($this->default_app),
             'last_login' => $this->last_login,
             'time' => $this->time,
+            'app_running' =>new AppRunResource($this->app_running)
 
         ];
     }
