@@ -22,8 +22,8 @@ class GroupRepository extends BaseRepository
     {
         $user = Auth::user();
         return !$user->hasPermissionTo('user-manager') ?
-            $this->model()->with('devices')->where('user_id', $user->id)->get()
-            :  $this->model()->with('devices')->get();
+            $this->model()->with('devices','app_running')->where('user_id', $user->id)->get()
+            :  $this->model()->with('devices','app_running')->get();
     }
 
     public function show($request,$id)
@@ -31,9 +31,9 @@ class GroupRepository extends BaseRepository
         $user = Auth::user();
     
 
-        return !$user->hasPermissionTo('user-manager') ? $this->model()->with(['devices.default_app','devices'=>function($q) use ($request){
+        return !$user->hasPermissionTo('user-manager') ? $this->model()->with(['devices.default_app','app_running','devices'=>function($q) use ($request){
             $q->enabled($request->only('enabled'));
-        }])->where('user_id', $user->id)->find($id) : $this->model()->with(['devices.default_app','devices'=>function($q) use ($request){
+        }])->where('user_id', $user->id)->find($id) : $this->model()->with(['devices.default_app','app_running','devices'=>function($q) use ($request){
             $q->enabled($request->only('enabled'));
         }])->find($id);
     }
