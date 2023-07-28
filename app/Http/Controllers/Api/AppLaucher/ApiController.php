@@ -40,6 +40,7 @@ use App\Jobs\SendUpdateApplicationJob;
 use App\Jobs\LaunchAppJob;
 use App\Jobs\SetDefaultAppJob;
 use App\Jobs\TimeEndDeviceProcessing;
+use App\Models\ApplicationDefault;
 use Carbon\Carbon;
 use App\Repositories\DeviceLimitRepository;
 class ApiController extends Controller
@@ -134,15 +135,22 @@ class ApiController extends Controller
     public function setDefaultApp(setAppDefaultRequest $request)
     {
         $devices = Devices::whereIn('id', $request->ids)->get();
-
+        $application_default = ApplicationDefault::pluck('packageName');
 
         $application_share = Applicaion::where('packageName', $request->link_app)->first();
 
         foreach ($devices as $device) {
             $application = Applicaion::where('packageName', $request->link_app)->where('device_id', $device->id)->first();
             if ($device->hasApp($request->link_app))  {
-                $device->app_default_id = $application ? $application->id :  $application_share->id;
-                $device->save();
+                if(!$device->enabled && in_array($request->link_app, $application_default)){
+                    $device->app_default_id = $application ? $application->id :  $application_share->id;
+                    $device->save();
+                }
+                else{
+                    $device->app_default_id = $application ? $application->id :  $application_share->id;
+                    $device->save();
+                }
+              
                 //broadcast(new DefaultAppEvent($device, $request->link_app));
                 SetDefaultAppJob::dispatch($device, $request->link_app)->onConnection('sync');
             }
