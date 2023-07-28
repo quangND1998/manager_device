@@ -135,7 +135,7 @@ class ApiController extends Controller
     public function setDefaultApp(setAppDefaultRequest $request)
     {
         $devices = Devices::whereIn('id', $request->ids)->get();
-        $application_default = ApplicationDefault::pluck('packageName');
+        $application_default = ApplicationDefault::pluck('packageName')->toArray();
 
         $application_share = Applicaion::where('packageName', $request->link_app)->first();
 

@@ -36,7 +36,7 @@ use App\Jobs\LaunchAppJob;
 use App\Jobs\LaunchAppTimeLimit;
 use App\Jobs\SetDefaultAppJob;
 use App\Jobs\TimeEndDeviceProcessing;
-
+use Illuminate\Support\Arr;
 class DeviceController extends Controller
 {
     use LoginTrait, FileUploadTrait;
@@ -50,7 +50,7 @@ class DeviceController extends Controller
     }
     public function index(Request $request)
     {
-    
+
         // dd(Carbon::now()->addMinutes(0)->addSeconds(30));
         $user = Auth::user();
         $sortBy = $request->sortBy ? $request->sortBy : 'id';
