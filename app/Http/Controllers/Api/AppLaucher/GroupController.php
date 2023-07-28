@@ -254,7 +254,7 @@ class GroupController extends Controller
         $group->save();
         $user = Auth::user();
         TimeEndGroupProcessing::dispatch($user, $group)->delay(now()->addMinutes($request->time -1)->addSeconds(30));
-        return response()->json($group->load(['devices.applications']), 200);
+        return response()->json(new GroupResource($group->load(['devices.applications', 'app_running'])), 200);
     }
 
 
