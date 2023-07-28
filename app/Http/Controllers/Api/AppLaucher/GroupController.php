@@ -32,6 +32,7 @@ use App\Jobs\LaunchAppJob;
 use App\Jobs\LaunchAppTimeLimit;
 use App\Jobs\SetDefaultAppJob;
 use App\Jobs\TimeEndGroupProcessing;
+use App\Models\ApplicationDefault;
 use Carbon\Carbon;
 
 class GroupController extends Controller
@@ -263,10 +264,18 @@ class GroupController extends Controller
 
         $group = Groups::with('devices')->findOrFail($id);
         $application = Applicaion::where('packageName', $request->link_app)->first();
+        $application_default = ApplicationDefault::pluck('packageName');
+        $application_share = Applicaion::where('packageName', $request->link_app)->first();
         foreach ($group->devices as $device) {
             if ($device->hasApp($request->link_app))  {
-                $device->app_default_id = $application->id;
-                $device->save();
+                if(!$device->enabled && in_array($request->link_app, $application_default)){
+                    $device->app_default_id = $application ? $application->id :  $application_share->id;
+                    $device->save();
+                }
+                else{
+                    $device->app_default_id = $application ? $application->id :  $application_share->id;
+                    $device->save();
+                }
                 // broadcast(new DefaultAppEvent($device, $request->link_app));
                 SetDefaultAppJob::dispatch($device, $request->link_app)->onConnection('sync');
             }
