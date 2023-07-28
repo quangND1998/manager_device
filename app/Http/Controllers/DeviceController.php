@@ -50,7 +50,8 @@ class DeviceController extends Controller
     }
     public function index(Request $request)
     {
-
+    //     $application_default = ApplicationDefault::pluck('packageName')->toArray();
+    //    dd( in_array("com.holomia.startup", $application_default));
         // dd(Carbon::now()->addMinutes(0)->addSeconds(30));
         $user = Auth::user();
         $sortBy = $request->sortBy ? $request->sortBy : 'id';

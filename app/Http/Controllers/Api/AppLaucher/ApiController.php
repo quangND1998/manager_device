@@ -142,9 +142,12 @@ class ApiController extends Controller
         foreach ($devices as $device) {
             $application = Applicaion::where('packageName', $request->link_app)->where('device_id', $device->id)->first();
             if ($device->hasApp($request->link_app))  {
-                if($device->enabled ==false && in_array($request->link_app, $application_default)){
-                    $device->app_default_id = $application ? $application->id :  $application_share->id;
-                    $device->save();
+                if($device->enabled ==false){
+                    if(in_array($request->link_app, $application_default)){
+                        $device->app_default_id = $application ? $application->id :  $application_share->id;
+                        $device->save();
+                    }
+                   
                 }
                 else{
                     $device->app_default_id = $application ? $application->id :  $application_share->id;
