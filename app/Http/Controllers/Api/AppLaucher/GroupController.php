@@ -268,7 +268,7 @@ class GroupController extends Controller
         foreach ($group->devices as $device) {
             if ($device->hasApp($request->link_app))  {
                 $application = Applicaion::where('packageName', $request->link_app)->where('device_id', $device->id)->first();
-                if(!$device->enabled && in_array($request->link_app, $application_default)){
+                if($device->enabled ==false && in_array($request->link_app, $application_default)){
                     $device->app_default_id = $application ? $application->id :  $application_share->id;
                     $device->save();
                 }
