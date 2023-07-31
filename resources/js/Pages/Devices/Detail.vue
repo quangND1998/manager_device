@@ -1,6 +1,6 @@
 <template>
     <section class="content">
-        <ContentHeaderVue :name="'Device Dtail'" />
+        <ContentHeaderVue :name="'Device Detail'" />
 
         <div class="my-4 flex">
             <div class="mr-3" v-if="device">
