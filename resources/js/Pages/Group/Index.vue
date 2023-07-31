@@ -381,7 +381,7 @@ export default {
             if (this.selected.length > 0) {
                 if (this.selected.length == 1) {
                     const found = this.current_group.devices.find(element => element.id == this.selected[0]);
-                    console.log('found', found);
+                    // console.log('found', found);
                     // console.log('current_group',this.current_group);
                     return found.applications
                 }
@@ -421,7 +421,7 @@ export default {
                     return app.count == this.devices_current.length
 
                 });
-                console.log(applications);
+                // console.log(applications);
                 return applications;
             }
 
@@ -452,7 +452,7 @@ export default {
             if (this.current_group) {
                 let applications = _.map(this.default_applications, 'packageName')
                 let array = this.application_deivce.filter(app => {
-                    console.log(app)
+                    // console.log(app)
                     return applications.includes(app.packageName)
                 });
                 return array;
