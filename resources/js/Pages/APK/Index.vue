@@ -135,6 +135,7 @@
 </template>
 
 <script>
+
 import { Link } from "@inertiajs/inertia-vue";
 import Layout from "@/Components/Layout/Layout";
 import ContentHeaderVue from "@/Components/Layout/ContentHeader";

@@ -9,9 +9,10 @@ class Devices extends Model
 {
     use HasFactory;
     protected $table = 'devices';
-    protected $fillable = ['id','app_default_id', 'device_id',  'name', 'brand', 'os_version', 'battery', 'connect_wifi', 'created_at','active', 'state', 'user_id','time',  'updated_at', 'update_time'];
+    protected $fillable = ['id','app_default_id','app_run_id', 'device_id',  'name', 'brand', 'os_version','serial', 'battery', 'connect_wifi', 'created_at','active','enabled', 'state', 'user_id','time',  'updated_at', 'update_time'];
     protected $casts = [
-        'active' => 'boolean'
+        'active' => 'boolean',
+        'enabled' => 'boolean'
     ];
     public function getTimeAttribute($value)
     {
@@ -44,6 +45,10 @@ class Devices extends Model
         return $this->belongsTo(Applicaion::class,'app_default_id');
     }
 
+    public function app_running(){
+        return $this->belongsTo(Applicaion::class,'app_run_id');
+    }
+
     public function wifis(){
         return $this->hasMany(Wifi::class,'device_id');
     }
@@ -68,26 +73,15 @@ class Devices extends Model
     }
 
 
-    public function scopeOrderByFillter($query, array $filters)
-    {   
-        
-        if(count($filters)> 0){
-            $sortBy = $filters['sortBy'] ? $filters['sortBy'] : 'id';
-            $sort_Direction = $filters['sortDirection'] ?  $filters['sortDirection'] : 'asc';
-            if ($filters['sortBy']=='updated_at') {
-               
-                $query->whereHas('last_login', function($q) use($sortBy, $sort_Direction){
-                         $q->orderBy($sortBy,$sort_Direction);
-                    });
-            } else {
-                
-                $query->orderBy($sortBy,$sort_Direction);
-            }
-        }
-        else{
+    public function scopeEnabled($query, array $filters)
+    {
+     
+
+        if (array_key_exists('enabled', $filters) && ($filters['enabled'] =='0' || $filters['enabled'] =='1' )) {
+            $query->where('enabled',  $filters['enabled']);
+        } else {
             $query->get();
         }
-      
     }
 
 

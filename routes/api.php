@@ -80,6 +80,7 @@ Route::group(['middleware' => 'languages_api',
         Route::prefix('applications')->as('app.')->group(function () {
 
             Route::post('/get', [AppController::class, 'applications'])->name('index');
+            Route::get('/default', [AppController::class, 'application_default'])->name('default');
         });
 
         Route::prefix('application')->as('app.')->group(function () {

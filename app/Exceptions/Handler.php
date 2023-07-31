@@ -9,10 +9,12 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Illuminate\Auth\AuthenticationException;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Exception;
 class Handler extends ExceptionHandler
 {
     /**
@@ -52,8 +54,44 @@ class Handler extends ExceptionHandler
         //     return Inertia::render('Error', ['status' => $e->getStatusCode()]);
         // });
 
-        // $this->renderable(function (\Spatie\Permission\Exceptions\UnauthorizedException $e, $request) {
-        //   return Inertia::render('Error', ['status' => $e->getStatusCode()]);
-        // });
+        $this->renderable(function (\Spatie\Permission\Exceptions\UnauthorizedException $e, $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                                'responseMessage' => 'You do not have the required authorization.',
+                                'responseStatus'  => 403,
+                            ],403);
+            }
+        });
+
+        $this->renderable(function (NotFoundHttpException $e, $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                                'responseMessage' => 'API Not Found.',
+                                'responseStatus'  => 404,
+                            ],404);
+            }
+        });
+        $this->renderable(function (MethodNotAllowedHttpException $e, $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                                'responseMessage' => 'Method not allowed.',
+                                'responseStatus'  => 405,
+                            ],405);
+            }
+        });
+      
+        
     }
+    // public function render($request, Throwable  $exception)
+    // {
+
+    //     if($exception instanceof \Spatie\Permission\Exceptions\UnauthorizedException ){
+    //         return response()->json([
+    //             'responseMessage' => 'You do not have the required authorization.',
+    //             'responseStatus'  => 403,
+    //         ],403);
+    //     }
+    //     return parent::render($request, $exception);
+    // }
+
 }

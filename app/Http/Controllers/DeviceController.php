@@ -25,6 +25,9 @@ use App\Http\Resources\ApplicationResource;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
+use App\Models\ApplicationDefault;
+use App\Repositories\DeviceLimitRepository;
+
 use App\Http\Resources\DevicesResource;
 use App\Events\SendUpdateApplicationEvent;
 use App\Jobs\ReciveActiveDeviceJob;
@@ -33,49 +36,63 @@ use App\Jobs\LaunchAppJob;
 use App\Jobs\LaunchAppTimeLimit;
 use App\Jobs\SetDefaultAppJob;
 use App\Jobs\TimeEndDeviceProcessing;
-
+use Illuminate\Support\Arr;
 class DeviceController extends Controller
 {
     use LoginTrait, FileUploadTrait;
-
-    function __construct()
+    protected $deviceLimitRepository;
+    function __construct(DeviceLimitRepository $deviceLimitRepository)
     {
-        $this->middleware('permission:user-manager|Pro|Demo|Lite', ['only' => ['index', 'setDefaultApp', 'launchApp']]);
-        $this->middleware('permission:user-manager|Pro|Demo', ['only' => ['saveName', 'update', 'delete']]);
+        $this->deviceLimitRepository = $deviceLimitRepository;
+        $this->middleware('permission:user-manager|Pro|Demo|Lite|Standard', ['only' => ['index', 'setDefaultApp', 'launchApp']]);
+        $this->middleware('permission:user-manager|Pro|Demo|Lite|Standard', ['only' => ['saveName', 'update', 'delete']]);
      
     }
     public function index(Request $request)
     {
+    //     $application_default = ApplicationDefault::pluck('packageName')->toArray();
+    //    dd( in_array("com.holomia.startup", $application_default));
         // dd(Carbon::now()->addMinutes(0)->addSeconds(30));
         $user = Auth::user();
         $sortBy = $request->sortBy ? $request->sortBy : 'id';
         $sort_Direction = $request->sortDirection ?  $request->sortDirection : 'asc';
-        
+        $enabled = $request->enabled;
         if ($user->hasPermissionTo('user-manager')) {
 
             $devices = Devices::with('applications', 'default_app', 'user', 'last_login')->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
-            })->orderBy($sortBy, $sort_Direction)->paginate(10)->appends(['page' => $request->page, 'name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sortDirection]);
+            })->enabled($request->only('enabled'))->orderBy($sortBy, $sort_Direction)->paginate(10)->appends(['page' => $request->page, 'name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sortDirection]);
 
            
             $applications = Applicaion::whereIn('device_id', $devices->pluck('id'))->get();
-        } elseif ($user->hasPermissionTo('Lite')) {
+        } elseif ($user->hasPermissionTo('Demo')) {
 
             $devices = Devices::with('default_app', 'applications', 'user', 'last_login')->where('user_id', $user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
-            })->orderBy($sortBy, $sort_Direction)->paginate(10)->appends(['page' => $request->page, 'name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sortDirection]);
-            $applications = Applicaion::where('default', true)->get();
+            })->enabled($request->only('enabled'))->orderBy($sortBy, $sort_Direction)->paginate(10)->appends(['page' => $request->page, 'name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sortDirection]);
+            // $applications = ApplicationDefault::get();
 
-            // $applications = Applicaion::where('default', 1)->groupby('packageName')->get();
+            $applications = Applicaion::whereIn('device_id', $devices->pluck('id'))->get();
         } else {
 
             $devices = Devices::with('applications', 'default_app', 'user', 'last_login')->where('user_id', $user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
-            })->orderBy($sortBy, $sort_Direction)->paginate(10)->appends(['name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sort_Direction]);
-            $applications = Applicaion::whereIn('device_id', $devices->pluck('id'))->get();
+            })->enabled($request->only('enabled'))->orderBy($sortBy, $sort_Direction)->paginate(10)->appends(['name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sort_Direction]);
+            $isExpired= Carbon::now()->gt($user->time_limit);
+           
+            // Neu chua het han
+            if($isExpired){
+                $applications = Applicaion::whereIn('device_id', $devices->pluck('id'))->get();
+            }
+            else{
+                $applications = Applicaion::whereIn('device_id', $devices->pluck('id'))->get();
+            }
+            
+           
+
         }
 
         $apk_files = ApkResource::collection($user->apk_files);
@@ -87,7 +104,7 @@ class DeviceController extends Controller
         // dd($lastItem);
 
         // return $firstItem;
-        return Inertia::render('Devices/Index', compact('devices', 'applications', 'wifis', 'apk_files', 'sortBy', 'count', 'firstItem', 'lastItem', 'sort_Direction'));
+        return Inertia::render('Devices/Index', compact('devices','enabled', 'applications', 'wifis', 'apk_files', 'sortBy', 'count', 'firstItem', 'lastItem', 'sort_Direction'));
     }
 
 
@@ -110,6 +127,7 @@ class DeviceController extends Controller
 
     public function delete($id)
     {
+        $user= Auth::user();
         $device = Devices::with('applications')->findOrFail($id);
         foreach ($device->applications as $app) {
             $extension = " ";
@@ -117,6 +135,19 @@ class DeviceController extends Controller
         }
         $device->applications()->delete();
         $device->delete();
+        if(!$user->hasPermissionTo('user-manager')){
+            $user_update= User::has('devices')->withCount('devices')->with('devices')->find($user->id);
+           
+            if( $user_update->devices_count > $user_update->number_device){
+                $this->deviceLimitRepository->updateDeviceLimit($user_update);
+            }
+            else{
+                foreach($user_update->devices as $item){
+                    $this->deviceLimitRepository->enabledDevice($item);
+                }
+            }
+        }
+      
         return back()->with('success', 'Delete succsessfully');
     }
 
@@ -141,7 +172,8 @@ class DeviceController extends Controller
                 'name' => 'required',
                 'brand' => 'required',
                 'os_version' => 'required',
-                'battery' => 'required'
+                'battery' => 'required',
+                
 
             ]);
         }
@@ -160,7 +192,8 @@ class DeviceController extends Controller
                 'battery' => $request->battery,
                 'connect_wifi' => $request->connect_wifi,
                 'user_id' => Auth::user()->id,
-                'active' => true
+                'active' => true,
+                'serial' => $request->serial
             ]);
         } else {
             $device = Devices::create([
@@ -171,7 +204,8 @@ class DeviceController extends Controller
                 'battery' => $request->battery,
                 'connect_wifi' => $request->connect_wifi,
                 'user_id' => Auth::user()->id,
-                'active' => true
+                'active' => true,
+                'serial' => $request->serial
             ]);
         }
 
@@ -253,7 +287,7 @@ class DeviceController extends Controller
         foreach ($devices as $device) {
 
             $application = Applicaion::where('packageName', $request->link_app)->where('device_id', $device->id)->first();
-            if ($device->hasApp($request->link_app)) {
+            if ($device->hasApp($request->link_app))  {
                 $device->app_default_id = $application ? $application->id :  $application_share->id;
                 $device->save();
                 SetDefaultAppJob::dispatch($device, $request->link_app)->onConnection('sync');
@@ -318,7 +352,7 @@ class DeviceController extends Controller
 
         if ($user->hasPermissionTo('user-manager')) {
             $devices = Devices::get();
-        } elseif ($user->hasPermissionTo('Lite')) {
+        } elseif ($user->hasPermissionTo('Demo')) {
             $devices = Devices::where('user_id', $user->id)->get();
         } else {
             $devices = Devices::where('user_id', $user->id)->get();
@@ -389,6 +423,14 @@ class DeviceController extends Controller
         }
     }
 
+    public function changeEnabled(Request $request){
+        $device = Devices::findOrFail($request->id);
+        $device->update(['enabled' => $request->enabled]);
+
+        return back()->with('success', 'Change enabled app successfully');
+    }   
+
+   
     public function deivceDetail($id){
         $device = Devices::with('applications')->find($id);
         if (!$device) {
@@ -430,7 +472,11 @@ class DeviceController extends Controller
                 LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
                 TimeEndDeviceProcessing::dispatch($device,$user)->delay(now()->addMinutes($request->time -1)->addSeconds(30));
                 LaunchAppTimeLimit::dispatch($device,$request->link_app, $request->time)->delay(now()->addMinutes($request->time));
+                $application = Applicaion::where('packageName', $request->link_app)->where('device_id', $device->id)->first();
                 $device->time = Carbon::now()->addMinutes($request->time);
+                if($application){
+                    $device->app_run_id = $application->id;
+                }
                 $device->save();
             }
         }

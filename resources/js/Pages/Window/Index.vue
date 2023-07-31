@@ -38,7 +38,14 @@
                   :style="{ width: form.progress.percentage + '%' }"
                 >{{ form.progress.percentage }}%</div>
               </div>
-              <div class="form-group" :class="errors.name ? 'is-valid' : ''">
+
+              <div>
+                  <label for="company" class="block mb-2 text-xl font-medium text-gray-900 text-left">App URL</label>
+                  <input rows="4" type="file" @change="onFileChange" accept=".apk"
+                    class="block p-2.5 w-full text-xl text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="R:\Project\HolomiaVRZ_230403b_MetaQuest.apk" />
+                </div>
+              <div v-if="form.packageName" class="form-group" :class="errors.name ? 'is-valid' : ''">
                 <label for="recipient-name" class="col-form-label">Name:</label>
                 <input
                   type="text"
@@ -46,6 +53,7 @@
                   :class="errors.name ? 'is-valid' : ''"
                   v-model="form.name"
                   id="recipient-name"
+                  readonly
                 />
                 <div class="text-red-500" v-if="errors.name">{{ errors.name }}</div>
               </div>
@@ -60,7 +68,7 @@
                 ></textarea>
                 <div class="text-red-500" v-if="errors.path">{{ errors.path }}</div>
               </div>
-              <div class="form-group" :class="errors.packageName ? 'is-valid' : ''">
+              <div v-if="form.packageName" class="form-group" :class="errors.packageName ? 'is-valid' : ''">
                 <label for="recipient-name" class="col-form-label">Package Name:</label>
                 <input
                   type="text"
@@ -69,10 +77,11 @@
                   v-model="form.packageName"
                   id="recipient-name"
                   placeholder="com.holomia.holomia"
+                  readonly
                 />
                 <div class="text-red-500" v-if="errors.packageName">{{ errors.packageName }}</div>
               </div>
-              <div class="form-group" :class="errors.version ? 'is-valid' : ''">
+              <div  v-if="form.packageName" class="form-group" :class="errors.version ? 'is-valid' : ''">
                 <label for="recipient-name" class="col-form-label">version:</label>
                 <input
                   type="text"
@@ -80,6 +89,7 @@
                   :class="errors.version ? 'is-valid' : ''"
                   v-model="form.version"
                   id="recipient-name"
+                  readonly
                 />
                 <div class="text-red-500" v-if="errors.version">{{ errors.version }}</div>
               </div>
@@ -222,6 +232,7 @@
 </template>
 
 <script>
+const AppInfoParser = require("app-info-parser");
 import { Link } from "@inertiajs/inertia-vue";
 import Layout from "@/Components/Layout/Layout";
 import ContentHeaderVue from "@/Components/Layout/ContentHeader";
@@ -284,7 +295,30 @@ export default {
         });
       }
     },
+    onFileChange(e) {
 
+      const path = e.target.files[0].path;
+      console.log(path)
+      // const fullpath = path.toString();
+      // this.progressing = true;
+      // console.log(fullpath);
+      // this.app_window.size = e.target.files[0].size
+      const parser = new AppInfoParser(e.target.files[0]); // or xxx.ipa
+      parser
+        .parse()
+        .then((result) => {
+          console.log(result);
+          this.form.name = result.application.label[0];
+          this.form.icon = result.icon;
+          this.form.version = result.versionName;
+          this.form.packageName = result.package;
+
+
+        })
+        .catch((err) => {
+          console.log("err ----> ", err);
+        });
+      },
     clickModal() {
       this.editMode = false;
       this.form.reset();

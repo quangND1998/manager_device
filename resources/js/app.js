@@ -5,6 +5,7 @@ import { createInertiaApp } from '@inertiajs/inertia-vue'
 // import { InertiaProgress } from '@inertiajs/progress'
 
 import moment from 'moment';
+import VueSwal from 'vue-swal';
 // InertiaProgress.init({})
 import VueToast from 'vue-toast-notification';
 // Import one of the available themes
@@ -83,6 +84,7 @@ Vue.mixin({
             return `${(bytes / 1024 ** i).toFixed(1)} ${sizes[i]}`;
         },
 
+
     },
 })
 
@@ -96,6 +98,7 @@ Vue.mixin({
         route: window.route,
     }
 })
+Vue.use(VueSwal)
 window.Bus = new Vue();
 // InertiaProgress.init({
 //     delay: 150,

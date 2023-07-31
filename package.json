@@ -9,6 +9,11 @@
         "prod": "npm run production",
         "production": "mix --production"
     },
+    "browser": {
+        "fs": false,
+        "path": false,
+        "os": false
+    },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",
         "alpinejs": "^3.4.2",
@@ -32,9 +37,13 @@
         "@inertiajs/inertia-vue": "^0.8.0",
         "@inertiajs/progress": "^0.2.7",
         "@socket.io/redis-adapter": "^7.2.0",
+        "adbkit-apkreader": "^3.2.0",
+        "android-apk": "^0.0.1",
+        "app-info-parser": "^1.1.5",
         "@vueform/multiselect": "^2.6.2",
         "autoprefixer": "^10.4.7",
         "express": "^4.18.2",
+        "fs": "^0.0.1-security",
         "hideseek": "^0.8.0",
         "ioredis": "^5.2.4",
         "jquery": "^2.2.4",
@@ -49,8 +58,10 @@
         "socket.io": "^4.5.4",
         "socket.io-client": "^4.5.0",
         "socket.io-redis": "^6.1.1",
+        "stream-browserify": "^3.0.0",
         "tw-elements": "^1.0.0-alpha13",
         "vite": "^3.0.3",
+        "vue-swal": "^1.0.0",
         "vue": "^2.7.14",
         "vue-socket.io": "^3.0.10",
         "vue-toast-notification": "^1.0.1",

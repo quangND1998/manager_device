@@ -15,33 +15,40 @@ use App\Jobs\LaunchAppJob;
 use App\Jobs\LaunchAppTimeLimit;
 use App\Jobs\SetDefaultAppJob;
 use App\Jobs\TimeEndGroupProcessing;
+use App\Models\ApplicationDefault;
 use Carbon\Carbon;
-
+use App\Repositories\GroupRepository;
 class GroupController extends Controller
 {
-
-    
+    protected $groupRepository;
+    public function __construct(GroupRepository $groupRepository)
+    {
+   
+        $this->groupRepository = $groupRepository;
+        //$this->middleware('permission:user-manager|Pro|Demo|Standard', ['only' => ['getGroups', 'groupByIdwithApp', 'groupById', 'store','update','ownerDevice','deleteOwnerDevice','delete','runAppGoup','runAppGroupWithTime','setAppDefaultGroup']]);
+    }
     public function index(Request $request)
     {
-
+      
         $user= Auth::user();
         $groupId =  $request->input('group');
+        $enabled =  $request->input('enabled');
         if($user->hasPermissionTo('user-manager')){
             $groups = Groups::with('devices.applications')->get();
             
             $nogroup_devices = Devices::with('applications')->doesntHave('groups')->get();
-            $applications = Applicaion::groupby('packageName')->whereIn('device_id',$nogroup_devices->pluck('id'))->get();
+
         }
-        else if($user->hasPermissionTo('Lite')){
+        else if($user->hasPermissionTo('Demo')){
            
             $groups = Groups::with('devices.applications')->where('user_id',$user->id)->get();
             $nogroup_devices = Devices::with('applications')->doesntHave('groups')->where('user_id',$user->id)->get();
-            $applications = Applicaion::where('default', true)->groupby('packageName')->get();
+          
         }
         else{
             $groups = Groups::with('devices.applications')->where('user_id',$user->id)->get();
             $nogroup_devices = Devices::with('applications')->doesntHave('groups')->where('user_id',$user->id)->get();
-            $applications = Applicaion::groupby('packageName')->whereIn('device_id',$nogroup_devices->pluck('id'))->get();
+    
         }
 
         if (count($groups) > 0) {
@@ -49,7 +56,8 @@ class GroupController extends Controller
                 $current_group = $groups[0];
                 // $new_devices = array_merge($nogroup_devices,$current_group->devices);
             } else {
-                $current_group = $groups->find($groupId);
+
+                $current_group = $this->groupRepository->show($request,$groupId);
                
                 // $devices = $devices + $current_group->devices;
                 // $devices = array_merge($nogroup_devices,$current_group->devices);
@@ -58,9 +66,15 @@ class GroupController extends Controller
             $current_group = null;
         
         }
-
+        if($current_group){
+            $applications = Applicaion::whereIn('device_id',$current_group->devices->pluck('id'))->get();
+        }
+        else{
+            $applications=[];
+        }
+       
         $devices= Arr::collapse([$nogroup_devices, $current_group->devices?? []]);
-        return Inertia::render('Group/Index', compact('groups', 'current_group', 'devices','applications'));
+        return Inertia::render('Group/Index', compact('groups', 'current_group', 'devices','applications','enabled'));
     }
 
     public function getDeviceGourps(Request $request, $id)
@@ -162,11 +176,23 @@ class GroupController extends Controller
 
         ]);
         $group = Groups::with('devices')->findOrFail($id);
-        $application = Applicaion::where('packageName',$request->link_app)->first();
+        $application_default = ApplicationDefault::pluck('packageName')->toArray();
+        $application_share = Applicaion::where('packageName', $request->link_app)->first();
+       
         foreach ($group->devices as $device) {
             if ($device->hasApp($request->link_app)) {
-                $device->app_default_id = $application->id;
-                $device->save();
+                $application = Applicaion::where('packageName', $request->link_app)->where('device_id', $device->id)->first();
+                if($device->enabled ==false){
+                    if(in_array($request->link_app, $application_default)){
+                        $device->app_default_id = $application ? $application->id :  $application_share->id;
+                        $device->save();
+                    }
+                   
+                }
+                else{
+                    $device->app_default_id = $application ? $application->id :  $application_share->id;
+                    $device->save();
+                }
                 //broadcast(new DefaultAppEvent($device, $request->link_app));
                 SetDefaultAppJob::dispatch($device, $request->link_app)->onConnection('sync');
             }
@@ -181,7 +207,7 @@ class GroupController extends Controller
             'link_app' => 'required',
             'time' => 'required|numeric|gt:0'
         ]);
-       
+        $user = Auth::user();
         $group = Groups::with('devices')->find($id);
         if (!$group) {
             return response()->json('Not found group', 404);
