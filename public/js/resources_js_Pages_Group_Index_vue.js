@@ -3563,18 +3563,14 @@ __webpack_require__.r(__webpack_exports__);
     listenNotificationDevice: function listenNotificationDevice() {
       var _this2 = this;
 
-      console.log(this.user.id);
+      this.sockets.subscribe("time-end-device.".concat(this.$page.props.auth.user.id, ":App\\Events\\TimeEndDeviceNotification"), function (data) {
+        console.log(data);
 
-      if (this.user) {
-        this.sockets.subscribe("time-end-device.".concat(this.$page.props.auth.user.id, ":App\\Events\\TimeEndDeviceNotification"), function (data) {
-          console.log(data);
-
-          _this2.$swal("Device ".concat(data.device_name, " Timer Ends"), {
-            icon: "warning",
-            timer: 60000
-          });
+        _this2.$swal("Device ".concat(data.device_name, " Timer Ends"), {
+          icon: "warning",
+          timer: 60000
         });
-      }
+      });
     }
   }
 });
@@ -3798,6 +3794,8 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -3831,7 +3829,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     errors: Object,
     current_group: Object,
     devices: Array,
-    applications: Array
+    applications: Array,
+    default_applications: Array,
+    enabled: String
   },
   mounted: function mounted() {
     var _this = this;
@@ -3842,9 +3842,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     Bus.$on('cloesModal', function () {
       _this.selected = [];
     });
-  },
-  created: function created() {
+    this.getNow();
     setInterval(this.getNow, 1000);
+  },
+  created: function created() {// setInterval(this.getNow, 1000);
   },
   data: function data() {
     return {
@@ -3893,13 +3894,77 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         if (this.selected.length == 1) {
           var found = this.current_group.devices.find(function (element) {
             return element.id == _this3.selected[0];
-          }); // console.log('found',found);
+          }); // console.log('found', found);
           // console.log('current_group',this.current_group);
 
           return found.applications;
-        }
+        } else {
+          var array = this.applications.filter(function (app) {
+            return _this3.devices_current.includes(app.device_id);
+          });
 
-        return this.applications;
+          var array2 = _.chain(array).groupBy('packageName').map(function (value, key) {
+            var _ref;
+
+            return _ref = {
+              packageName: key,
+              id: value[0].id,
+              appName: value[0].appName
+            }, _defineProperty(_ref, "packageName", value[0].packageName), _defineProperty(_ref, "icon", value[0].icon), _defineProperty(_ref, "count", value.length), _ref;
+          }).value();
+
+          var applications = array2.filter(function (app) {
+            return app.count == _this3.devices_current.length;
+          });
+          return applications;
+        }
+      } else {
+        var _array = this.applications.filter(function (app) {
+          return _this3.devices_current.includes(app.device_id);
+        });
+
+        var _array2 = _.chain(_array).groupBy('packageName').map(function (value, key) {
+          var _ref2;
+
+          return _ref2 = {
+            packageName: key,
+            id: value[0].id,
+            appName: value[0].appName
+          }, _defineProperty(_ref2, "packageName", value[0].packageName), _defineProperty(_ref2, "icon", value[0].icon), _defineProperty(_ref2, "count", value.length), _ref2;
+        }).value();
+
+        var _applications = _array2.filter(function (app) {
+          return app.count == _this3.devices_current.length;
+        }); // console.log(applications);
+
+
+        return _applications;
+      }
+    },
+    devices_current: function devices_current() {
+      if (this.current_group) {
+        if (this.enabled == null) {
+          var filtered_array = _.filter(this.current_group.devices, function (o) {
+            return o.enabled;
+          });
+
+          return _.map(filtered_array, 'id');
+        } else {
+          return _.map(this.current_group.devices, 'id');
+        }
+      } else {
+        return [];
+      }
+    },
+    applications_default_filter: function applications_default_filter() {
+      if (this.current_group) {
+        var applications = _.map(this.default_applications, 'packageName');
+
+        var array = this.application_deivce.filter(function (app) {
+          // console.log(app)
+          return applications.includes(app.packageName);
+        });
+        return array;
       }
 
       return [];
@@ -3912,6 +3977,24 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     }
   },
   methods: {
+    changeEnable: function changeEnable(e) {
+      if (e.target.value == "") {
+        this.$inertia.get(this.route("group.index"), {
+          group: this.current_group.id
+        }, {
+          preserveScroll: true
+        });
+      } else {
+        this.filter = e.target.value;
+        var query = {
+          group: this.current_group.id,
+          enabled: e.target.value
+        };
+        this.$inertia.get(this.route("group.index"), query, {
+          preserveScroll: true
+        });
+      }
+    },
     getNow: function getNow() {
       var today = new Date();
       this.timestamp = parseInt(today.getTime() / 1000);
@@ -3995,10 +4078,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     },
     transformSlotProps: function transformSlotProps(props) {
       var formattedProps = {};
-      Object.entries(props).forEach(function (_ref) {
-        var _ref2 = _slicedToArray(_ref, 2),
-            key = _ref2[0],
-            value = _ref2[1];
+      Object.entries(props).forEach(function (_ref3) {
+        var _ref4 = _slicedToArray(_ref3, 2),
+            key = _ref4[0],
+            value = _ref4[1];
 
         formattedProps[key] = value < 10 ? "0".concat(value) : String(value);
       });
@@ -6563,7 +6646,7 @@ var render = function render() {
       value: _vm.search,
       expression: "search"
     }],
-    staticClass: "relative w-full px-8 py-3 text-xl rounded-r focus:shadow-outline",
+    staticClass: "block w-full py-3 pl-5 text-xl text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500",
     attrs: {
       autocomplete: "off",
       type: "text",
@@ -6731,6 +6814,7 @@ var render = function render() {
   return _c("section", {
     staticClass: "content"
   }, [_c("ContentHeaderVue", {
+    staticClass: "pl-0",
     attrs: {
       name: "Groups"
     }
@@ -6738,58 +6822,174 @@ var render = function render() {
     attrs: {
       dismissible: true
     }
-  }), _vm._v(" "), _vm.hasAnyPermission(["Lite"]) ? _c("OpenAppModal", {
+  }), _vm._v(" "), _vm.hasAnyPermission(["user-manager"]) ? _c("OpenAppModal", {
     attrs: {
       errors: _vm.errors,
-      applications: _vm.applications,
-      ids: _vm.selected
+      applications: _vm.application_deivce,
+      ids: _vm.devices_current
+    }
+  }) : _vm.hasAnyPermission(["Demo"]) ? _c("OpenAppModal", {
+    attrs: {
+      errors: _vm.errors,
+      applications: _vm.applications_default_filter,
+      ids: _vm.devices_current
+    }
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired == false && _vm.enabled == "1" ? _c("OpenAppModal", {
+    attrs: {
+      errors: _vm.errors,
+      applications: _vm.application_deivce,
+      ids: _vm.devices_current
+    }
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired == false && _vm.enabled == "0" ? _c("OpenAppModal", {
+    attrs: {
+      errors: _vm.errors,
+      applications: _vm.applications_default_filter,
+      ids: _vm.devices_current
+    }
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired == false && _vm.enabled == null ? _c("OpenAppModal", {
+    attrs: {
+      errors: _vm.errors,
+      applications: _vm.application_deivce,
+      ids: _vm.devices_current
+    }
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired ? _c("OpenAppModal", {
+    attrs: {
+      errors: _vm.errors,
+      applications: _vm.applications_default_filter,
+      ids: _vm.devices_current
     }
   }) : _c("OpenAppModal", {
     attrs: {
       errors: _vm.errors,
       applications: _vm.application_deivce,
-      ids: _vm.selected
+      ids: _vm.devices_current
     }
-  }), _vm._v(" "), _vm.hasAnyPermission(["Lite"]) ? _c("OpenGroupApp", {
+  }), _vm._v(" "), _vm.hasAnyPermission(["user-manager"]) ? _c("OpenGroupApp", {
     attrs: {
       errors: _vm.errors,
-      applications: _vm.applications,
+      applications: _vm.application_deivce,
+      current_group: _vm.current_group
+    }
+  }) : _vm.hasAnyPermission(["Demo"]) ? _c("OpenGroupApp", {
+    attrs: {
+      errors: _vm.errors,
+      applications: _vm.applications_default_filter,
+      current_group: _vm.current_group
+    }
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired == false && _vm.enabled == "1" ? _c("OpenGroupApp", {
+    attrs: {
+      errors: _vm.errors,
+      applications: _vm.application_deivce,
+      current_group: _vm.current_group
+    }
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired == false && _vm.enabled == "0" ? _c("OpenGroupApp", {
+    attrs: {
+      errors: _vm.errors,
+      applications: _vm.applications_default_filter,
+      current_group: _vm.current_group
+    }
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired == false && _vm.enabled == null ? _c("OpenGroupApp", {
+    attrs: {
+      applications: _vm.application_deivce,
+      current_group: _vm.current_group
+    }
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired ? _c("OpenGroupApp", {
+    attrs: {
+      applications: _vm.applications_default_filter,
       current_group: _vm.current_group
     }
   }) : _c("OpenGroupApp", {
     attrs: {
       errors: _vm.errors,
-      applications: _vm.applications,
+      applications: _vm.application_deivce,
       current_group: _vm.current_group
     }
-  }), _vm._v(" "), _vm.hasAnyPermission(["Lite"]) ? _c("DefaultGroupAppVue", {
+  }), _vm._v(" "), _vm.hasAnyPermission(["user-manager"]) ? _c("DefaultGroupAppVue", {
     attrs: {
       errors: _vm.errors,
-      applications: _vm.applications,
+      applications: _vm.application_deivce,
+      current_group: _vm.current_group
+    }
+  }) : _vm.hasAnyPermission(["Demo"]) ? _c("DefaultGroupAppVue", {
+    attrs: {
+      errors: _vm.errors,
+      applications: _vm.applications_default_filter,
+      current_group: _vm.current_group
+    }
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired == false && _vm.enabled == "1" ? _c("DefaultGroupAppVue", {
+    attrs: {
+      errors: _vm.errors,
+      applications: _vm.application_deivce,
+      current_group: _vm.current_group
+    }
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired == false && _vm.enabled == "0" ? _c("DefaultGroupAppVue", {
+    attrs: {
+      errors: _vm.errors,
+      applications: _vm.applications_default_filter,
+      current_group: _vm.current_group
+    }
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired == false && _vm.enabled == null ? _c("DefaultGroupAppVue", {
+    attrs: {
+      applications: _vm.application_deivce,
+      current_group: _vm.current_group
+    }
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired ? _c("DefaultGroupAppVue", {
+    attrs: {
+      applications: _vm.applications_default_filter,
       current_group: _vm.current_group
     }
   }) : _c("DefaultGroupAppVue", {
     attrs: {
       errors: _vm.errors,
-      applications: _vm.applications,
+      applications: _vm.application_deivce,
       current_group: _vm.current_group
     }
-  }), _vm._v(" "), _vm.hasAnyPermission(["Lite"]) ? _c("LaunchAppTime", {
+  }), _vm._v(" "), _vm.hasAnyPermission(["user-manager"]) ? _c("LaunchAppTime", {
     attrs: {
       errors: _vm.errors,
-      applications: _vm.applications,
+      applications: _vm.application_deivce,
+      current_group: _vm.current_group
+    }
+  }) : _vm.hasAnyPermission(["Demo"]) ? _c("LaunchAppTime", {
+    attrs: {
+      errors: _vm.errors,
+      applications: _vm.applications_default_filter,
+      current_group: _vm.current_group
+    }
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired == false && _vm.enabled == "1" ? _c("LaunchAppTime", {
+    attrs: {
+      errors: _vm.errors,
+      applications: _vm.application_deivce,
+      current_group: _vm.current_group
+    }
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired == false && _vm.enabled == "0" ? _c("LaunchAppTime", {
+    attrs: {
+      errors: _vm.errors,
+      applications: _vm.applications_default_filter,
+      current_group: _vm.current_group
+    }
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired == false && _vm.enabled == null ? _c("LaunchAppTime", {
+    attrs: {
+      applications: _vm.application_deivce,
+      current_group: _vm.current_group
+    }
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired ? _c("LaunchAppTime", {
+    attrs: {
+      applications: _vm.applications_default_filter,
       current_group: _vm.current_group
     }
   }) : _c("LaunchAppTime", {
     attrs: {
       errors: _vm.errors,
-      applications: _vm.applications,
+      applications: _vm.application_deivce,
       current_group: _vm.current_group
     }
-  }), _vm._v(" "), _c("button", {
+  }), _vm._v(" "), _c("div", {
+    staticClass: "my-3"
+  }, [_c("button", {
     staticClass: "inline-block px-8 py-4 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out",
     attrs: {
-      type: "button",
+      type: "button ",
       "data-toggle": "modal",
       "data-target": "#exampleModal"
     },
@@ -6798,7 +6998,7 @@ var render = function render() {
         return _vm.clickModal();
       }
     }
-  }, [_vm._v("Create Group")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Create Group")])]), _vm._v(" "), _c("div", {
     staticClass: "modal fade",
     attrs: {
       id: "exampleModal",
@@ -6906,7 +7106,7 @@ var render = function render() {
       "data-dismiss": "modal"
     }
   }, [_vm._v("Close")]), _vm._v(" "), _c("button", {
-    staticClass: "inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out",
+    staticClass: "inline-block px-6 py-2.5 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out",
     attrs: {
       type: "submit"
     },
@@ -6947,8 +7147,13 @@ var render = function render() {
     }, [_vm._m(1, true), _vm._v(" "), _c("div", {
       staticClass: "flex-1 pl-1 mr-16"
     }, [_c("div", {
-      staticClass: "font-medium"
-    }, [_vm._v(_vm._s(group.name))]), _vm._v(" "), group.time && _vm.timestamp != null && group.time - _vm.timestamp > 0 ? _c("vue-countdown", {
+      staticClass: "font-medium",
+      "class": group.id == _vm.current_group.id ? "text-white" : ""
+    }, [_vm._v(_vm._s(group.name))]), _vm._v(" "), _c("div", {
+      staticClass: "text-yellow-600",
+      "class": group.id == _vm.current_group.id ? "text-white" : ""
+    }, [group.time && _vm.timestamp != null && group.time - _vm.timestamp > 0 ? _c("vue-countdown", {
+      "class": group.id == _vm.current_group.id ? "text-white" : "",
       attrs: {
         time: (group.time - _vm.timestamp) * 1000,
         transform: _vm.transformSlotProps
@@ -6958,13 +7163,15 @@ var render = function render() {
         fn: function fn(_ref) {
           var minutes = _ref.minutes,
               seconds = _ref.seconds;
-          return [_vm._v("\n                                                Time Remaining： " + _vm._s(minutes) + ": " + _vm._s(seconds) + "\n                                                ")];
+          return [_vm._v("\n                                                    Time Remaining： " + _vm._s(minutes) + ": " + _vm._s(seconds) + "\n                                                ")];
         }
       }], null, true)
-    }) : _vm._e()], 1)]), _vm._v(" "), _c("div", {
+    }) : _vm._e(), _vm._v(" "), group.time && _vm.timestamp !== "" && group.time - _vm.timestamp > 0 ? _c("div", {
+      "class": group.id == _vm.current_group.id ? "text-white" : ""
+    }, [_c("span", [_vm._v(_vm._s(group.app_running.appName))])]) : _vm._e()], 1)])]), _vm._v(" "), _c("div", {
       staticClass: "text-gray-600 text-xl flex"
     }, [_c("button", {
-      staticClass: "inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out",
+      staticClass: "inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out mx-2",
       attrs: {
         type: "button",
         "data-toggle": "modal",
@@ -6981,7 +7188,7 @@ var render = function render() {
         "aria-hidden": "true"
       }
     })]), _vm._v(" "), _c("button", {
-      staticClass: "inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out",
+      staticClass: "inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-red-400 hover:text-white hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out",
       attrs: {
         type: "button"
       },
@@ -7028,7 +7235,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  }), _vm._v("Lauch App Group")])]), _vm._v(" "), _c("li", [_c("button", {
+  }), _vm._v("Lauch App\n                                                    Group")])]), _vm._v(" "), _c("li", [_c("button", {
     staticClass: "btn btn-secondary",
     attrs: {
       type: "button",
@@ -7067,12 +7274,41 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  }), _vm._v("Lauch App ")])])])])])]), _vm._v(" "), _vm.current_group ? _c("table", {
+  }), _vm._v("Lauch App ")])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "w-full max-w-md p-4 mb-8 mt-8"
+  }, [_c("select", {
+    staticClass: "bg-gray-50 border border-gray-300 text-gray-900 text-2xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ml-2",
+    attrs: {
+      id: "countries"
+    },
+    on: {
+      change: _vm.changeEnable
+    }
+  }, [_c("option", {
+    domProps: {
+      value: null,
+      selected: _vm.enabled == null ? true : false
+    }
+  }, [_vm._v("All")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "1"
+    },
+    domProps: {
+      selected: _vm.enabled == "1" ? true : false
+    }
+  }, [_vm._v("Enable")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "0"
+    },
+    domProps: {
+      selected: _vm.enabled == "0" ? true : false
+    }
+  }, [_vm._v("Disable")])])])]), _vm._v(" "), _vm.current_group ? _c("table", {
     staticClass: "w-full text-xl text-left text-gray-500 dark:text-gray-400"
   }, [_c("thead", {
     staticClass: "text-xl text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
   }, [_c("tr", [_c("th", {
-    staticClass: "py-3 px-6 text-xl",
+    staticClass: "py-3 px-6 text-xl text-center",
     attrs: {
       scope: "col"
     }
@@ -7111,36 +7347,41 @@ var render = function render() {
       }
     }
   })]), _vm._v(" "), _c("th", {
-    staticClass: "py-3 px-6 text-xl uppercase",
+    staticClass: "py-3 px-6 text-xl uppercase text-center",
     attrs: {
       scope: "col"
     }
   }, [_vm._v("No")]), _vm._v(" "), _c("th", {
-    staticClass: "py-3 px-6 text-xl uppercase",
+    staticClass: "py-3 px-6 text-xl uppercase text-center",
     attrs: {
       scope: "col"
     }
   }, [_vm._v("name")]), _vm._v(" "), _c("th", {
-    staticClass: "py-3 px-6 text-xl uppercase",
+    staticClass: "py-3 px-6 text-xl uppercase text-center",
     attrs: {
       scope: "col"
     }
   }, [_vm._v("device ID")]), _vm._v(" "), _c("th", {
-    staticClass: "py-3 px-6 text-xl uppercase",
+    staticClass: "py-3 px-6 text-xl uppercase text-center",
     attrs: {
       scope: "col"
     }
   }, [_vm._v("Brand")]), _vm._v(" "), _c("th", {
-    staticClass: "py-3 px-6 text-xl",
+    staticClass: "py-3 px-6 text-xl uppercase text-center",
     attrs: {
       scope: "col"
     }
-  }, [_vm._v("Battery")]), _vm._v(" "), _vm._m(3)])]), _vm._v(" "), _c("tbody", _vm._l(_vm.current_group.devices, function (device, index) {
+  }, [_vm._v("DEFAULT APP")]), _vm._v(" "), _c("th", {
+    staticClass: "py-3 px-6 text-xl text-center",
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("Status")]), _vm._v(" "), _vm._m(3)])]), _vm._v(" "), _c("tbody", _vm._l(_vm.current_group.devices, function (device, index) {
     return _c("tr", {
       key: index,
       staticClass: "bg-white border-b dark:bg-gray-800 dark:border-gray-700"
     }, [_c("td", {
-      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white",
+      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center",
       attrs: {
         scope: "row"
       }
@@ -7180,41 +7421,79 @@ var render = function render() {
         }
       }
     })]), _vm._v(" "), _c("th", {
-      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white",
+      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center",
       attrs: {
         scope: "row"
       }
     }, [_vm._v("\n                                            " + _vm._s(index + 1) + "\n                                        ")]), _vm._v(" "), _c("th", {
-      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white",
+      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center",
       attrs: {
         scope: "row"
       }
-    }, [_vm._v("\n                                            " + _vm._s(device.name))]), _vm._v(" "), _c("th", {
-      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white",
+    }, [_c("Link", {
+      attrs: {
+        href: _vm.route("device.detail", device.id)
+      }
+    }, [_vm._v("\n                                                " + _vm._s(device.name) + "\n                                            ")])], 1), _vm._v(" "), _c("th", {
+      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center",
       attrs: {
         scope: "row"
       }
     }, [_vm._v("\n                                            " + _vm._s(device.device_id))]), _vm._v(" "), _c("th", {
-      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white",
+      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center",
       attrs: {
         scope: "row"
       }
     }, [_c("span", {
       staticClass: "text-xl inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded"
     }, [_vm._v(_vm._s(device.brand))])]), _vm._v(" "), _c("th", {
-      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white",
+      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center",
       attrs: {
         scope: "row"
       }
+    }, [_vm._v("  \n                                                   " + _vm._s(device.default_app ? device.default_app.appName : null) + "                                       \n                                        ")]), _vm._v(" "), _c("th", {
+      staticClass: "flex py-4 px-6 font-medium text-gray-900 whitespace-nowrap justify-center",
+      attrs: {
+        scope: "row"
+      }
+    }, [device.active ? _c("span", {
+      staticClass: "mx-4"
     }, [_c("i", {
-      staticClass: "fa fa-battery-full",
+      staticClass: "fa fa-circle mr-1",
+      staticStyle: {
+        color: "#23cd26"
+      }
+    }), _vm._v("On")]) : _c("span", {
+      staticClass: "mx-4"
+    }, [_c("i", {
+      staticClass: "fa fa-circle mr-1",
+      staticStyle: {
+        color: "#979b97",
+        "font-size": "9px"
+      }
+    }), _vm._v("Off")]), _vm._v(" "), _c("span", {
+      staticClass: "mx-4"
+    }, [_c("i", {
+      staticClass: "fa fa-battery-full mr-1",
       attrs: {
         "aria-hidden": "true"
       }
-    }), _vm._v(_vm._s(device.battery * 100) + " %\n                                        ")]), _vm._v(" "), _c("td", {
+    }), _vm._v(_vm._s((device.battery * 100).toFixed(0)) + " %\n                                            ")]), _vm._v(" "), _c("div", {
+      staticClass: "mx-4"
+    }, [device.enabled ? _c("p", [_c("i", {
+      staticClass: "fa fa-check-circle",
+      staticStyle: {
+        color: "#23cd26"
+      }
+    }), _vm._v(" Enable")]) : _c("p", [_c("i", {
+      staticClass: "fa fa-ban",
+      staticStyle: {
+        color: "#ed0c0c"
+      }
+    }), _vm._v(" Disable")])])]), _vm._v(" "), _c("td", {
       staticClass: "py-4 px-6 text-right"
     }, [_c("button", {
-      staticClass: "inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out",
+      staticClass: "inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-red-400 hover:text-white hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out",
       attrs: {
         type: "button"
       },
@@ -7281,7 +7560,7 @@ var staticRenderFns = [function () {
       _c = _vm._self._c;
 
   return _c("th", {
-    staticClass: "py-3 px-6 text-xl",
+    staticClass: "py-3 px-6 text-xl text-center",
     attrs: {
       scope: "col"
     }
@@ -7363,7 +7642,7 @@ var render = function render() {
       value: _vm.search,
       expression: "search"
     }],
-    staticClass: "relative w-full px-8 py-3 text-xl rounded-r focus:shadow-outline",
+    staticClass: "block w-full py-3 pl-5 text-xl text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500",
     attrs: {
       autocomplete: "off",
       type: "text",
@@ -7582,7 +7861,7 @@ var render = function render() {
       value: _vm.search,
       expression: "search"
     }],
-    staticClass: "relative w-full px-8 py-3 text-xl rounded-r focus:shadow-outline",
+    staticClass: "block w-full py-3 pl-5 text-xl text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500",
     attrs: {
       autocomplete: "off",
       type: "text",
@@ -7852,7 +8131,7 @@ var render = function render() {
       value: _vm.search,
       expression: "search"
     }],
-    staticClass: "relative w-full px-8 py-3 text-xl rounded-r focus:shadow-outline",
+    staticClass: "block w-full py-3 pl-5 text-xl text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500",
     attrs: {
       autocomplete: "off",
       type: "text",
@@ -8188,7 +8467,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.multiselect-tags-search {\r\n    font-size: 1.25rem;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".multiselect-tags-search {\r\n    font-size: 1.25rem;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

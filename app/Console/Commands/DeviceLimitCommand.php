@@ -41,12 +41,23 @@ class DeviceLimitCommand extends Command
     {
        
         $users= User::has('devices')->withCount('devices')->with('devices')->get();
-       
+        //Những tài khoản có số lượng device sở hữu lớn hơn giới hạn
         $limit_users= $users->filter(function ($user, $key) {
                 return $user->devices_count > $user->number_device;
         });
+        //Cập nhật device sở hữu lớn hơn giới hạn
         foreach($limit_users as $user){
-            $deviceLimitRepository->updateDevice($user);
+            $deviceLimitRepository->updateDeviceLimit($user);
         }
+        // Những tài khoản có số lượng device sở hữu nhỏ hơn giới hạn
+        $unlimit_users =  $users->filter(function ($user, $key) {
+            return  $user->devices_count < $user->number_device  ;
+        });
+        //Cập nhật device sở hữu nhỏ hơn giới hạn
+        foreach($unlimit_users as $user){
+            $deviceLimitRepository->updateDeviceUnRestricted($user);  
+        }
+        
+     
     }
 }

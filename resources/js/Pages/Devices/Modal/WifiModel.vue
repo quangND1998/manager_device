@@ -60,7 +60,7 @@
                         <form>
                             <div class="w-full max-w-md  p-4 mb-8 mt-8">
                                 <input v-model="search"
-                                    class="relative w-full px-8 py-3 text-xl rounded-r focus:shadow-outline"
+                                    class="block w-full py-3 pl-5 text-xl text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
                                     autocomplete="off" type="text" name="search" placeholder="Search…" />
                             </div>
                             <h6 class="font-medium leading-tight text-xl mt-0 mb-2 p-4  text-blue-600">Choose some Wifi

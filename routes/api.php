@@ -5,13 +5,6 @@ use App\Http\Controllers\Api\AppLaucher\AppController;
 use App\Http\Controllers\Api\AppLaucher\AppWindowController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PermisssionController;
-<<<<<<< HEAD
-use App\Http\Controllers\Api\RoomController;
-use App\Http\Controllers\Api\EventController;
-use App\Http\Controllers\Api\GameController;
-use App\Http\Controllers\ApplicationController;
-=======
->>>>>>> origin/api-laucher
 use App\Http\Controllers\DeviceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -86,27 +79,6 @@ Route::group(['middleware' => 'languages_api',
         });
         Route::prefix('applications')->as('app.')->group(function () {
 
-<<<<<<< HEAD
-        Route::get('permissions',[PermisssionController::class,'index']);
-        Route::post('permission',[PermisssionController::class,'store']);
-        Route::get('permission/{id}',[PermisssionController::class,'get']);
-        Route::put('permission/{id}/update',[PermisssionController::class,'update']);
-        Route::delete('permission/delete/{id}',[PermisssionController::class,'delete']);
-        // room
-        Route::get('room',[RoomController::class,'index']);
-        Route::post('room/store',[RoomController::class,'store']);
-        Route::post('room/update/{id}',[RoomController::class,'update']);
-        Route::delete('room/delete/{id}',[RoomController::class,'delete']);
-
-        // event
-        Route::get('events',[EventController::class,'index']);
-        Route::post('event/store',[EventController::class,'store']);
-        Route::post('event/update/{id}',[EventController::class,'update']);
-        Route::delete('event/delete/{id}',[EventController::class,'delete']);
-
-        // game
-        Route::get('game',[GameController::class,'index']);
-=======
             Route::post('/get', [AppController::class, 'applications'])->name('index');
             Route::get('/default', [AppController::class, 'application_default'])->name('default');
         });
@@ -142,7 +114,6 @@ Route::group(['middleware' => 'languages_api',
             Route::post('/update/{app}', [AppWindowController::class, 'update']);
             Route::delete('/delete/{app}', [AppWindowController::class, 'delete']);
         });
->>>>>>> origin/api-laucher
     });
 
 

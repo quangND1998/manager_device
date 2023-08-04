@@ -176,18 +176,14 @@ __webpack_require__.r(__webpack_exports__);
     listenNotificationDevice: function listenNotificationDevice() {
       var _this2 = this;
 
-      console.log(this.user.id);
+      this.sockets.subscribe("time-end-device.".concat(this.$page.props.auth.user.id, ":App\\Events\\TimeEndDeviceNotification"), function (data) {
+        console.log(data);
 
-      if (this.user) {
-        this.sockets.subscribe("time-end-device.".concat(this.$page.props.auth.user.id, ":App\\Events\\TimeEndDeviceNotification"), function (data) {
-          console.log(data);
-
-          _this2.$swal("Device ".concat(data.device_name, " Timer Ends"), {
-            icon: "warning",
-            timer: 60000
-          });
+        _this2.$swal("Device ".concat(data.device_name, " Timer Ends"), {
+          icon: "warning",
+          timer: 60000
         });
-      }
+      });
     }
   }
 });
@@ -2559,6 +2555,7 @@ var render = function render() {
   return _c("section", {
     staticClass: "content"
   }, [_c("ContentHeaderVue", {
+    staticClass: "pl-0",
     attrs: {
       name: "invoice"
     }
@@ -2571,7 +2568,7 @@ var render = function render() {
       value: _vm.term,
       expression: "term"
     }],
-    staticClass: "relative w-full px-8 py-3 text-xl rounded-r focus:shadow-outline",
+    staticClass: "block w-full py-3 pl-5 text-xl text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500",
     attrs: {
       autocomplete: "off",
       type: "text",

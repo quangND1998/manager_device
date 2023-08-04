@@ -8842,18 +8842,14 @@ __webpack_require__.r(__webpack_exports__);
     listenNotificationDevice: function listenNotificationDevice() {
       var _this2 = this;
 
-      console.log(this.user.id);
+      this.sockets.subscribe("time-end-device.".concat(this.$page.props.auth.user.id, ":App\\Events\\TimeEndDeviceNotification"), function (data) {
+        console.log(data);
 
-      if (this.user) {
-        this.sockets.subscribe("time-end-device.".concat(this.$page.props.auth.user.id, ":App\\Events\\TimeEndDeviceNotification"), function (data) {
-          console.log(data);
-
-          _this2.$swal("Device ".concat(data.device_name, " Timer Ends"), {
-            icon: "warning",
-            timer: 60000
-          });
+        _this2.$swal("Device ".concat(data.device_name, " Timer Ends"), {
+          icon: "warning",
+          timer: 60000
         });
-      }
+      });
     }
   }
 });
@@ -11370,6 +11366,7 @@ var render = function render() {
   return _c("section", {
     staticClass: "content"
   }, [_c("ContentHeaderVue", {
+    staticClass: "pl-0",
     attrs: {
       name: "Window App"
     }
@@ -11377,7 +11374,9 @@ var render = function render() {
     attrs: {
       dismissible: true
     }
-  }), _vm._v(" "), _c("button", {
+  }), _vm._v(" "), _c("div", {
+    staticClass: "my-5"
+  }, [_c("button", {
     staticClass: "inline-block px-8 py-4 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out",
     attrs: {
       type: "button",
@@ -11389,7 +11388,7 @@ var render = function render() {
         return _vm.clickModal();
       }
     }
-  }, [_vm._v("Save App")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Upload App")])]), _vm._v(" "), _c("div", {
     staticClass: "modal fade",
     attrs: {
       id: "exampleModal",
@@ -11623,7 +11622,7 @@ var render = function render() {
       "data-dismiss": "modal"
     }
   }, [_vm._v("Cancel")]), _vm._v(" "), _c("button", {
-    staticClass: "inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out",
+    staticClass: "inline-block px-6 py-2.5 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out",
     attrs: {
       type: "submit"
     },
@@ -11640,37 +11639,37 @@ var render = function render() {
   }, [_c("thead", {
     staticClass: "text-xl text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
   }, [_c("tr", [_c("th", {
-    staticClass: "py-3 px-6 text-xl",
+    staticClass: "py-3 px-6 text-xl text-center",
     attrs: {
       scope: "col"
     }
   }, [_vm._v("No")]), _vm._v(" "), _c("th", {
-    staticClass: "py-3 px-6 text-xl uppercase",
+    staticClass: "py-3 px-6 text-xl uppercase text-center",
     attrs: {
       scope: "col"
     }
   }, [_vm._v("name")]), _vm._v(" "), _c("th", {
-    staticClass: "py-3 px-6 text-xl uppercase",
+    staticClass: "py-3 px-6 text-xl uppercase text-center",
     attrs: {
       scope: "col"
     }
   }, [_vm._v("Path")]), _vm._v(" "), _c("th", {
-    staticClass: "py-3 px-6 text-xl uppercase",
+    staticClass: "py-3 px-6 text-xl uppercase text-center",
     attrs: {
       scope: "col"
     }
   }, [_vm._v("Icon")]), _vm._v(" "), _c("th", {
-    staticClass: "py-3 px-6 text-xl uppercase",
+    staticClass: "py-3 px-6 text-xl uppercase text-center",
     attrs: {
       scope: "col"
     }
   }, [_vm._v("PackageName")]), _vm._v(" "), _c("th", {
-    staticClass: "py-3 px-6 text-xl uppercase",
+    staticClass: "py-3 px-6 text-xl uppercase text-center",
     attrs: {
       scope: "col"
     }
   }, [_vm._v("Version")]), _vm._v(" "), _vm.hasAnyPermission(["user-manager"]) ? _c("th", {
-    staticClass: "py-3 px-6 text-xl uppercase",
+    staticClass: "py-3 px-6 text-xl uppercase text-center",
     attrs: {
       scope: "col"
     }
@@ -11679,22 +11678,22 @@ var render = function render() {
       key: index,
       staticClass: "bg-white border-b dark:bg-gray-800 dark:border-gray-700"
     }, [_c("th", {
-      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white",
+      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center dark:text-white",
       attrs: {
         scope: "row"
       }
     }, [_vm._v("\n            " + _vm._s(index + 1) + "\n          ")]), _vm._v(" "), _c("th", {
-      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white",
+      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center dark:text-white",
       attrs: {
         apk: "row"
       }
     }, [_vm._v(_vm._s(app.name))]), _vm._v(" "), _c("th", {
-      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white",
+      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center dark:text-white",
       attrs: {
         apk: "row"
       }
     }, [_vm._v(_vm._s(app.path))]), _vm._v(" "), _c("th", {
-      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white",
+      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center dark:text-white",
       attrs: {
         scope: "row"
       }
@@ -11704,17 +11703,17 @@ var render = function render() {
         width: "50px"
       }
     })]), _vm._v(" "), _c("th", {
-      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white",
+      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center dark:text-white",
       attrs: {
         apk: "row"
       }
     }, [_vm._v(_vm._s(app.packageName))]), _vm._v(" "), _c("th", {
-      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white",
+      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center dark:text-white",
       attrs: {
         apk: "row"
       }
     }, [_vm._v(_vm._s(app.version))]), _vm._v(" "), _vm.hasAnyPermission(["user-manager"]) ? _c("th", {
-      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white",
+      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center dark:text-white",
       attrs: {
         scope: "row"
       }
@@ -11737,7 +11736,7 @@ var render = function render() {
         }
       }
     }, [_vm._v("\n              Edit\n              Name\n            ")]), _vm._v(" "), _c("button", {
-      staticClass: "inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out",
+      staticClass: "inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-red-400 hover:text-white hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out",
       attrs: {
         type: "button"
       },
@@ -11777,7 +11776,7 @@ var staticRenderFns = [function () {
       _c = _vm._self._c;
 
   return _c("th", {
-    staticClass: "py-3 px-6 text-xl uppercase",
+    staticClass: "py-3 px-6 text-xl uppercase text-center",
     attrs: {
       scope: "col"
     }

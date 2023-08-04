@@ -21,7 +21,8 @@ class GroupResource extends JsonResource
             'name' => $this->name,
             'user_id' => $this->user_id,
             'devices' => DeviceResouce::collection($this->devices),
-            'time' => $this->time
+            'time' => $this->time,
+            'app_running' =>new AppRunResource($this->app_running)
 
         ];
     }

@@ -2,6 +2,8 @@
 
 namespace App\Events;
 
+use App\Models\Devices;
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -9,6 +11,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\File;
 
 class TimeEndDeviceNotification implements ShouldBroadcast
 {
@@ -20,7 +23,7 @@ class TimeEndDeviceNotification implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($device, $user)
+    public function __construct( $device, $user)
     {
         $this->device = $device;
         $this->user = $user;
@@ -33,17 +36,21 @@ class TimeEndDeviceNotification implements ShouldBroadcast
      */
     public function broadcastOn()
     {
+   
         return new Channel('time-end-device.'.$this->user->id);
     }
 
 
     public function broadcastWith()
     {
+  
         return
             [
                 'device' => $this->device->id,
                 'device_name' => $this->device->name,
-                'device_id' => $this->device->deivce_id
+                'device_id' => $this->device->device_id,
             ];
     }
+
+ 
 }

@@ -3563,18 +3563,14 @@ __webpack_require__.r(__webpack_exports__);
     listenNotificationDevice: function listenNotificationDevice() {
       var _this2 = this;
 
-      console.log(this.user.id);
+      this.sockets.subscribe("time-end-device.".concat(this.$page.props.auth.user.id, ":App\\Events\\TimeEndDeviceNotification"), function (data) {
+        console.log(data);
 
-      if (this.user) {
-        this.sockets.subscribe("time-end-device.".concat(this.$page.props.auth.user.id, ":App\\Events\\TimeEndDeviceNotification"), function (data) {
-          console.log(data);
-
-          _this2.$swal("Device ".concat(data.device_name, " Timer Ends"), {
-            icon: "warning",
-            timer: 60000
-          });
+        _this2.$swal("Device ".concat(data.device_name, " Timer Ends"), {
+          icon: "warning",
+          timer: 60000
         });
-      }
+      });
     }
   }
 });

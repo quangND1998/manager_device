@@ -151,7 +151,7 @@ var render = function render() {
       value: _vm.search,
       expression: "search"
     }],
-    staticClass: "relative w-full px-8 py-3 text-xl rounded-r focus:shadow-outline",
+    staticClass: "block w-full py-3 pl-5 text-xl text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500",
     attrs: {
       autocomplete: "off",
       type: "text",

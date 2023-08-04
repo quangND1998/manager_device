@@ -222,10 +222,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _Pages_User_Layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Pages/User/Layout */ "./resources/js/Pages/User/Layout.vue");
+/* harmony import */ var _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue */ "./node_modules/@inertiajs/inertia-vue/dist/index.js");
+/* harmony import */ var _Pages_User_Layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Pages/User/Layout */ "./resources/js/Pages/User/Layout.vue");
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  layout: _Pages_User_Layout__WEBPACK_IMPORTED_MODULE_0__["default"],
+  layout: _Pages_User_Layout__WEBPACK_IMPORTED_MODULE_1__["default"],
+  components: {
+    Link: _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_0__.Link
+  },
   props: {
     user: Object,
     devices: Object
@@ -2791,7 +2796,11 @@ var render = function render() {
       attrs: {
         scope: "row"
       }
-    }, [_vm._v("\n                    " + _vm._s(device.name))]), _vm._v(" "), _c("th", {
+    }, [_c("Link", {
+      attrs: {
+        href: _vm.route("device.detail", device.id)
+      }
+    }, [_vm._v(_vm._s(device.name))])], 1), _vm._v(" "), _c("th", {
       staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white",
       attrs: {
         scope: "row"

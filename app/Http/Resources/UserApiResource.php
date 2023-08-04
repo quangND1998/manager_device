@@ -23,6 +23,7 @@ class UserApiResource extends JsonResource
                 'name' => $this->name,
                 'avatar' => $this->avatar ?  $request->getSchemeAndHttpHost().$this->avatar : 'https://ui-avatars.com/api/?name=' . Str::slug($this->name) . '?background=0D8ABC&color=fff',
                 'roles' => $this->hasAnyRole(['administrator', 'Pro', 'Demo']),
+                'user_roles'=>  $this->roles,
                 'can' => $request->user() ? $request->user()->getPermissionArray() : [],
                 'time_limit' => $this->time_limit,
                 'number_device'=> $this->number_device,

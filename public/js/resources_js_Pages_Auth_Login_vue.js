@@ -731,7 +731,7 @@ var staticRenderFns = [function () {
   }), _vm._v(" "), _c("a", {
     staticClass: "ml-3",
     attrs: {
-      href: "https://bit.ly/Holostartup_Kioskmode",
+      href: "https://bit.ly/HoloStartup",
       target: "_blank"
     }
   }, [_vm._v("Download App")])]);

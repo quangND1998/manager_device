@@ -30,22 +30,23 @@ class ApplicationRepository extends BaseRepository
     { 
         $user = Auth::user();
         $isExpired= Carbon::now()->gt($user->time_limit);
-        if ($user->hasPermissionTo('user-manager')) {
-            return  $this->model()->whereIn('device_id', $devices)->get();
-        } elseif ($user->hasPermissionTo('Demo')) {
-            // Tai khoan Lite tra ve cac app mac dinh
-            return  ApplicationDefault::get();
-        }
-        else {
-            // Het time limit tra ve cac app mac dinh
-            if($isExpired){
-                return  ApplicationDefault::get();
-            }
-            else{
-                // Tra ve cac danh sach app cua cac device
-                return  $this->model()->whereIn('device_id', $devices)->get();
-            }
-        }
+        return  $this->model()->whereIn('device_id', $devices)->get();
+        // if ($user->hasPermissionTo('user-manager')) {
+        //     return  $this->model()->whereIn('device_id', $devices)->get();
+        // } elseif ($user->hasPermissionTo('Demo')) {
+        //     // Tai khoan Lite tra ve cac app mac dinh
+        //     return  $this->model()->whereIn('device_id', $devices)->get();
+        // }
+        // else {
+        //     // Het time limit tra ve cac app mac dinh
+        //     if($isExpired){
+        //        return  $this->model()->whereIn('device_id', $devices)->get();
+        //     }
+        //     else{
+        //         // Tra ve cac danh sach app cua cac device
+        //         return  $this->model()->whereIn('device_id', $devices)->get();
+        //     }
+        // }
     }
 
 

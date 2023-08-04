@@ -55,8 +55,7 @@ export default {
       });
     },
     listenNotificationDevice() {
-      console.log(this.user.id)
-      if (this.user) {
+ 
         this.sockets.subscribe(`time-end-device.${this.$page.props.auth.user.id}:App\\Events\\TimeEndDeviceNotification`, (data) => {
           console.log(data)
           this.$swal(`Device ${data.device_name} Timer Ends`, {
@@ -64,7 +63,7 @@ export default {
             timer: 60000,
           });
         });
-      }
+      
 
     }
   }

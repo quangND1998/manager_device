@@ -38,9 +38,9 @@ class DeviceLimitRepository extends BaseRepository
    
     }
 
-    public function updateDevice($user){
+    public function updateDeviceLimit($user){
         $limit_devices = $this->limitDevicesByCreated($user->number_device,$user);
-
+    
         $skip_devices = $this->skipDevicesByCreated($user->number_device,$user);
         if(count($limit_devices) >0){
             foreach($limit_devices as $device){
@@ -54,5 +54,12 @@ class DeviceLimitRepository extends BaseRepository
         }
 
     }
+
+    public function updateDeviceUnRestricted($user){
+        foreach($user->devices as $device){
+            $this->enabledDevice($device);
+        }  
+    }
+
 
 }

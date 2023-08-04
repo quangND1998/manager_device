@@ -137,14 +137,20 @@
                       class="block uppercase tracking-wide text-gray-700 text-xl font-bold mb-2"
                       for="grid-first-name"
                     >{{__('Time Limit')}}</label>
-                    <input
+                    <!-- <input
                       class="appearance-none block w-full bg-gray-200 text-gray-500 border rounded py-4 px-3 mb-3 text-xl leading-tight focus:outline-none focus:bg-white"
                       id="grid-first-name"
                       type="date"
                       placeholder
                       v-model="form.time_limit"
                       :class="errors.time_limit ? 'border-red-500' :''"
-                    />
+                    /> -->
+                    <date-picker
+                      v-model="form.time_limit"
+                      type="datetime"
+                      placeholder="Select datetime"
+                      value-type="YYYY-MM-DD HH:mm:ss"
+                    ></date-picker>
                     <p class="text-red-500 text-xl italic" v-if="errors.time_limit">{{ errors.time_limit }}</p>
                   </div>
                   <div class="w-full md:w-1/2 px-3">
@@ -329,6 +335,8 @@ import Multiselect from "@vueform/multiselect/dist/multiselect.vue2.js";
 import ImportModal from "@/Pages/Admin/ImportModal";
 import UpdateUser from "@/Pages/Admin/UpdateUser";
 import admin from "./mixins/admin";
+import DatePicker from 'vue2-datepicker';
+import 'vue2-datepicker/index.css';
 import { eventNames } from 'process';
 export default {
   layout: Layout,
@@ -346,7 +354,8 @@ export default {
     Alert,
     Multiselect,
     ImportModal,
-    UpdateUser
+    UpdateUser,
+    DatePicker 
   },
   data() {
     return {

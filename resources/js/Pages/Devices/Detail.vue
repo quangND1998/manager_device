@@ -1,6 +1,9 @@
 <template>
     <section class="content">
-        <ContentHeaderVue :name="'Device Dtail'" />
+        <div>
+            <a href="" class="px-4 py-2 border rounded-lg bg-white text-gray-700 hover:bg-blue-500 hover:text-white">Back to</a>
+        </div>
+        <ContentHeaderVue class="pl-0" :name="'Device Detail'" />
 
         <div class="my-4 flex">
             <div class="mr-3" v-if="device">
@@ -23,10 +26,10 @@
                 <p class="text-xl text-gray-400 my-2">Serial Number</p>
                 <p class="my-2 text-xl font-semibold">{{ device.device_id }}</p>
                 <div class="flex my-2">
-                    <span v-if="device.active"><i class="fa fa-circle ml-2 icon_on mr-1" style="color: #23cd26"
+                    <span v-if="device.active"><i class="fa fa-circle ml-2 icon_on mr-1" style="color: #23cd26; font-size: 10px"
                             aria-hidden="true"></i>
                         On</span>
-                    <span v-else><i class="fa fa-circle ml-2 icon_on mr-1" style="color: #8a8c8f"
+                    <span v-else><i class="fa fa-circle ml-2 icon_on mr-1" style="color: #8a8c8f; font-size: 10px"
                             aria-hidden="true"></i>Off</span>
                     <div class="flex mx-2">
                         <i class="fa fa-wifi ml-2" aria-hidden="true"></i>
@@ -34,7 +37,7 @@
                     </div>
                     <div class="mx-2">
                         <i class="fa fa-battery-full ml-2" aria-hidden="true"></i>
-                        <span class="text-xl ml-1">{{ device.battery * 100 }} %</span>
+                        <span class="text-xl ml-1">{{ (device.battery * 100).toFixed(0) }} %</span>
                     </div>
                 </div>
 
@@ -45,7 +48,7 @@
         <div class="form_search my-3 w-1/4">
             <form>
                 <div class="relative">
-                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none mx-2 my-0">
                         <svg aria-hidden="true" class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -53,7 +56,7 @@
                         </svg>
                     </div>
                     <input type="search" id="default-search" v-model.trim="search"
-                        class="block w-full py-2 pl-5 text-xl text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                        class="block w-full  pl-5 text-xl text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 " style="padding:1rem 3rem"
                         placeholder="Search" required />
                 </div>
             </form>
@@ -104,9 +107,9 @@
                                         {{ item.version }}
                                     </td>
                                  
-                                    <td class="whitespace-nowrap px-6 py-4">
-                                        <i class="fa fa-circle ml-2 icon_on mr-1" size="xs"
-                                            style="color: #23cd26; width: 8px" aria-hidden="true"></i>
+                                    <td class="whitespace-nowrap px-6 py-4 ">
+                                        <i class="fa fa-circle mr-2 icon_on" size="xs"
+                                            style="color: #23cd26; font-size: 10px" aria-hidden="true"></i>
 
                                         Installed
                                     </td>
@@ -226,4 +229,25 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+/* scroll */
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1a8;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #d4d1d17e;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #cecccc5b;
+}
+</style>

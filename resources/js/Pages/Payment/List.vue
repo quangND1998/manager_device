@@ -1,9 +1,9 @@
 <template>
     <section class="content">
-      <ContentHeaderVue :name="'invoice'" />
+      <ContentHeaderVue class="pl-0" :name="'invoice'" />
       <div class="w-full  mb-8 mt-8 flex justify-between ">
         <div>
-          <input v-model="term" @keyup="search" class="relative w-full px-8 py-3 text-xl rounded-r focus:shadow-outline"
+          <input v-model="term" @keyup="search" class="block w-full py-3 pl-5 text-xl text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
             autocomplete="off" type="text" name="search" placeholder="Search…" />
         </div>
       </div>
