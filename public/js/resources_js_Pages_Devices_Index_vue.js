@@ -3555,19 +3555,31 @@ var render = function render() {
       ids: _vm.selected,
       wifis: _vm.wifis
     }
-  }) : _vm._e(), _vm._v(" "), _vm.hasAnyPermission(["Lite"]) ? _c("OpenAppModal", {
+  }) : _vm._e(), _vm._v(" "), _vm.hasAnyPermission(["user-manager"]) ? _c("OpenAppModal", {
     attrs: {
       errors: _vm.errors,
-      applications: _vm.applications,
+      applications: _vm.application_deivce,
       ids: _vm.selected
     }
-  }) : !_vm.hasAnyPermission(["Lite"]) && _vm.$page.props.auth.user.isExpired ? _c("OpenAppModal", {
+  }) : _vm.hasAnyPermission(["Demo"]) ? _c("OpenAppModal", {
     attrs: {
       errors: _vm.errors,
-      applications: _vm.applications,
+      applications: _vm.default_applications,
       ids: _vm.selected
     }
-  }) : !_vm.hasAnyPermission(["Lite"]) && _vm.enabled == "0" ? _c("OpenAppModal", {
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired == false && _vm.enabled == "1" ? _c("OpenAppModal", {
+    attrs: {
+      errors: _vm.errors,
+      applications: _vm.application_deivce,
+      ids: _vm.selected
+    }
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired == false && _vm.enabled == "0" ? _c("OpenAppModal", {
+    attrs: {
+      errors: _vm.errors,
+      applications: _vm.default_applications,
+      ids: _vm.selected
+    }
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired ? _c("OpenAppModal", {
     attrs: {
       errors: _vm.errors,
       applications: _vm.default_applications,
@@ -3584,19 +3596,30 @@ var render = function render() {
       errors: _vm.errors,
       ids: _vm.selected
     }
-  }), _vm._v(" "), _vm.hasAnyPermission(["Lite"]) && _vm.$page.props.auth.user.isExpired == false ? _c("defaulAppModal", {
+  }), _vm._v(" "), _vm.hasAnyPermission(["user-manager"]) ? _c("defaulAppModal", {
     attrs: {
-      errors: _vm.errors,
-      applications: _vm.applications,
+      applications: _vm.application_deivce,
       ids: _vm.selected
     }
-  }) : !_vm.hasAnyPermission(["Lite"]) && _vm.$page.props.auth.user.isExpired ? _c("defaulAppModal", {
+  }) : _vm.hasAnyPermission(["Demo"]) ? _c("defaulAppModal", {
     attrs: {
       errors: _vm.errors,
-      applications: _vm.applications,
+      applications: _vm.default_applications,
       ids: _vm.selected
     }
-  }) : !_vm.hasAnyPermission(["Lite"]) && _vm.enabled == "0" ? _c("defaulAppModal", {
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired == false && _vm.enabled == "1" ? _c("defaulAppModal", {
+    attrs: {
+      errors: _vm.errors,
+      applications: _vm.application_deivce,
+      ids: _vm.selected
+    }
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired == false && _vm.enabled == "0" ? _c("defaulAppModal", {
+    attrs: {
+      errors: _vm.errors,
+      applications: _vm.default_applications,
+      ids: _vm.selected
+    }
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired ? _c("defaulAppModal", {
     attrs: {
       errors: _vm.errors,
       applications: _vm.default_applications,
@@ -3614,19 +3637,19 @@ var render = function render() {
       ids: _vm.selected,
       apk_files: _vm.apk_files
     }
-  }), _vm._v(" "), _vm.hasAnyPermission(["Lite"]) ? _c("UninstallApk", {
+  }), _vm._v(" "), _vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired == false ? _c("UninstallApk", {
     attrs: {
       errors: _vm.errors,
       applications: _vm.applications,
       ids: _vm.selected
     }
-  }) : !_vm.hasAnyPermission(["Lite"]) && _vm.$page.props.auth.user.isExpired ? _c("UninstallApk", {
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired ? _c("UninstallApk", {
     attrs: {
       errors: _vm.errors,
       applications: _vm.applications,
       ids: _vm.selected
     }
-  }) : !_vm.hasAnyPermission(["Lite"]) && _vm.enabled == "0" ? _c("UninstallApk", {
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.enabled == "0" ? _c("UninstallApk", {
     attrs: {
       errors: _vm.errors,
       applications: _vm.applications,
@@ -3638,10 +3661,46 @@ var render = function render() {
       applications: _vm.application_deivce,
       ids: _vm.selected
     }
-  }), _vm._v(" "), _vm.hasAnyPermission(["Lite"]) && _vm.enabled == "0" ? _c("LaunchAppWithTime", {
+  }), _vm._v(" "), _vm.hasAnyPermission(["user-manager"]) ? _c("LaunchAppWithTime", {
     attrs: {
       errors: _vm.errors,
-      applications: _vm.applications,
+      applications: _vm.application_deivce,
+      ids: _vm.selected
+    },
+    on: {
+      updateTime: _vm.updateTimeRemaning
+    }
+  }) : _vm.hasAnyPermission(["Demo"]) ? _c("LaunchAppWithTime", {
+    attrs: {
+      errors: _vm.errors,
+      applications: _vm.default_applications,
+      ids: _vm.selected
+    },
+    on: {
+      updateTime: _vm.updateTimeRemaning
+    }
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired == false && _vm.enabled == "1" ? _c("LaunchAppWithTime", {
+    attrs: {
+      errors: _vm.errors,
+      applications: _vm.application_deivce,
+      ids: _vm.selected
+    },
+    on: {
+      updateTime: _vm.updateTimeRemaning
+    }
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired == false && _vm.enabled == "0" ? _c("LaunchAppWithTime", {
+    attrs: {
+      errors: _vm.errors,
+      applications: _vm.default_applications,
+      ids: _vm.selected
+    },
+    on: {
+      updateTime: _vm.updateTimeRemaning
+    }
+  }) : !_vm.hasAnyPermission(["Demo"]) && _vm.$page.props.auth.user.isExpired ? _c("LaunchAppWithTime", {
+    attrs: {
+      errors: _vm.errors,
+      applications: _vm.default_applications,
       ids: _vm.selected
     },
     on: {

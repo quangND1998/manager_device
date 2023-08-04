@@ -32,7 +32,7 @@ class ApplicationRepository extends BaseRepository
         $isExpired= Carbon::now()->gt($user->time_limit);
         if ($user->hasPermissionTo('user-manager')) {
             return  $this->model()->whereIn('device_id', $devices)->get();
-        } elseif ($user->hasPermissionTo('Lite')) {
+        } elseif ($user->hasPermissionTo('Demo')) {
             // Tai khoan Lite tra ve cac app mac dinh
             return  ApplicationDefault::get();
         }
@@ -46,8 +46,8 @@ class ApplicationRepository extends BaseRepository
                 return  $this->model()->whereIn('device_id', $devices)->get();
             }
         }
-
     }
+
 
 
     public function applications()

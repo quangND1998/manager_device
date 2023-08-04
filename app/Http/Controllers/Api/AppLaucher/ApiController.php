@@ -49,7 +49,7 @@ class ApiController extends Controller
     public function __construct(DeviceRepository $deviceRepository)
     {
         $this->deivce = $deviceRepository;
-        $this->middleware('permission:user-manager|Pro|Demo|Lite', ['only' => ['devices', 'saveName', 'delete','setDefaultApp','disableDefaultApp', 'launchApp','checkDevice','checkActiveDevice','showDevice','dashboard','sendUpdateDevice','launchAppTime','allDevice']]);
+        $this->middleware('permission:user-manager|Pro|Demo|Standard', ['only' => ['devices', 'saveName', 'delete','setDefaultApp','disableDefaultApp', 'launchApp','checkDevice','checkActiveDevice','showDevice','dashboard','sendUpdateDevice','launchAppTime','allDevice']]);
         // $this->middleware('permission:user-manager', ['only' => []]);
      
     }
@@ -169,7 +169,7 @@ class ApiController extends Controller
         $user = Auth::user();
         if ($user->hasPermissionTo('user-manager')) {
             $devices = Devices::get();
-        } elseif ($user->hasPermissionTo('Lite')) {
+        } elseif ($user->hasPermissionTo('Demo')) {
             $devices = Devices::where('user_id', $user->id)->get();
         } else {
             $devices = Devices::where('user_id', $user->id)->get();

@@ -44,8 +44,8 @@ class DeviceController extends Controller
     function __construct(DeviceLimitRepository $deviceLimitRepository)
     {
         $this->deviceLimitRepository = $deviceLimitRepository;
-        $this->middleware('permission:user-manager|Pro|Demo|Lite', ['only' => ['index', 'setDefaultApp', 'launchApp']]);
-        $this->middleware('permission:user-manager|Pro|Demo', ['only' => ['saveName', 'update', 'delete']]);
+        $this->middleware('permission:user-manager|Pro|Demo|Lite|Standard', ['only' => ['index', 'setDefaultApp', 'launchApp']]);
+        $this->middleware('permission:user-manager|Pro|Demo|Lite|Standard', ['only' => ['saveName', 'update', 'delete']]);
      
     }
     public function index(Request $request)
@@ -64,7 +64,7 @@ class DeviceController extends Controller
 
            
             $applications = Applicaion::whereIn('device_id', $devices->pluck('id'))->get();
-        } elseif ($user->hasPermissionTo('Lite')) {
+        } elseif ($user->hasPermissionTo('Demo')) {
 
             $devices = Devices::with('default_app', 'applications', 'user', 'last_login')->where('user_id', $user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
@@ -333,7 +333,7 @@ class DeviceController extends Controller
 
         if ($user->hasPermissionTo('user-manager')) {
             $devices = Devices::get();
-        } elseif ($user->hasPermissionTo('Lite')) {
+        } elseif ($user->hasPermissionTo('Demo')) {
             $devices = Devices::where('user_id', $user->id)->get();
         } else {
             $devices = Devices::where('user_id', $user->id)->get();

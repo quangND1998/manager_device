@@ -108,6 +108,7 @@ Route::group(['middleware' => 'languages_api',
         Route::get('game',[GameController::class,'index']);
 =======
             Route::post('/get', [AppController::class, 'applications'])->name('index');
+            Route::get('/default', [AppController::class, 'application_default'])->name('default');
         });
 
         Route::prefix('application')->as('app.')->group(function () {

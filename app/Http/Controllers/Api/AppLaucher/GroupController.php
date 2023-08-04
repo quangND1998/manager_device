@@ -46,7 +46,7 @@ class GroupController extends Controller
         $this->application = $ApplicationRepository;
         $this->device = $deviceRepository;
         $this->group = $groupRepository;
-        $this->middleware('permission:user-manager|Pro|Demo|Lite', ['only' => ['getGroups', 'groupByIdwithApp', 'groupById', 'store','update','ownerDevice','deleteOwnerDevice','delete','runAppGoup','runAppGroupWithTime','setAppDefaultGroup',]]);
+        $this->middleware('permission:user-manager|Pro|Demo|Standard', ['only' => ['getGroups', 'groupByIdwithApp', 'groupById', 'store','update','ownerDevice','deleteOwnerDevice','delete','runAppGoup','runAppGroupWithTime','setAppDefaultGroup']]);
     }
 
     /**
@@ -111,9 +111,10 @@ class GroupController extends Controller
         $devices = $this->device->get();
         return response()->json($devices, 200);
     }
-    public function groupById($id)
+    public function groupById(Request $request, $id)
     {
-        $group = $this->group->show($id);
+        $group = $this->group->show($request,$id);
+      
         if (!$group) {
             return response()->json('Not found group', 404);
         } else {
