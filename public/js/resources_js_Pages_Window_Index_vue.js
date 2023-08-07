@@ -11635,65 +11635,65 @@ var render = function render() {
   }, [_vm._v("Upload")])])])])])])]), _vm._v(" "), _c("div", {
     staticClass: "overflow-x-auto relative shadow-md sm:rounded-lg mt-5"
   }, [_c("table", {
-    staticClass: "w-full text-xl text-left text-gray-500 dark:text-gray-400"
+    staticClass: "w-full text-xl text-left text-gray-500"
   }, [_c("thead", {
-    staticClass: "text-xl text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+    staticClass: "text-xl text-gray-700 bg-gray-50"
   }, [_c("tr", [_c("th", {
-    staticClass: "py-3 px-6 text-xl text-center",
+    staticClass: "py-3 px-6 text-xl",
     attrs: {
       scope: "col"
     }
   }, [_vm._v("No")]), _vm._v(" "), _c("th", {
-    staticClass: "py-3 px-6 text-xl uppercase text-center",
+    staticClass: "py-3 px-6 text-xl uppercase",
     attrs: {
       scope: "col"
     }
   }, [_vm._v("name")]), _vm._v(" "), _c("th", {
-    staticClass: "py-3 px-6 text-xl uppercase text-center",
+    staticClass: "py-3 px-6 text-xl uppercase",
     attrs: {
       scope: "col"
     }
   }, [_vm._v("Path")]), _vm._v(" "), _c("th", {
-    staticClass: "py-3 px-6 text-xl uppercase text-center",
+    staticClass: "py-3 px-6 text-xl uppercase",
     attrs: {
       scope: "col"
     }
   }, [_vm._v("Icon")]), _vm._v(" "), _c("th", {
-    staticClass: "py-3 px-6 text-xl uppercase text-center",
+    staticClass: "py-3 px-6 text-xl uppercase",
     attrs: {
       scope: "col"
     }
   }, [_vm._v("PackageName")]), _vm._v(" "), _c("th", {
-    staticClass: "py-3 px-6 text-xl uppercase text-center",
+    staticClass: "py-3 px-6 text-xl uppercase",
     attrs: {
       scope: "col"
     }
   }, [_vm._v("Version")]), _vm._v(" "), _vm.hasAnyPermission(["user-manager"]) ? _c("th", {
-    staticClass: "py-3 px-6 text-xl uppercase text-center",
+    staticClass: "py-3 px-6 text-xl uppercase",
     attrs: {
       scope: "col"
     }
   }, [_vm._v("User")]) : _vm._e(), _vm._v(" "), _vm._m(1)])]), _vm._v(" "), _c("tbody", _vm._l(_vm.window_apps.data, function (app, index) {
     return _c("tr", {
       key: index,
-      staticClass: "bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+      staticClass: "bg-white border-b"
     }, [_c("th", {
-      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center dark:text-white",
+      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap",
       attrs: {
         scope: "row"
       }
     }, [_vm._v("\n            " + _vm._s(index + 1) + "\n          ")]), _vm._v(" "), _c("th", {
-      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center dark:text-white",
+      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap",
       attrs: {
         apk: "row"
       }
     }, [_vm._v(_vm._s(app.name))]), _vm._v(" "), _c("th", {
-      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center dark:text-white",
+      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap",
       attrs: {
         apk: "row"
       }
     }, [_vm._v(_vm._s(app.path))]), _vm._v(" "), _c("th", {
-      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center dark:text-white",
+      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap",
       attrs: {
         scope: "row"
       }
@@ -11703,17 +11703,17 @@ var render = function render() {
         width: "50px"
       }
     })]), _vm._v(" "), _c("th", {
-      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center dark:text-white",
+      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap",
       attrs: {
         apk: "row"
       }
     }, [_vm._v(_vm._s(app.packageName))]), _vm._v(" "), _c("th", {
-      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center dark:text-white",
+      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap",
       attrs: {
         apk: "row"
       }
     }, [_vm._v(_vm._s(app.version))]), _vm._v(" "), _vm.hasAnyPermission(["user-manager"]) ? _c("th", {
-      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center dark:text-white",
+      staticClass: "py-4 px-6 font-medium text-gray-900 whitespace-nowrap",
       attrs: {
         scope: "row"
       }
@@ -11776,7 +11776,7 @@ var staticRenderFns = [function () {
       _c = _vm._self._c;
 
   return _c("th", {
-    staticClass: "py-3 px-6 text-xl uppercase text-center",
+    staticClass: "py-3 px-6 text-xl uppercase",
     attrs: {
       scope: "col"
     }

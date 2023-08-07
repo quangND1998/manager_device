@@ -144,18 +144,18 @@
     </div>
 
     <div class="overflow-x-auto relative shadow-md sm:rounded-lg mt-5">
-      <table class="w-full text-xl text-left text-gray-500 dark:text-gray-400">
-        <thead class="text-xl text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <table class="w-full text-xl text-left text-gray-500 ">
+        <thead class="text-xl text-gray-700 bg-gray-50 ">
           <tr>
             <!-- <th scope="col" class="py-3 px-6 text-xl"><input type="checkbox" id="check_all" v-model="selectAll"></th> -->
-            <th scope="col" class="py-3 px-6 text-xl text-center">No</th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-center">name</th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-center">Path</th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-center">Icon</th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-center">PackageName</th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-center">Version</th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-center"  v-if="hasAnyPermission(['user-manager'])">User</th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-center">
+            <th scope="col" class="py-3 px-6 text-xl ">No</th>
+            <th scope="col" class="py-3 px-6 text-xl uppercase ">name</th>
+            <th scope="col" class="py-3 px-6 text-xl uppercase ">Path</th>
+            <th scope="col" class="py-3 px-6 text-xl uppercase ">Icon</th>
+            <th scope="col" class="py-3 px-6 text-xl uppercase ">PackageName</th>
+            <th scope="col" class="py-3 px-6 text-xl uppercase ">Version</th>
+            <th scope="col" class="py-3 px-6 text-xl uppercase "  v-if="hasAnyPermission(['user-manager'])">User</th>
+            <th scope="col" class="py-3 px-6 text-xl uppercase ">
               <span class="sr-only">Edit</span>
             </th>
           </tr>
@@ -164,13 +164,13 @@
           <tr
             v-for="(app, index) in window_apps.data"
             :key="index"
-            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+            class="bg-white border-b "
           >
             <!-- <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"><input
             type="checkbox" class="checkbox" v-model="selected" :value="device.id"></td>-->
             <th
               scope="row"
-              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center dark:text-white"
+              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap "
             >
               {{
               index +1
@@ -178,29 +178,29 @@
             </th>
             <th
               apk="row"
-              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center dark:text-white"
+              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap "
             >{{ app.name }}</th>
             <th
               apk="row"
-              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center dark:text-white"
+              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap "
             >{{ app.path }}</th>
             <th
               scope="row"
-              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center dark:text-white"
+              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap "
             >
               <img :src="app.icon" width="50px" />
             </th>
             <th
               apk="row"
-              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center dark:text-white"
+              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap "
             >{{ app.packageName }}</th>
             <th
               apk="row"
-              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center dark:text-white"
+              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap "
             >{{ app.version }}</th>
             <th
               scope="row"
-              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center dark:text-white"
+              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap "
               v-if="hasAnyPermission(['user-manager'])"
             >
               <Link v-if="app.user" :href="route('user.detail.devices', app.user.id)">

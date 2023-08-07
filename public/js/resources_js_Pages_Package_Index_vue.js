@@ -2725,6 +2725,7 @@ var render = function render() {
   return _c("section", {
     staticClass: "content"
   }, [_c("ContentHeaderVue", {
+    staticClass: "pl-0",
     attrs: {
       name: "Package License"
     }
@@ -2732,7 +2733,9 @@ var render = function render() {
     attrs: {
       dismissible: true
     }
-  }), _vm._v(" "), _c("button", {
+  }), _vm._v(" "), _c("div", {
+    staticClass: "my-5"
+  }, [_c("button", {
     staticClass: "inline-block px-8 py-4 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out",
     attrs: {
       type: "button",
@@ -2744,7 +2747,7 @@ var render = function render() {
         return _vm.clickModal();
       }
     }
-  }, [_vm._v("Create")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Create")])]), _vm._v(" "), _c("div", {
     staticClass: "modal fade",
     attrs: {
       id: "exampleModal",
