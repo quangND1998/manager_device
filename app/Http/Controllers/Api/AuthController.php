@@ -112,25 +112,8 @@ class AuthController extends Controller
         ]);
         $user->password = $request->password;
 
-        if($request->role =='Pro' || $request->role =='Pro2' || $request->role =='Manager' ||  $request->role =='Sub Admin' ){
-            $role = Role::where('name','Pro')->first();
-            $user->roles()->sync($role);
-
-        }
-        else if($request->role =='Admin'){
-            $role = Role::where('name','administrator')->first();
-            $user->roles()->sync($role);
-
-        }
-        else if($request->role =='Demo'){
-            $role = Role::where('name',$request->role)->first();
-            $user->roles()->sync($role);
-
-        } else{
-            $role = Role::where('name',$request->role)->first();
-            $user->roles()->sync($role);
-
-        }
+        $role = Role::where('name',"Demo")->first();
+        $user->roles()->sync($role);
         $user->save();
         return response()->json('Create successfully', Response::HTTP_OK);
     }
@@ -153,27 +136,16 @@ class AuthController extends Controller
                 'email' => $request->email
             ]);
         }
+        else{
+            $user = User::create([
+                'name'=> $request->name,
+                'email' => $request->email
+            ]);
+            
+        }
         $user->password = $request->password;
-        if($request->role =='Pro' || $request->role =='Pro2' || $request->role =='Manager' ||  $request->role =='Sub Admin' ){
-            $role = Role::where('name','Pro')->first();
-            $user->roles()->sync($role);
-
-        }
-        else if($request->role =='Admin'){
-            $role = Role::where('name','administrator')->first();
-            $user->roles()->sync($role);
-
-        }
-        else if($request->role =='Demo'){
-            $role = Role::where('name',$request->role)->first();
-            $user->roles()->sync($role);
-
-        } else{
-            $role = Role::where('name',$request->role)->first();
-            $user->roles()->sync($role);
-
-        }
-
+        $role = Role::where('name',"Demo")->first();
+        $user->roles()->sync($role);
         $user->save();
         return response()->json('Update successfully', Response::HTTP_OK);
     }
