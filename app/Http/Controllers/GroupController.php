@@ -34,19 +34,19 @@ class GroupController extends Controller
         $groupId =  $request->input('group');
         $enabled =  $request->input('enabled');
         if($user->hasPermissionTo('user-manager')){
-            $groups = Groups::with('devices.applications')->get();
+            $groups = Groups::with('devices.applications','app_running')->get();
             
             $nogroup_devices = Devices::with('applications')->doesntHave('groups')->get();
 
         }
         else if($user->hasPermissionTo('Demo')){
            
-            $groups = Groups::with('devices.applications')->where('user_id',$user->id)->get();
+            $groups = Groups::with('devices.applications','app_running')->where('user_id',$user->id)->get();
             $nogroup_devices = Devices::with('applications')->doesntHave('groups')->where('user_id',$user->id)->get();
           
         }
         else{
-            $groups = Groups::with('devices.applications')->where('user_id',$user->id)->get();
+            $groups = Groups::with('devices.applications','app_running')->where('user_id',$user->id)->get();
             $nogroup_devices = Devices::with('applications')->doesntHave('groups')->where('user_id',$user->id)->get();
     
         }

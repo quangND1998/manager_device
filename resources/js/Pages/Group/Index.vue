@@ -1,7 +1,7 @@
 <template>
     <section class="content">
 
-        <ContentHeaderVue :name="'Groups'" />
+        <ContentHeaderVue class="pl-0"  :name="'Groups'" />
         <alert :dismissible="true"></alert>
 
         <OpenAppModal v-if="hasAnyPermission(['user-manager'])" :errors="errors" :applications="application_deivce" :ids="devices_current" />
@@ -43,9 +43,13 @@
         <LaunchAppTime v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired == false && enabled == null"   :applications="application_deivce"  :current_group="current_group"/>
         <LaunchAppTime  v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired" :applications="applications_default_filter" :current_group="current_group" />
         <LaunchAppTime  v-else :errors="errors" :applications="application_deivce"  :current_group="current_group" />
-        <button type="button"
+        
+        <div class="my-3">
+            <button type="button "
             class="inline-block px-8 py-4 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
             data-toggle="modal" data-target="#exampleModal" @click="clickModal()">Create Group</button>
+        </div>
+        
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -81,10 +85,10 @@
                             <div class="text-red-500" v-if="errors.devices">{{ errors.devices }}</div>
                             <div class="modal-footer">
                                 <button type="button"
-                                    class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
+                                    class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out "
                                     data-dismiss="modal">Close</button>
                                 <button @click.prevent="save()" type="submit"
-                                    class="inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out">Save
+                                    class="inline-block px-6 py-2.5 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out">Save
                                     changes</button>
                             </div>
                         </form>
@@ -111,27 +115,29 @@
                                                     <i class="fa fa-folder-o" aria-hidden="true"></i>
                                                 </div>
                                                 <div class="flex-1 pl-1 mr-16">
-                                                    <div class="font-medium">{{ group.name }}</div>
-
-                                                    <vue-countdown
+                                                    <div class="font-medium"  :class="group.id == current_group.id ? 'text-white' : ''">{{ group.name }}</div>
+                                                    <div  class="text-yellow-600" :class="group.id == current_group.id ? 'text-white' : ''">
+                                                        <vue-countdown :class="group.id == current_group.id ? 'text-white' : ''"
                                                         v-if="group.time && timestamp != null && (group.time - timestamp) > 0"
                                                         :time="(group.time - timestamp) * 1000"
                                                         :transform="transformSlotProps" v-slot="{ minutes, seconds }">
                                                         Time Remaining： {{ minutes }}: {{ seconds }}
                                                     </vue-countdown>
-                                                    <div v-if="group.time && timestamp !=='' && (group.time - timestamp) > 0">
+                                                    <div v-if="group.time && timestamp !=='' && (group.time - timestamp) > 0" :class="group.id == current_group.id ? 'text-white' : ''">
                                                         <!-- <img :src="group.app_running.icon" class="w-5 " alt=""> -->
                                                         <span >{{ group.app_running.appName}}</span>
                                                     </div>
+                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                             <div class="text-gray-600 text-xl flex">
-                                                <button type="button" data-toggle="modal" data-target="#exampleModal"
+                                                <button type="button"  data-toggle="modal" data-target="#exampleModal"
                                                     @click="edit(group)"
-                                                    class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"><i
+                                                    class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out mx-2"><i
                                                         class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                                                <button type="button" @click="DeleteGroup(group.id)"
-                                                    class="inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out"><i
+                                                <button type="button"  @click="DeleteGroup(group.id)"
+                                                    class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-red-400 hover:text-white hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out"><i
                                                         class="fa fa-trash" aria-hidden="true"></i></button>
                                             </div>
                                         </div>
@@ -203,19 +209,19 @@
                                     <thead
                                         class="text-xl text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
-                                            <th scope="col" class="py-3 px-6 text-xl"><input type="checkbox" id="check_all"
+                                            <th scope="col" class="py-3 px-6 text-xl text-center"><input type="checkbox" id="check_all"
                                                     v-model="selectAll"></th>
-                                            <th scope="col" class="py-3 px-6 text-xl uppercase">No</th>
-                                            <th scope="col" class="py-3 px-6 text-xl uppercase">name</th>
-                                            <th scope="col" class="py-3 px-6 text-xl uppercase">device ID</th>
-                                            <th scope="col" class="py-3 px-6 text-xl uppercase">Brand</th>
-
+                                            <th scope="col" class="py-3 px-6 text-xl uppercase text-center">No</th>
+                                            <th scope="col" class="py-3 px-6 text-xl uppercase text-center">name</th>
+                                            <th scope="col" class="py-3 px-6 text-xl uppercase text-center">device ID</th>
+                                            <th scope="col" class="py-3 px-6 text-xl uppercase text-center">Brand</th>
+                                            <th scope="col" class="py-3 px-6 text-xl uppercase text-center">DEFAULT APP</th>
                                             <!-- <th scope="col" class="py-3 px-6 text-xl">Os Version</th> -->
-                                            <th scope="col" class="py-3 px-6 text-xl">Battery</th>
+                                            <th scope="col" class="py-3 px-6 text-xl text-center">Status</th>
                                             <!-- <th scope="col" class="py-3 px-6 text-xl">Connect Wifi</th> -->
 
 
-                                            <th scope="col" class="py-3 px-6 text-xl">
+                                            <th scope="col" class="py-3 px-6 text-xl text-center">
                                                 <span class="sr-only">Edit</span>
                                             </th>
                                         </tr>
@@ -224,38 +230,51 @@
                                         <tr v-for="(device, index) in current_group.devices" :key="index"
                                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                             <td scope="row"
-                                                class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center">
                                                 <input type="checkbox" class="checkbox" v-model="selected"
                                                     :value="device.id">
                                             </td>
                                             <th scope="row"
-                                                class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center">
                                                 {{ index + 1 }}
                                             </th>
                                             <th scope="row"
-                                                class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{ device.name }}</th>
+                                                class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center">
+                                                <Link :href="route('device.detail', device.id)">
+                                                    {{ device.name }}
+                                                </Link>
+                                            </th>
                                             <th scope="row"
-                                                class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center">
                                                 {{
                                                     device.device_id
                                                 }}</th>
                                             <th scope="row"
-                                                class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center">
                                                 <span
                                                     class="text-xl inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">{{
                                                         device.brand
                                                     }}</span>
+                                            </th>
+                                            <th scope="row"
+                                                class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center">  
+                                                       {{ device.default_app ? device.default_app.appName : null }}                                       
                                             </th>
 
                                             <!-- <th scope="row"
                                                 class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 {{ device.os_version }}</th> -->
                                             <th scope="row"
-                                                class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                <i class="fa fa-battery-full" aria-hidden="true"></i>{{ (device.battery
-                                                    * 100)
-                                                }} %
+                                                class="flex py-4 px-6 font-medium text-gray-900 whitespace-nowrap justify-center">
+                                                <span class="mx-4" v-if="device.active"><i class="fa fa-circle mr-1" style="color: #23cd26"></i>On</span>
+                                                <span class="mx-4" v-else><i class="fa fa-circle mr-1" style="color: #979b97; font-size: 9px;"></i>Off</span>
+                                                <span class="mx-4">
+                                                    <i class="fa fa-battery-full mr-1" aria-hidden="true"></i>{{ (device.battery * 100).toFixed(0)}} %
+                                                </span>
+                                                <div class="mx-4 ">
+                                                    <p v-if="device.enabled"><i class="fa fa-check-circle" style="color: #23cd26"></i> Enable</p>
+                                                    <p v-else><i class="fa fa-ban" style="color: #ed0c0c;"></i> Disable</p>
+                                                </div>
                                             </th>
                                             <!-- <th scope="row"
                                                 class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -269,7 +288,7 @@
                                             <td class="py-4 px-6 text-right">
 
                                                 <button type="button" @click="Delete(device.id)"
-                                                    class="inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out"><i
+                                                    class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-red-400 hover:text-white hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out"><i
                                                         class="fa fa-trash" aria-hidden="true"></i></button>
                                             </td>
                                         </tr>
@@ -331,11 +350,13 @@ export default {
         })
         Bus.$on('cloesModal', () => {
             this.selected = [];
-        })
+        });
+        this.getNow()
+        setInterval(this.getNow, 1000);
 
     },
     created() {
-        setInterval(this.getNow, 1000);
+        // setInterval(this.getNow, 1000);
     },
     data() {
 

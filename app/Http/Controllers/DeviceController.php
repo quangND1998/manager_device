@@ -59,7 +59,7 @@ class DeviceController extends Controller
         $enabled = $request->enabled;
         if ($user->hasPermissionTo('user-manager')) {
 
-            $devices = Devices::with('applications', 'default_app', 'user', 'last_login')->where(function ($query) use ($request) {
+            $devices = Devices::with('applications', 'default_app', 'user', 'last_login','app_running')->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
             })->enabled($request->only('enabled'))->orderBy($sortBy, $sort_Direction)->paginate(10)->appends(['page' => $request->page, 'name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sortDirection]);
@@ -68,7 +68,7 @@ class DeviceController extends Controller
             $applications = Applicaion::whereIn('device_id', $devices->pluck('id'))->get();
         } elseif ($user->hasPermissionTo('Demo')) {
 
-            $devices = Devices::with('default_app', 'applications', 'user', 'last_login')->where('user_id', $user->id)->where(function ($query) use ($request) {
+            $devices = Devices::with('default_app', 'applications', 'user', 'last_login','app_running')->where('user_id', $user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
             })->enabled($request->only('enabled'))->orderBy($sortBy, $sort_Direction)->paginate(10)->appends(['page' => $request->page, 'name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sortDirection]);
@@ -77,7 +77,7 @@ class DeviceController extends Controller
             $applications = Applicaion::whereIn('device_id', $devices->pluck('id'))->get();
         } else {
 
-            $devices = Devices::with('applications', 'default_app', 'user', 'last_login')->where('user_id', $user->id)->where(function ($query) use ($request) {
+            $devices = Devices::with('applications', 'default_app', 'user', 'last_login','app_running')->where('user_id', $user->id)->where(function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->term . '%');
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
             })->enabled($request->only('enabled'))->orderBy($sortBy, $sort_Direction)->paginate(10)->appends(['name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sort_Direction]);

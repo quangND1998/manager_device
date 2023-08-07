@@ -1,10 +1,13 @@
 <template>
   <section class="content">
-    <ContentHeaderVue :name="' Default Applications'" />
+    <ContentHeaderVue class="pl-0" :name="' Default Applications'" />
     <alert :dismissible="true"></alert>
-    <button type="button"
+    <div class="my-5">
+      <button type="button my-5"
       class="inline-block px-8 py-4 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
       data-toggle="modal" data-target="#exampleModal" @click="clickModal()">Upload Apk File</button>
+    </div>
+   
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -81,7 +84,7 @@
     </div>
     <div class="overflow-x-auto relative shadow-md sm:rounded-lg mt-5">
       <div class="w-full flex max-w-md mr-4 mb-8 mt-8">
-        <input v-model="name" @keyup="search" class="relative w-full px-8 py-3 text-xl rounded-r focus:shadow-outline"
+        <input v-model="name" @keyup="search" class="block w-full py-3 pl-5 text-xl text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
           autocomplete="off" type="text" name="search" placeholder="Search…" />
       </div>
 

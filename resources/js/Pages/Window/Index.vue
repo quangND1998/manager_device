@@ -1,15 +1,17 @@
 <template>
   <section class="content">
-    <ContentHeaderVue :name="'Window App'" />
+    <ContentHeaderVue class="pl-0" :name="'Window App'" />
     <alert :dismissible="true"></alert>
-
-    <button
-      type="button"
-      class="inline-block px-8 py-4 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-      data-toggle="modal"
-      data-target="#exampleModal"
-      @click="clickModal()"
-    >Save App</button>
+    <div class="my-5">
+      <button
+          type="button"
+          class="inline-block px-8 py-4 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+          data-toggle="modal"
+          data-target="#exampleModal"
+          @click="clickModal()"
+        >Upload App</button>
+    </div>
+    
 
     <!-- Modal -->
     <div
@@ -132,7 +134,7 @@
                 <button
                   @click.prevent="save()"
                   type="submit"
-                  class="inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out"
+                  class="inline-block px-6 py-2.5 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out"
                 >Upload</button>
               </div>
             </form>
@@ -142,18 +144,18 @@
     </div>
 
     <div class="overflow-x-auto relative shadow-md sm:rounded-lg mt-5">
-      <table class="w-full text-xl text-left text-gray-500 dark:text-gray-400">
-        <thead class="text-xl text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <table class="w-full text-xl text-left text-gray-500 ">
+        <thead class="text-xl text-gray-700 bg-gray-50 ">
           <tr>
             <!-- <th scope="col" class="py-3 px-6 text-xl"><input type="checkbox" id="check_all" v-model="selectAll"></th> -->
-            <th scope="col" class="py-3 px-6 text-xl">No</th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase">name</th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase">Path</th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase">Icon</th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase">PackageName</th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase">Version</th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase"  v-if="hasAnyPermission(['user-manager'])">User</th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase">
+            <th scope="col" class="py-3 px-6 text-xl ">No</th>
+            <th scope="col" class="py-3 px-6 text-xl uppercase ">name</th>
+            <th scope="col" class="py-3 px-6 text-xl uppercase ">Path</th>
+            <th scope="col" class="py-3 px-6 text-xl uppercase ">Icon</th>
+            <th scope="col" class="py-3 px-6 text-xl uppercase ">PackageName</th>
+            <th scope="col" class="py-3 px-6 text-xl uppercase ">Version</th>
+            <th scope="col" class="py-3 px-6 text-xl uppercase "  v-if="hasAnyPermission(['user-manager'])">User</th>
+            <th scope="col" class="py-3 px-6 text-xl uppercase ">
               <span class="sr-only">Edit</span>
             </th>
           </tr>
@@ -162,13 +164,13 @@
           <tr
             v-for="(app, index) in window_apps.data"
             :key="index"
-            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+            class="bg-white border-b "
           >
             <!-- <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"><input
             type="checkbox" class="checkbox" v-model="selected" :value="device.id"></td>-->
             <th
               scope="row"
-              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap "
             >
               {{
               index +1
@@ -176,29 +178,29 @@
             </th>
             <th
               apk="row"
-              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap "
             >{{ app.name }}</th>
             <th
               apk="row"
-              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap "
             >{{ app.path }}</th>
             <th
               scope="row"
-              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap "
             >
               <img :src="app.icon" width="50px" />
             </th>
             <th
               apk="row"
-              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap "
             >{{ app.packageName }}</th>
             <th
               apk="row"
-              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap "
             >{{ app.version }}</th>
             <th
               scope="row"
-              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap "
               v-if="hasAnyPermission(['user-manager'])"
             >
               <Link v-if="app.user" :href="route('user.detail.devices', app.user.id)">
@@ -220,7 +222,7 @@
               <button
                 type="button"
                 @click="Delete(app.id)"
-                class="inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out"
+                class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-red-400 hover:text-white hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out"
               >Delete</button>
             </td>
           </tr>

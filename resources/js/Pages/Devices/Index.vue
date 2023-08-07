@@ -1,7 +1,7 @@
 <template>
   <section class="content">
 
-    <ContentHeaderVue :name="'Devices'" />
+    <ContentHeaderVue class="pl-0" :name="'Devices'" />
     <alert :dismissible="true"></alert>
     <WifiModel v-if="hasAnyPermission(['user-manager'])" :errors="errors" :ids="selected" :wifis="wifis" />
 
@@ -71,7 +71,7 @@
     </div>
     <div class="w-full mb-8 mt-8 flex justify-between">
       <div>
-        <input v-model="term" @keyup="search" class="relative w-full px-8 py-3 text-xl rounded-r focus:shadow-outline"
+        <input v-model="term" @keyup="search" class="block w-full py-3 pl-5 text-xl text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
           autocomplete="off" type="text" name="search" placeholder="Search…" />
       </div>
       <div>
@@ -98,7 +98,7 @@
             <li>
               <button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
                 data-target="#openAppTime">
-                <i class="fa fa-rocket mr-2" aria-hidden="true"></i>Launch App With Time
+                <i class="fa fa-rocket mr-2" aria-hidden="true"></i>Launch Time
               </button>
             </li>
             <li v-if="hasAnyPermission(['user-manager'])">
@@ -144,9 +144,9 @@
             @change="Filter"
             class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg  block w-full px-8 py-3 text-xl "
           >
-            <option :value="null" >Status</option>
-            <option :value="1">Enabled</option>
-            <option :value="0">Disabled</option>
+            <option :value="null" >All</option>
+            <option :value="1">Enable</option>
+            <option :value="0">Disable</option>
           </select>
       </div>
     </div>
@@ -155,23 +155,23 @@
       <table class="w-full text-xl text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xl text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th scope="col" class="py-3 px-6 text-xl">
+            <th scope="col" class="py-3 px-6 text-xl text-center">
               <input type="checkbox" id="check_all" v-model="selectAll" />
             </th>
-            <th @click="sortValue('id')" scope="col" class="py-3 px-6 text-xl text-gray-500">
+            <th @click="sortValue('id')" scope="col" class="py-3 px-6 text-xl text-gray-500 text-center">
               <i class="fa fa-arrow-up"
                 :class="[(sortDirection === 'asc' && sort == 'id') ? 'text-gray-800' : 'text-gray-300']"></i>
               <i class="fa fa-arrow-down"
                 :class="[(sortDirection === 'desc' && sort == 'id') ? 'text-gray-800' : 'text-gray-300']"></i>
               No
             </th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">name</th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">device ID</th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">Brand</th>
+            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center">name</th>
+            <!-- <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center" >device ID</th> -->
+            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center">Brand</th>
 
             <!-- <th scope="col" class="py-3 px-6 text-xl">Os Version</th> -->
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">Battery</th>
-            <th @click="sortValue('active')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
+            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center">Battery</th>
+            <th @click="sortValue('active')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center">
               <i class="fa fa-arrow-up"
                 :class="[(sortDirection === 'asc' && sort == 'active') ? 'text-gray-800' : 'text-gray-300']"></i>
               <i class="fa fa-arrow-down"
@@ -179,63 +179,71 @@
               <span v-if="sortDirection == 'desc'">Active</span>
               <span v-if="sortDirection == 'asc'">InActive</span>
             </th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500" v-if="hasAnyPermission(['user-manager'])">
+            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center" v-if="hasAnyPermission(['user-manager'])">
               Enabled</th>
             <!-- <th scope="col" class="py-3 px-6 text-xl uppercase">Connect Wifi</th> -->
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">Default App</th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500" v-if="hasAnyPermission(['user-manager'])">
+            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center">Default App</th>
+            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center" v-if="hasAnyPermission(['user-manager'])">
               User</th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500" v-if="hasAnyPermission(['user-manager'])">
+            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center" v-if="hasAnyPermission(['user-manager'])">
               Version</th>
 
-            <th @click="sortValue('update_time')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
+            <th @click="sortValue('update_time')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center">
               <i class="fa fa-arrow-up"
                 :class="[(sortDirection === 'asc' && sort == 'update_time') ? 'text-gray-800' : 'text-gray-300']"></i>
               <i class="fa fa-arrow-down"
                 :class="[(sortDirection === 'desc' && sort == 'update_time') ? 'text-gray-800' : 'text-gray-300']"></i>Time
               Update
             </th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
+            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center">
               <span class="sr-only">Edit</span>
             </th>
           </tr>
         </thead>
         <tbody>
+          <!-- {{ devices.data }} -->
           <tr v-for="(device, index) in devices.data" :key="index" 
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 " :class="device.enabled ==false && enabled !=='0' ? 'opacity-30':''">
-            <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center dark:text-white">
               <input type="checkbox" class="checkbox" v-model="selected" :value="device.id" v-if="device.enabled"/>
               <input type="checkbox" class="checkbox" v-model="selected" :value="device.id" v-else-if="device.enabled && enabled==1"/>
               <input type="checkbox" class="checkbox" v-model="selected" :value="device.id" v-else-if="device.enabled==false && enabled ==0"/>
             </td>
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
               <!-- {{ sortDirection =='asc'?  firstItem + index :    count -(devices.current_page ==1? -index +1 : -index-1) }} -->
               {{ sortDirection === 'asc' ? firstItem + index : ((count - firstItem) - index) + 1 }}
               <!-- {{ sortDirection =='asc'? devices.per_page * (devices.current_page - 1)+index +1 : count -firstItem -index -1}} -->
             </th>
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              <Link :href="route('device.detail', device.id)">{{ device.name
+            <th scope="row" class="py-4 px-6  whitespace-nowrap text-center ">
+              <Link :href="route('device.detail', device.id)" class="font-semibold text-2xl text-gray-900">{{ device.name
               }}</Link>
+              <p class="text-gray-500 mb-0">
+                  {{
+                    device.device_id
+                  }}
+                </p>
+              <div class=" block font-semibold text-yellow-600">
+                  <vue-countdown class="block" v-if="device.time && timestamp != null && (device.time - timestamp) > 0"
+                    :time="(device.time - timestamp) * 1000" :transform="transformSlotProps"
+                    v-slot="{ minutes, seconds }">
+                    Time Remaining： {{ minutes }}: {{ seconds }}
+                  </vue-countdown>
+                  <span class="font-semibold text-yellow-600 text-center"  v-if="device.time && timestamp != null && (device.time - timestamp) > 0">{{ device.app_running.appName }}  </span>
+                </div>
             </th>
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <!-- <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
               <div class="block">
                 <p>
                   {{
                     device.device_id
                   }}
                 </p>
-                <p class="font-semibold text-yellow-600">
-                  <vue-countdown v-if="device.time && timestamp != null && (device.time - timestamp) > 0"
-                    :time="(device.time - timestamp) * 1000" :transform="transformSlotProps"
-                    v-slot="{ minutes, seconds }">
-                    Time Remaining： {{ minutes }}: {{ seconds }}
-                  </vue-countdown>
-                </p>
+                
               </div>
 
 
-            </th>
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            </th> -->
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
               <span
                 class="text-xl inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
                 {{
@@ -246,19 +254,19 @@
 
             <!-- <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
             {{ device.os_version }}</th>-->
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
               <i class="fa fa-battery-full" aria-hidden="true"></i>
-              {{ (device.battery * 100) }} %
+              {{ (device.battery * 100).toFixed(0) }} %
             </th>
 
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
               <span v-if="device.active"
                 class="text-xl inline-block py-2 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-green-600 text-white rounded-full"></span>
               <span v-else
                 class="text-xl inline-block py-2 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-gray-400 text-gray-800 rounded-full"></span>
             </th>
             <th v-if="hasAnyPermission(['user-manager'])" scope="row"
-              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
               <label class="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" :checked="device.enabled"    @change="onChangeEnabled(device, $event)" class="sr-only peer">
                 <div
@@ -276,7 +284,7 @@
                   }}</span>
               <p v-else>Not Connect</p>
             </th>-->
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
               <div class="relative w-fit block m-auto" v-if="device.default_app">
                 <div
                   class="absolute inline-block top-0 right-0 bottom-auto left-auto translate-x-2/4 -translate-y-1/2 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 py-1 px-2.5 text-xl leading-none text-center whitespace-nowrap align-baseline font-bold bg-gray-400 text-white rounded-full z-10">
@@ -292,37 +300,37 @@
                 </strong>
               </div>
             </th>
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
               v-if="hasAnyPermission(['user-manager'])">
               <Link v-if="device.user" :href="route('user.detail.devices', device.user.id)">
               {{ device.user ?
                 device.user.name : null }}
               </Link>
             </th>
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
               v-if="hasAnyPermission(['user-manager'])">{{ device.os_version }}</th>
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
               {{
                 device.update_time && formatDate(device.update_time) !== 'Invalid date' ? formatDate(device.update_time) :
                 null }}
             </th>
             <td class="py-4 px-6 text-right">
               <button @click="edit(device)" type="button" data-toggle="modal" data-target="#exampleModal" 
-                class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out">
+                class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out mx-2">
                 Edit
                 Name
               </button>
               <button type="button" @click="Delete(device.id)" 
-                class="inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out">Delete</button>
+                class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-red-400 hover:text-white hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out">Delete</button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <span class="mt-4 text-2xl">
+    <p class="mt-4 text-2xl">
       &nbsp;
       <i>Displaying {{ devices.data.length }} of {{ devices.total }} devices.</i>
-    </span>
+    </p>
     <pagination :links="devices.links" />
   </section>
 </template>
@@ -439,6 +447,7 @@ export default {
   },
   mounted() {
     $("#exampleModalTopup").modal("hide");
+   
   },
   data() {
     return {
@@ -460,10 +469,11 @@ export default {
   },
   mounted() {
     this.listenActiveDevice();
-   
+    this.getNow()
+    setInterval(this.getNow, 1000);
   },
   created() {
-    setInterval(this.getNow, 1000);
+    // setInterval(this.getNow, 1000);
   },
   props: {
     devices: Object,
