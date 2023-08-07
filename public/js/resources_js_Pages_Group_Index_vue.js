@@ -7461,7 +7461,8 @@ var render = function render() {
     }, [_c("i", {
       staticClass: "fa fa-circle mr-1",
       staticStyle: {
-        color: "#23cd26"
+        color: "#23cd26",
+        "font-size": "9px"
       }
     }), _vm._v("On")]) : _c("span", {
       staticClass: "mx-4"
@@ -7481,7 +7482,7 @@ var render = function render() {
     }), _vm._v(_vm._s((device.battery * 100).toFixed(0)) + " %\n                                            ")]), _vm._v(" "), _c("div", {
       staticClass: "mx-4"
     }, [device.enabled ? _c("p", [_c("i", {
-      staticClass: "fa fa-check-circle",
+      staticClass: "fa fa-check-circle mr-1",
       staticStyle: {
         color: "#23cd26"
       }

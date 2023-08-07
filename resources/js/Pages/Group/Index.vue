@@ -266,13 +266,13 @@
                                                 {{ device.os_version }}</th> -->
                                             <th scope="row"
                                                 class="flex py-4 px-6 font-medium text-gray-900 whitespace-nowrap justify-center">
-                                                <span class="mx-4" v-if="device.active"><i class="fa fa-circle mr-1" style="color: #23cd26"></i>On</span>
+                                                <span class="mx-4" v-if="device.active"><i class="fa fa-circle mr-1" style="color: #23cd26; font-size: 9px;"></i>On</span>
                                                 <span class="mx-4" v-else><i class="fa fa-circle mr-1" style="color: #979b97; font-size: 9px;"></i>Off</span>
                                                 <span class="mx-4">
                                                     <i class="fa fa-battery-full mr-1" aria-hidden="true"></i>{{ (device.battery * 100).toFixed(0)}} %
                                                 </span>
                                                 <div class="mx-4 ">
-                                                    <p v-if="device.enabled"><i class="fa fa-check-circle" style="color: #23cd26"></i> Enable</p>
+                                                    <p v-if="device.enabled"><i class="fa fa-check-circle mr-1" style="color: #23cd26"></i> Enable</p>
                                                     <p v-else><i class="fa fa-ban" style="color: #ed0c0c;"></i> Disable</p>
                                                 </div>
                                             </th>
