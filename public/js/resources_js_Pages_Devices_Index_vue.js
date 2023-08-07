@@ -3812,7 +3812,9 @@ var render = function render() {
     }
   }, [_vm._v("\n                Save\n                changes\n              ")])])])])])])]), _vm._v(" "), _c("div", {
     staticClass: "w-full mb-8 mt-8 flex justify-between"
-  }, [_c("div", [_c("input", {
+  }, [_c("div", {
+    staticClass: "w-3/12"
+  }, [_c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
