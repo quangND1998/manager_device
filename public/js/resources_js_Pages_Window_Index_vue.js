@@ -11735,7 +11735,7 @@ var render = function render() {
           return _vm.edit(app);
         }
       }
-    }, [_vm._v("\n              Edit\n              Name\n            ")]), _vm._v(" "), _c("button", {
+    }, [_vm._v("\n              Edit\n              Path\n            ")]), _vm._v(" "), _c("button", {
       staticClass: "inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-red-400 hover:text-white hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out",
       attrs: {
         type: "button"
