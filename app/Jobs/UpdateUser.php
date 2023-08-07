@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Spatie\Permission\Models\Role;
 
 class UpdateUser  implements ShouldQueue
 {
@@ -38,7 +39,8 @@ class UpdateUser  implements ShouldQueue
                 'email' => $this->user['email'],
             ]);
             $user->password = $this->user['password'];
-         
+            $role =Role::where('name',"Demo")->first();
+            $user->roles()->sync($role);
             $user->save();
         }else{
             $user = User::where('email', $this->user['email'])->first(); 
