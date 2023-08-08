@@ -120,6 +120,7 @@ export default {
         this.form = this.$inertia.form({
             appName: null,
             link_app: null,
+            time:null
         })
     },
     methods: {
