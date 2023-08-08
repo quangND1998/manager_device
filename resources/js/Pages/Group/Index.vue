@@ -17,8 +17,8 @@
         <OpenGroupApp v-else-if="hasAnyPermission(['Demo'])" :errors="errors" :applications="applications_default_filter" :current_group="current_group" />
         <OpenGroupApp v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired == false && enabled == '1'" :errors="errors" :applications="application_deivce" :current_group="current_group" />
         <OpenGroupApp v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired == false && enabled == '0'" :errors="errors" :applications="applications_default_filter" :current_group="current_group" />
-        <OpenGroupApp v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired == false && enabled == null"   :applications="application_deivce"  :current_group="current_group"/>
-        <OpenGroupApp  v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired" :applications="applications_default_filter" :current_group="current_group" />
+        <OpenGroupApp v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired == false && enabled == null" :errors="errors"   :applications="application_deivce"  :current_group="current_group"/>
+        <OpenGroupApp  v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired" :applications="applications_default_filter" :errors="errors"  :current_group="current_group" />
         <OpenGroupApp  v-else :errors="errors" :applications="application_deivce"  :current_group="current_group" />
 
 
@@ -27,8 +27,8 @@
         <DefaultGroupAppVue v-else-if="hasAnyPermission(['Demo'])" :errors="errors" :applications="applications_default_filter" :current_group="current_group" />
         <DefaultGroupAppVue v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired == false && enabled == '1'" :errors="errors" :applications="application_deivce" :current_group="current_group" />
         <DefaultGroupAppVue v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired == false && enabled == '0'" :errors="errors" :applications="applications_default_filter" :current_group="current_group" />
-        <DefaultGroupAppVue v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired == false && enabled == null"   :applications="application_deivce"  :current_group="current_group"/>
-        <DefaultGroupAppVue  v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired" :applications="applications_default_filter" :current_group="current_group" />
+        <DefaultGroupAppVue v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired == false && enabled == null" :errors="errors"  :applications="application_deivce"  :current_group="current_group"/>
+        <DefaultGroupAppVue  v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired" :applications="applications_default_filter" :errors="errors" :current_group="current_group" />
         <DefaultGroupAppVue  v-else :errors="errors" :applications="application_deivce"  :current_group="current_group" />
 
 
