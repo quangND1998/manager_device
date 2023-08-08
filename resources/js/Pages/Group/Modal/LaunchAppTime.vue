@@ -72,7 +72,7 @@
                                     <option value="60">60 minutes</option>
                                     <option value="90">90 minutes</option>
                                 </select>
-                                <div class="text-red-500" v-if="errors.time">{{ errors.time }}</div>
+                                <div class="text-red-500" v-if="errors && errors.time">{{ errors.time }}</div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button"
