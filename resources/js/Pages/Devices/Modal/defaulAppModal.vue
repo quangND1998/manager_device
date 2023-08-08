@@ -3,7 +3,7 @@
         <div class="modal fade" id="defaultAppModal" tabindex="-1" role="dialog" aria-labelledby="defaultAppModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <div class="modal-content">
+                <div class="modal-content overflow-auto" style="height: 70vh;">
                     <div class="modal-header">
                         <h5 class="modal-title" id="defaultAppModalLabel">Set Default App</h5>
                         <button type="button" class="close" data-dismiss="modal"  @click="close()" aria-label="Close">
@@ -70,7 +70,7 @@
                                     class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-red-400 hover:text-white hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out mx-2"
                                     data-dismiss="modal">Close</button>
                                 <button @click.prevent="lauchApp()" type="submit"
-                                    class="inline-block px-6 py-2.5 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out">Set
+                                    class="inline-block px-6 py-2.5 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out">Set
                                 </button>
                             </div>
                         </form>
@@ -152,6 +152,25 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+/* scroll */
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
 
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1a8;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #d4d1d17e;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #cecccc5b;
+}
 </style>
