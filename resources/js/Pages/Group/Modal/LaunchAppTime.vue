@@ -116,13 +116,6 @@ export default {
             })
         }
     },
-    reset() {
-        this.form = this.$inertia.form({
-            appName: null,
-            link_app: null,
-            time:null
-        })
-    },
     methods: {
         reset() {
             this.form = this.$inertia.form({
