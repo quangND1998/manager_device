@@ -68,7 +68,7 @@
                         <form @submit.prevent="save">
                             <div class="form-group" :class="errors.name ? 'is-valid' : ''">
                                 <label for="recipient-name" class="col-form-label">Name:</label>
-                                <input type="text" class="form-control text-xl" :class="errors.name ? 'is-valid' : ''"
+                                <input type="text" class="form-control text-xl border-gray-300" :class="errors.name ? 'is-valid' : ''"
                                     v-model="form.name" id="recipient-name" />
                                 <div class="text-red-500" v-if="errors.name">{{ errors.name }}</div>
                             </div>
