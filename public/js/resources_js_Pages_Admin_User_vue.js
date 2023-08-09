@@ -6455,7 +6455,7 @@ var render = function render() {
       value: _vm.form.name,
       expression: "form.name"
     }],
-    staticClass: "appearance-none block w-full bg-gray-200 text-gray-500 border rounded py-4 px-3 mb-3 text-xl leading-tight focus:outline-none focus:bg-white",
+    staticClass: "appearance-none block w-full bg-gray-200 text-gray-500 border border-gray-300 rounded py-4 px-3 mb-3 text-xl leading-tight focus:outline-none focus:bg-white",
     "class": _vm.errors.name ? "border-red-500" : "",
     attrs: {
       id: "grid-first-name",
@@ -6488,7 +6488,7 @@ var render = function render() {
       value: _vm.form.email,
       expression: "form.email"
     }],
-    staticClass: "appearance-none block w-full bg-gray-200 text-gray-700 border text-xl border-gray-200 rounded py-4 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+    staticClass: "appearance-none block w-full bg-gray-200 text-gray-700 border text-xl border-gray-300 rounded py-4 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
     "class": _vm.errors.email ? "border-red-500" : "",
     attrs: {
       id: "grid-last-name",
@@ -6523,7 +6523,7 @@ var render = function render() {
       value: _vm.form.password,
       expression: "form.password"
     }],
-    staticClass: "appearance-none block w-full bg-gray-200 text-gray-500 border rounded py-4 px-3 mb-3 text-xl leading-tight focus:outline-none focus:bg-white",
+    staticClass: "appearance-none block w-full bg-gray-200 text-gray-500 border border-gray-300 rounded py-4 px-3 mb-3 text-xl leading-tight focus:outline-none focus:bg-white",
     "class": _vm.errors.password ? "border-red-500" : "",
     attrs: {
       id: "grid-first-name",
@@ -6614,7 +6614,7 @@ var render = function render() {
       value: _vm.form.number_device,
       expression: "form.number_device"
     }],
-    staticClass: "appearance-none block w-full bg-gray-200 text-gray-700 border text-xl border-gray-200 rounded py-4 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+    staticClass: "appearance-none block w-full bg-gray-200 text-gray-700 border text-xl border-gray-300 rounded py-4 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
     "class": _vm.errors.number_device ? "border-red-500" : "",
     attrs: {
       id: "grid-last-name",
@@ -6782,7 +6782,7 @@ var render = function render() {
     }, [_vm._v("\n                    " + _vm._s(user.number_device) + "\n                  ")]), _vm._v(" "), _c("td", {
       staticClass: "px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
     }, [_c("button", {
-      staticClass: "inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out",
+      staticClass: "inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out mx-2",
       attrs: {
         "data-toggle": "modal",
         "data-target": "#exampleModal"

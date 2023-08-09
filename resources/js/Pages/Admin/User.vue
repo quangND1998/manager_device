@@ -48,7 +48,7 @@
                       for="grid-first-name"
                     >{{__('name')}}</label>
                     <input
-                      class="appearance-none block w-full bg-gray-200 text-gray-500 border rounded py-4 px-3 mb-3 text-xl leading-tight focus:outline-none focus:bg-white"
+                      class="appearance-none block w-full bg-gray-200 text-gray-500 border border-gray-300 rounded py-4 px-3 mb-3 text-xl leading-tight focus:outline-none focus:bg-white"
                       id="grid-first-name"
                       type="text"
                       placeholder
@@ -63,7 +63,7 @@
                       for="grid-last-name"
                     >{{__('email')}}</label>
                     <input
-                      class="appearance-none block w-full bg-gray-200 text-gray-700 border text-xl border-gray-200 rounded py-4 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                      class="appearance-none block w-full bg-gray-200 text-gray-700 border text-xl border-gray-300 rounded py-4 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                       id="grid-last-name"
                       type="text"
                       placeholder="examp@example"
@@ -95,7 +95,7 @@
                       for="grid-first-name"
                     >{{__('password')}}</label>
                     <input
-                      class="appearance-none block w-full bg-gray-200 text-gray-500 border rounded py-4 px-3 mb-3 text-xl leading-tight focus:outline-none focus:bg-white"
+                      class="appearance-none block w-full bg-gray-200 text-gray-500 border border-gray-300 rounded py-4 px-3 mb-3 text-xl leading-tight focus:outline-none focus:bg-white"
                       id="grid-first-name"
                       type="text"
                       placeholder
@@ -159,7 +159,7 @@
                       for="grid-last-name"
                     >{{__('Number Device')}}</label>
                     <input
-                      class="appearance-none block w-full bg-gray-200 text-gray-700 border text-xl border-gray-200 rounded py-4 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                      class="appearance-none block w-full bg-gray-200 text-gray-700 border text-xl border-gray-300 rounded py-4 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                       id="grid-last-name"
                       type="number"
               
@@ -262,6 +262,7 @@
                   </th>
                 </tr>
               </thead>
+              
               <tbody class="bg-white divide-y divide-gray-200">
                 <tr v-for="(user,index) in  users.data" :key="index">
                   <td class="px-6 py-4 whitespace-nowrap">
@@ -306,7 +307,7 @@
                     <button
                       data-toggle="modal"
                       data-target="#exampleModal"
-                      class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
+                      class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out mx-2"
                       @click="edit(user)"
                     >Update</button>
                     <button
