@@ -2682,6 +2682,7 @@ var render = function render() {
   return _c("section", {
     staticClass: "content"
   }, [_c("ContentHeaderVue", {
+    staticClass: "pl-0",
     attrs: {
       name: "wifis"
     }
@@ -2689,7 +2690,9 @@ var render = function render() {
     attrs: {
       dismissible: true
     }
-  }), _vm._v(" "), _c("button", {
+  }), _vm._v(" "), _c("div", {
+    staticClass: "my-5"
+  }, [_c("button", {
     staticClass: "inline-block px-8 py-4 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out",
     attrs: {
       type: "button",
@@ -2701,7 +2704,7 @@ var render = function render() {
         return _vm.clickModal();
       }
     }
-  }, [_vm._v("Create News")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Create News")])]), _vm._v(" "), _c("div", {
     staticClass: "modal fade",
     attrs: {
       id: "exampleModal",
@@ -2753,7 +2756,7 @@ var render = function render() {
       value: _vm.form.ssid,
       expression: "form.ssid"
     }],
-    staticClass: "form-control text-xl",
+    staticClass: "form-control text-xl border-gray-300",
     "class": _vm.errors.ssid ? "is-valid" : "",
     attrs: {
       type: "text",
@@ -2786,7 +2789,7 @@ var render = function render() {
       value: _vm.form.password,
       expression: "form.password"
     }],
-    staticClass: "form-control text-xl",
+    staticClass: "form-control text-xl border-gray-300",
     "class": _vm.errors.password ? "is-valid" : "",
     attrs: {
       type: "text",
@@ -2834,7 +2837,7 @@ var render = function render() {
       value: _vm.ssid,
       expression: "ssid"
     }],
-    staticClass: "relative w-full px-8 py-3 text-xl rounded-r focus:shadow-outline",
+    staticClass: "block w-full py-3 pl-5 text-xl text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500",
     attrs: {
       autocomplete: "off",
       type: "text",
@@ -2875,7 +2878,7 @@ var render = function render() {
     }, [_vm._v("\n                        " + _vm._s(wifi.password) + "\n                    ")]), _vm._v(" "), _c("td", {
       staticClass: "py-4 px-6 text-right"
     }, [_c("button", {
-      staticClass: "inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out",
+      staticClass: "inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out mx-2",
       attrs: {
         type: "button",
         "data-toggle": "modal",
@@ -2887,7 +2890,7 @@ var render = function render() {
         }
       }
     }, [_vm._v("Edit")]), _vm._v(" "), _c("button", {
-      staticClass: "inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out",
+      staticClass: "inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-red-400 hover:text-white hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out",
       attrs: {
         type: "button"
       },
