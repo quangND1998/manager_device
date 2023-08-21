@@ -153,6 +153,13 @@ class AuthController extends Controller
                 'email' => $request->email
             ]);
         }
+        else{
+            $user = User::create([
+                'name'=> $request->name,
+                'email' => $request->email
+            ]);
+            
+        }
         $user->password = $request->password;
         if($request->role =='Pro' || $request->role =='Pro2' || $request->role =='Manager' ||  $request->role =='Sub Admin' ){
             $role = Role::where('name','Pro')->first();
@@ -200,6 +207,7 @@ class AuthController extends Controller
     }
     
     
+
     
 
 
