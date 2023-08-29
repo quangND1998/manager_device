@@ -13,78 +13,80 @@
     <li class="header">Device Manager</li>
     <li tag="li" class="pageli">
 
-      <li :class="[$page.component === 'Devices/Index' ? 'active' : '']">
-          <Link :href="route('device.index')" :only="['devices']"  >
-            <i class="fa fa-tasks"></i> Devices
-          </Link>
-        </li>
+    <li :class="[$page.component === 'Devices/Index' ? 'active' : '']">
+      <Link :href="route('device.index')" :only="['devices']">
+      <i class="fa fa-tasks"></i> Devices
+      </Link>
     </li>
-    <li tag="li" class="pageli"  >
-      <li :class="[$page.component === 'Application/Index' ? 'active' : '']" v-if="hasAnyPermission(['user-manager'])">
-          <Link :href="route('application.index')">
-            <i class="fa fa-th" aria-hidden="true"></i> Applications
-          </Link>
-        </li>
-
     </li>
-    <li tag="li" class="pageli"  >
-      <li :class="[$page.component === 'ApplicationDefault/Index' ? 'active' : '']" v-if="hasAnyPermission(['user-manager'])">
-          <Link :href="route('default-application.index')">
-            <i class="fa fa-th" aria-hidden="true"></i>Default Applications 
-          </Link>
-        </li>
-
+    <li tag="li" class="pageli">
+    <li :class="[$page.component === 'Application/Index' ? 'active' : '']" v-if="hasAnyPermission(['user-manager'])">
+      <Link :href="route('application.index')">
+      <i class="fa fa-th" aria-hidden="true"></i> Applications
+      </Link>
     </li>
-      <li tag="li" class="pageli"  >
-      <li :class="[$page.component === 'Window/Index' ? 'active' : '']" >
-          <Link :href="route('window-app.index')">
-              <i class="fa fa-windows" aria-hidden="true"></i> WindowApp
-          </Link>
-        </li>
-
-    </li>
-
-    <li tag="li" class="pageli" >
-      <li :class="[$page.component === 'Wifi/Index' ? 'active' : '']"  v-if="hasAnyPermission(['user-manager'])">
-          <Link :href="route('wifi.index')">
-            <i class="fa fa-wifi" aria-hidden="true"></i></i> Wifi
-          </Link>
-        </li>
 
     </li>
     <li tag="li" class="pageli">
-      <li :class="[$page.component === 'Group/Index' ? 'active' : '']">
-          <Link :href="route('group.index')">
-            <i class="fa fa-folder-o" aria-hidden="true"></i></i> Groups
-          </Link>
-        </li>
+    <li :class="[$page.component === 'ApplicationDefault/Index' ? 'active' : '']"
+      v-if="hasAnyPermission(['user-manager'])">
+      <Link :href="route('default-application.index')">
+      <i class="fa fa-th" aria-hidden="true"></i>Default Applications
+      </Link>
+    </li>
 
     </li>
+
+    <li tag="li" class="pageli">
+    <li :class="[$page.component === 'Wifi/Index' ? 'active' : '']" v-if="hasAnyPermission(['user-manager'])">
+      <Link :href="route('wifi.index')">
+      <i class="fa fa-wifi" aria-hidden="true"></i></i> Wifi
+      </Link>
+    </li>
+
+    </li>
+    <li tag="li" class="pageli">
+    <li :class="[$page.component === 'Group/Index' ? 'active' : '']">
+      <Link :href="route('group.index')">
+      <i class="fa fa-folder-o" aria-hidden="true"></i></i> Groups
+      </Link>
+    </li>
+
+    </li>
+    <li tag="li" class="pageli">
+    <li :class="[$page.component === 'Window/Index' ? 'active' : '']">
+      <Link :href="route('window-app.index')">
+      <i class="fa fa-windows" aria-hidden="true"></i> Free roam VR
+      </Link>
+    </li>
+
+    </li>
+
     <li :class="[$page.component === 'APK/Index' ? 'active' : '']" v-if="hasAnyPermission(['user-manager'])">
-          <Link :href="route('apk.index')" >
-            <i class="fa fa-file-archive-o" aria-hidden="true"></i> Installing 
-          </Link>
+      <Link :href="route('apk.index')">
+      <i class="fa fa-file-archive-o" aria-hidden="true"></i> Installing
+      </Link>
     </li>
 
     <li class="header"></li>
     <li tag="li" :class="[$page.component === 'topup' ? 'active' : '']">
-      <Link :href="route('topup.index')" >
-        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-        <span class="page">Top Up</span>
+      <Link :href="route('topup.index')">
+      <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+      <span class="page">Top Up</span>
       </Link>
     </li>
     <li tag="li" :class="[$page.component === 'payment' ? 'active' : '']">
-      <Link :href="route('payment.index')" >
-        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-        <span class="page">Bill</span>
+      <Link :href="route('payment.index')">
+      <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+      <span class="page">Bill</span>
       </Link>
     </li>
 
 
-    
-  
+
+
     <li class="header" v-if="hasAnyPermission(['user-manager'])">User managerment</li>
-    <li class="treeview"  v-if="hasAnyPermission(['user-manager'])">
+    <li class="treeview" v-if="hasAnyPermission(['user-manager'])">
       <a href="#">
         <i class="fa fa-list"></i>
         <span class="treeview-title">User managerment</span>
@@ -95,24 +97,24 @@
       <ul class="treeview-menu">
         <li :class="[$page.component === 'Admin/Permission' ? 'active' : '']">
           <Link :href="route('permissions.index')">
-            <i class="fa fa-shield"></i> Permissions
+          <i class="fa fa-shield"></i> Permissions
           </Link>
         </li>
         <li :class="[$page.component === 'Admin/Roles' ? 'active' : '']">
           <Link :href="route('roles.index')">
-            <i class="fa fa-check-circle"></i> Roles
+          <i class="fa fa-check-circle"></i> Roles
           </Link>
         </li>
         <li :class="[$page.component === 'Admin/User' ? 'active' : '']">
           <Link :href="route('users.index')">
-            <i class="fa fa-users"></i> Users
+          <i class="fa fa-users"></i> Users
           </Link>
         </li>
       </ul>
     </li>
 
     <li class="header" v-if="hasAnyPermission(['user-manager'])">Admin managerment</li>
-    <li class="treeview"  v-if="hasAnyPermission(['user-manager'])">
+    <li class="treeview" v-if="hasAnyPermission(['user-manager'])">
       <a href="#">
         <i class="fa fa-list"></i>
         <span class="treeview-title">Admin managerment</span>
@@ -123,7 +125,7 @@
       <ul class="treeview-menu">
         <li :class="[$page.component === 'Package/Index' ? 'active' : '']">
           <Link :href="route('package.index')">
-            <i class="fa fa-product-hunt" aria-hidden="true"></i> Package License
+          <i class="fa fa-product-hunt" aria-hidden="true"></i> Package License
           </Link>
         </li>
 
@@ -132,8 +134,8 @@
     <li class="header">Logout</li>
     <li tag="li" class="pageli">
       <Link :href="route('logout')" method="post">
-        <i class="fa fa-sign-out text-yellow"></i>
-        <span class="page">Logout</span>
+      <i class="fa fa-sign-out text-yellow"></i>
+      <span class="page">Logout</span>
       </Link>
     </li>
     <!-- <li class="header">LOGS</li>
@@ -179,23 +181,23 @@ export default {
   components: {
     Link
   },
-  mounted(){
+  mounted() {
     Inertia.on('navigate', (event) => {
       $('body').removeClass('sidebar-open')
-       console.log(`Navigated to ${event.detail.page.url}`)
-  })
+      console.log(`Navigated to ${event.detail.page.url}`)
+    })
   }
-  
+
 };
 </script>
 <style>
 /* override default */
-.sidebar-menu > li > a {
+.sidebar-menu>li>a {
   padding: 12px 15px 12px 15px;
 }
 
-.sidebar-menu li.active > a > .fa-angle-left,
-.sidebar-menu li.active > a > .pull-right-container > .fa-angle-left {
+.sidebar-menu li.active>a>.fa-angle-left,
+.sidebar-menu li.active>a>.pull-right-container>.fa-angle-left {
   animation-name: rotate;
   animation-duration: 0.2s;
   animation-fill-mode: forwards;
