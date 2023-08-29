@@ -6,52 +6,32 @@
 
     <form @submit.prevent="submit">
       <div class="text-center mb-3">
-        <img class="image-logo" src="asset/img/HolomiaExpo.svg" alt />
+        <img class="image-logo h-36 mx-auto" src="/assets/img/logoHolomia.png" alt />
       </div>
       <h1 class="text-center">Login</h1>
       <div>
         <breeze-label class="text-label" for="email" value="Account" />
-        <input
-          id="email"
-          type="email"
+        <input id="email" type="email"
           class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full text-label"
-          v-model="form.email"
-          required
-          autofocus
-          placeholder="Email"
-          autocomplete="username"
-        />
+          v-model="form.email" required autofocus placeholder="Email" autocomplete="username" />
       </div>
 
       <div class="mt-4">
         <breeze-label class="text-label" for="password" value="Password" />
         <div class="password-hidden">
-          <input
-            id="password"
-            :type="passwordFieldType"
+          <input id="password" :type="passwordFieldType"
             class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full text-label"
-            v-model="form.password"
-            required
-            placeholder="Password"
-            autocomplete="current-password"
-          />
+            v-model="form.password" required placeholder="Password" autocomplete="current-password" />
           <span class="span-hidden">
-            <i
-              :class="passwordFieldType =='password'? 'fa fa-eye' :'fa fa-eye-slash'"
-              @click="switchVisibility"
-            ></i>
+            <i :class="passwordFieldType == 'password' ? 'fa fa-eye' : 'fa fa-eye-slash'" @click="switchVisibility"></i>
           </span>
         </div>
       </div>
 
       <div class="block mt-4">
         <div class="flex items-center">
-          <input
-            type="checkbox"
-            id="checkbox-example"
-            v-model="form.remember"
-            class="h-4 w-4 text-gray-700 border rounded mr-2"
-          />
+          <input type="checkbox" id="checkbox-example" v-model="form.remember"
+            class="h-4 w-4 text-gray-700 border rounded mr-2" />
           <span class="ml-2 text-xl text-gray-600">Remember me</span>
         </div>
       </div>
@@ -70,11 +50,8 @@
           <i class="fa fa-download mt-3" aria-hidden="true"></i>
           <a href="https://bit.ly/HoloStartup" target="_blank" class="ml-3">Download App</a>
         </div>
-        <breeze-button
-          class="ml-4"
-          :class="{ 'opacity-25': form.processing } "
-          :loading="form.processing"
-        >Log in</breeze-button>
+        <breeze-button class="ml-4" :class="{ 'opacity-25': form.processing }" :loading="form.processing">Log
+          in</breeze-button>
       </div>
       <div class="col-md-12" style="padding-left:65px">
         <!-- <a class="btn" :href="'auth/google'">
@@ -149,22 +126,27 @@ export default {
 .form-floating-label {
   position: relative;
 }
+
 .password-hidden {
   position: relative;
 }
+
 .span-hidden {
   top: 30%;
   position: absolute;
   right: 20px;
   transition: auto;
 }
+
 .login-section {
   min-width: 600px !important;
 }
+
 .text-label {
   font-size: 2rem;
   line-height: 3rem;
 }
+
 .text-sm {
   font-size: 1.5rem;
   line-height: 2.5rem;
