@@ -4,6 +4,8 @@
 /public/app_icon
 /public/window
 /public/apk
+/public/assets
+/public/avatar
 /storage/*.key
 /vendor
 .env

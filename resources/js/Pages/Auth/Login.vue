@@ -6,7 +6,7 @@
 
     <form @submit.prevent="submit">
       <div class="text-center mb-3">
-        <img class="image-logo h-36 mx-auto" src="/assets/img/logoHolomia.png" alt />
+        <img class="image-logo h-36 mx-auto" src="/assets/img/holomia.png" alt />
       </div>
       <h1 class="text-center">Login</h1>
       <div>
@@ -46,12 +46,13 @@
           :href="route('password.request')"
           class="underline text-sm text-gray-600 hover:text-gray-900"
         >Forgot your password?</Link>-->
+
+        <breeze-button class="ml-4" :class="{ 'opacity-25': form.processing }" :loading="form.processing">Log
+          in</breeze-button>
         <div class=" px-3 py-2 bg-primary rounded-lg text-sm flex">
           <i class="fa fa-download mt-3" aria-hidden="true"></i>
           <a href="https://bit.ly/HoloStartup" target="_blank" class="ml-3">Download App</a>
         </div>
-        <breeze-button class="ml-4" :class="{ 'opacity-25': form.processing }" :loading="form.processing">Log
-          in</breeze-button>
       </div>
       <div class="col-md-12" style="padding-left:65px">
         <!-- <a class="btn" :href="'auth/google'">
