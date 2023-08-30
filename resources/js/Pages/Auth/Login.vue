@@ -51,7 +51,7 @@
           in</breeze-button>
         <div class=" px-3 py-2 bg-primary rounded-lg text-sm flex">
           <i class="fa fa-download mt-3" aria-hidden="true"></i>
-          <a href="https://bit.ly/HoloStartup" target="_blank" class="ml-3">Download App</a>
+          <a href="https://bit.ly/HolomiaXR" target="_blank" class="ml-3">Download App</a>
         </div>
       </div>
       <div class="col-md-12" style="padding-left:65px">
