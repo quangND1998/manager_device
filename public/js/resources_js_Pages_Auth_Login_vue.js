@@ -475,7 +475,7 @@ var staticRenderFns = [function () {
     attrs: {
       id: "text_banner"
     }
-  }, [_vm._v("Automatically run a VR app when your headset booted up.\n        "), _c("br"), _vm._v("HoloStartup works on Pico, Vive Focus, and Meta Quest headsets"), _c("br")])]);
+  }, [_vm._v("Holomia XR is a VR Device Management Software,\n          "), _c("br"), _vm._v("you can remotely manage headset, app, game launches, time limits etc… "), _c("br"), _vm._v(" "), _c("br"), _vm._v("so easy for operate your VR arcade with Holomia XR"), _c("br")])]);
 }];
 render._withStripped = true;
 
