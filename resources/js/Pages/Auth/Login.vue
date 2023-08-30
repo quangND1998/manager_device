@@ -8,7 +8,7 @@
       <div class="text-center mb-3">
         <img class="image-logo h-36 mx-auto" src="/assets/img/holomia.png" alt />
       </div>
-      <h1 class="text-center">Login</h1>
+      <!-- <h1 class="text-center">Login</h1> -->
       <div>
         <breeze-label class="text-label" for="email" value="Account" />
         <input id="email" type="email"
@@ -47,8 +47,12 @@
           class="underline text-sm text-gray-600 hover:text-gray-900"
         >Forgot your password?</Link>-->
 
-        <breeze-button class="ml-4" :class="{ 'opacity-25': form.processing }" :loading="form.processing">Log
-          in</breeze-button>
+      
+        <button :disabled="form.processing" :class="{ 'opacity-25': form.processing }"
+          class="inline-flex items-center bg-[#337ab7] px-4 py-2   border border-transparent rounded-md font-semibold text-xl text-white  tracking-widest hover:bg-blue-500 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray transition ease-in-out duration-150">
+          <div v-if="form.processing" class="btn-spinner mr-2" />
+          Log In
+        </button>
         <div class=" px-3 py-2 bg-primary rounded-lg text-sm flex">
           <i class="fa fa-download mt-3" aria-hidden="true"></i>
           <a href="https://bit.ly/HolomiaXR" target="_blank" class="ml-3">Download App</a>
