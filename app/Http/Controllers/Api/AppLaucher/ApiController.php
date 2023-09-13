@@ -366,7 +366,4 @@ class ApiController extends Controller
 
         return DeviceApiResource::collection($devices);
     }
-
-
-  
 }
