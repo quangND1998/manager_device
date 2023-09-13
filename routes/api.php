@@ -104,6 +104,7 @@ Route::group(['middleware' => 'languages_api',
             Route::post('default-app/{id}', [GroupController::class, 'setAppDefaultGroup'])->name('default-app');
             Route::post('runAppGoup/{id}', [GroupController::class, 'runAppGoup'])->name('runAppGoup');
             Route::post('runAppGroupWithTime/{id}', [GroupController::class, 'runAppGroupWithTime'])->name('runAppGroupWithTime');
+            Route::get('updateGroupApp/{id}', [GroupController::class, 'updateGroupApp'])->name('updateGroupApp');
             
         });
 
