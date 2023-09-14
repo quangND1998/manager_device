@@ -290,9 +290,8 @@ class GroupController extends Controller
         $group = $this->group->show($request, $id);
 
         foreach ($group->devices as $device) {
-            if ($device->active == 1) {
-                SendUpdateApplicationJob::dispatch($device);
-            }
+
+            SendUpdateApplicationJob::dispatch($device);
         }
         return response()->json(Response::HTTP_OK);
     }
