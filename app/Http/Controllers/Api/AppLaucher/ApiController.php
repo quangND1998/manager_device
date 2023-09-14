@@ -261,7 +261,7 @@ class ApiController extends Controller
 
         if ($device) {
             //broadcast(new SendUpdateApplicationEvent($device));
-            SendUpdateApplicationJob::dispatch($device)->onConnection('sync');
+            SendUpdateApplicationJob::dispatch($device);
             return response()->json($device, Response::HTTP_OK);
         } else {
             return response()->json('Device Not Fond', Response::HTTP_BAD_REQUEST);
