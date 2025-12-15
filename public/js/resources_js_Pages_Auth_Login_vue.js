@@ -448,7 +448,7 @@ var render = function render() {
   }, [_c("img", {
     staticClass: "img_login",
     attrs: {
-      src: "assets/img/banner.jpg",
+      src: "assets/img/HolomiaXR.jpg",
       alt: ""
     }
   }), _vm._v(" "), _c("div", {
@@ -475,7 +475,7 @@ var staticRenderFns = [function () {
     attrs: {
       id: "text_banner"
     }
-  }, [_vm._v("Automatically run a VR app when your headset booted up.\n        "), _c("br"), _vm._v("HoloStartup works on Pico, Vive Focus, and Meta Quest headsets"), _c("br")])]);
+  }, [_vm._v("Holomia XR is a VR Device Management Software,\n            "), _c("br"), _vm._v("you can remotely manage headset, app, game launches, time limits etc… "), _c("br"), _vm._v("\n            so easy for operate your VR arcade with Holomia XR"), _c("br")])]);
 }];
 render._withStripped = true;
 
@@ -508,9 +508,7 @@ var render = function render() {
         return _vm.submit.apply(null, arguments);
       }
     }
-  }, [_vm._m(0), _vm._v(" "), _c("h1", {
-    staticClass: "text-center"
-  }, [_vm._v("Login")]), _vm._v(" "), _c("div", [_c("breeze-label", {
+  }, [_vm._m(0), _vm._v(" "), _c("div", [_c("breeze-label", {
     staticClass: "text-label",
     attrs: {
       "for": "email",
@@ -688,15 +686,17 @@ var render = function render() {
     staticClass: "ml-2 text-xl text-gray-600"
   }, [_vm._v("Remember me")])])]), _vm._v(" "), _c("div", {
     staticClass: "flex items-center justify-between mt-4"
-  }, [_vm._m(1), _vm._v(" "), _c("breeze-button", {
-    staticClass: "ml-4",
+  }, [_c("button", {
+    staticClass: "inline-flex items-center bg-[#337ab7] px-4 py-2 border border-transparent rounded-md font-semibold text-xl text-white tracking-widest hover:bg-blue-500 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray transition ease-in-out duration-150",
     "class": {
       "opacity-25": _vm.form.processing
     },
     attrs: {
-      loading: _vm.form.processing
+      disabled: _vm.form.processing
     }
-  }, [_vm._v("Log in")])], 1), _vm._v(" "), _c("div", {
+  }, [_vm.form.processing ? _c("div", {
+    staticClass: "btn-spinner mr-2"
+  }) : _vm._e(), _vm._v("\n        Log In\n      ")]), _vm._v(" "), _vm._m(1)]), _vm._v(" "), _c("div", {
     staticClass: "col-md-12",
     staticStyle: {
       "padding-left": "65px"
@@ -711,9 +711,9 @@ var staticRenderFns = [function () {
   return _c("div", {
     staticClass: "text-center mb-3"
   }, [_c("img", {
-    staticClass: "image-logo",
+    staticClass: "image-logo h-36 mx-auto",
     attrs: {
-      src: "asset/img/HolomiaExpo.svg",
+      src: "/assets/img/holomia.png",
       alt: ""
     }
   })]);
@@ -731,7 +731,7 @@ var staticRenderFns = [function () {
   }), _vm._v(" "), _c("a", {
     staticClass: "ml-3",
     attrs: {
-      href: "https://bit.ly/HoloStartup",
+      href: "https://bit.ly/HolomiaXR",
       target: "_blank"
     }
   }, [_vm._v("Download App")])]);
@@ -757,7 +757,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.login-section_pc{\r\n\r\n  width: 80%;\r\n    font-size: 22px;\r\n  background: rgba(255, 255, 255, 0.71);\n}\n.background_login{\r\n  \r\n  position: fixed;\r\n  top:0;\r\n  right:0;\r\n  left:0;\r\n  width: 100%;\r\n  height: 100%;\r\n  z-index: 2;\r\n  background: #2a2b36;\n}\n.img_login{\r\n  height: 100%;\r\n  width: 100%;\r\n  -o-object-fit: contain;\r\n     object-fit: contain;\r\n  position: relative;\n}\n.pc_content{\r\n  position: fixed;\r\n    top: 40%;\r\n    left: 50%;\r\n    transform: translate(-50%, -50%);\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-content: space-around;\r\n    align-items: center;\n}\n.text-banner{\r\n  width: 80%;\r\n    text-align: center;\r\n    margin-bottom: 8%;\n}\n.text-banner p{\r\n  font-size:18px;\r\n  color: #fff;\n}\n.pc{\r\n    display: block;\n}\n@media all and (max-width:1300px){\n.text-banner {\r\n    width: 70%;\r\n    margin-bottom:0%;\n}\n.login-section_pc{\r\n      width: 70%;\n}\n}\n@media all and (max-width:992px){\n.background_login{\r\n  background: #2a2b36;\r\n  position: relative;\r\n  top:0;\r\n  right:0;\r\n  left:0;\r\n  width: 100%;\r\n  height: 100%;\r\n  z-index: 2;\n}\n.pc_content{\r\n  display: flex;\r\n   flex-direction: column;\r\n   position: relative;\r\n   top: 0%; \r\n    left: 0%;\r\n     transform: translate(0%, 0%);\n}\n.pc_content .form_login:nth-of-type(1){\r\n  order: 2;\n}\n.login-section_pc{\r\n  width: 70%;\r\n  max-width: auto;\n}\n.img_login{\r\n  margin: auto;\r\n  width: 70% !important;\n}\n.text-banner {\r\n    width: 70%;\r\n    margin-top:10px;\r\n    margin-bottom:0;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.login-section_pc{\n\n  width: 80%;\n    font-size: 22px;\n  background: rgba(255, 255, 255, 0.71);\n}\n.background_login{\n  \n  position: fixed;\n  top:0;\n  right:0;\n  left:0;\n  width: 100%;\n  height: 100%;\n  z-index: 2;\n  background: #2a2b36;\n}\n.img_login{\n  height: 100%;\n  width: 100%;\n  -o-object-fit: contain;\n     object-fit: contain;\n  position: relative;\n}\n.pc_content{\n  position: fixed;\n    top: 40%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    display: flex;\n    flex-direction: column;\n    align-content: space-around;\n    align-items: center;\n}\n.text-banner{\n  width: 80%;\n    text-align: center;\n    margin-bottom: 8%;\n}\n.text-banner p{\n  font-size:18px;\n  color: #fff;\n}\n.pc{\n    display: block;\n}\n@media all and (max-width:1300px){\n.text-banner {\n    width: 70%;\n    margin-bottom:0%;\n}\n.login-section_pc{\n      width: 70%;\n}\n}\n@media all and (max-width:992px){\n.background_login{\n  background: #2a2b36;\n  position: relative;\n  top:0;\n  right:0;\n  left:0;\n  width: 100%;\n  height: 100%;\n  z-index: 2;\n}\n.pc_content{\n  display: flex;\n   flex-direction: column;\n   position: relative;\n   top: 0%; \n    left: 0%;\n     transform: translate(0%, 0%);\n}\n.pc_content .form_login:nth-of-type(1){\n  order: 2;\n}\n.login-section_pc{\n  width: 70%;\n  max-width: auto;\n}\n.img_login{\n  margin: auto;\n  width: 70% !important;\n}\n.text-banner {\n    width: 70%;\n    margin-top:10px;\n    margin-bottom:0;\n}\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -780,7 +780,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.show-password[data-v-a2ac2cea] {\r\n  position: absolute;\r\n  right: 20px;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  font-size: 22px;\r\n  cursor: pointer;\n}\n.form-floating-label[data-v-a2ac2cea] {\r\n  position: relative;\n}\n.password-hidden[data-v-a2ac2cea] {\r\n  position: relative;\n}\n.span-hidden[data-v-a2ac2cea] {\r\n  top: 30%;\r\n  position: absolute;\r\n  right: 20px;\r\n  transition: auto;\n}\n.login-section[data-v-a2ac2cea] {\r\n  min-width: 600px !important;\n}\n.text-label[data-v-a2ac2cea] {\r\n  font-size: 2rem;\r\n  line-height: 3rem;\n}\n.text-sm[data-v-a2ac2cea] {\r\n  font-size: 1.5rem;\r\n  line-height: 2.5rem;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.show-password[data-v-a2ac2cea] {\n  position: absolute;\n  right: 20px;\n  top: 50%;\n  transform: translateY(-50%);\n  font-size: 22px;\n  cursor: pointer;\n}\n.form-floating-label[data-v-a2ac2cea] {\n  position: relative;\n}\n.password-hidden[data-v-a2ac2cea] {\n  position: relative;\n}\n.span-hidden[data-v-a2ac2cea] {\n  top: 30%;\n  position: absolute;\n  right: 20px;\n  transition: auto;\n}\n.login-section[data-v-a2ac2cea] {\n  min-width: 600px !important;\n}\n.text-label[data-v-a2ac2cea] {\n  font-size: 2rem;\n  line-height: 3rem;\n}\n.text-sm[data-v-a2ac2cea] {\n  font-size: 1.5rem;\n  line-height: 2.5rem;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

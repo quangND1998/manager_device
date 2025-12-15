@@ -2141,7 +2141,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fa fa-tasks"
-  }), _vm._v(" Devices\n        ")])], 1), _vm._v(" "), _c("li", {
+  }), _vm._v(" Devices\n    ")])], 1), _vm._v(" "), _c("li", {
     staticClass: "pageli",
     attrs: {
       tag: "li"
@@ -2157,7 +2157,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  }), _vm._v(" Applications\n        ")])], 1) : _vm._e(), _vm._v(" "), _c("li", {
+  }), _vm._v(" Applications\n    ")])], 1) : _vm._e(), _vm._v(" "), _c("li", {
     staticClass: "pageli",
     attrs: {
       tag: "li"
@@ -2173,23 +2173,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  }), _vm._v("Default Applications \n        ")])], 1) : _vm._e(), _vm._v(" "), _c("li", {
-    staticClass: "pageli",
-    attrs: {
-      tag: "li"
-    }
-  }), _c("li", {
-    "class": [_vm.$page.component === "Window/Index" ? "active" : ""]
-  }, [_c("Link", {
-    attrs: {
-      href: _vm.route("window-app.index")
-    }
-  }, [_c("i", {
-    staticClass: "fa fa-windows",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  }), _vm._v(" WindowApp\n        ")])], 1), _vm._v(" "), _c("li", {
+  }), _vm._v("Default Applications\n    ")])], 1) : _vm._e(), _vm._v(" "), _c("li", {
     staticClass: "pageli",
     attrs: {
       tag: "li"
@@ -2205,7 +2189,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  }), _vm._v(" Wifi\n        ")])], 1) : _vm._e(), _vm._v(" "), _c("li", {
+  }), _vm._v(" Wifi\n    ")])], 1) : _vm._e(), _vm._v(" "), _c("li", {
     staticClass: "pageli",
     attrs: {
       tag: "li"
@@ -2221,7 +2205,23 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  }), _vm._v(" Groups\n        ")])], 1), _vm._v(" "), _vm.hasAnyPermission(["user-manager"]) ? _c("li", {
+  }), _vm._v(" Groups\n    ")])], 1), _vm._v(" "), _c("li", {
+    staticClass: "pageli",
+    attrs: {
+      tag: "li"
+    }
+  }), _c("li", {
+    "class": [_vm.$page.component === "Window/Index" ? "active" : ""]
+  }, [_c("Link", {
+    attrs: {
+      href: _vm.route("window-app.index")
+    }
+  }, [_c("i", {
+    staticClass: "fa fa-windows",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }), _vm._v(" Free roam VR\n    ")])], 1), _vm._v(" "), _vm.hasAnyPermission(["user-manager"]) ? _c("li", {
     "class": [_vm.$page.component === "APK/Index" ? "active" : ""]
   }, [_c("Link", {
     attrs: {
@@ -2232,7 +2232,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  }), _vm._v(" Installing \n        ")])], 1) : _vm._e(), _vm._v(" "), _c("li", {
+  }), _vm._v(" Installing\n    ")])], 1) : _vm._e(), _vm._v(" "), _c("li", {
     staticClass: "header"
   }), _vm._v(" "), _c("li", {
     "class": [_vm.$page.component === "topup" ? "active" : ""],
@@ -2675,7 +2675,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.language_icon[data-v-05a21a22] {\r\n  display: flex;\n}\na span[data-v-05a21a22]{\r\n  color: black !important;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.language_icon[data-v-05a21a22] {\n  display: flex;\n}\na span[data-v-05a21a22]{\n  color: black !important;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2699,7 +2699,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.wrapper.fixed_layout .main-header {\r\n  position: fixed;\r\n  width: 100%;\n}\n.wrapper.fixed_layout .content-wrapper {\r\n  padding-top: 50px;\n}\n.wrapper.fixed_layout .main-sidebar {\r\n  position: fixed;\r\n  height: 100vh;\n}\n@media (max-width: 767px) {\n.wrapper.hide_logo .main-header .logo {\r\n    display: none;\n}\n}\n.logo-mini,\r\n.logo-lg {\r\n  text-align: left;\n}\n.logo-mini img,\r\n.logo-lg img {\r\n  padding: 0.4em !important;\n}\n.logo-lg img {\r\n  display: -webkit-inline-box;\r\n  width: 25%;\n}\n.user-panel {\r\n  height: 4em;\n}\nhr.visible-xs-block {\r\n  width: 100%;\r\n  background-color: rgba(0, 0, 0, 0.17);\r\n  height: 1px;\r\n  border-color: transparent;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.wrapper.fixed_layout .main-header {\n  position: fixed;\n  width: 100%;\n}\n.wrapper.fixed_layout .content-wrapper {\n  padding-top: 50px;\n}\n.wrapper.fixed_layout .main-sidebar {\n  position: fixed;\n  height: 100vh;\n}\n@media (max-width: 767px) {\n.wrapper.hide_logo .main-header .logo {\n    display: none;\n}\n}\n.logo-mini,\n.logo-lg {\n  text-align: left;\n}\n.logo-mini img,\n.logo-lg img {\n  padding: 0.4em !important;\n}\n.logo-lg img {\n  display: -webkit-inline-box;\n  width: 25%;\n}\n.user-panel {\n  height: 4em;\n}\nhr.visible-xs-block {\n  width: 100%;\n  background-color: rgba(0, 0, 0, 0.17);\n  height: 1px;\n  border-color: transparent;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2723,7 +2723,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* override default */\n.sidebar-menu > li > a {\r\n  padding: 12px 15px 12px 15px;\n}\n.sidebar-menu li.active > a > .fa-angle-left,\r\n.sidebar-menu li.active > a > .pull-right-container > .fa-angle-left {\r\n  -webkit-animation-name: rotate;\r\n          animation-name: rotate;\r\n  -webkit-animation-duration: 0.2s;\r\n          animation-duration: 0.2s;\r\n  -webkit-animation-fill-mode: forwards;\r\n          animation-fill-mode: forwards;\n}\n.treeview-title {\r\n  z-index: 1;\n}\n@-webkit-keyframes rotate {\n0% {\r\n    transform: rotate(0deg);\n}\n100% {\r\n    transform: rotate(-90deg);\n}\n}\n@keyframes rotate {\n0% {\r\n    transform: rotate(0deg);\n}\n100% {\r\n    transform: rotate(-90deg);\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n/* override default */\n.sidebar-menu>li>a {\n  padding: 12px 15px 12px 15px;\n}\n.sidebar-menu li.active>a>.fa-angle-left,\n.sidebar-menu li.active>a>.pull-right-container>.fa-angle-left {\n  -webkit-animation-name: rotate;\n          animation-name: rotate;\n  -webkit-animation-duration: 0.2s;\n          animation-duration: 0.2s;\n  -webkit-animation-fill-mode: forwards;\n          animation-fill-mode: forwards;\n}\n.treeview-title {\n  z-index: 1;\n}\n@-webkit-keyframes rotate {\n0% {\n    transform: rotate(0deg);\n}\n100% {\n    transform: rotate(-90deg);\n}\n}\n@keyframes rotate {\n0% {\n    transform: rotate(0deg);\n}\n100% {\n    transform: rotate(-90deg);\n}\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2747,7 +2747,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.user-panel .image img {\r\n  border-radius: 50%;\n}\n#searchForm {\r\n  padding-left: 0em;\r\n  padding-right: 0em;\n}\n#searchContainer {\r\n  height: 100%;\r\n  padding-bottom: 0em;\n}\n#search {\r\n  width: 80%;\r\n  float: right;\n}\n#search-btn {\r\n  width: 20%;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.user-panel .image img {\n  border-radius: 50%;\n}\n#searchForm {\n  padding-left: 0em;\n  padding-right: 0em;\n}\n#searchContainer {\n  height: 100%;\n  padding-bottom: 0em;\n}\n#search {\n  width: 80%;\n  float: right;\n}\n#search-btn {\n  width: 20%;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

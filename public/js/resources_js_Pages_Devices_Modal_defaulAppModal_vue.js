@@ -311,7 +311,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* scroll */\r\n/* width */\n[data-v-67bbab1c]::-webkit-scrollbar {\r\n  width: 5px;\n}\r\n\r\n/* Track */\n[data-v-67bbab1c]::-webkit-scrollbar-track {\r\n  background: #f1f1f1a8;\n}\r\n\r\n/* Handle */\n[data-v-67bbab1c]::-webkit-scrollbar-thumb {\r\n  background: #d4d1d17e;\n}\r\n\r\n/* Handle on hover */\n[data-v-67bbab1c]::-webkit-scrollbar-thumb:hover {\r\n  background: #cecccc5b;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n/* scroll */\n/* width */\n[data-v-67bbab1c]::-webkit-scrollbar {\n  width: 5px;\n}\n\n/* Track */\n[data-v-67bbab1c]::-webkit-scrollbar-track {\n  background: #f1f1f1a8;\n}\n\n/* Handle */\n[data-v-67bbab1c]::-webkit-scrollbar-thumb {\n  background: #d4d1d17e;\n}\n\n/* Handle on hover */\n[data-v-67bbab1c]::-webkit-scrollbar-thumb:hover {\n  background: #cecccc5b;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

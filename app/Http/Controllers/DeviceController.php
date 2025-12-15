@@ -46,7 +46,7 @@ class DeviceController extends Controller
         $this->deviceLimitRepository = $deviceLimitRepository;
         $this->middleware('permission:user-manager|Pro|Demo|Lite|Standard', ['only' => ['index', 'setDefaultApp', 'launchApp']]);
         $this->middleware('permission:user-manager|Pro|Demo|Lite|Standard', ['only' => ['saveName', 'update', 'delete']]);
-     
+
     }
     public function index(Request $request)
     {
@@ -64,7 +64,6 @@ class DeviceController extends Controller
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
             })->enabled($request->only('enabled'))->orderBy($sortBy, $sort_Direction)->paginate(10)->appends(['page' => $request->page, 'name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sortDirection]);
 
-           
             $applications = Applicaion::whereIn('device_id', $devices->pluck('id'))->get();
         } elseif ($user->hasPermissionTo('Demo')) {
 
@@ -82,7 +81,7 @@ class DeviceController extends Controller
                 $query->orwhere('device_id', 'LIKE', '%' . $request->term . '%');
             })->enabled($request->only('enabled'))->orderBy($sortBy, $sort_Direction)->paginate(10)->appends(['name' => $request->term, 'sortBy' => $request->sortBy, 'sortDirection' => $request->sort_Direction]);
             $isExpired= Carbon::now()->gt($user->time_limit);
-           
+
             // Neu chua het han
             if($isExpired){
                 $applications = Applicaion::whereIn('device_id', $devices->pluck('id'))->get();
@@ -90,9 +89,6 @@ class DeviceController extends Controller
             else{
                 $applications = Applicaion::whereIn('device_id', $devices->pluck('id'))->get();
             }
-            
-           
-
         }
 
         $apk_files = ApkResource::collection($user->apk_files);
@@ -106,8 +102,6 @@ class DeviceController extends Controller
         // return $firstItem;
         return Inertia::render('Devices/Index', compact('devices','enabled', 'applications', 'wifis', 'apk_files', 'sortBy', 'count', 'firstItem', 'lastItem', 'sort_Direction'));
     }
-
-
 
     public function saveName(Request $request,  $id)
     {
@@ -137,7 +131,7 @@ class DeviceController extends Controller
         $device->delete();
         if(!$user->hasPermissionTo('user-manager')){
             $user_update= User::has('devices')->withCount('devices')->with('devices')->find($user->id);
-           
+
             if( $user_update->devices_count > $user_update->number_device){
                 $this->deviceLimitRepository->updateDeviceLimit($user_update);
             }
@@ -147,7 +141,7 @@ class DeviceController extends Controller
                 }
             }
         }
-      
+
         return back()->with('success', 'Delete succsessfully');
     }
 
@@ -173,7 +167,7 @@ class DeviceController extends Controller
                 'brand' => 'required',
                 'os_version' => 'required',
                 'battery' => 'required',
-                
+
 
             ]);
         }
@@ -222,7 +216,12 @@ class DeviceController extends Controller
         $new_ip->save();
         $this->checkaddressIp($new_ip);
 
-        return response()->json('Create successfully', Response::HTTP_OK);
+        $response = [
+            'message' => 'OK',
+            'device' => $device
+        ];
+
+        return response()->json($response, Response::HTTP_OK);
     }
     public function launchApp(Request $request)
     {
@@ -244,14 +243,11 @@ class DeviceController extends Controller
                 //broadcast(new LaunchAppEvent($device, $request->link_app));
             }
         }
-
         return back()->with('success', 'Lauch successfully');
     }
 
     public function connectWifi(Request $request)
     {
-
-
         $this->validate($request, [
             'ssid' => 'required',
             'password' => 'required',
@@ -322,10 +318,6 @@ class DeviceController extends Controller
         }
         return response()->json("Don't have permission", Response::HTTP_BAD_REQUEST);
     }
-
-
-
-
     public function getDevice($id)
     {
         $device = Devices::with('default_app')->where('device_id', $id)->first();
@@ -359,7 +351,7 @@ class DeviceController extends Controller
         }
         foreach ($devices as $device) {
             $device->active = false;
-           
+
             // if($device->last_login !==null){
             //     $device->update_time = Carbon::createFromFormat('Y-m-d H:i:s', $device->last_login->created_at,'UTC')->setTimezone('+7');
             // }
@@ -369,15 +361,11 @@ class DeviceController extends Controller
         }
         return redirect()->route('device.index');
     }
-
-
     public function checkActiveDevice(Request $request)
     {
 
         $user = User::with('devices')->find($request->user_id);
         // return $user;
-
-
         foreach ($user->devices as $device) {
             $device->active = false;
             $device->save();
@@ -428,9 +416,9 @@ class DeviceController extends Controller
         $device->update(['enabled' => $request->enabled]);
 
         return back()->with('success', 'Change enabled app successfully');
-    }   
+    }
 
-   
+
     public function deivceDetail($id){
         $device = Devices::with('applications')->find($id);
         if (!$device) {
@@ -444,7 +432,7 @@ class DeviceController extends Controller
        // broadcast(new SendDeviceActiveEvent($device));
         return Inertia::render('Devices/Detail', compact('device'));
     }
-    
+
 
     public function findDevice($id){
         $device = Devices::with('applications', 'default_app', 'user', 'last_login')->where('device_id', $id)->first();
@@ -459,7 +447,7 @@ class DeviceController extends Controller
 
 
     public function launchAppTime(Request $request){
-     
+
         $this->validate($request, [
             'link_app' => 'required',
             'ids' => 'required|array',
@@ -480,10 +468,10 @@ class DeviceController extends Controller
                 $device->save();
             }
         }
-      
+
         return back()->with(['success'=>'Launch app successfully', 'time'=> $request->time]);
 
     }
 
-  
+
 }

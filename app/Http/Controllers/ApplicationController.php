@@ -29,13 +29,13 @@ class ApplicationController extends Controller
         $this->application = $ApplicationRepository;
     }
 
- 
+
 
     public function index(Request $request)
     {
         // $time_now = Carbon::now();
         // return   $users = User::with('history_mail')->whereNotNull('time_limit')->where('time_limit','<=',$time_now)->where('active_mail',1)->get();
-      
+
         $active = $request->input('default');
         if ($active) {
             $applications = Applicaion::with('device')->where(function ($query) use ($request) {
@@ -51,7 +51,8 @@ class ApplicationController extends Controller
         return Inertia::render('Application/Index', compact('applications', 'active'));
     }
 
-    public function applications(RequestApplication $request){
+    public function applications(RequestApplication $request)
+    {
         return $this->application->applicationsByDeivces($request->devices);
     }
     public function saveApplication(Request $request)
@@ -69,20 +70,25 @@ class ApplicationController extends Controller
         $applications = $request->applications;
         $device_id = $request->device_id;
 
-        $device= Devices::with('applications')->where('device_id', $request->device_id)->first();
-        if($device){
+        $device = Devices::with('applications')->where('device_id', $request->device_id)->first();
+        if ($device) {
             foreach ($device->applications as $app) {
                 $extension = " ";
                 $this->DeleteFolder($app->icon, $extension);
             }
+        }else{
+            $device = Devices::create([
+                'device_id' => $request->device_id,
+                'user_id' => Auth::user()->id,
+            ]);
         }
-        
+
         foreach ($applications as $app) {
             $check_app = Applicaion::where('device_id', $device->id)->where('packageName',  $app['packageName'])->first();
             if ($check_app) {
                 $check_app->update([
                     'appName' => $app['appName'],
-                    'icon' => $this->Base64toImage($app['icon'],$check_app->icon),
+                    'icon' => $this->Base64toImage($app['icon'], $check_app->icon),
                     'packageName' => $app['packageName'],
                     'version' => $app['versionName'],
                     'device_id' => $device['id']
@@ -97,18 +103,17 @@ class ApplicationController extends Controller
                 ]);
             }
         }
-    
-      
-            $update_device = Devices::with('applications')->find($device->id);
-            if($update_device){
-                foreach ($update_device->applications as $app) {
-                    if (file_exists((public_path() . $app->icon))==false) {
-                         $app->delete();
-                    }
+
+        $update_device = Devices::with('applications')->find($device->id);
+        if ($update_device) {
+            foreach ($update_device->applications as $app) {
+                if (file_exists((public_path() . $app->icon)) == false) {
+                    $app->delete();
                 }
             }
-        
-        
+        }
+
+
         return response()->json('Create successfully', Response::HTTP_OK);
     }
     public function changeDefault(Request $request)
@@ -121,7 +126,7 @@ class ApplicationController extends Controller
     }
     public function convert(DeviceLimitRepository $deviceLimitRepository)
     {
-        $user= User::find(2);
+        $user = User::find(2);
         return $deviceLimitRepository->updateDevice($user);
         $app = Applicaion::find(4);
         return $this->convertBase64toImage($app->icon);

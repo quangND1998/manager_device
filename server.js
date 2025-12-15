@@ -47,7 +47,8 @@ redis.on('pmessage', function(pattern, channel, message) {
     console.log('pmessage', channel);
     console.log('Message Recieved pmessage: ' + message.event);
 
-    io.emit(channel + ':' + message.event, message.data);
+    io.emit(channel, message.data);
+    // io.emit(channel + ':' + message.event, message.data);
     io.in(channel).emit(channel + ':' + message.event, message.data);
     // io.in(channel).emit(channel + ':' + message.event, message.data)
     // io.sockets.on("connection", (socket) => {
@@ -62,7 +63,7 @@ redis.on('pmessage', function(pattern, channel, message) {
 
 io.on("connection", (socket) => {
 
-
+    console.log(`🟢 New client connected: ${socket.id}`);
     socket.on('private-active-device.3', (
         room
     ) => {

@@ -172,7 +172,7 @@ var render = function render() {
   }, [_c("img", {
     staticClass: "img_login",
     attrs: {
-      src: "assets/img/banner.jpg",
+      src: "assets/img/HolomiaXR.jpg",
       alt: ""
     }
   }), _vm._v(" "), _c("div", {
@@ -199,7 +199,7 @@ var staticRenderFns = [function () {
     attrs: {
       id: "text_banner"
     }
-  }, [_vm._v("Automatically run a VR app when your headset booted up.\n        "), _c("br"), _vm._v("HoloStartup works on Pico, Vive Focus, and Meta Quest headsets"), _c("br")])]);
+  }, [_vm._v("Holomia XR is a VR Device Management Software,\n            "), _c("br"), _vm._v("you can remotely manage headset, app, game launches, time limits etc… "), _c("br"), _vm._v("\n            so easy for operate your VR arcade with Holomia XR"), _c("br")])]);
 }];
 render._withStripped = true;
 
@@ -223,9 +223,9 @@ var render = function render() {
 
   return _c("div", [_c("div", {
     staticClass: "mb-4 text-sm text-gray-600"
-  }, [_vm._v("Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another.")]), _vm._v(" "), _vm.verificationLinkSent ? _c("div", {
+  }, [_vm._v("Thanks for signing up! Before getting started, could you verify your email\n    address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you\n    another.")]), _vm._v(" "), _vm.verificationLinkSent ? _c("div", {
     staticClass: "mb-4 font-medium text-sm text-green-600"
-  }, [_vm._v("A new verification link has been sent to the email address you provided during registration.")]) : _vm._e(), _vm._v(" "), _c("form", {
+  }, [_vm._v("A new verification link has been sent\n    to the email address you provided during registration.")]) : _vm._e(), _vm._v(" "), _c("form", {
     on: {
       submit: function submit($event) {
         $event.preventDefault();
@@ -241,7 +241,7 @@ var render = function render() {
     attrs: {
       disabled: _vm.form.processing
     }
-  }, [_vm._v("Resend Verification Email")]), _vm._v(" "), _c("inertia-link", {
+  }, [_vm._v("Resend Verification\n        Email")]), _vm._v(" "), _c("inertia-link", {
     staticClass: "underline text-sm text-gray-600 hover:text-gray-900",
     attrs: {
       href: _vm.route("logout"),
@@ -273,7 +273,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.login-section_pc{\r\n\r\n  width: 80%;\r\n    font-size: 22px;\r\n  background: rgba(255, 255, 255, 0.71);\n}\n.background_login{\r\n  \r\n  position: fixed;\r\n  top:0;\r\n  right:0;\r\n  left:0;\r\n  width: 100%;\r\n  height: 100%;\r\n  z-index: 2;\r\n  background: #2a2b36;\n}\n.img_login{\r\n  height: 100%;\r\n  width: 100%;\r\n  -o-object-fit: contain;\r\n     object-fit: contain;\r\n  position: relative;\n}\n.pc_content{\r\n  position: fixed;\r\n    top: 40%;\r\n    left: 50%;\r\n    transform: translate(-50%, -50%);\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-content: space-around;\r\n    align-items: center;\n}\n.text-banner{\r\n  width: 80%;\r\n    text-align: center;\r\n    margin-bottom: 8%;\n}\n.text-banner p{\r\n  font-size:18px;\r\n  color: #fff;\n}\n.pc{\r\n    display: block;\n}\n@media all and (max-width:1300px){\n.text-banner {\r\n    width: 70%;\r\n    margin-bottom:0%;\n}\n.login-section_pc{\r\n      width: 70%;\n}\n}\n@media all and (max-width:992px){\n.background_login{\r\n  background: #2a2b36;\r\n  position: relative;\r\n  top:0;\r\n  right:0;\r\n  left:0;\r\n  width: 100%;\r\n  height: 100%;\r\n  z-index: 2;\n}\n.pc_content{\r\n  display: flex;\r\n   flex-direction: column;\r\n   position: relative;\r\n   top: 0%; \r\n    left: 0%;\r\n     transform: translate(0%, 0%);\n}\n.pc_content .form_login:nth-of-type(1){\r\n  order: 2;\n}\n.login-section_pc{\r\n  width: 70%;\r\n  max-width: auto;\n}\n.img_login{\r\n  margin: auto;\r\n  width: 70% !important;\n}\n.text-banner {\r\n    width: 70%;\r\n    margin-top:10px;\r\n    margin-bottom:0;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.login-section_pc{\n\n  width: 80%;\n    font-size: 22px;\n  background: rgba(255, 255, 255, 0.71);\n}\n.background_login{\n  \n  position: fixed;\n  top:0;\n  right:0;\n  left:0;\n  width: 100%;\n  height: 100%;\n  z-index: 2;\n  background: #2a2b36;\n}\n.img_login{\n  height: 100%;\n  width: 100%;\n  -o-object-fit: contain;\n     object-fit: contain;\n  position: relative;\n}\n.pc_content{\n  position: fixed;\n    top: 40%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    display: flex;\n    flex-direction: column;\n    align-content: space-around;\n    align-items: center;\n}\n.text-banner{\n  width: 80%;\n    text-align: center;\n    margin-bottom: 8%;\n}\n.text-banner p{\n  font-size:18px;\n  color: #fff;\n}\n.pc{\n    display: block;\n}\n@media all and (max-width:1300px){\n.text-banner {\n    width: 70%;\n    margin-bottom:0%;\n}\n.login-section_pc{\n      width: 70%;\n}\n}\n@media all and (max-width:992px){\n.background_login{\n  background: #2a2b36;\n  position: relative;\n  top:0;\n  right:0;\n  left:0;\n  width: 100%;\n  height: 100%;\n  z-index: 2;\n}\n.pc_content{\n  display: flex;\n   flex-direction: column;\n   position: relative;\n   top: 0%; \n    left: 0%;\n     transform: translate(0%, 0%);\n}\n.pc_content .form_login:nth-of-type(1){\n  order: 2;\n}\n.login-section_pc{\n  width: 70%;\n  max-width: auto;\n}\n.img_login{\n  margin: auto;\n  width: 70% !important;\n}\n.text-banner {\n    width: 70%;\n    margin-top:10px;\n    margin-bottom:0;\n}\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

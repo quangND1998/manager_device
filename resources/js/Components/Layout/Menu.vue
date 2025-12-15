@@ -85,11 +85,11 @@
 
 
 
-    <li class="header" v-if="hasAnyPermission(['user-manager'])">User managerment</li>
+    <li class="header" v-if="hasAnyPermission(['user-manager'])">User management</li>
     <li class="treeview" v-if="hasAnyPermission(['user-manager'])">
       <a href="#">
         <i class="fa fa-list"></i>
-        <span class="treeview-title">User managerment</span>
+        <span class="treeview-title">User management</span>
         <span class="pull-right-container pull-right">
           <i class="fa fa-angle-left fa-fw"></i>
         </span>
@@ -113,11 +113,11 @@
       </ul>
     </li>
 
-    <li class="header" v-if="hasAnyPermission(['user-manager'])">Admin managerment</li>
+    <li class="header" v-if="hasAnyPermission(['user-manager'])">Admin management</li>
     <li class="treeview" v-if="hasAnyPermission(['user-manager'])">
       <a href="#">
         <i class="fa fa-list"></i>
-        <span class="treeview-title">Admin managerment</span>
+        <span class="treeview-title">Admin management</span>
         <span class="pull-right-container pull-right">
           <i class="fa fa-angle-left fa-fw"></i>
         </span>

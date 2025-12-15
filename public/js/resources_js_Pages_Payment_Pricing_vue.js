@@ -2100,7 +2100,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "fa fa-tasks"
-  }), _vm._v(" Devices\n        ")])], 1), _vm._v(" "), _c("li", {
+  }), _vm._v(" Devices\n    ")])], 1), _vm._v(" "), _c("li", {
     staticClass: "pageli",
     attrs: {
       tag: "li"
@@ -2116,7 +2116,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  }), _vm._v(" Applications\n        ")])], 1) : _vm._e(), _vm._v(" "), _c("li", {
+  }), _vm._v(" Applications\n    ")])], 1) : _vm._e(), _vm._v(" "), _c("li", {
     staticClass: "pageli",
     attrs: {
       tag: "li"
@@ -2132,23 +2132,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  }), _vm._v("Default Applications \n        ")])], 1) : _vm._e(), _vm._v(" "), _c("li", {
-    staticClass: "pageli",
-    attrs: {
-      tag: "li"
-    }
-  }), _c("li", {
-    "class": [_vm.$page.component === "Window/Index" ? "active" : ""]
-  }, [_c("Link", {
-    attrs: {
-      href: _vm.route("window-app.index")
-    }
-  }, [_c("i", {
-    staticClass: "fa fa-windows",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  }), _vm._v(" WindowApp\n        ")])], 1), _vm._v(" "), _c("li", {
+  }), _vm._v("Default Applications\n    ")])], 1) : _vm._e(), _vm._v(" "), _c("li", {
     staticClass: "pageli",
     attrs: {
       tag: "li"
@@ -2164,7 +2148,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  }), _vm._v(" Wifi\n        ")])], 1) : _vm._e(), _vm._v(" "), _c("li", {
+  }), _vm._v(" Wifi\n    ")])], 1) : _vm._e(), _vm._v(" "), _c("li", {
     staticClass: "pageli",
     attrs: {
       tag: "li"
@@ -2180,7 +2164,23 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  }), _vm._v(" Groups\n        ")])], 1), _vm._v(" "), _vm.hasAnyPermission(["user-manager"]) ? _c("li", {
+  }), _vm._v(" Groups\n    ")])], 1), _vm._v(" "), _c("li", {
+    staticClass: "pageli",
+    attrs: {
+      tag: "li"
+    }
+  }), _c("li", {
+    "class": [_vm.$page.component === "Window/Index" ? "active" : ""]
+  }, [_c("Link", {
+    attrs: {
+      href: _vm.route("window-app.index")
+    }
+  }, [_c("i", {
+    staticClass: "fa fa-windows",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }), _vm._v(" Free roam VR\n    ")])], 1), _vm._v(" "), _vm.hasAnyPermission(["user-manager"]) ? _c("li", {
     "class": [_vm.$page.component === "APK/Index" ? "active" : ""]
   }, [_c("Link", {
     attrs: {
@@ -2191,7 +2191,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  }), _vm._v(" Installing \n        ")])], 1) : _vm._e(), _vm._v(" "), _c("li", {
+  }), _vm._v(" Installing\n    ")])], 1) : _vm._e(), _vm._v(" "), _c("li", {
     staticClass: "header"
   }), _vm._v(" "), _c("li", {
     "class": [_vm.$page.component === "topup" ? "active" : ""],
@@ -2774,7 +2774,7 @@ var render = function render() {
         fill: "currentColor",
         d: "M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
       }
-    })]), _vm._v(" "), _c("p", [_vm._v(" For Holomia Apps (Mission X and Infinity)")])]), _vm._v(" "), _c("li", {
+    })]), _vm._v(" "), _c("p", [_vm._v(" Unlimited use of Holomia apps")])]), _vm._v(" "), _c("li", {
       staticClass: "mb-4 flex items-center"
     }, [_c("svg", {
       staticClass: "text-green-600 w-4 h-4 mr-2",
@@ -2792,7 +2792,7 @@ var render = function render() {
         fill: "currentColor",
         d: "M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
       }
-    })]), _vm._v("Launch Apps Remotely\n                  ")]), _vm._v(" "), _c("li", {
+    })]), _vm._v("Launch Apps Remotely\n                ")]), _vm._v(" "), _c("li", {
       staticClass: "mb-4 flex items-center"
     }, [_c("svg", {
       staticClass: "text-green-600 w-4 h-4 mr-2",
@@ -2810,7 +2810,7 @@ var render = function render() {
         fill: "currentColor",
         d: "M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
       }
-    })]), _vm._v("Kiosk Mode\n                  ")])]) : _c("ol", {
+    })]), _vm._v("Kiosk Mode\n                ")])]) : _c("ol", {
       staticClass: "list-inside text-left"
     }, [_c("div", [_c("li", {
       staticClass: "mb-4 flex items-center"
@@ -2830,7 +2830,7 @@ var render = function render() {
         fill: "currentColor",
         d: "M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
       }
-    })]), _vm._v(_vm._s(package_product.free_trail_time) + " days trial, unlimited devices\n                      ")])]), _vm._v(" "), _c("li", {
+    })]), _vm._v(_vm._s(package_product.free_trail_time) + " days trial, unlimited devices\n                  ")])]), _vm._v(" "), _c("li", {
       staticClass: "mb-4 flex items-center"
     }, [_c("svg", {
       staticClass: "text-green-600 w-4 h-4 mr-2",
@@ -2848,7 +2848,7 @@ var render = function render() {
         fill: "currentColor",
         d: "M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
       }
-    })]), _vm._v("Launch Apps Remotely\n                  ")]), _vm._v(" "), _c("li", {
+    })]), _vm._v("Launch Apps Remotely\n                ")]), _vm._v(" "), _c("li", {
       staticClass: "mb-4 flex items-center"
     }, [_c("svg", {
       staticClass: "text-green-600 w-4 h-4 mr-2",
@@ -2866,7 +2866,7 @@ var render = function render() {
         fill: "currentColor",
         d: "M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
       }
-    })]), _vm._v("Kiosk Mode\n                  ")]), _vm._v(" "), package_product.name == "Pro" ? _c("div", [_c("li", {
+    })]), _vm._v("Kiosk Mode\n                ")]), _vm._v(" "), package_product.name == "Pro" ? _c("div", [_c("li", {
       staticClass: "mb-4 flex items-center"
     }, [_c("svg", {
       staticClass: "text-green-600 w-4 h-4 mr-2",
@@ -2884,7 +2884,7 @@ var render = function render() {
         fill: "currentColor",
         d: "M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
       }
-    })]), _vm._v("App & File Distribution\n                      ")]), _vm._v(" "), _c("li", {
+    })]), _vm._v("App & File Distribution\n                  ")]), _vm._v(" "), _c("li", {
       staticClass: "mb-4 flex items-center"
     }, [_c("svg", {
       staticClass: "text-green-600 w-4 h-4 mr-2",
@@ -2902,7 +2902,7 @@ var render = function render() {
         fill: "currentColor",
         d: "M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
       }
-    })]), _vm._v("Device Tracking & Reporting\n                      ")]), _vm._v(" "), _c("li", {
+    })]), _vm._v("Device Tracking & Reporting\n                  ")]), _vm._v(" "), _c("li", {
       staticClass: "mb-4 flex items-center"
     }, [_c("svg", {
       staticClass: "text-green-600 w-4 h-4 mr-2",
@@ -2920,7 +2920,7 @@ var render = function render() {
         fill: "currentColor",
         d: "M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
       }
-    })]), _vm._v("More function coming soon\n                      ")]), _vm._v(" "), _c("li", {
+    })]), _vm._v("More function coming soon\n                  ")]), _vm._v(" "), _c("li", {
       staticClass: "mb-4 flex items-center"
     }, [_c("svg", {
       staticClass: "text-green-600 w-4 h-4 mr-2",
@@ -2938,7 +2938,7 @@ var render = function render() {
         fill: "currentColor",
         d: "M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
       }
-    })]), _vm._v("More function coming soon\n                      ")])]) : _vm._e()])])])]), _vm._v(" "), package_product.name == "Free" ? _c("button", {
+    })]), _vm._v("More function coming soon\n                  ")])]) : _vm._e()])])])]), _vm._v(" "), package_product.name == "Free" ? _c("button", {
       staticClass: "mt-5 inline-block p-8 bg-gray-400 text-white font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-400 hover:shadow-lg focus:bg-gray-400 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out w-full",
       attrs: {
         type: "button",
@@ -2946,7 +2946,7 @@ var render = function render() {
         "data-mdb-ripple": "true",
         "data-ripple-color": "light"
       }
-    }, [_vm._v(" Your Account Default\n            ")]) : _vm.$page.props.auth.user.active_demo == 0 && package_product.name == "Standard" ? _c("button", {
+    }, [_vm._v(" Your Account Default\n        ")]) : _vm.$page.props.auth.user.active_demo == 0 && package_product.name == "Standard" ? _c("button", {
       staticClass: "mt-5 inline-block p-8 mr-5 bg-blue-600 text-white font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full",
       attrs: {
         type: "button",
@@ -2960,7 +2960,7 @@ var render = function render() {
           return _vm.getTrail(package_product);
         }
       }
-    }, [_vm._v("\n                  Get Your " + _vm._s(package_product.free_trail_time) + " days Trial\n            ")]) : _vm.$page.props.auth.user.active_demo == 1 && package_product.name == "Standard" ? _c("button", {
+    }, [_vm._v("\n          Get Your " + _vm._s(package_product.free_trail_time) + " days Trial\n        ")]) : _vm.$page.props.auth.user.active_demo == 1 && package_product.name == "Standard" ? _c("button", {
       staticClass: "mt-5 inline-block p-8 mr-5 bg-blue-600 text-white font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full",
       attrs: {
         type: "button",
@@ -2972,7 +2972,7 @@ var render = function render() {
           return _vm.addtoCart(package_product);
         }
       }
-    }, [_vm._v("\n              Add to Cart\n            ")]) : _c("button", {
+    }, [_vm._v("\n          Add to Cart\n        ")]) : _c("button", {
       staticClass: "mt-5 inline-block p-8 mr-5 bg-gray-600 text-white font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-700 hover:shadow-lg focus:bg-gray-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full",
       attrs: {
         type: "button",
@@ -2985,7 +2985,7 @@ var render = function render() {
           return _vm.addtoCart(package_product);
         }
       }
-    }, [_vm._v("\n                  Get Your " + _vm._s(package_product.free_trail_time) + "  days Trial\n              ")])]);
+    }, [_vm._v("\n          Get Your " + _vm._s(package_product.free_trail_time) + " days Trial\n        ")])]);
   }), _vm._v(" "), _c("div", {
     staticClass: "mb-6 lg:mb-0 hover:shadow-2xl transition duration-500 transform hover:scale-105 cursor-pointer"
   })], 2), _vm._v(" "), _c("div", {
@@ -3015,7 +3015,7 @@ var render = function render() {
     staticClass: "modal-body"
   }, [_c("div", {
     staticClass: "form-group"
-  }, [_vm._v("\n                                  Please confirm to use Free of charge the Kiosk mode HoloStartup for " + _vm._s(_vm.form.time_trail) + " days, unlimited devices\n                              ")]), _vm._v(" "), _vm.errors.devices ? _c("div", {
+  }, [_vm._v("\n              Please confirm to use Free of charge the Kiosk mode HoloStartup for " + _vm._s(_vm.form.time_trail) + " days, unlimited\n              devices\n            ")]), _vm._v(" "), _vm.errors.devices ? _c("div", {
     staticClass: "text-red-500"
   }, [_vm._v(_vm._s(_vm.errors.devices))]) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "modal-footer"
@@ -3036,7 +3036,7 @@ var render = function render() {
         return _vm.trielfree();
       }
     }
-  }, [_vm._v("\n                                      OK")])])])])])])])]);
+  }, [_vm._v("\n                OK")])])])])])])])]);
 };
 
 var staticRenderFns = [function () {
@@ -3097,7 +3097,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.language_icon[data-v-05a21a22] {\r\n  display: flex;\n}\na span[data-v-05a21a22]{\r\n  color: black !important;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.language_icon[data-v-05a21a22] {\n  display: flex;\n}\na span[data-v-05a21a22]{\n  color: black !important;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -3121,7 +3121,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.wrapper.fixed_layout .main-header {\r\n  position: fixed;\r\n  width: 100%;\n}\n.wrapper.fixed_layout .content-wrapper {\r\n  padding-top: 50px;\n}\n.wrapper.fixed_layout .main-sidebar {\r\n  position: fixed;\r\n  height: 100vh;\n}\n@media (max-width: 767px) {\n.wrapper.hide_logo .main-header .logo {\r\n    display: none;\n}\n}\n.logo-mini,\r\n.logo-lg {\r\n  text-align: left;\n}\n.logo-mini img,\r\n.logo-lg img {\r\n  padding: 0.4em !important;\n}\n.logo-lg img {\r\n  display: -webkit-inline-box;\r\n  width: 25%;\n}\n.user-panel {\r\n  height: 4em;\n}\nhr.visible-xs-block {\r\n  width: 100%;\r\n  background-color: rgba(0, 0, 0, 0.17);\r\n  height: 1px;\r\n  border-color: transparent;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.wrapper.fixed_layout .main-header {\n  position: fixed;\n  width: 100%;\n}\n.wrapper.fixed_layout .content-wrapper {\n  padding-top: 50px;\n}\n.wrapper.fixed_layout .main-sidebar {\n  position: fixed;\n  height: 100vh;\n}\n@media (max-width: 767px) {\n.wrapper.hide_logo .main-header .logo {\n    display: none;\n}\n}\n.logo-mini,\n.logo-lg {\n  text-align: left;\n}\n.logo-mini img,\n.logo-lg img {\n  padding: 0.4em !important;\n}\n.logo-lg img {\n  display: -webkit-inline-box;\n  width: 25%;\n}\n.user-panel {\n  height: 4em;\n}\nhr.visible-xs-block {\n  width: 100%;\n  background-color: rgba(0, 0, 0, 0.17);\n  height: 1px;\n  border-color: transparent;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -3145,7 +3145,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* override default */\n.sidebar-menu > li > a {\r\n  padding: 12px 15px 12px 15px;\n}\n.sidebar-menu li.active > a > .fa-angle-left,\r\n.sidebar-menu li.active > a > .pull-right-container > .fa-angle-left {\r\n  -webkit-animation-name: rotate;\r\n          animation-name: rotate;\r\n  -webkit-animation-duration: 0.2s;\r\n          animation-duration: 0.2s;\r\n  -webkit-animation-fill-mode: forwards;\r\n          animation-fill-mode: forwards;\n}\n.treeview-title {\r\n  z-index: 1;\n}\n@-webkit-keyframes rotate {\n0% {\r\n    transform: rotate(0deg);\n}\n100% {\r\n    transform: rotate(-90deg);\n}\n}\n@keyframes rotate {\n0% {\r\n    transform: rotate(0deg);\n}\n100% {\r\n    transform: rotate(-90deg);\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n/* override default */\n.sidebar-menu>li>a {\n  padding: 12px 15px 12px 15px;\n}\n.sidebar-menu li.active>a>.fa-angle-left,\n.sidebar-menu li.active>a>.pull-right-container>.fa-angle-left {\n  -webkit-animation-name: rotate;\n          animation-name: rotate;\n  -webkit-animation-duration: 0.2s;\n          animation-duration: 0.2s;\n  -webkit-animation-fill-mode: forwards;\n          animation-fill-mode: forwards;\n}\n.treeview-title {\n  z-index: 1;\n}\n@-webkit-keyframes rotate {\n0% {\n    transform: rotate(0deg);\n}\n100% {\n    transform: rotate(-90deg);\n}\n}\n@keyframes rotate {\n0% {\n    transform: rotate(0deg);\n}\n100% {\n    transform: rotate(-90deg);\n}\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -3169,7 +3169,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.user-panel .image img {\r\n  border-radius: 50%;\n}\n#searchForm {\r\n  padding-left: 0em;\r\n  padding-right: 0em;\n}\n#searchContainer {\r\n  height: 100%;\r\n  padding-bottom: 0em;\n}\n#search {\r\n  width: 80%;\r\n  float: right;\n}\n#search-btn {\r\n  width: 20%;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.user-panel .image img {\n  border-radius: 50%;\n}\n#searchForm {\n  padding-left: 0em;\n  padding-right: 0em;\n}\n#searchContainer {\n  height: 100%;\n  padding-bottom: 0em;\n}\n#search {\n  width: 80%;\n  float: right;\n}\n#search-btn {\n  width: 20%;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -3193,7 +3193,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* scroll */\r\n/* width */\n[data-v-05f30bb3]::-webkit-scrollbar {\r\n  width: 5px;\n}\r\n\r\n/* Track */\n[data-v-05f30bb3]::-webkit-scrollbar-track {\r\n  background: #f1f1f1a8;\n}\r\n\r\n/* Handle */\n[data-v-05f30bb3]::-webkit-scrollbar-thumb {\r\n  background: #d4d1d17e;\n}\r\n\r\n/* Handle on hover */\n[data-v-05f30bb3]::-webkit-scrollbar-thumb:hover {\r\n  background: #cecccc5b;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n/* scroll */\n/* width */\n[data-v-05f30bb3]::-webkit-scrollbar {\n  width: 5px;\n}\n\n/* Track */\n[data-v-05f30bb3]::-webkit-scrollbar-track {\n  background: #f1f1f1a8;\n}\n\n/* Handle */\n[data-v-05f30bb3]::-webkit-scrollbar-thumb {\n  background: #d4d1d17e;\n}\n\n/* Handle on hover */\n[data-v-05f30bb3]::-webkit-scrollbar-thumb:hover {\n  background: #cecccc5b;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
