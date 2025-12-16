@@ -1,11 +1,13 @@
 <template>
   <div class="">
     <div class="pc min-h-screen  flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 background_login">
-      <img src="assets/img/banner.jpg" class=" img_login " alt="">
+      <img src="assets/img/HolomiaXR.jpg" class=" img_login " alt="">
       <div class="pc_content" id="pc_content">
         <div class="  text-banner rounded-lg form_login" id="text_banner_pc">
-          <p class="p-8 " id="text_banner" >Automatically run a VR app when your headset booted up.
-          <br>HoloStartup works on Pico, Vive Focus, and Meta Quest headsets</br></p>
+          <p class="p-8 " id="text_banner" >Holomia XR is a VR Device Management Software,
+              <br/>you can remotely manage headset, app, game launches, time limits etc… <br/>
+              so easy for operate your VR arcade with Holomia XR</br>
+            </p>
           <!-- <br> </br>
           <br> </br> -->
       

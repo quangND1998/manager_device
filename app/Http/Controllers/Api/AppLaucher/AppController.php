@@ -8,6 +8,7 @@ use App\Repositories\ApplicationRepository;
 use App\Http\Requests\RequestApplication;
 use App\Http\Resources\ApplicationResource;
 use App\Http\Resources\Device\DeviceResouce;
+use App\Models\ApplicationDefault;
 
 class AppController extends Controller
 {
@@ -30,9 +31,13 @@ class AppController extends Controller
      */
 
     public function applications(RequestApplication $request)
-    {
-
+    {   
+        
         return ApplicationResource::collection($this->application->applicationsByDeivces($request->devices));
+    }
+
+    public function application_default(){
+        return ApplicationResource::collection(ApplicationDefault::get());
     }
 
 

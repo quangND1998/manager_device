@@ -9,10 +9,15 @@ class Devices extends Model
 {
     use HasFactory;
     protected $table = 'devices';
-    protected $fillable = ['id','app_default_id', 'device_id',  'name', 'brand', 'os_version', 'battery', 'connect_wifi', 'created_at','active', 'state', 'user_id',  'updated_at'];
+    protected $fillable = ['id','app_default_id','app_run_id', 'device_id',  'name', 'brand', 'os_version','serial', 'battery', 'connect_wifi', 'created_at','active','enabled', 'state', 'user_id','time',  'updated_at', 'update_time'];
     protected $casts = [
-        'active' => 'boolean'
+        'active' => 'boolean',
+        'enabled' => 'boolean'
     ];
+    public function getTimeAttribute($value)
+    {
+        return strtotime($value);
+    }
     public function groups()
     {
         return $this->belongsToMany(Groups::class, 'group_device', 'device_id', 'group_id')->withPivot('state');
@@ -40,6 +45,10 @@ class Devices extends Model
         return $this->belongsTo(Applicaion::class,'app_default_id');
     }
 
+    public function app_running(){
+        return $this->belongsTo(Applicaion::class,'app_run_id');
+    }
+
     public function wifis(){
         return $this->hasMany(Wifi::class,'device_id');
     }
@@ -63,6 +72,17 @@ class Devices extends Model
         return $this->hasOne(HistoryDevice::class,'device_id')->latest();
     }
 
+
+    public function scopeEnabled($query, array $filters)
+    {
+     
+
+        if (array_key_exists('enabled', $filters) && ($filters['enabled'] =='0' || $filters['enabled'] =='1' )) {
+            $query->where('enabled',  $filters['enabled']);
+        } else {
+            $query->get();
+        }
+    }
 
 
     

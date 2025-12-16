@@ -14,6 +14,8 @@ use Spatie\Permission\Models\Role;
 use Carbon\Carbon;
 use App\Models\Payment;
 use App\Http\Controllers\Traits\PayPalTrait;
+use App\Models\License;
+
 class PricingController extends Controller
 {
     use PayPalTrait;
@@ -117,6 +119,10 @@ class PricingController extends Controller
             $user->number_device = $cart->items['number_device'];
             $user->time_limit = $timelimit;
             $user->save();
+            License::create([
+                'time_limit' => $user->time_limit,
+                'number_device' => $user->number_device
+            ]);
             $role = Role::where('name','Pro')->first();
             $user->roles()->sync($role);
             $this->savePaymentPayPal($result,$des,$cart->items);

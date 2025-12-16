@@ -60,7 +60,7 @@
                         <form>
                             <div class="w-full max-w-md  p-4 mb-8 mt-8">
                                 <input v-model="search"
-                                    class="relative w-full px-8 py-3 text-xl rounded-r focus:shadow-outline"
+                                    class="block w-full py-3 pl-5 text-xl text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
                                     autocomplete="off" type="text" name="search" placeholder="Search…" />
                             </div>
                             <h6 class="font-medium leading-tight text-xl mt-0 mb-2 p-4  text-blue-600">Choose some Wifi
@@ -122,7 +122,7 @@
                                     class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
                                     data-dismiss="modal" @click="reset()">Close</button>
                                 <button @click.prevent="connectWifi()" type="submit"
-                                    class="inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out">Run
+                                    class="inline-block px-6 py-2.5 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out">Run
                                 </button>
                             </div>
                         </form>

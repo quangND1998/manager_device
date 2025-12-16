@@ -29,7 +29,10 @@ class AddUrlPathToAppWindowsTable extends Migration
     public function down()
     {
         Schema::table('app_windows', function (Blueprint $table) {
-            //
+            $table->dropColumn('url_vice');
+            $table->dropColumn('url_pico');
+            $table->dropColumn('version');
+            $table->dropColumn('url_apk');
         });
     }
 }

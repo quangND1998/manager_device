@@ -51,152 +51,149 @@
                 <small class="text-gray-500 text-4xl"> Unlimited devices </small>
               </h3>
               <h3 v-else class="text-6xl mb-6">
-                <strong>$ {{ package_product.price  }}</strong> <br>
+                <strong>$ {{ package_product.price }}</strong> <br>
                 <small class="text-gray-500 text-xl"> Per month, per device</small>
               </h3>
               <div class="p-6">
-                <ol v-if="package_product.price == 0 " class="list-inside text-left">
+                <ol v-if="package_product.price == 0" class="list-inside text-left">
 
-                    <li class="mb-4 flex items-center">
-                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
-                        class="text-green-600 w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512">
-                        <path fill="currentColor"
-                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
-                        </path>
-                        </svg>
-                        <p > For Holomia Apps (Mission X and Infinity)</p>
+                  <li class="mb-4 flex items-center">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
+                      class="text-green-600 w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 512 512">
+                      <path fill="currentColor"
+                        d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
+                      </path>
+                    </svg>
+                    <p> Unlimited use of Holomia apps</p>
 
-                    </li>
-                    <li class="mb-4 flex items-center">
-                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
-                        class="text-green-600 w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512">
-                        <path fill="currentColor"
-                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
-                        </path>
-                        </svg>Launch Apps Remotely
-                    </li>
-                    <li class="mb-4 flex items-center">
-                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
-                        class="text-green-600 w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512">
-                        <path fill="currentColor"
-                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
-                        </path>
-                        </svg>Kiosk Mode
-                    </li>
+                  </li>
+                  <li class="mb-4 flex items-center">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
+                      class="text-green-600 w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 512 512">
+                      <path fill="currentColor"
+                        d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
+                      </path>
+                    </svg>Launch Apps Remotely
+                  </li>
+                  <li class="mb-4 flex items-center">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
+                      class="text-green-600 w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 512 512">
+                      <path fill="currentColor"
+                        d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
+                      </path>
+                    </svg>Kiosk Mode
+                  </li>
                 </ol>
 
 
                 <ol v-else class="list-inside text-left">
-                    <div>
-                        <li class="mb-4 flex items-center">
-                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
-                            class="text-green-600 w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 512 512">
-                            <path fill="currentColor"
-                                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
-                            </path>
-                            </svg>{{ package_product.free_trail_time }} days trial, unlimited devices
-                        </li>
-                    </div>
+                  <div>
                     <li class="mb-4 flex items-center">
-                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
+                      <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
                         class="text-green-600 w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 512">
                         <path fill="currentColor"
-                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
+                          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
                         </path>
-                        </svg>Launch Apps Remotely
+                      </svg>{{ package_product.free_trail_time }} days trial, unlimited devices
                     </li>
-                    <li class="mb-4 flex items-center">
-                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
-                        class="text-green-600 w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512">
-                        <path fill="currentColor"
-                            d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
-                        </path>
-                        </svg>Kiosk Mode
-                    </li>
+                  </div>
+                  <li class="mb-4 flex items-center">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
+                      class="text-green-600 w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 512 512">
+                      <path fill="currentColor"
+                        d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
+                      </path>
+                    </svg>Launch Apps Remotely
+                  </li>
+                  <li class="mb-4 flex items-center">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
+                      class="text-green-600 w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 512 512">
+                      <path fill="currentColor"
+                        d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
+                      </path>
+                    </svg>Kiosk Mode
+                  </li>
 
-                    <div v-if="package_product.name == 'Pro'">
-                        <li class="mb-4 flex items-center">
-                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
-                            class="text-green-600 w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 512 512">
-                            <path fill="currentColor"
-                                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
-                            </path>
-                            </svg>App & File Distribution
-                        </li>
-                        <li class="mb-4 flex items-center">
-                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
-                            class="text-green-600 w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 512 512">
-                            <path fill="currentColor"
-                                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
-                            </path>
-                            </svg>Device Tracking & Reporting
-                        </li>
-                        <li class="mb-4 flex items-center">
-                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
-                            class="text-green-600 w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 512 512">
-                            <path fill="currentColor"
-                                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
-                            </path>
-                            </svg>More function coming soon
-                        </li>
-                        <li class="mb-4 flex items-center">
-                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
-                            class="text-green-600 w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 512 512">
-                            <path fill="currentColor"
-                                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
-                            </path>
-                            </svg>More function coming soon
-                        </li>
-                    </div>
+                  <div v-if="package_product.name == 'Pro'">
+                    <li class="mb-4 flex items-center">
+                      <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
+                        class="text-green-600 w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512">
+                        <path fill="currentColor"
+                          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
+                        </path>
+                      </svg>App & File Distribution
+                    </li>
+                    <li class="mb-4 flex items-center">
+                      <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
+                        class="text-green-600 w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512">
+                        <path fill="currentColor"
+                          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
+                        </path>
+                      </svg>Device Tracking & Reporting
+                    </li>
+                    <li class="mb-4 flex items-center">
+                      <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
+                        class="text-green-600 w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512">
+                        <path fill="currentColor"
+                          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
+                        </path>
+                      </svg>More function coming soon
+                    </li>
+                    <li class="mb-4 flex items-center">
+                      <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check"
+                        class="text-green-600 w-4 h-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512">
+                        <path fill="currentColor"
+                          d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
+                        </path>
+                      </svg>More function coming soon
+                    </li>
+                  </div>
 
                 </ol>
-            </div>
+              </div>
 
             </div>
 
           </div>
 
-                <button v-if="package_product.name == 'Free'" type="button"  disabled
-                class="mt-5 inline-block p-8  bg-gray-400 text-white font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-400 hover:shadow-lg focus:bg-gray-400 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out w-full"
-                data-mdb-ripple="true" data-ripple-color="light"> Your Account Default
-              </button>
+          <button v-if="package_product.name == 'Free'" type="button" disabled
+            class="mt-5 inline-block p-8  bg-gray-400 text-white font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-400 hover:shadow-lg focus:bg-gray-400 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out w-full"
+            data-mdb-ripple="true" data-ripple-color="light"> Your Account Default
+          </button>
 
-               <button v-else-if="$page.props.auth.user.active_demo == 0 && package_product.name == 'Standard'" type="button"
-                class="mt-5 inline-block p-8  mr-5 bg-blue-600 text-white font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
-                data-mdb-ripple="true" data-ripple-color="light"
-                @click="getTrail(package_product)"
-                data-toggle="modal" data-target="#exampleModalTopup"
-                >
-                    Get Your {{ package_product.free_trail_time }} days Trial
-              </button>
-              <button v-else-if="$page.props.auth.user.active_demo == 1 && package_product.name == 'Standard'" type="button" @click="addtoCart(package_product)"
-                class="mt-5 inline-block p-8  mr-5 bg-blue-600 text-white font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
-                data-mdb-ripple="true" data-ripple-color="light"
-                >
-                Add to Cart
-              </button>
-                <button v-else type="button"  @click="addtoCart(package_product)" disabled
-                    class="mt-5 inline-block p-8  mr-5 bg-gray-600 text-white font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-700 hover:shadow-lg focus:bg-gray-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
-                    data-mdb-ripple="true" data-ripple-color="light"
-                    >
-                    Get Your {{ package_product.free_trail_time }}  days Trial
-                </button>
+          <button v-else-if="$page.props.auth.user.active_demo == 0 && package_product.name == 'Standard'" type="button"
+            class="mt-5 inline-block p-8  mr-5 bg-blue-600 text-white font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
+            data-mdb-ripple="true" data-ripple-color="light" @click="getTrail(package_product)" data-toggle="modal"
+            data-target="#exampleModalTopup">
+            Get Your {{ package_product.free_trail_time }} days Trial
+          </button>
+          <button v-else-if="$page.props.auth.user.active_demo == 1 && package_product.name == 'Standard'" type="button"
+            @click="addtoCart(package_product)"
+            class="mt-5 inline-block p-8  mr-5 bg-blue-600 text-white font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
+            data-mdb-ripple="true" data-ripple-color="light">
+            Add to Cart
+          </button>
+          <button v-else type="button" @click="addtoCart(package_product)" disabled
+            class="mt-5 inline-block p-8  mr-5 bg-gray-600 text-white font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-700 hover:shadow-lg focus:bg-gray-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
+            data-mdb-ripple="true" data-ripple-color="light">
+            Get Your {{ package_product.free_trail_time }} days Trial
+          </button>
 
-              <!-- model -->
+          <!-- model -->
 
         </div>
         <div class="mb-6 lg:mb-0 hover:shadow-2xl transition duration-500 transform hover:scale-105 cursor-pointer">
-        <!-- <div class="block rounded-lg bg-white h-full border">
+          <!-- <div class="block rounded-lg bg-white h-full border">
           <div class="p-6 border-b border-gray-300 text-center">
             <p class="uppercase mb-4 text-4xl">
               <strong>More</strong>
@@ -209,42 +206,42 @@
             </button>
           </div>
         </div> -->
-      </div>
+        </div>
 
       </div>
       <div class="modal fade" id="exampleModalTopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header text-center">
-                            <h1 class="modal-title text-4xl" id="exampleModalLabel"><Strong> Free Trial </Strong></h1>
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header text-center">
+              <h1 class="modal-title text-4xl" id="exampleModalLabel"><Strong> Free Trial </Strong></h1>
 
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                                <div class="form-group">
-                                    Please confirm to use Free of charge the Kiosk mode HoloStartup for {{ form.time_trail }} days, unlimited devices
-                                </div>
-                                <div class="text-red-500" v-if="errors.devices">{{ errors.devices }}</div>
-                                <div class="modal-footer">
-                                    <button type="button"
-                                        class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
-                                        data-dismiss="modal">Cancel</button>
-                                    <button @click="trielfree()" type="submit" data-dismiss="modal"
-                                        class="inline-block px-6 py-2.5 bg-green-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-green-900 hover:shadow-lg focus:bg-green-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out">
-                                        OK</button>
-                                </div>
-                        </div>
-                    </div>
-                </div>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
+            <div class="modal-body">
+              <div class="form-group">
+                Please confirm to use Free of charge the Kiosk mode HoloStartup for {{ form.time_trail }} days, unlimited
+                devices
+              </div>
+              <div class="text-red-500" v-if="errors.devices">{{ errors.devices }}</div>
+              <div class="modal-footer">
+                <button type="button"
+                  class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
+                  data-dismiss="modal">Cancel</button>
+                <button @click="trielfree()" type="submit" data-dismiss="modal"
+                  class="inline-block px-6 py-2.5 bg-green-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-green-900 hover:shadow-lg focus:bg-green-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out">
+                  OK</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
     <!-- Section: Design Block -->
 
   </div>
-
 </template>
 
 <script>
@@ -253,52 +250,50 @@ import Layout from "@/Components/Layout/Layout";
 import OpenAppModal from "@/Pages/Devices/Modal/OpenAppModal";
 export default {
   layout: Layout,
-  components:{
+  components: {
     OpenAppModal
   },
   props: {
     package_products: Array,
-    errors:Object
+    errors: Object
   },
   data() {
     return {
-      form:this.$inertia.form({
-         number_device:1,
-         package_product_id: null,
-         user : this.$page.props.auth.user,
-         time_trail:null
+      form: this.$inertia.form({
+        number_device: 1,
+        package_product_id: null,
+        user: this.$page.props.auth.user,
+        time_trail: null
       })
     }
   },
 
-  methods:{
-     addtoCart(data){
-       this.form.package_product_id = data.id;
-       this.form.post(route("topup.addToCart"), {
-          preserveState: true,
-          onError: errors => {
-          },
-          onSuccess: page => {
-          }
-        });
-     },
-     getTrail(data){
-        console.log(data)
-        this.form.time_trail =data.free_trail_time
+  methods: {
+    addtoCart(data) {
+      this.form.package_product_id = data.id;
+      this.form.post(route("topup.addToCart"), {
+        preserveState: true,
+        onError: errors => {
+        },
+        onSuccess: page => {
+        }
+      });
     },
-     trielfree(){
-        this.form.post(route("topup.free"), {
-          preserveState: true,
-          onError: errors => {
-          },
-          onSuccess: page => {
-          }
-        });
-     }
+    getTrail(data) {
+      console.log(data)
+      this.form.time_trail = data.free_trail_time
+    },
+    trielfree() {
+      this.form.post(route("topup.free"), {
+        preserveState: true,
+        onError: errors => {
+        },
+        onSuccess: page => {
+        }
+      });
+    }
   }
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

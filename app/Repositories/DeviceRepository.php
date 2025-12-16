@@ -29,10 +29,10 @@ class DeviceRepository extends BaseRepository
         return !$user->hasPermissionTo('user-manager') ? $this->model()->with($relations)->where('user_id', $user->id)->where(function ($query) use ($request) {
             $query->where('name', 'LIKE', '%' . $request->term . '%')
                 ->orWhere('device_id', 'LIKE', '%' . $request->term . '%');
-        })->orderBy($sortBy, $sort_Direction)->paginate(10)->appends($appends) :  $this->model()->with($relations)->where(function ($query) use ($request) {
+        })->enabled($request->only('enabled'))->orderBy($sortBy, $sort_Direction)->paginate(10)->appends($appends) :  $this->model()->with($relations)->where(function ($query) use ($request) {
             $query->where('name', 'LIKE', '%' . $request->term . '%')
                 ->orWhere('device_id', 'LIKE', '%' . $request->term . '%');
-        })->orderBy($sortBy, $sort_Direction)->paginate(10)->appends($appends);
+        })->enabled($request->only('enabled'))->orderBy($sortBy, $sort_Direction)->paginate(10)->appends($appends);
     }
 
 
@@ -43,5 +43,15 @@ class DeviceRepository extends BaseRepository
         return !$user->hasPermissionTo('user-manager') ?
             $this->model()->with($relations)->where('user_id', $user->id)->get()
             :  $this->model()->with($relations)->get();
+    }
+
+    public function findDevice($id){
+        return $this->model()->with('applications')->find($id);
+    }
+
+    public function allDevice()
+    {
+        $user = Auth::user();
+        return !$user->hasPermissionTo('user-manager') ? $this->model()->where('user_id', $user->id)->get() :  $this->model()->get();
     }
 }

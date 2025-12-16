@@ -26,6 +26,7 @@ class DeviceResouce extends JsonResource
             'default_app' => $this->default_app,
             'application_version' =>  $application ? $application->version : null,
             'is_install' =>  $this->hasApp($request->packageName) ? true:false,
+            'enabled' => $this->enabled,
         ];
     }
 

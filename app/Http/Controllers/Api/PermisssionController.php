@@ -11,7 +11,7 @@ use Spatie\Permission\Models\Permission;
 class PermisssionController extends Controller
 {
     public function index(){
-        $permissions = Permission::paginate(10);
+        $permissions = Permission::paginate(20);
        
         return response()->json($permissions, Response::HTTP_OK);
     }

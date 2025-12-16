@@ -4,17 +4,20 @@ namespace App\Http\Controllers\Api\AppLaucher;
 
 use App\Events\DefaultAppEvent;
 use App\Events\LaunchAppEvent;
+use App\Events\LaunchAppWithTime;
 use App\Events\SendDeviceActiveEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GroupRequest;
 use App\Http\Requests\LauchAppRequest;
 use App\Http\Requests\RemoveOwnerDeviceRequest;
 use App\Http\Requests\RequestAppGroupAction;
+use App\Http\Requests\RequestAppGroupWithTime;
 use App\Http\Requests\RequestApplication;
 use App\Http\Requests\UpdateGroupRequest;
 use App\Http\Resources\ApplicationResource;
 use App\Http\Resources\DevicesResource;
 use App\Http\Resources\GroupResource;
+use App\Jobs\SendDeviceActiveJob;
 use App\Models\Applicaion;
 use App\Models\Devices;
 use App\Models\Groups;
@@ -25,6 +28,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use App\Jobs\LaunchAppJob;
+use App\Jobs\LaunchAppTimeLimit;
+use App\Jobs\SendUpdateApplicationJob;
+use App\Jobs\SetDefaultAppJob;
+use App\Jobs\TimeEndGroupProcessing;
+use App\Models\ApplicationDefault;
+use Carbon\Carbon;
+use Illuminate\Http\Response;
 
 class GroupController extends Controller
 {
@@ -38,6 +49,7 @@ class GroupController extends Controller
         $this->application = $ApplicationRepository;
         $this->device = $deviceRepository;
         $this->group = $groupRepository;
+        $this->middleware('permission:user-manager|Pro|Demo|Standard', ['only' => ['getGroups', 'groupByIdwithApp', 'groupById', 'store', 'update', 'ownerDevice', 'deleteOwnerDevice', 'delete', 'runAppGoup', 'runAppGroupWithTime', 'setAppDefaultGroup']]);
     }
 
     /**
@@ -68,7 +80,7 @@ class GroupController extends Controller
         // });
 
         $response  = [
-            'groups' => $groups,
+            'groups' => GroupResource::collection($groups)
             // 'devices' =>   $devices 
         ];
         return response()->json($response, 200);
@@ -82,8 +94,9 @@ class GroupController extends Controller
             if (!$group) {
                 return response()->json('Not found group', 404);
             } else {
-                foreach($group->devices as $device){
-                    broadcast(new SendDeviceActiveEvent($device));
+                foreach ($group->devices as $device) {
+                    SendDeviceActiveJob::dispatch($device)->onConnection('sync');
+                    // broadcast(new SendDeviceActiveEvent($device));
                 }
                 $response  = [
                     'group' => new GroupResource($group),
@@ -101,16 +114,17 @@ class GroupController extends Controller
         $devices = $this->device->get();
         return response()->json($devices, 200);
     }
-    public function groupById($id)
+    public function groupById(Request $request, $id)
     {
-        $group = $this->group->show($id);
+        $group = $this->group->show($request, $id);
+
         if (!$group) {
             return response()->json('Not found group', 404);
         } else {
             // $devices =   $this->device->get();
             // $applications = $this->application->applicationsByDeivces($devices);
             $response  = [
-                'group' => $group,
+                'group' => new GroupResource($group),
                 // 'devices' => DevicesResource::collection($devices),
                 // 'applications' => ApplicationResource::collection($applications)
             ];
@@ -168,14 +182,12 @@ class GroupController extends Controller
         }
         $device = Devices::findOrFail($id);
         $group->devices()->detach($device);
-        if($request->packageName){
-        
+        if ($request->packageName) {
+
             return response()->json(new GroupResource($group), 200);
-        }
-        else{
+        } else {
             return response()->json($group->load(['devices.default_app']), 200);
         }
-       
     }
 
     // public function deleteOwnerDeviceGame(RemoveOwnerDeviceRequest $request, $id)
@@ -206,27 +218,82 @@ class GroupController extends Controller
     public function runAppGoup(RequestAppGroupAction $request, $id)
     {
 
-        $group = Groups::with('devices')->findOrFail($id);
+        $group = Groups::with('devices')->find($id);
+        if (!$group) {
+            return response()->json('Not found group', 404);
+        }
         foreach ($group->devices as $device) {
             if ($device->hasApp($request->link_app)) {
-                broadcast(new LaunchAppEvent($device, $request->link_app));
+                //broadcast(new LaunchAppEvent($device, $request->link_app));
+                LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
             }
         }
-        return response()->json('Comand run succesfully', 200);
+        return response()->json($group->load(['devices.applications']), 200);
     }
+
+    public function runAppGroupWithTime(RequestAppGroupWithTime $request, $id)
+    {
+
+        $group = Groups::with('devices')->find($id);
+        if (!$group) {
+            return response()->json('Not found group', 404);
+        }
+
+        foreach ($group->devices as $device) {
+            if ($device->hasApp($request->link_app)) {
+                //broadcast(new LaunchAppEvent($device, $request->link_app));
+                LaunchAppJob::dispatch($device, $request->link_app)->onConnection('sync');
+                LaunchAppTimeLimit::dispatch($device, $request->link_app, $request->time)->delay(now()->addMinutes($request->time));
+            }
+        }
+        $group->time = Carbon::now()->addMinutes($request->time);
+        $application = Applicaion::where('packageName', $request->link_app)->first();
+        if ($application) {
+            $group->app_run_id = $application->id;
+        }
+        $group->save();
+        $user = Auth::user();
+        TimeEndGroupProcessing::dispatch($user, $group)->delay(now()->addMinutes($request->time - 1)->addSeconds(30));
+        return response()->json(new GroupResource($group->load(['devices.applications', 'app_running'])), 200);
+    }
+
+
 
     public function setAppDefaultGroup(RequestAppGroupAction $request, $id)
     {
 
         $group = Groups::with('devices')->findOrFail($id);
-        $application = Applicaion::where('packageName', $request->link_app)->first();
+        $application_default = ApplicationDefault::pluck('packageName')->toArray();
+        $application_share = Applicaion::where('packageName', $request->link_app)->first();
         foreach ($group->devices as $device) {
             if ($device->hasApp($request->link_app)) {
-                $device->app_default_id = $application->id;
-                $device->save();
-                broadcast(new DefaultAppEvent($device, $request->link_app));
+                $application = Applicaion::where('packageName', $request->link_app)->where('device_id', $device->id)->first();
+                if ($device->enabled == false) {
+                    if (in_array($request->link_app, $application_default)) {
+                        $device->app_default_id = $application ? $application->id :  $application_share->id;
+                        $device->save();
+                    }
+                } else {
+                    $device->app_default_id = $application ? $application->id :  $application_share->id;
+                    $device->save();
+                }
+
+                // broadcast(new DefaultAppEvent($device, $request->link_app));
+                SetDefaultAppJob::dispatch($device, $request->link_app)->onConnection('sync');
             }
         }
         return response()->json($group->load('devices.default_app'), 200);
+    }
+
+    public function updateGroupApp(Request $request, $id)
+    {
+        $group = $this->group->show($request, $id);
+
+        foreach ($group->devices as $device) {
+            if ($device->active == 1) {
+                SendUpdateApplicationJob::dispatch($device);
+            }
+        }
+        return response()->json(Response::HTTP_OK);
     }
 }

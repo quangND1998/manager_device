@@ -19,6 +19,11 @@ redis.psubscribe('apk-install.*', function(err, count) {});
 redis.psubscribe('apk-uninstall.*', function(err, count) {});
 redis.psubscribe('recive-active-device.*', function(err, count) {});
 redis.psubscribe('check-active-device.*', function(err, count) {});
+redis.psubscribe('send-update-application-device.*', function(err, count) {});
+redis.psubscribe('recive-update-application-device.*', function(err, count) {});
+redis.psubscribe('lauch-app-time.*', function(err, count) {});
+redis.psubscribe('time-play-notification.*', function(err, count) {});
+redis.psubscribe('time-end-device.*', function(err, count) {});
 redis.on('message', function(channel, message) {
     message = JSON.parse(message);
 
@@ -42,7 +47,8 @@ redis.on('pmessage', function(pattern, channel, message) {
     console.log('pmessage', channel);
     console.log('Message Recieved pmessage: ' + message.event);
 
-    io.emit(channel + ':' + message.event, message.data);
+    io.emit(channel, message.data);
+    // io.emit(channel + ':' + message.event, message.data);
     io.in(channel).emit(channel + ':' + message.event, message.data);
     // io.in(channel).emit(channel + ':' + message.event, message.data)
     // io.sockets.on("connection", (socket) => {
@@ -57,7 +63,7 @@ redis.on('pmessage', function(pattern, channel, message) {
 
 io.on("connection", (socket) => {
 
-
+    console.log(`🟢 New client connected: ${socket.id}`);
     socket.on('private-active-device.3', (
         room
     ) => {

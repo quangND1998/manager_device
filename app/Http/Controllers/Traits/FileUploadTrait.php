@@ -14,6 +14,9 @@ use Illuminate\Support\Str;
 use App\Models\Project\text_pano;
 use Illuminate\Support\Collection;
 use Closure;
+// use Intervention\Image\Facades\Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 trait FileUploadTrait
 {
@@ -408,5 +411,90 @@ trait FileUploadTrait
 
             return $destinationpath . $imageName;
         }
+    }
+
+    public function Base64toImage($path, $attribute = null)
+    {
+        if ($path) {
+            $imageName = time() . Str::random(10) . '.' . 'png';
+            $destinationpath = '/window/';
+            if (!file_exists(public_path() . $destinationpath)) {
+                mkdir(public_path() . $destinationpath, 0777, true);
+            }
+            $data =  explode(',', $path);
+            file_put_contents(public_path() . $destinationpath . $imageName, base64_decode($data[0]));
+            if ($attribute && file_exists(public_path() . $attribute)) {
+                unlink(public_path() . $attribute);
+            }
+
+            return $destinationpath . $imageName;
+        }
+    }
+    function check_base64_image($base64)
+    {
+        $img = imagecreatefromstring(base64_decode($base64));
+        if (!$img) {
+            return false;
+        }
+
+        imagepng($img, 'tmp.png');
+        $info = getimagesize('tmp.png');
+
+        unlink('tmp.png');
+
+        if ($info[0] > 0 && $info[1] > 0 && $info['mime']) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function uploadImageResize($image, $width, $height)
+    {
+        $manager = new ImageManager(new Driver());
+
+        $img = $manager->read($image->getRealPath());
+
+        $image_width  = $img->width();
+        $image_height = $img->height();
+        $filename = time() . '-' . $image->getClientOriginalName();
+
+        $filename = time() . '-' . $image->getClientOriginalName();
+        $path = public_path('avatar/' . $filename);
+
+        if ($image_width > $width && $image_height > $height) {
+            $img->resize($width, $height);
+        }
+
+        $img->save($path);
+
+        return '/avatar/' . $filename;
+    }
+
+    public function updateImageResize($image, $width, $height, $attribute)
+    {
+
+        $manager = new ImageManager(new Driver());
+
+        $img = $manager->read($image->getRealPath());
+
+        $image_width  = $img->width();
+        $image_height = $img->height();
+
+        $filename = time() . '-' . $image->getClientOriginalName();
+        $savePath = public_path('avatar/' . $filename);
+
+        if ($image_width > $width && $image_height > $height) {
+            $img->resize($width, $height);
+        }
+
+        $img->save($savePath);
+
+        // Xử lý xóa ảnh cũ
+        if ($attribute && file_exists(public_path($attribute))) {
+            @unlink(public_path($attribute));
+        }
+
+        return '/avatar/' . $filename;
     }
 }

@@ -13,8 +13,10 @@ use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\Http\Controllers\Traits\FileUploadTrait;
 class AuthController extends Controller
 {
+    use FileUploadTrait;
     public function login(Request $request)
     {
 
@@ -37,13 +39,13 @@ class AuthController extends Controller
 
             return response()->json([
                 'status' => 'error',
-                'error' => 'Invalid username, password, security token',
-                'msg' => 'Invalid username, password, security token'
+                'error' => __('auth.failed'),
+                'msg' => __('auth.failed')
             ], Response::HTTP_BAD_REQUEST);
         }
         $user = Auth::user();
         $response  = [
-            'msg' => 'You are logged in!',
+            'msg' => __('auth.login_success'),
             'token' => $token,
             'user_name' => $user->name,
             'user' => new UserApiResource($user)
@@ -70,6 +72,7 @@ class AuthController extends Controller
         $token= request()->bearerToken();
         try {
             JWTAuth::invalidate($token);
+  
             return response()->json('You have successfully logged out.', Response::HTTP_OK);
         } catch (JWTException $e) {
             return response()->json('Failed to logout, please try again.', Response::HTTP_BAD_REQUEST);
@@ -109,25 +112,8 @@ class AuthController extends Controller
         ]);
         $user->password = $request->password;
 
-        if($request->role =='Pro' || $request->role =='Pro2' || $request->role =='Manager' ||  $request->role =='Sub Admin' ){
-            $role = Role::where('name','Pro')->first();
-            $user->roles()->sync($role);
-
-        }
-        else if($request->role =='Admin'){
-            $role = Role::where('name','administrator')->first();
-            $user->roles()->sync($role);
-
-        }
-        else if($request->role =='Demo'){
-            $role = Role::where('name',$request->role)->first();
-            $user->roles()->sync($role);
-
-        } else{
-            $role = Role::where('name',$request->role)->first();
-            $user->roles()->sync($role);
-
-        }
+        $role = Role::where('name',"Demo")->first();
+        $user->roles()->sync($role);
         $user->save();
         return response()->json('Create successfully', Response::HTTP_OK);
     }
@@ -150,31 +136,43 @@ class AuthController extends Controller
                 'email' => $request->email
             ]);
         }
+        else{
+            $user = User::create([
+                'name'=> $request->name,
+                'email' => $request->email
+            ]);
+            
+        }
         $user->password = $request->password;
-        if($request->role =='Pro' || $request->role =='Pro2' || $request->role =='Manager' ||  $request->role =='Sub Admin' ){
-            $role = Role::where('name','Pro')->first();
-            $user->roles()->sync($role);
-
-        }
-        else if($request->role =='Admin'){
-            $role = Role::where('name','administrator')->first();
-            $user->roles()->sync($role);
-
-        }
-        else if($request->role =='Demo'){
-            $role = Role::where('name',$request->role)->first();
-            $user->roles()->sync($role);
-
-        } else{
-            $role = Role::where('name',$request->role)->first();
-            $user->roles()->sync($role);
-
-        }
-
+        $role = Role::where('name',"Demo")->first();
+        $user->roles()->sync($role);
         $user->save();
         return response()->json('Update successfully', Response::HTTP_OK);
     }
+
+    public function storeAvatar(Request $request){
+        $validator = Validator::make($request->all(), [
+            'avatar' => 'nullable|mimes:jpg,png,jpeg|max:2048',
+
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+        $token= request()->bearerToken();
     
+        $user = JWTAuth::toUser($token);
+        if($user->avatar){
+            $user->avatar=  $request->file('avatar') ? $this->updateImageResize($request->file('avatar'), 64, 64, $user->avatar) : $user->avatar;
+        }else{
+            $user->avatar=  $request->file('avatar') ? $this->uploadImageResize($request->file('avatar'), 64, 64):null;
+        }
+        $user->save();
+        return new UserApiResource($user);
+        
+    }
+    
+    
+
     
 
 

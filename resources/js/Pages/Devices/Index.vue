@@ -1,19 +1,38 @@
 <template>
   <section class="content">
-    <ContentHeaderVue :name="'Devices'" />
+
+    <ContentHeaderVue class="pl-0" :name="'Devices'" />
     <alert :dismissible="true"></alert>
     <WifiModel v-if="hasAnyPermission(['user-manager'])" :errors="errors" :ids="selected" :wifis="wifis" />
-    <OpenAppModal v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
+
+    <OpenAppModal  v-if="hasAnyPermission(['user-manager'])" :errors="errors" :applications="application_deivce" :ids="selected" />
+    <OpenAppModal  v-else-if="hasAnyPermission(['Demo'])" :errors="errors" :applications="applications_default_filter" :ids="selected" />
+    <OpenAppModal v-else-if="!hasAnyPermission(['Demo'])  && $page.props.auth.user.isExpired ==false  && enabled=='1' " :errors="errors" :applications="application_deivce" :ids="selected" />
+    <OpenAppModal  v-else-if="!hasAnyPermission(['Demo'])  && $page.props.auth.user.isExpired ==false  && enabled=='0' " :errors="errors" :applications="applications_default_filter" :ids="selected" />
+    <OpenAppModal v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired" :errors="errors"  :applications="applications_default_filter" :ids="selected" />
     <OpenAppModal v-else :errors="errors" :applications="application_deivce" :ids="selected" />
 
     <GroupModel :errors="errors" :ids="selected" />
-    <defaulAppModal v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
+    <defaulAppModal  v-if="hasAnyPermission(['user-manager'])" :applications="application_deivce" :ids="selected" />
+    <defaulAppModal  v-else-if="hasAnyPermission(['Demo'])" :errors="errors" :applications="applications_default_filter" :ids="selected" />
+    <defaulAppModal v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired ==false && enabled=='1' " :errors="errors" :applications="application_deivce" :ids="selected" />
+    <defaulAppModal v-else-if="!hasAnyPermission(['Demo'])  && $page.props.auth.user.isExpired ==false  && enabled=='0' " :errors="errors"  :applications="applications_default_filter" :ids="selected" />
+    <defaulAppModal v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired" :errors="errors" :applications="applications_default_filter" :ids="selected" />
     <defaulAppModal v-else :errors="errors" :applications="application_deivce" :ids="selected" />
 
     <InstallApk :errors="errors" :ids="selected" :apk_files="apk_files" />
-    <UninstallApk v-if="hasAnyPermission(['Lite'])" :errors="errors" :applications="applications" :ids="selected" />
+    <UninstallApk v-if="hasAnyPermission(['Demo'])  && $page.props.auth.user.isExpired ==false" :errors="errors" :applications="applications" :ids="selected" />
+    <UninstallApk v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired" :errors="errors"
+      :applications="applications" :ids="selected" />
+      <UninstallApk v-else-if="!hasAnyPermission(['Demo']) && enabled=='0'" :errors="errors" :applications="applications" :ids="selected" />
     <UninstallApk v-else :errors="errors" :applications="application_deivce" :ids="selected" />
 
+    <LaunchAppWithTime  v-if="hasAnyPermission(['user-manager']) " :errors="errors" :applications="application_deivce" :ids="selected" @updateTime="updateTimeRemaning"/>
+    <LaunchAppWithTime  v-else-if="hasAnyPermission(['Demo']) " :errors="errors" :applications="applications_default_filter" :ids="selected" @updateTime="updateTimeRemaning"/>
+    <LaunchAppWithTime  v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired ==false && enabled=='1'" :errors="errors" :applications="application_deivce" :ids="selected" @updateTime="updateTimeRemaning"/>
+    <LaunchAppWithTime  v-else-if="!hasAnyPermission(['Demo'])  && $page.props.auth.user.isExpired ==false && enabled=='0'" :errors="errors" :applications="applications_default_filter" :ids="selected" @updateTime="updateTimeRemaning"/>
+    <LaunchAppWithTime v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired"  :errors="errors" :applications="applications_default_filter" :ids="selected" @updateTime="updateTimeRemaning"/>
+    <LaunchAppWithTime v-else :errors="errors" :applications="application_deivce" :ids="selected" @updateTime="updateTimeRemaning" />
     <!-- <RunApkModal :errors="errors" ></RunApkModal> -->
     <!-- Modal -->
 
@@ -37,10 +56,10 @@
               </div>
               <div class="modal-footer">
                 <button type="button"
-                  class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
+                  class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-red-400  hover:text-white hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out mx-2"
                   data-dismiss="modal">Close</button>
                 <button @click.prevent="save()" type="submit"
-                  class="inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out">
+                  class="inline-block px-6 py-2.5 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out">
                   Save
                   changes
                 </button>
@@ -51,14 +70,14 @@
       </div>
     </div>
     <div class="w-full mb-8 mt-8 flex justify-between">
-      <div>
-        <input v-model="term" @keyup="search" class="relative w-full px-8 py-3 text-xl rounded-r focus:shadow-outline"
+      <div class="w-3/12">
+        <input v-model="term" @keyup="search" class="block w-full py-3 pl-5 text-xl text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
           autocomplete="off" type="text" name="search" placeholder="Search…" />
       </div>
       <div>
         <div class="dropdown">
           <button
-            class="inline-block px-8 py-3 bg-gray-300 text-gray-700 font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-ou dropdown-toggle"
+            class="inline-block px-10 py-3 bg-gray-300 text-gray-700 font-medium text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-ou dropdown-toggle"
             type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             Control Device
             <span class="caret"></span>
@@ -73,7 +92,13 @@
             <li>
               <button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
                 data-target="#openAppModal">
-                <i class="fa fa-rocket mr-2" aria-hidden="true"></i>LauchApp
+                <i class="fa fa-rocket mr-2" aria-hidden="true"></i>Launch App
+              </button>
+            </li>
+            <li>
+              <button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
+                data-target="#openAppTime">
+                <i class="fa fa-rocket mr-2" aria-hidden="true"></i>Launch Time
               </button>
             </li>
             <li v-if="hasAnyPermission(['user-manager'])">
@@ -105,32 +130,48 @@
         </div>
       </div>
     </div>
-    <button type="button" @click="FreshDevice()"
+   
+
+    <div class="flex justify-between mt-5">
+      <button type="button" @click="FreshDevice()"
       class="inline-block px-6 py-2.5 bg-blue-400 text-white font-medium text-2xl leading-tight rounded-full shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out">
       <i class="fa fa-refresh mr-2" aria-hidden="true"></i>Active devices
     </button>
+      <div class="flex">
+    
+          <select
+            v-model="filter"
+            @change="Filter"
+            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg  block w-full px-8 py-3 text-xl "
+          >
+            <option :value="null" >All</option>
+            <option :value="1">Enable</option>
+            <option :value="0">Disable</option>
+          </select>
+      </div>
+    </div>
 
     <div class="overflow-x-auto relative shadow-md sm:rounded-lg mt-5">
       <table class="w-full text-xl text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xl text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th scope="col" class="py-3 px-6 text-xl">
+            <th scope="col" class="py-3 px-6 text-xl text-center">
               <input type="checkbox" id="check_all" v-model="selectAll" />
             </th>
-            <th @click="sortValue('id')" scope="col" class="py-3 px-6 text-xl text-gray-500">
+            <th @click="sortValue('id')" scope="col" class="py-3 px-6 text-xl text-gray-500 text-center">
               <i class="fa fa-arrow-up"
                 :class="[(sortDirection === 'asc' && sort == 'id') ? 'text-gray-800' : 'text-gray-300']"></i>
               <i class="fa fa-arrow-down"
                 :class="[(sortDirection === 'desc' && sort == 'id') ? 'text-gray-800' : 'text-gray-300']"></i>
               No
             </th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">name</th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">device ID</th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">Brand</th>
+            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center">name</th>
+            <!-- <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center" >device ID</th> -->
+            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center">Brand</th>
 
             <!-- <th scope="col" class="py-3 px-6 text-xl">Os Version</th> -->
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">Battery</th>
-            <th @click="sortValue('active')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
+            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center">Battery</th>
+            <th @click="sortValue('active')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center">
               <i class="fa fa-arrow-up"
                 :class="[(sortDirection === 'asc' && sort == 'active') ? 'text-gray-800' : 'text-gray-300']"></i>
               <i class="fa fa-arrow-down"
@@ -138,43 +179,71 @@
               <span v-if="sortDirection == 'desc'">Active</span>
               <span v-if="sortDirection == 'asc'">InActive</span>
             </th>
+            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center" v-if="hasAnyPermission(['user-manager'])">
+              Enabled</th>
             <!-- <th scope="col" class="py-3 px-6 text-xl uppercase">Connect Wifi</th> -->
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">Default App</th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500" v-if="hasAnyPermission(['user-manager'])">
+            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center">Default App</th>
+            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center" v-if="hasAnyPermission(['user-manager'])">
               User</th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500" v-if="hasAnyPermission(['user-manager'])">
+            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center" v-if="hasAnyPermission(['user-manager'])">
               Version</th>
-            <th @click="sortValue('updated_at')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
+
+            <th @click="sortValue('update_time')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center">
               <i class="fa fa-arrow-up"
-                :class="[(sortDirection === 'asc' && sort == 'updated_at') ? 'text-gray-800' : 'text-gray-300']"></i>
+                :class="[(sortDirection === 'asc' && sort == 'update_time') ? 'text-gray-800' : 'text-gray-300']"></i>
               <i class="fa fa-arrow-down"
-                :class="[(sortDirection === 'desc' && sort == 'updated_at') ? 'text-gray-800' : 'text-gray-300']"></i>Time
+                :class="[(sortDirection === 'desc' && sort == 'update_time') ? 'text-gray-800' : 'text-gray-300']"></i>Time
               Update
             </th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500">
+            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center">
               <span class="sr-only">Edit</span>
             </th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(device, index) in devices.data" :key="index"
-            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-            <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              <input type="checkbox" class="checkbox" v-model="selected" :value="device.id" />
+          <!-- {{ devices.data }} -->
+          <tr v-for="(device, index) in devices.data" :key="index" 
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 " :class="device.enabled ==false && enabled !=='0' ? 'opacity-30':''">
+            <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center dark:text-white">
+              <input type="checkbox" class="checkbox" v-model="selected" :value="device.id" v-if="device.enabled"/>
+              <input type="checkbox" class="checkbox" v-model="selected" :value="device.id" v-else-if="device.enabled && enabled==1"/>
+              <input type="checkbox" class="checkbox" v-model="selected" :value="device.id" v-else-if="device.enabled==false && enabled ==0"/>
             </td>
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
               <!-- {{ sortDirection =='asc'?  firstItem + index :    count -(devices.current_page ==1? -index +1 : -index-1) }} -->
               {{ sortDirection === 'asc' ? firstItem + index : ((count - firstItem) - index) + 1 }}
               <!-- {{ sortDirection =='asc'? devices.per_page * (devices.current_page - 1)+index +1 : count -firstItem -index -1}} -->
             </th>
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ device.name
-            }}</th>
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              {{
-                device.device_id
-              }}
+            <th scope="row" class="py-4 px-6  whitespace-nowrap text-center ">
+              <Link :href="route('device.detail', device.id)" class="font-semibold text-2xl text-gray-900">{{ device.name
+              }}</Link>
+              <p class="text-gray-500 mb-0">
+                  {{
+                    device.device_id
+                  }}
+                </p>
+              <div class=" block font-semibold text-yellow-600">
+                  <vue-countdown class="block" v-if="device.time && timestamp != null && (device.time - timestamp) > 0"
+                    :time="(device.time - timestamp) * 1000" :transform="transformSlotProps"
+                    v-slot="{ minutes, seconds }">
+                    Time Remaining： {{ minutes }}: {{ seconds }}
+                  </vue-countdown>
+                  <span class="font-semibold text-yellow-600 text-center"  v-if="device.time && timestamp != null && (device.time - timestamp) > 0">{{ device.app_running.appName }}  </span>
+                </div>
             </th>
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <!-- <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
+              <div class="block">
+                <p>
+                  {{
+                    device.device_id
+                  }}
+                </p>
+                
+              </div>
+
+
+            </th> -->
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
               <span
                 class="text-xl inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
                 {{
@@ -185,16 +254,27 @@
 
             <!-- <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
             {{ device.os_version }}</th>-->
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
               <i class="fa fa-battery-full" aria-hidden="true"></i>
-              {{ (device.battery * 100) }} %
+              {{ (device.battery * 100).toFixed(0) }} %
             </th>
 
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
               <span v-if="device.active"
                 class="text-xl inline-block py-2 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-green-600 text-white rounded-full"></span>
               <span v-else
                 class="text-xl inline-block py-2 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-gray-400 text-gray-800 rounded-full"></span>
+            </th>
+            <th v-if="hasAnyPermission(['user-manager'])" scope="row"
+              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" :checked="device.enabled"    @change="onChangeEnabled(device, $event)" class="sr-only peer">
+                <div
+                  class="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                </div>
+                <span class="ml-3 text-xl font-medium text-gray-900 dark:text-gray-300">{{ device.enabled ?
+                  'Enabled' : 'Disabled' }}</span>
+              </label>
             </th>
             <!-- <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"><span
                 v-if="device.connect_wifi"
@@ -204,7 +284,7 @@
                   }}</span>
               <p v-else>Not Connect</p>
             </th>-->
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
               <div class="relative w-fit block m-auto" v-if="device.default_app">
                 <div
                   class="absolute inline-block top-0 right-0 bottom-auto left-auto translate-x-2/4 -translate-y-1/2 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 py-1 px-2.5 text-xl leading-none text-center whitespace-nowrap align-baseline font-bold bg-gray-400 text-white rounded-full z-10">
@@ -220,36 +300,37 @@
                 </strong>
               </div>
             </th>
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
               v-if="hasAnyPermission(['user-manager'])">
               <Link v-if="device.user" :href="route('user.detail.devices', device.user.id)">
               {{ device.user ?
                 device.user.name : null }}
               </Link>
             </th>
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
               v-if="hasAnyPermission(['user-manager'])">{{ device.os_version }}</th>
-            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
               {{
-                device.last_login ? formatDate(device.last_login.created_at) : null }}
+                device.update_time && formatDate(device.update_time) !== 'Invalid date' ? formatDate(device.update_time) :
+                null }}
             </th>
             <td class="py-4 px-6 text-right">
-              <button @click="edit(device)" type="button" data-toggle="modal" data-target="#exampleModal"
-                class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out">
+              <button @click="edit(device)" type="button" data-toggle="modal" data-target="#exampleModal" 
+                class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out mx-2">
                 Edit
                 Name
               </button>
-              <button type="button" @click="Delete(device.id)"
-                class="inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out">Delete</button>
+              <button type="button" @click="Delete(device.id)" 
+                class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-red-400 hover:text-white hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out">Delete</button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <span class="mt-4 text-2xl">
+    <p class="mt-4 text-2xl">
       &nbsp;
       <i>Displaying {{ devices.data.length }} of {{ devices.total }} devices.</i>
-    </span>
+    </p>
     <pagination :links="devices.links" />
   </section>
 </template>
@@ -267,6 +348,8 @@ import WifiModel from "@/Pages/Devices/Modal/WifiModel";
 import RunApkModal from "@/Pages/Devices/Modal/RunApkModal";
 import InstallApk from "@/Pages/Devices/Modal/InstallApk";
 import UninstallApk from "@/Pages/Devices/Modal/UninstallApk";
+import LaunchAppWithTime from "@/Pages/Devices/Modal/LaunchAppWithTime";
+
 import _ from 'lodash';
 export default {
   layout: Layout,
@@ -281,7 +364,8 @@ export default {
     WifiModel,
     RunApkModal,
     InstallApk,
-    UninstallApk
+    UninstallApk,
+    LaunchAppWithTime,
   },
   computed: {
     selectAll: {
@@ -294,8 +378,18 @@ export default {
         var selected = [];
 
         if (value) {
+          console.log(value)
+          const  _this = this;
           this.devices.data.forEach(function (device) {
-            selected.push(device.id);
+            if(device.enabled && _this.enabled){
+              selected.push(device.id);
+            }
+            else if(device.enabled ==false && _this.enabled =='0'){
+              selected.push(device.id);
+            }
+            else if(device.enabled && _this.enabled ==null){
+              selected.push(device.id);
+            }
           });
         }
 
@@ -309,6 +403,13 @@ export default {
             element => element.id == this.selected[0]
           );
           return found.applications;
+          // if( found.enabled){
+          //   return found.applications;
+          // }
+          // else{
+          //   return this.applications;
+          // }
+
         }
 
         let array = this.applications.filter(app => {
@@ -316,13 +417,24 @@ export default {
         });
         let array2 = _.chain(array).groupBy('packageName').map((value, key) => ({ packageName: key, id: value[0].id, appName: value[0].appName, packageName: value[0].packageName, icon: value[0].icon, count: value.length }))
           .value();
-          let applications = array2.filter(app => {
+        let applications = array2.filter(app => {
           return app.count == this.selected.length
         });
         return applications;
         // console.log(applications)
         // return _.uniqBy(array, 'packageName')
 
+      }
+      return [];
+    },
+    applications_default_filter() {
+      if (this.selected.length > 0) {
+        let applications =  _.map(this.default_applications, 'packageName')
+        let array=  this.application_deivce.filter(app=>{
+          console.log(app)
+           return applications.includes(app.packageName)
+        });
+        return array;
       }
       return [];
     },
@@ -335,10 +447,15 @@ export default {
   },
   mounted() {
     $("#exampleModalTopup").modal("hide");
+   
   },
   data() {
     return {
+      time: null,
+      filter:this.enabled,
+      time:null,
       sort: this.sortBy,
+      timestamp: '',
       sortDirection: this.sort_Direction,
       term: null,
       editMode: true,
@@ -352,8 +469,12 @@ export default {
   },
   mounted() {
     this.listenActiveDevice();
+    this.getNow()
+    setInterval(this.getNow, 1000);
   },
-
+  created() {
+    // setInterval(this.getNow, 1000);
+  },
   props: {
     devices: Object,
     errors: Object,
@@ -364,18 +485,43 @@ export default {
     count: Number,
     sort_Direction: String,
     firstItem: Number,
-    lastItem: Number
+    lastItem: Number,
+    enabled:String,
+    default_applications: Array
   },
 
   methods: {
+    getNow: function () {
+      const today = new Date();
+      this.timestamp = parseInt(today.getTime() / 1000);
+    },
     search() {
       this.$inertia.get(
         this.route("device.index"),
-        { term: this.term },
+        { term: this.term,  enabled: this.enabled },
         {
           preserveState: true
         }
       );
+    },
+    Filter(event) {
+      if (event.target.value == "") {
+        this.$inertia.get(
+          this.route(`device.index`),
+          {},
+          {
+            preserveScroll: true
+          }
+        );
+      } else {
+        this.filter = event.target.value;
+        let query = {
+          enabled: event.target.value
+        };
+        this.$inertia.get(this.route(`device.index`), query, {
+          preserveScroll: true
+        });
+      }
     },
     save() {
       if (this.editMode) {
@@ -392,6 +538,21 @@ export default {
           }
         });
       }
+    },
+    onChangeEnabled(data, event) {
+      if (event.target.checked) {
+        this.form.enabled = 1;
+      } else {
+        this.form.enabled = 0;
+      }
+      let query = {
+        id: data.id,
+        enabled: event.target.checked
+      };
+      this.$inertia.post(route("device.enabled"), query, {
+        preserveState: false
+        // only: ["image360s", "errors", 'flash'],
+      });
     },
     contextMenu(item, event) {
       Bus.$emit("contextMenuPemission", item, event);
@@ -442,6 +603,8 @@ export default {
         );
       });
     },
+
+
     FreshDevice() {
       this.$inertia.post(route("device.checkDevice")),
       {
@@ -468,6 +631,18 @@ export default {
     },
     serialNumber(key) {
       return (this.devices.current_page - 1) * this.devices.per_page + 1 + key;
+    },
+    transformSlotProps(props) {
+      const formattedProps = {};
+
+      Object.entries(props).forEach(([key, value]) => {
+        formattedProps[key] = value < 10 ? `0${value}` : String(value);
+      });
+
+      return formattedProps;
+    },
+    updateTimeRemaning(time) {
+      this.time = time
     }
   }
 };
@@ -493,5 +668,4 @@ export default {
   border-bottom-width: 0;
   margin-top: 1px;
   cursor: pointer;
-}
-</style>
+}</style>

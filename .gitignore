@@ -2,7 +2,10 @@
 /public/hot
 /public/storage
 /public/app_icon
+/public/window
 /public/apk
+/public/assets
+/public/avatar
 /storage/*.key
 /vendor
 .env
@@ -15,5 +18,5 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
-
+/public/logs
 .docker/data/*

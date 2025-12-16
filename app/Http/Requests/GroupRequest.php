@@ -6,6 +6,9 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Response;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\App;
 class GroupRequest extends FormRequest
 {
     /**
@@ -25,6 +28,8 @@ class GroupRequest extends FormRequest
      */
     public function rules()
     {
+
+
         return [
             'name' => 'required',
             'devices' => 'required'
@@ -36,4 +41,7 @@ class GroupRequest extends FormRequest
     {
         throw new HttpResponseException(response()->json($validator->errors(), 422));
     }
+
+
+    
 }

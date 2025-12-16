@@ -78,7 +78,8 @@
 
                     </th>
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{ device.name }}</th>
+                        <Link :href="route('device.detail', device.id)">{{ device.name
+              }}</Link></th>
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{
                         device.device_id
                     }}</th>
@@ -106,9 +107,6 @@
                     </th>
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{
                         device.last_login ? formatDate(device.last_login.created_at) : null }}</th>
-
-
-
                 </tr>
             </tbody>
         </table>
@@ -116,9 +114,13 @@
 </template>
 
 <script>
+import { Link } from "@inertiajs/inertia-vue";
 import Layout from "@/Pages/User/Layout";
 export default {
     layout: Layout,
+    components:{
+        Link
+    },
     props: {
         user: Object,
         devices: Object

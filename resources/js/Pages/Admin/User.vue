@@ -1,8 +1,8 @@
 <template>
   <section class="content">
-    <ContentHeaderVue :name="'Users'" />
+    <ContentHeaderVue class="pl-0" :name="'Users'" />
     <alert :dismissible="true"></alert>
-
+  <div class="my-5"></div>
     <button
       type="button"
       class="inline-block px-8 py-4 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
@@ -48,7 +48,7 @@
                       for="grid-first-name"
                     >{{__('name')}}</label>
                     <input
-                      class="appearance-none block w-full bg-gray-200 text-gray-500 border rounded py-4 px-3 mb-3 text-xl leading-tight focus:outline-none focus:bg-white"
+                      class="appearance-none block w-full bg-gray-200 text-gray-500 border border-gray-300 rounded py-4 px-3 mb-3 text-xl leading-tight focus:outline-none focus:bg-white"
                       id="grid-first-name"
                       type="text"
                       placeholder
@@ -63,7 +63,7 @@
                       for="grid-last-name"
                     >{{__('email')}}</label>
                     <input
-                      class="appearance-none block w-full bg-gray-200 text-gray-700 border text-xl border-gray-200 rounded py-4 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                      class="appearance-none block w-full bg-gray-200 text-gray-700 border text-xl border-gray-300 rounded py-4 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                       id="grid-last-name"
                       type="text"
                       placeholder="examp@example"
@@ -95,7 +95,7 @@
                       for="grid-first-name"
                     >{{__('password')}}</label>
                     <input
-                      class="appearance-none block w-full bg-gray-200 text-gray-500 border rounded py-4 px-3 mb-3 text-xl leading-tight focus:outline-none focus:bg-white"
+                      class="appearance-none block w-full bg-gray-200 text-gray-500 border border-gray-300 rounded py-4 px-3 mb-3 text-xl leading-tight focus:outline-none focus:bg-white"
                       id="grid-first-name"
                       type="text"
                       placeholder
@@ -137,14 +137,20 @@
                       class="block uppercase tracking-wide text-gray-700 text-xl font-bold mb-2"
                       for="grid-first-name"
                     >{{__('Time Limit')}}</label>
-                    <input
+                    <!-- <input
                       class="appearance-none block w-full bg-gray-200 text-gray-500 border rounded py-4 px-3 mb-3 text-xl leading-tight focus:outline-none focus:bg-white"
                       id="grid-first-name"
                       type="date"
                       placeholder
                       v-model="form.time_limit"
                       :class="errors.time_limit ? 'border-red-500' :''"
-                    />
+                    /> -->
+                    <date-picker
+                      v-model="form.time_limit"
+                      type="datetime"
+                      placeholder="Select datetime"
+                      value-type="YYYY-MM-DD HH:mm:ss"
+                    ></date-picker>
                     <p class="text-red-500 text-xl italic" v-if="errors.time_limit">{{ errors.time_limit }}</p>
                   </div>
                   <div class="w-full md:w-1/2 px-3">
@@ -153,7 +159,7 @@
                       for="grid-last-name"
                     >{{__('Number Device')}}</label>
                     <input
-                      class="appearance-none block w-full bg-gray-200 text-gray-700 border text-xl border-gray-200 rounded py-4 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                      class="appearance-none block w-full bg-gray-200 text-gray-700 border text-xl border-gray-300 rounded py-4 px-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                       id="grid-last-name"
                       type="number"
               
@@ -167,13 +173,13 @@
               <div class="modal-footer">
                 <button
                   type="button"
-                  class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
+                  class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-red-400 hover:text-white hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out mx-2"
                   data-dismiss="modal"
                 >Close</button>
                 <button
                   @click.prevent="save()"
                   type="submit"
-                  class="inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out"
+                  class="inline-block px-6 py-2.5 bg-blue-600 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out"
                 >Save changes</button>
               </div>
             </form>
@@ -186,7 +192,7 @@
       <input
         v-model="term"
         @keyup="search"
-        class="relative w-full px-8 py-3 text-xl rounded-r focus:shadow-outline"
+        class="block w-full py-3 pl-5 text-xl text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
         autocomplete="off"
         type="text"
         name="search"
@@ -256,6 +262,7 @@
                   </th>
                 </tr>
               </thead>
+              
               <tbody class="bg-white divide-y divide-gray-200">
                 <tr v-for="(user,index) in  users.data" :key="index">
                   <td class="px-6 py-4 whitespace-nowrap">
@@ -300,12 +307,12 @@
                     <button
                       data-toggle="modal"
                       data-target="#exampleModal"
-                      class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
+                      class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out mx-2"
                       @click="edit(user)"
                     >Update</button>
                     <button
                       @click="deleteRow(user.id)"
-                      class="inline-block px-6 py-2.5 bg-gray-800 text-white font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out"
+                      class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-red-400 hover:text-white hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out"
                     >Delete</button>
                   </td>
                 </tr>
@@ -329,6 +336,8 @@ import Multiselect from "@vueform/multiselect/dist/multiselect.vue2.js";
 import ImportModal from "@/Pages/Admin/ImportModal";
 import UpdateUser from "@/Pages/Admin/UpdateUser";
 import admin from "./mixins/admin";
+import DatePicker from 'vue2-datepicker';
+import 'vue2-datepicker/index.css';
 import { eventNames } from 'process';
 export default {
   layout: Layout,
@@ -346,7 +355,8 @@ export default {
     Alert,
     Multiselect,
     ImportModal,
-    UpdateUser
+    UpdateUser,
+    DatePicker 
   },
   data() {
     return {

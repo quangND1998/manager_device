@@ -14,6 +14,14 @@ use Illuminate\Support\Facades\Validator;
 class AppWindowController extends Controller
 {
     use FileUploadTrait;
+
+    public function __construct()
+    {
+       
+        $this->middleware('permission:user-manager|Pro|Demo|Lite|Standard', ['only' => ['index', 'show', 'store', 'update','delete']]);
+        // $this->middleware('permission:user-manager', ['only' => []]);
+     
+    }
     public function index()
     {
         $window_apps = AppWindow::where('user_id', Auth::user()->id)->get();

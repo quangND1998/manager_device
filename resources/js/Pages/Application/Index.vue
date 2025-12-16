@@ -1,6 +1,6 @@
 <template>
   <section class="content">
-    <ContentHeaderVue :name="'Applications'" />
+    <ContentHeaderVue class="pl-0" :name="'Applications'" />
     <alert :dismissible="true"></alert>
    
     <div class="overflow-x-auto relative shadow-md sm:rounded-lg mt-5">
@@ -8,18 +8,14 @@
         <input
           v-model="name"
           @keyup="search"
-          class="relative w-full px-8 py-3 text-xl rounded-r focus:shadow-outline"
+          class="block w-full py-3 pl-5 text-xl text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
           autocomplete="off"
           type="text"
           name="search"
           placeholder="Search…"
         />
       </div>
-
-
-
-    
-              
+       
       <table class="w-full text-xl text-left text-gray-500 dark:text-gray-400">
         <thead
           class="text-xl text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"

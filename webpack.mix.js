@@ -16,3 +16,11 @@ mix.js('resources/js/app.js', 'public/js').vue().postCss('resources/css/app.css'
     require('tailwindcss'),
     require('autoprefixer'),
 ]).sass("resources/sass/app.scss", "public/css").webpackConfig(require('./webpack.config'));
+mix.webpackConfig({
+    resolve: {
+        fallback: {
+            fs: false,
+            stream: require.resolve("stream-browserify")
+        }
+    }
+});
