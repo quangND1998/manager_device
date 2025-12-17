@@ -32,12 +32,6 @@ redis.on('message', function(channel, message) {
     console.log('Message Recieved: ' + message);
 
     io.emit(channel + ':' + message.event, message.data, send_to_self = false);
-    // io.sockets.on("connect", (socket) => {
-    //     console.log('connect', socket)
-    //     socket.broadcast.emit(channel + ':' + message.event, message.data, send_to_self = false);
-    // })
-
-
 });
 
 
@@ -48,15 +42,7 @@ redis.on('pmessage', function(pattern, channel, message) {
     console.log('Message Recieved pmessage: ' + message.event);
 
     io.emit(channel, message.data);
-    // io.emit(channel + ':' + message.event, message.data);
     io.in(channel).emit(channel + ':' + message.event, message.data);
-    // io.in(channel).emit(channel + ':' + message.event, message.data)
-    // io.sockets.on("connection", (socket) => {
-    //     console.log('connect', socket)
-    //     socket.broadcast.emit(channel + ':' + message.event, message.data, send_to_self = false);
-    // })
-    // io.sockets.in(channel).emit(message.event, message.data)
-
 
 });
 
@@ -77,14 +63,6 @@ io.on("connection", (socket) => {
                 `${socket.id} has joined the chat`);
 
     });
-    // socket.on('online', () => {
-    //     console.log('online')
-    // })
-
-
-
-
-    // Runs when client disconnects
     socket.on("disconnect", () => {
         const user = socket.id
 
@@ -93,12 +71,6 @@ io.on("connection", (socket) => {
                 "message",
                 `${socket.id} has left the chat`
             );
-
-            // Send users and room info
-            // io.to(room).emit("roomUsers", {
-            //     room: user.room,
-            //     users: getRoomUsers(user.room),
-            // });
         }
     });
 });

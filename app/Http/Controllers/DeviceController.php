@@ -54,6 +54,7 @@ class DeviceController extends Controller
     //    dd( in_array("com.holomia.startup", $application_default));
         // dd(Carbon::now()->addMinutes(0)->addSeconds(30));
         $user = Auth::user();
+        $canManageUser = $user->hasPermissionTo('user-manager');
         $sortBy = $request->sortBy ? $request->sortBy : 'id';
         $sort_Direction = $request->sortDirection ?  $request->sortDirection : 'asc';
         $enabled = $request->enabled;
@@ -97,10 +98,7 @@ class DeviceController extends Controller
         $count = $devices->total();
         $firstItem = $devices->firstItem();
         $lastItem = $devices->lastItem();
-        // dd($lastItem);
-
-        // return $firstItem;
-        return Inertia::render('Devices/Index', compact('devices','enabled', 'applications', 'wifis', 'apk_files', 'sortBy', 'count', 'firstItem', 'lastItem', 'sort_Direction'));
+        return Inertia::render('Devices/Index', compact('devices','enabled', 'applications', 'wifis', 'apk_files', 'sortBy', 'count', 'firstItem', 'lastItem', 'sort_Direction','canManageUser'));
     }
 
     public function saveName(Request $request,  $id)

@@ -32,13 +32,16 @@ class Devices extends Model
     }
 
     public function hasApp($packageName)
-    {   
-        if(count($this->applications->where('packageName',$packageName)->values()) >0){
-            return true;
-        }
-        else{
-            return false;
-        }
+    {
+        // if(count($this->applications->where('packageName',$packageName)->values()) >0){
+        //     return true;
+        // }
+        // else{
+        //     return false;
+        // }
+        return $this->applications()
+        ->where('packageName', $packageName)
+        ->exists();
     }
 
     public function default_app(){
@@ -54,7 +57,7 @@ class Devices extends Model
     }
 
     public function hasWifi($ssid)
-    {   
+    {
         if(count($this->wifis->where('SSID',$ssid)->values()) >0){
             return true;
         }
@@ -69,13 +72,13 @@ class Devices extends Model
 
     public function last_login()
     {
-        return $this->hasOne(HistoryDevice::class,'device_id')->latest();
+        return $this->hasOne(HistoryDevice::class,'device_id')->latestOfMany();
     }
 
 
     public function scopeEnabled($query, array $filters)
     {
-     
+
 
         if (array_key_exists('enabled', $filters) && ($filters['enabled'] =='0' || $filters['enabled'] =='1' )) {
             $query->where('enabled',  $filters['enabled']);
@@ -85,7 +88,7 @@ class Devices extends Model
     }
 
 
-    
 
- 
+
+
 }

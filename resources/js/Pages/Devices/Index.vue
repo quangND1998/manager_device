@@ -3,9 +3,9 @@
 
     <ContentHeaderVue class="pl-0" :name="'Devices'" />
     <alert :dismissible="true"></alert>
-    <WifiModel v-if="hasAnyPermission(['user-manager'])" :errors="errors" :ids="selected" :wifis="wifis" />
+    <WifiModel v-if="canManageUser" :errors="errors" :ids="selected" :wifis="wifis" />
 
-    <OpenAppModal  v-if="hasAnyPermission(['user-manager'])" :errors="errors" :applications="application_deivce" :ids="selected" />
+    <OpenAppModal  v-if="canManageUser" :errors="errors" :applications="application_deivce" :ids="selected" />
     <OpenAppModal  v-else-if="hasAnyPermission(['Demo'])" :errors="errors" :applications="applications_default_filter" :ids="selected" />
     <OpenAppModal v-else-if="!hasAnyPermission(['Demo'])  && $page.props.auth.user.isExpired ==false  && enabled=='1' " :errors="errors" :applications="application_deivce" :ids="selected" />
     <OpenAppModal  v-else-if="!hasAnyPermission(['Demo'])  && $page.props.auth.user.isExpired ==false  && enabled=='0' " :errors="errors" :applications="applications_default_filter" :ids="selected" />
@@ -13,7 +13,7 @@
     <OpenAppModal v-else :errors="errors" :applications="application_deivce" :ids="selected" />
 
     <GroupModel :errors="errors" :ids="selected" />
-    <defaulAppModal  v-if="hasAnyPermission(['user-manager'])" :applications="application_deivce" :ids="selected" />
+    <defaulAppModal  v-if="canManageUser" :applications="application_deivce" :ids="selected" />
     <defaulAppModal  v-else-if="hasAnyPermission(['Demo'])" :errors="errors" :applications="applications_default_filter" :ids="selected" />
     <defaulAppModal v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired ==false && enabled=='1' " :errors="errors" :applications="application_deivce" :ids="selected" />
     <defaulAppModal v-else-if="!hasAnyPermission(['Demo'])  && $page.props.auth.user.isExpired ==false  && enabled=='0' " :errors="errors"  :applications="applications_default_filter" :ids="selected" />
@@ -27,7 +27,7 @@
       <UninstallApk v-else-if="!hasAnyPermission(['Demo']) && enabled=='0'" :errors="errors" :applications="applications" :ids="selected" />
     <UninstallApk v-else :errors="errors" :applications="application_deivce" :ids="selected" />
 
-    <LaunchAppWithTime  v-if="hasAnyPermission(['user-manager']) " :errors="errors" :applications="application_deivce" :ids="selected" @updateTime="updateTimeRemaning"/>
+    <LaunchAppWithTime  v-if="canManageUser " :errors="errors" :applications="application_deivce" :ids="selected" @updateTime="updateTimeRemaning"/>
     <LaunchAppWithTime  v-else-if="hasAnyPermission(['Demo']) " :errors="errors" :applications="applications_default_filter" :ids="selected" @updateTime="updateTimeRemaning"/>
     <LaunchAppWithTime  v-else-if="!hasAnyPermission(['Demo']) && $page.props.auth.user.isExpired ==false && enabled=='1'" :errors="errors" :applications="application_deivce" :ids="selected" @updateTime="updateTimeRemaning"/>
     <LaunchAppWithTime  v-else-if="!hasAnyPermission(['Demo'])  && $page.props.auth.user.isExpired ==false && enabled=='0'" :errors="errors" :applications="applications_default_filter" :ids="selected" @updateTime="updateTimeRemaning"/>
@@ -101,20 +101,20 @@
                 <i class="fa fa-rocket mr-2" aria-hidden="true"></i>Launch Time
               </button>
             </li>
-            <li v-if="hasAnyPermission(['user-manager'])">
+            <li v-if="canManageUser">
               <button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
                 data-target="#openInstallApk">
                 <i class="fa fa-download mr-2" aria-hidden="true"></i>Install Apk
               </button>
             </li>
-            <li v-if="hasAnyPermission(['user-manager'])">
+            <li v-if="canManageUser">
               <button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
                 data-target="#openUninstallApp">
                 <i class="fa fa-trash mr-2" aria-hidden="true"></i>Uninstall Apk
               </button>
             </li>
 
-            <li v-if="hasAnyPermission(['user-manager'])">
+            <li v-if="canManageUser">
               <button type="button" class="btn btn-secondary" :disabled="lauchDisabled" data-toggle="modal"
                 data-target="#WifiModal">
                 <i class="fa fa-wifi mr-2" aria-hidden="true"></i>Wifi
@@ -130,7 +130,7 @@
         </div>
       </div>
     </div>
-   
+
 
     <div class="flex justify-between mt-5">
       <button type="button" @click="FreshDevice()"
@@ -138,7 +138,7 @@
       <i class="fa fa-refresh mr-2" aria-hidden="true"></i>Active devices
     </button>
       <div class="flex">
-    
+
           <select
             v-model="filter"
             @change="Filter"
@@ -179,13 +179,13 @@
               <span v-if="sortDirection == 'desc'">Active</span>
               <span v-if="sortDirection == 'asc'">InActive</span>
             </th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center" v-if="hasAnyPermission(['user-manager'])">
+            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center" v-if="canManageUser">
               Enabled</th>
             <!-- <th scope="col" class="py-3 px-6 text-xl uppercase">Connect Wifi</th> -->
             <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center">Default App</th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center" v-if="hasAnyPermission(['user-manager'])">
+            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center" v-if="canManageUser">
               User</th>
-            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center" v-if="hasAnyPermission(['user-manager'])">
+            <th scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center" v-if="canManageUser">
               Version</th>
 
             <th @click="sortValue('update_time')" scope="col" class="py-3 px-6 text-xl uppercase text-gray-500 text-center">
@@ -202,7 +202,7 @@
         </thead>
         <tbody>
           <!-- {{ devices.data }} -->
-          <tr v-for="(device, index) in devices.data" :key="index" 
+          <tr v-for="(device, index) in devices.data" :key="index"
             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 " :class="device.enabled ==false && enabled !=='0' ? 'opacity-30':''">
             <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap text-center dark:text-white">
               <input type="checkbox" class="checkbox" v-model="selected" :value="device.id" v-if="device.enabled"/>
@@ -238,7 +238,7 @@
                     device.device_id
                   }}
                 </p>
-                
+
               </div>
 
 
@@ -265,7 +265,7 @@
               <span v-else
                 class="text-xl inline-block py-2 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-gray-400 text-gray-800 rounded-full"></span>
             </th>
-            <th v-if="hasAnyPermission(['user-manager'])" scope="row"
+            <th v-if="canManageUser" scope="row"
               class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
               <label class="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" :checked="device.enabled"    @change="onChangeEnabled(device, $event)" class="sr-only peer">
@@ -301,26 +301,26 @@
               </div>
             </th>
             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
-              v-if="hasAnyPermission(['user-manager'])">
+              v-if="canManageUser">
               <Link v-if="device.user" :href="route('user.detail.devices', device.user.id)">
               {{ device.user ?
                 device.user.name : null }}
               </Link>
             </th>
             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
-              v-if="hasAnyPermission(['user-manager'])">{{ device.os_version }}</th>
+              v-if="canManageUser">{{ device.os_version }}</th>
             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
               {{
                 device.update_time && formatDate(device.update_time) !== 'Invalid date' ? formatDate(device.update_time) :
                 null }}
             </th>
             <td class="py-4 px-6 text-right">
-              <button @click="edit(device)" type="button" data-toggle="modal" data-target="#exampleModal" 
+              <button @click="edit(device)" type="button" data-toggle="modal" data-target="#exampleModal"
                 class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out mx-2">
                 Edit
                 Name
               </button>
-              <button type="button" @click="Delete(device.id)" 
+              <button type="button" @click="Delete(device.id)"
                 class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-black text-xl leading-tight uppercase rounded shadow-md hover:bg-red-400 hover:text-white hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out">Delete</button>
             </td>
           </tr>
@@ -447,7 +447,7 @@ export default {
   },
   mounted() {
     $("#exampleModalTopup").modal("hide");
-   
+
   },
   data() {
     return {
@@ -487,7 +487,8 @@ export default {
     firstItem: Number,
     lastItem: Number,
     enabled:String,
-    default_applications: Array
+    default_applications: Array,
+    canManageUser: Boolean
   },
 
   methods: {
